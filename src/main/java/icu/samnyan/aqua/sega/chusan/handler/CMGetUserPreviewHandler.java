@@ -47,7 +47,7 @@ public class CMGetUserPreviewHandler implements BaseHandler {
             resultMap.put("userName", user.getUserName());
             resultMap.put("level", user.getLevel());
             resultMap.put("medal", user.getMedal());
-            resultMap.put("lastDataVersion", "2.00.00"); //Hardcode due to outdated
+            resultMap.put("lastDataVersion", user.getLastDataVersion());
             resultMap.put("isLogin", false);
 
             String json = mapper.write(resultMap);

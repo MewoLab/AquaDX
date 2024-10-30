@@ -155,7 +155,7 @@ class Maimai2ServletController(
             "userId" to userId,
             "userName" to it.userName,
             "rating" to it.playerRating,
-            "lastDataVersion" to "1.20.00",
+            "lastDataVersion" to it.lastDataVersion,
             "isLogin" to false,
             "isExistSellingCard" to false
         )

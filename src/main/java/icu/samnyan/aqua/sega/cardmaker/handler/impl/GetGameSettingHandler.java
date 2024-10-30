@@ -38,10 +38,10 @@ public class GetGameSettingHandler implements BaseHandler {
         LocalDateTime rebootEndTime = LocalDateTime.now().minusHours(2);
 
         GameSetting gameSetting = new GameSetting(
-                "1.0.0",
+                "1.35.0",
                 "1.32.0",
                 "1.30.0",
-                "1.32.0",
+                "1.45.0",
                 false,
                 10,
                 rebootStartTime.format(formatter),

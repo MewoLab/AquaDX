@@ -15,17 +15,20 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component("Maimai2UpsertUserPrintHandler")
-@AllArgsConstructor
 public class UpsertUserPrintHandler implements BaseHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UpsertUserPrintHandler.class);
@@ -34,6 +37,21 @@ public class UpsertUserPrintHandler implements BaseHandler {
     private final Mai2UserCardRepo userCardRepository;
     private final Mai2UserPrintDetailRepo userPrintDetailRepository;
     private final Mai2UserDataRepo userDataRepository;
+
+    private long expirationTime;
+
+    public UpsertUserPrintHandler(BasicMapper mapper,
+                                @Value("${game.cardmaker.card.expiration:15}") long expirationTime,
+                                Mai2UserCardRepo userCardRepository,
+                                Mai2UserPrintDetailRepo userPrintDetailRepository,
+                                Mai2UserDataRepo userDataRepository
+                                ) {
+        this.mapper = mapper;
+        this.expirationTime = expirationTime;
+        this.userCardRepository = userCardRepository;
+        this.userPrintDetailRepository = userPrintDetailRepository;
+        this.userDataRepository = userDataRepository;
+    }
 
     @Override
     public String handle(Map<String, Object> request) throws JsonProcessingException {
@@ -54,12 +72,19 @@ public class UpsertUserPrintHandler implements BaseHandler {
         Mai2UserPrintDetail userPrintDetail = upsertUserPrint.getUserPrintDetail();
         Mai2UserCard newUserCard = userPrintDetail.getUserCard();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        String currentDateTime = LocalDateTime.now().format(formatter);
+        String expirationDateTime = LocalDateTime.now().plusDays(expirationTime).format(formatter);
+        String randomSerialId =
+            String.format("%010d", ThreadLocalRandom.current().nextLong(0L, 9999999999L)) +
+            String.format("%010d", ThreadLocalRandom.current().nextLong(0L, 9999999999L));
+
         newUserCard.setUser(userData);
         userPrintDetail.setUser(userData);
 
-        newUserCard.setStartDate("2019-01-01 00:00:00.000000");
-        newUserCard.setEndDate("2029-01-01 00:00:00.000000");
-        userPrintDetail.setSerialId("FAKECARDIMAG12345678");
+        newUserCard.setStartDate(currentDateTime);
+        newUserCard.setEndDate(expirationDateTime);
+        userPrintDetail.setSerialId(randomSerialId);
 
         Optional<Mai2UserCard> userCardOptional = userCardRepository.findByUserAndCardId(newUserCard.getUser(), newUserCard.getCardId());
         if (userCardOptional.isPresent()) {
@@ -73,9 +98,9 @@ public class UpsertUserPrintHandler implements BaseHandler {
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("returnCode", 1);
         resultMap.put("orderId", 0);
-        resultMap.put("serialId", "FAKECARDIMAG12345678");
-        resultMap.put("startDate", "2019-01-01 00:00:00.000000");
-        resultMap.put("endDate", "2029-01-01 00:00:00.000000");
+        resultMap.put("serialId", randomSerialId);
+        resultMap.put("startDate", currentDateTime);
+        resultMap.put("endDate", expirationDateTime);
 
         return mapper.write(resultMap);
     }

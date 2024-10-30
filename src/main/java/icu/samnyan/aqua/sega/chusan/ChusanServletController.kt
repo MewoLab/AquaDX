@@ -97,7 +97,7 @@ class ChusanServletController(
 
     val noopEndpoint = endpointList.popAll("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
-        "MatchingServer/Ping", "PrinterLoginApi", "PrinterLogoutApi")
+        "MatchingServer/Ping", "PrinterLoginApi", "PrinterLogoutApi", "Ping")
 
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, BaseHandler> = endpointList.associateWith { api ->
