@@ -37,8 +37,8 @@ class Mai2GameCharge : BaseEntity() {
 @Table(name = "maimai2_game_selling_card")
 class Mai2GameSellingCard : BaseEntity() {
     var cardId = 0L
-    var startDate: LocalDateTime? = null
-    var endDate: LocalDateTime? = null
-    var noticeStartDate: LocalDateTime? = null
-    var noticeEndDate: LocalDateTime? = null
+    var startDate: String? = null
+    var endDate: String? = null
+    var noticeStartDate: String? = null
+    var noticeEndDate: String? = null
 }

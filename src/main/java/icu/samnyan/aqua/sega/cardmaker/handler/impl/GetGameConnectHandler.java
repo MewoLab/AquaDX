@@ -57,9 +57,9 @@ public class GetGameConnectHandler implements BaseHandler {
         String port = ALLNET_PORT.equals("") ? SERVER_PORT : ALLNET_PORT;
 
         List<GameConnect> gameConnectList = new ArrayList<>();
-        GameConnect chuni = new GameConnect(0, 1, "http://" + addr + ":" + port + "/ChusanServlet/");
-        GameConnect mai = new GameConnect(1, 1, "http://" + addr + ":" + port + "/Maimai2Servlet/");
-        GameConnect ongeki = new GameConnect(2, 1, "http://" + addr + ":" + port + "/OngekiServlet/");
+        GameConnect chuni = new GameConnect(0, 1, "http://" + addr + ":" + port + "/g/chu3/" + version + "/");
+        GameConnect mai = new GameConnect(1, 1, "http://" + addr + ":" + port + "/g/mai2/");
+        GameConnect ongeki = new GameConnect(2, 1, "http://" + addr + ":" + port + "/g/ongeki/");
         gameConnectList.add(chuni);
         gameConnectList.add(mai);
         gameConnectList.add(ongeki);
