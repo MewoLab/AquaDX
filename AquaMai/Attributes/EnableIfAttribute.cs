@@ -2,8 +2,8 @@ using System;
 
 namespace AquaMai.Attributes;
 
-[AttributeUsage(AttributeTargets.Property)]
-public class EnableIf(Func<bool> condition) : Attribute
+[AttributeUsage(AttributeTargets.Method)]
+public class EnableIf(string conditionField) : Attribute
 {
-    public Func<bool> Condition { get; } = condition;
+    public string ConditionField { get; } = conditionField;
 }

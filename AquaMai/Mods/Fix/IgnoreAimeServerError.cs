@@ -1,8 +1,12 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using Manager;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(
+    en: "Prevent gray network caused by mistakenly thinking it's an AimeDB server issue",
+    zh: "防止因错误认为 AimeDB 服务器问题引起的灰网，建议开启")]
 public class IgnoreAimeServerError
 {
     [HarmonyPatch(typeof(OperationManager), "IsAliveAimeServer", MethodType.Getter)]

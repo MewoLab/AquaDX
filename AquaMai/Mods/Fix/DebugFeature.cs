@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using AquaMai.Attributes;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
@@ -10,6 +11,7 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(defaultOn: true, hideInExample: true)]
 public class DebugFeature
 {
     public static bool IsPolyfill { get; private set; }

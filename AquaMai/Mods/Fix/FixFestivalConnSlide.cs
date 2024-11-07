@@ -3,11 +3,10 @@ using System.Reflection;
 using AquaMai.Attributes;
 using HarmonyLib;
 using Manager;
-using MelonLoader;
-using Monitor;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(defaultOn: true, hideInExample: true)]
 [GameVersion(23000)]
 public class FixConnSlide
 {

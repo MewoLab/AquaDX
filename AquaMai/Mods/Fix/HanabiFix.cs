@@ -1,10 +1,20 @@
-﻿using Fx;
+﻿using AquaMai.Attributes;
+using Fx;
 using HarmonyLib;
 using Monitor;
 using UnityEngine;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(
+    en: """
+        Fix the size of hanabi in 1p mode
+        Cannot be used together with HideHanabi
+        """,
+    zh: """
+        修复 1p 模式下的烟花大小
+        不能和 HideHanabi 一起使用
+        """)]
 public class HanabiFix
 {
     [HarmonyPatch(typeof(TapCEffect), "SetUpParticle")]

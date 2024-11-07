@@ -3,16 +3,23 @@ using AquaMai.Attributes;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
-using MelonLoader;
 using Monitor;
 using Monitor.Game;
 using UnityEngine;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(
+    en: "Add notes sprite to the pool to prevent use up",
+    zh: "增加更多待命的音符贴图，防止奇怪的自制谱用完音符贴图池")]
 [GameVersion(23000)]
 public class ExtendNotesPool
 {
+    [ConfigEntry(
+        en: "Number of objects to add",
+        zh: "要增加的对象数量")]
+    private readonly static int Count = 128;
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameCtrl), "CreateNotePool")]
     public static void CreateNotePool(ref GameCtrl __instance,
@@ -33,7 +40,7 @@ public class ExtendNotesPool
         List<SpriteRenderer> ____arrowObjectList, List<BreakSlide> ____breakArrowObjectList
     )
     {
-        for (var i = 0; i < AquaMai.AppConfig.Fix.ExtendNotesPool; i++)
+        for (var i = 0; i < Count; i++)
         {
             var tapNote = Object.Instantiate(GameNotePrefabContainer.Tap, ____tapListParent.transform);
             tapNote.gameObject.SetActive(false);

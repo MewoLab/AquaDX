@@ -1,7 +1,11 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(
+    en: "Force the game to be in PaidPlay mode with 24 coins locked, conflicts with ForceFreePlay",
+    zh: "强制付费游玩并锁定 24 个币，和 ForceFreePlay 冲突")]
 public class ForcePaidPlay
 {
     [HarmonyPrefix]

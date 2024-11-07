@@ -1,10 +1,12 @@
 ﻿using AMDaemon.Allnet;
+using AquaMai.Attributes;
 using HarmonyLib;
 using Manager;
 using Manager.Operation;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(defaultOn: true, hideInExample: true)]
 public class FixCheckAuth
 {
     [HarmonyPostfix]

@@ -4,6 +4,7 @@ using Manager;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(defaultOn: true, hideInExample: true)]
 [GameVersion(23000, 23499)]
 public class FestivalQuickRetryFix
 {

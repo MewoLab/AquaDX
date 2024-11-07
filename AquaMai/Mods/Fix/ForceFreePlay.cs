@@ -1,7 +1,11 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(
+    en: "Force the game to be in FreePlay mode",
+    zh: "强制改为免费游玩（FreePlay）")]
 public class ForceFreePlay
 {
     [HarmonyPrefix]

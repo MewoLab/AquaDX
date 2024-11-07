@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AquaMai.Attributes;
 using HarmonyLib;
 using MelonLoader;
 using TMPro;
@@ -7,6 +8,15 @@ using UnityEngine.TextCore.LowLevel;
 
 namespace AquaMai.Mods.Fix;
 
+[ConfigSection(
+    en: """
+        Use Microsoft YaHei Bold to display characters not in the font library
+        Cannot be used together with CustomFont
+        """,
+    zh: """
+        在显示字库里没有的字时使用微软雅黑 Bold 显示
+        不可以和 CustomFont 一起使用
+        """)]
 public class FontFix
 {
     private static TMP_FontAsset fontAsset;
