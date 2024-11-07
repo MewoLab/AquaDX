@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using AquaMai.Attributes;
 using DB;
 using HarmonyLib;
 using MAI2.Util;
@@ -10,10 +11,15 @@ using Manager;
 using MelonLoader;
 using Monitor;
 using UnityEngine;
+using AquaMai.Mods.ChartExtension.Lib;
 
-namespace AquaMai.Mods.MaimaiDX2077;
+namespace AquaMai.Mods.ChartExtension;
 
-public class CustomNoteTypePatch
+[ConfigSection(
+    en: "Custom Note Types",
+    zh: "自定义 Note 类型"
+)]
+public class CustomNoteTypes
 {
     /*
      * ========== ========== ========== ========== ========== ========== ========== ==========
@@ -126,12 +132,12 @@ public class CustomNoteTypePatch
             {
                 if (inst.LoadsConstant(142))
                 {
-                    var instNew = new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomNoteTypePatch), "TotalMa2RecordCount"));
+                    var instNew = new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomNoteTypes), "TotalMa2RecordCount"));
                     yield return instNew;
                 }
                 else if (inst.LoadsConstant(141))
                 {
-                    var instNew = new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomNoteTypePatch), "LastMa2RecordID"));
+                    var instNew = new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(CustomNoteTypes), "LastMa2RecordID"));
                     yield return instNew;
                 }
                 else
@@ -270,11 +276,11 @@ public class CustomNoteTypePatch
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var methodGetSlidePath = AccessTools.Method(typeof(SlideManager), "GetSlidePath");
-            var methodGetSlidePathRedirect = AccessTools.Method(typeof(CustomNoteTypePatch), "GetSlidePathRedirect");
+            var methodGetSlidePathRedirect = AccessTools.Method(typeof(CustomNoteTypes), "GetSlidePathRedirect");
             var methodGetSlideHitArea = AccessTools.Method(typeof(SlideManager), "GetSlideHitArea");
-            var methodGetSlideHitAreaRedirect = AccessTools.Method(typeof(CustomNoteTypePatch), "GetSlideHitAreaRedirect");
+            var methodGetSlideHitAreaRedirect = AccessTools.Method(typeof(CustomNoteTypes), "GetSlideHitAreaRedirect");
             var methodGetSlideLength = AccessTools.Method(typeof(SlideManager), "GetSlideLength");
-            var methodGetSlideLengthRedirect = AccessTools.Method(typeof(CustomNoteTypePatch), "GetSlideLengthRedirect");
+            var methodGetSlideLengthRedirect = AccessTools.Method(typeof(CustomNoteTypes), "GetSlideLengthRedirect");
             var fieldSlideData = AccessTools.Field(typeof(NoteData), "slideData");
 
             var oldInstList = new List<CodeInstruction>(instructions);

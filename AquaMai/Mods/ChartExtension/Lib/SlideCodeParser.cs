@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using MelonLoader;
 
-namespace AquaMai.Mods.MaimaiDX2077;
+namespace AquaMai.Mods.ChartExtension.Lib;
 
 public static class SlideCodeParser
 {

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Numerics;
-using Manager;
 
-namespace AquaMai.Mods.MaimaiDX2077;
+namespace AquaMai.Mods.ChartExtension.Lib;
 
 public static class MaiGeometry
 {

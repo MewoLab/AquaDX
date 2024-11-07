@@ -5,7 +5,7 @@ using Manager;
 using MelonLoader;
 using UnityEngine;
 
-namespace AquaMai.Mods.MaimaiDX2077;
+namespace AquaMai.Mods.ChartExtension.Lib;
 
 public class CustomSlideNoteData: NoteData
 {

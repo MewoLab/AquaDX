@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using DB;
 using Manager;
-using MelonLoader;
 using Vector4 = UnityEngine.Vector4;
 
-namespace AquaMai.Mods.MaimaiDX2077;
+namespace AquaMai.Mods.ChartExtension.Lib;
 
 public static class SlideDataBuilder
 {
