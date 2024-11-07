@@ -4,13 +4,13 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using AquaMai.Attributes;
-using AquaMai.Fix;
 using AquaMai.Helpers;
-using AquaMai.ModKeyMap;
 using AquaMai.Resources;
-using AquaMai.Utils;
-using AquaMai.UX;
-using AquaMai.Visual;
+using AquaMai.Mods.ModKeyMap;
+using AquaMai.Mods.Fix;
+using AquaMai.Mods.Utils;
+using AquaMai.Mods.UX;
+using AquaMai.Mods.Visual;
 using MelonLoader;
 using Tomlet;
 using UnityEngine;
@@ -94,7 +94,7 @@ namespace AquaMai
                     if (!(bool)settingProp.GetValue(categoryValue)) continue;
 
                     // Get the Type from the config directive name
-                    var directiveType = Type.GetType($"AquaMai.{categoryProp.Name}.{settingProp.Name}");
+                    var directiveType = Type.GetType($"AquaMai.Mods.{categoryProp.Name}.{settingProp.Name}");
 
                     // If the type is found, call the Patch method
                     if (directiveType != null)
