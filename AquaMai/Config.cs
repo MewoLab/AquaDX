@@ -30,8 +30,4 @@ public class Config
         en: "Visual effects of notes and judgment display and some other textures",
         zh: "音符和判定表示以及一些其他贴图的视觉效果调整")]
     public Mods.Visual.Config Visual { get; set; } = new();
-
-    [ConfigComment(
-        zh: "触摸灵敏度设置")]
-    public Mods.TouchSensitivity.Config TouchSensitivity { get; set; } = new();
 }

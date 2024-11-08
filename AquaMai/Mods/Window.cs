@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AquaMai.Attributes;
 using UnityEngine;
 
-namespace AquaMai.Mods.WindowState;
+namespace AquaMai.Mods;
 
 [ConfigSection(
     en: "Windowed Mode / Window Settings",
