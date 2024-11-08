@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using AquaMai.Attributes;
 using AquaMai.Helpers;
 using AquaMai.Resources;
 using HarmonyLib;
@@ -10,6 +10,9 @@ using UnityEngine;
 
 namespace AquaMai.Mods.TimeSaving;
 
+[ConfigSection(
+    en: "Show a \"skip\" button like AstroDX after the notes end",
+    zh: "音符结束之后显示像 AstroDX 一样的「跳过」按钮")]
 public class ShowQuickEndPlay
 {
     private static bool _showUi;
