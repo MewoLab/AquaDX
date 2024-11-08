@@ -32,10 +32,6 @@ public class Config
     public Mods.Visual.Config Visual { get; set; } = new();
 
     [ConfigComment(
-        zh: "窗口相关设置")]
-    public Mods.WindowState.Config WindowState { get; set; } = new();
-
-    [ConfigComment(
         zh: "触摸灵敏度设置")]
     public Mods.TouchSensitivity.Config TouchSensitivity { get; set; } = new();
 }
