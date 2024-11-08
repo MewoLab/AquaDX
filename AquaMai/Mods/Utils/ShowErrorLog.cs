@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using AquaMai.Attributes;
 using AquaMai.Helpers;
 using HarmonyLib;
 using Main;
@@ -11,6 +12,9 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Utils;
 
+[ConfigSection(
+    en: "Show error log in the game",
+    zh: "在游戏中显示错误日志窗口而不是关闭游戏进程")]
 public class ShowErrorLog
 {
     private static Ui _errorUi;
@@ -78,7 +82,7 @@ public class ShowErrorLog
 
             GUI.Box(new Rect(x, y, width, height), "", boxStyle);
             GUI.Label(new Rect(x, y, width, height), _errorLog, labelStyle);
-            if (!AquaMai.AppConfig.UX.SinglePlayer)
+            if (!UX.SinglePlayer.???) // TODO: check single/multi player mode
             {
                 GUI.Box(new Rect(x + GuiSizes.PlayerWidth, y, width, height), "", boxStyle);
                 GUI.Label(new Rect(x + GuiSizes.PlayerWidth, y, width, height), _errorLog, labelStyle);

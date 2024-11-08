@@ -6,20 +6,16 @@ namespace AquaMai;
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
 public class Config
 {
-    [ConfigComment(
-        en: "UX: User Experience Improvements",
-        zh: """
+    // [ConfigComment(
+    //     en: "UX: User Experience Improvements",
+    //     zh: """
 
-            试试使用 MaiChartManager 图形化配置 AquaMai 吧！
-            https://github.com/clansty/MaiChartManager
+    //         试试使用 MaiChartManager 图形化配置 AquaMai 吧！
+    //         https://github.com/clansty/MaiChartManager
 
-            用户体验改进
-            """)]
-    public Mods.UX.Config UX { get; set; } = new();
-
-    [ConfigComment(
-        zh: "实用工具")]
-    public Mods.Utils.Config Utils { get; set; } = new();
+    //         用户体验改进
+    //         """)]
+    // public Mods.UX.Config UX { get; set; } = new();
 
     [ConfigComment(
         en: "Visual effects of notes and judgment display and some other textures",

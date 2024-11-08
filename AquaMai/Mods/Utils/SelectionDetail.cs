@@ -15,6 +15,9 @@ using UnityEngine;
 namespace AquaMai.Mods.Utils;
 
 [GameVersion(23500)]
+[ConfigSection(
+    en: "Show detail of selected song in music selection screen",
+    zh: "选歌界面显示选择的歌曲的详情")]
 public class SelectionDetail
 {
     private static readonly Window[] window = new Window[2];

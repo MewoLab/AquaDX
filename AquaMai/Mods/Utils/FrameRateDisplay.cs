@@ -1,10 +1,14 @@
-﻿using AquaMai.Helpers;
+﻿using AquaMai.Attributes;
+using AquaMai.Helpers;
 using HarmonyLib;
 using Main;
 using UnityEngine;
 
 namespace AquaMai.Mods.Utils;
 
+[ConfigSection(
+    en: "Display framerate",
+    zh: "显示帧率")]
 public class FrameRateDisplay
 {
     [HarmonyPatch(typeof(GameMainObject), "Awake")]
