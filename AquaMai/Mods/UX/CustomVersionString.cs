@@ -1,24 +1,28 @@
+using AquaMai.Attributes;
 using HarmonyLib;
 
-namespace AquaMai.Mods.UX
+[ConfigSection(
+    en: "Set the version string displayed at the top-right corner of the screen",
+    zh: "把右上角的版本更改为自定义文本")]
+public class CustomVersionString
 {
-    public class CustomVersionString
-    {
-        /*
-         * Patch displayVersionString Property Getter
-         */
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(MAI2System.Config), "displayVersionString", MethodType.Getter)]
-        public static bool GetDisplayVersionString(ref string __result)
-        {
-            if (string.IsNullOrEmpty(AquaMai.AppConfig.UX.CustomVersionString))
-            {
-                return true;
-            }
+    [ConfigEntry]
+    private static readonly string VersionString = "";
 
-            __result = AquaMai.AppConfig.UX.CustomVersionString;
-            // Return false to block the original method
-            return false;
+    /*
+     * Patch displayVersionString Property Getter
+     */
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(MAI2System.Config), "displayVersionString", MethodType.Getter)]
+    public static bool GetDisplayVersionString(ref string __result)
+    {
+        if (string.IsNullOrEmpty(VersionString))
+        {
+            return true;
         }
+
+        __result = VersionString;
+        // Return false to block the original method
+        return false;
     }
 }

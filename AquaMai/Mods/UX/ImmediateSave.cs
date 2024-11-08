@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AquaMai.Attributes;
 using AquaMai.Helpers;
 using AquaMai.Resources;
 using DB;
@@ -20,6 +21,9 @@ using UnityEngine;
 
 namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: "Save immediate after playing a song",
+    zh: "打完一首歌的时候立即向服务器保存成绩")]
 public class ImmediateSave
 {
     [HarmonyPrefix]

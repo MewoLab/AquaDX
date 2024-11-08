@@ -10,10 +10,13 @@ using MAI2.Util;
 using Manager;
 using MelonLoader;
 using Monitor;
-using Object = UnityEngine.Object;
+using AquaMai.Attributes;
 
 namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: "Load Jacket images from \"LocalAssets\\000000{MusicID}.png\" (for self-made charts)",
+    zh: "通过游戏目录下 `LocalAssets\\000000{MusicID}.png` 加载封面（自制谱用）")]
 public class LoadAssetsPng
 {
     private static string[] imageExts = [".jpg", ".png", ".jpeg"];

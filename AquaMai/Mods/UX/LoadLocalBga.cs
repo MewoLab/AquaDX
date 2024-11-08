@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AquaMai.Attributes;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
@@ -8,6 +9,15 @@ using UnityEngine;
 
 namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: """
+        Use the png jacket above as BGA if BGA is not found for self-made charts
+        Use together with `LoadJacketPng`
+        """,
+    zh: """
+        如果没有 dat 格式的 BGA 的话，就用歌曲的封面做背景，而不是显示迪拉熊的笑脸
+        请和 `LoadJacketPng` 一起用
+        """)]
 public class LoadLocalBga
 {
     [HarmonyPostfix]

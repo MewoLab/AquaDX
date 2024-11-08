@@ -1,8 +1,12 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using UnityEngine;
 
 namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: "Remove the circle mask in the game",
+    zh: "移除遮罩")]
 public class HideMask
 {
     [HarmonyPrefix]

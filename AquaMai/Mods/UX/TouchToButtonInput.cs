@@ -1,10 +1,13 @@
-﻿using HarmonyLib;
-using Manager;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using Process;
 using static Manager.InputManager;
 
 namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: "Map touch actions to buttons",
+    zh: "映射触摸操作至实体按键")]
 public class TouchToButtonInput
 {
     private static bool _isPlaying = false;

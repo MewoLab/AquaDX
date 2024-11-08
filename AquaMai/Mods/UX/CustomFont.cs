@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AquaMai.Attributes;
 using HarmonyLib;
 using MelonLoader;
 using TMPro;
@@ -10,6 +10,15 @@ using UnityEngine.TextCore.LowLevel;
 
 namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: """
+        Place font.ttf in the LocalAssets directory to replace the game's global font
+        Cannot be used together with FontFix
+        """,
+    zh: """
+        在 LocalAssets 目录下放置 font.ttf 可以替换游戏的全局字体
+        不可以和 FontFix 一起使用
+        """)]
 public class CustomFont
 {
     private static Font font;
