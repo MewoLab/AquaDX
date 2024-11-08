@@ -5,9 +5,9 @@ using AquaMai.Resources;
 using Manager;
 using UnityEngine;
 
-namespace AquaMai.Mods.ModKeyMap;
+namespace AquaMai.Mods.PracticeMode.Libs;
 
-public class PractiseModeUI : MonoBehaviour
+public class PracticeModeUI : MonoBehaviour
 {
     private static float windowTop => Screen.height - GuiSizes.PlayerWidth + GuiSizes.PlayerWidth * .22f;
     private static float controlHeight => GuiSizes.PlayerWidth * .13f;
@@ -60,12 +60,12 @@ public class PractiseModeUI : MonoBehaviour
         GUI.Button(GetButtonRect(1, 0), Locale.Pause);
         GUI.Button(GetButtonRect(2, 0), Locale.SeekForward);
 
-        if (PractiseMode.repeatStart == -1)
+        if (PracticeMode.repeatStart == -1)
         {
             GUI.Button(GetButtonRect(0, 1), Locale.MarkRepeatStart);
             GUI.Label(GetButtonRect(1, 1), Locale.RepeatNotSet);
         }
-        else if (PractiseMode.repeatEnd == -1)
+        else if (PracticeMode.repeatEnd == -1)
         {
             GUI.Button(GetButtonRect(0, 1), Locale.MarkRepeatEnd);
             GUI.Label(GetButtonRect(1, 1), Locale.RepeatStartSet);
@@ -78,60 +78,60 @@ public class PractiseModeUI : MonoBehaviour
         }
 
         GUI.Button(GetButtonRect(0, 2), Locale.SpeedDown);
-        GUI.Label(GetButtonRect(1, 2), $"{Locale.Speed} {PractiseMode.speed * 100:000}%");
+        GUI.Label(GetButtonRect(1, 2), $"{Locale.Speed} {PracticeMode.speed * 100:000}%");
         GUI.Button(GetButtonRect(2, 2), Locale.SpeedUp);
         GUI.Button(GetButtonRect(1, 3), Locale.SpeedReset);
 
-        GUI.Label(GetButtonRect(0, 3), $"{TimeSpan.FromMilliseconds(PractiseMode.CurrentPlayMsec):mm\\:ss\\.fff}\n{TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()):mm\\:ss\\.fff}");
-        GUI.Button(GetButtonRect(2, 3), $"保持流速\n{(PractiseMode.keepNoteSpeed ? "ON" : "OFF")}");
+        GUI.Label(GetButtonRect(0, 3), $"{TimeSpan.FromMilliseconds(PracticeMode.CurrentPlayMsec):mm\\:ss\\.fff}\n{TimeSpan.FromMilliseconds(NotesManager.Instance().getPlayFinalMsec()):mm\\:ss\\.fff}");
+        GUI.Button(GetButtonRect(2, 3), $"保持流速\n{(PracticeMode.keepNoteSpeed ? "ON" : "OFF")}");
     }
 
     public void Update()
     {
         if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E8))
         {
-            PractiseMode.Seek(-1000);
+            PracticeMode.Seek(-1000);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E2))
         {
-            PractiseMode.Seek(1000);
+            PracticeMode.Seek(1000);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B8) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B1))
         {
             DebugFeature.Pause = !DebugFeature.Pause;
             if (!DebugFeature.Pause)
             {
-                PractiseMode.Seek(0);
+                PracticeMode.Seek(0);
             }
         }
-        else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatStart == -1)
+        else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PracticeMode.repeatStart == -1)
         {
-            PractiseMode.repeatStart = PractiseMode.CurrentPlayMsec;
+            PracticeMode.repeatStart = PracticeMode.CurrentPlayMsec;
         }
-        else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PractiseMode.repeatEnd == -1)
+        else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B7) && PracticeMode.repeatEnd == -1)
         {
-            PractiseMode.SetRepeatEnd(PractiseMode.CurrentPlayMsec);
+            PracticeMode.SetRepeatEnd(PracticeMode.CurrentPlayMsec);
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B2))
         {
-            PractiseMode.ClearRepeat();
+            PracticeMode.ClearRepeat();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B6))
         {
-            PractiseMode.SpeedDown();
+            PracticeMode.SpeedDown();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B3))
         {
-            PractiseMode.SpeedUp();
+            PracticeMode.SpeedUp();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B5) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B4))
         {
-            PractiseMode.SpeedReset();
+            PracticeMode.SpeedReset();
         }
         else if (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E4))
         {
-            PractiseMode.keepNoteSpeed = !PractiseMode.keepNoteSpeed;
-            PractiseMode.gameCtrl?.ResetOptionSpeed();
+            PracticeMode.keepNoteSpeed = !PracticeMode.keepNoteSpeed;
+            PracticeMode.gameCtrl?.ResetOptionSpeed();
         }
         else if (
             InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.A1) ||
@@ -144,7 +144,7 @@ public class PractiseModeUI : MonoBehaviour
             InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.A8)
         )
         {
-            PractiseMode.ui = null;
+            PracticeMode.ui = null;
             Destroy(this);
         }
     }

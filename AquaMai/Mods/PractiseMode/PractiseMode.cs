@@ -7,19 +7,30 @@ using System.Reflection;
 using AquaMai.Mods.Fix;
 using AquaMai.Helpers;
 using AquaMai.Resources;
-using AquaMai.Mods.Utils;
+using AquaMai.Mods.PracticeMode.Libs;
 using HarmonyLib;
 using Manager;
-using MelonLoader;
 using Monitor;
 using Monitor.Game;
 using Process;
 using UnityEngine;
+using AquaMai.Attributes;
 
-namespace AquaMai.Mods.ModKeyMap;
+namespace AquaMai.Mods.PracticeMode;
 
-public class PractiseMode
+[ConfigSection(
+    en: "Practice Mode",
+    zh: "练习模式")]
+public class PracticeMode
 {
+    [ConfigEntry(
+        en: "Key to show Practice Mode UI",
+        zh: "显示练习模式 UI 的按键")]
+    public static readonly KeyCodeOrName Key = KeyCodeOrName.Test;
+
+    [ConfigEntry]
+    public static readonly bool LongPress = false;
+
     public static double repeatStart = -1;
     public static double repeatEnd = -1;
     public static float speed = 1;
@@ -124,7 +135,7 @@ public class PractiseMode
         }
     }
 
-    public static PractiseModeUI ui;
+    public static PracticeModeUI ui;
 
     [HarmonyPatch]
     public class PatchNoteSpeed
@@ -166,7 +177,7 @@ public class PractiseMode
     {
         if (Input.GetKeyDown(KeyCode.F11))
         {
-            ____monitors[0].gameObject.AddComponent<PractiseModeUI>();
+            ____monitors[0].gameObject.AddComponent<PracticeModeUI>();
         }
     }
 # endif
@@ -175,9 +186,9 @@ public class PractiseMode
     [HarmonyPostfix]
     public static void GameProcessPostUpdate(GameProcess __instance, GameMonitor[] ____monitors)
     {
-        if (ModKeyListener.GetKeyDownOrLongPress(AquaMai.AppConfig.ModKeyMap.PractiseMode, AquaMai.AppConfig.ModKeyMap.PractiseModeLongPress) && ui is null)
+        if (KeyListener.GetKeyDownOrLongPress(Key, LongPress) && ui is null)
         {
-            ui = ____monitors[0].gameObject.AddComponent<PractiseModeUI>();
+            ui = ____monitors[0].gameObject.AddComponent<PracticeModeUI>();
         }
 
         if (repeatStart >= 0 && repeatEnd >= 0)

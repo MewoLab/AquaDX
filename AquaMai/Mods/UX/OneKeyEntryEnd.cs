@@ -1,22 +1,31 @@
 ﻿using System.Collections.Generic;
+using AquaMai.Attributes;
 using AquaMai.Helpers;
 using HarmonyLib;
 using Mai2.Mai2Cue;
-using MAI2.Util;
 using Main;
 using Manager;
 using MelonLoader;
 using Process;
 
-namespace AquaMai.Mods.ModKeyMap;
+namespace AquaMai.Mods.UX;
 
-public class QuickSkip
+[ConfigSection(
+    en: "One key to proceed to music select (during entry) or end current PC (during music select)",
+    zh: "一键跳过登录过程直接进入选歌界面，或在选歌界面直接结束本局游戏")]
+public class OneKeyEntryEnd
 {
+    [ConfigEntry]
+    public static readonly KeyCodeOrName Key = KeyCodeOrName.Service;
+
+    [ConfigEntry]
+    public static readonly bool LongPress = true;
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GameMainObject), "Update")]
     public static void OnGameMainObjectUpdate()
     {
-        if (!ModKeyListener.GetKeyDownOrLongPress(AquaMai.AppConfig.ModKeyMap.QuickSkip, AquaMai.AppConfig.ModKeyMap.QuickSkipLongPress)) return;
+        if (!KeyListener.GetKeyDownOrLongPress(Key, LongPress)) return;
         MelonLogger.Msg("[QuickSkip] Activated");
 
         var traverse = Traverse.Create(SharedInstances.ProcessDataContainer.processManager);
@@ -50,25 +59,6 @@ public class QuickSkip
         {
             GameManager.SetMaxTrack();
             SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, processToRelease, new MusicSelectProcess(SharedInstances.ProcessDataContainer)));
-        }
-    }
-
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
-    public static void PostGameProcessUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container)
-    {
-        if (ModKeyListener.GetKeyDownOrLongPress(AquaMai.AppConfig.ModKeyMap.InGameSkip, AquaMai.AppConfig.ModKeyMap.InGameSkipLongPress))
-        {
-            var traverse = Traverse.Create(__instance);
-            ___container.processManager.SendMessage(____message[0]);
-            Singleton<GamePlayManager>.Instance.SetSyncResult(0);
-            traverse.Method("SetRelease").GetValue();
-        }
-
-        if (ModKeyListener.GetKeyDownOrLongPress(AquaMai.AppConfig.ModKeyMap.InGameRetry, AquaMai.AppConfig.ModKeyMap.InGameRetryLongPress) && GameInfo.GameVersion >= 23000)
-        {
-            // This is original typo in Assembly-CSharp
-            Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);
         }
     }
 }

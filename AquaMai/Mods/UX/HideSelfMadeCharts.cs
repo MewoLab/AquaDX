@@ -4,19 +4,30 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AquaMai.Attributes;
 using AquaMai.Helpers;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
 using MelonLoader;
 using Process;
-using UnityEngine;
 using Util;
 
-namespace AquaMai.Mods.ModKeyMap;
+namespace AquaMai.Mods.UX;
 
+[ConfigSection(
+    en: "One key to hide all self-made charts in the music select process",
+    zh: "在选曲界面一键隐藏所有自制谱")]
 public class HideSelfMadeCharts
 {
+    [ConfigEntry(
+        en: "Key to toggle self-made charts",
+        zh: "切换自制谱显示的按键")]
+    public static readonly KeyCodeOrName Key = KeyCodeOrName.Test;
+
+    [ConfigEntry]
+    public static readonly bool LongPress = false;
+
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musics;
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musicsNoneSelfMade;
 
@@ -58,7 +69,7 @@ public class HideSelfMadeCharts
     public static void MusicSelectProcessOnUpdate(ref MusicSelectProcess __instance)
     {
         if (isForceDisable) return;
-        if (!ModKeyListener.GetKeyDownOrLongPress(AquaMai.AppConfig.ModKeyMap.HideSelfMadeCharts, AquaMai.AppConfig.ModKeyMap.HideSelfMadeChartsLongPress)) return;
+        if (!KeyListener.GetKeyDownOrLongPress(Key, LongPress)) return;
         isShowSelfMadeCharts = !isShowSelfMadeCharts;
         MelonLogger.Msg($"[HideSelfMadeCharts] isShowSelfMadeCharts: {isShowSelfMadeCharts}");
         SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, __instance, new MusicSelectProcess(SharedInstances.ProcessDataContainer)));
