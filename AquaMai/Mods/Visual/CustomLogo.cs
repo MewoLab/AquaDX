@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using AquaMai.Attributes;
 using HarmonyLib;
 using Monitor;
 using Process;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(defaultOn: true)]
 public class CustomLogo
 {
     private static List<Sprite> segaLogo = new();

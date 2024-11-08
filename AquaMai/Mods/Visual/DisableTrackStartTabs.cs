@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using Monitor;
 using TMPro;
 using UI;
@@ -6,6 +7,15 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        Disable the TRACK X text, DX/Standard display box, and the derakkuma at the bottom of the screen in the song start screen
+        For recording chart confirmation
+        """,
+    zh: """
+        在歌曲开始界面, 把 TRACK X 字样, DX/标准谱面的显示框, 以及画面下方的滴蜡熊隐藏掉
+        录制谱面确认用
+        """)]
 public class DisableTrackStartTabs
 {
     // 在歌曲开始界面, 把 TRACK X 字样, DX/标准谱面的显示框, 以及画面下方的滴蜡熊隐藏掉, 让他看起来不那么 sinmai, 更像是 majdata

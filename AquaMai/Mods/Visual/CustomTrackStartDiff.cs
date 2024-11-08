@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AquaMai.Attributes;
 using HarmonyLib;
 using Monitor;
 using UI;
@@ -7,6 +8,17 @@ using UnityEngine.UI;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        Custom track start difficulty image (not really custom difficulty)
+        Requires CustomSkins to be enabled
+        Will load four image resources through custom skins: musicBase, musicTab, musicLvBase, musicLvText
+        """,
+    zh: """
+        自定义在歌曲开始界面上显示的难度贴图 (并不是真的自定义难度)
+        需要启用自定义皮肤功能
+        会通过自定义皮肤加载四个图片资源: musicBase, musicTab, musicLvBase, musicLvText
+        """)]
 public class CustomTrackStartDiff
 {
     // 自定义在歌曲开始界面上显示的难度 (并不是真的自定义难度)

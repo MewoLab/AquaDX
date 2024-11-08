@@ -6,9 +6,10 @@ using Monitor;
 using Monitor.MusicSelect.ChainList;
 using UnityEngine;
 
-namespace AquaMai.Mods.Fix;
+namespace AquaMai.Mods.Visual;
 
 [GameVersion(24000)]
+[ConfigSection(defaultOn: true)]
 public class FixLevelDisplay
 {
     [HarmonyPostfix]

@@ -1,9 +1,19 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using Process;
 using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        Delayed the animation of the song start screen
+        For recording chart confirmation
+        """,
+    zh: """
+        推迟了歌曲开始界面的动画
+        录制谱面确认用
+        """)]
 public class TrackStartProcessTweak
 {
     // 总之这个 Patch 没啥用, 是我个人用 sinmai 录谱面确认时用得到, 顺手也写进来了

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using AquaMai.Attributes;
 using HarmonyLib;
 using MelonLoader;
 using Monitor;
@@ -10,6 +11,15 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        Provide the ability to use custom skins (advanced feature)
+        Load skin textures from LocalAssets\Skins
+        """,
+    zh: """
+        提供自定义皮肤的能力（高级功能）
+        从 LocalAssets\Skins 中加载皮肤贴图
+        """)]
 public class CustomSkins
 {
     private static readonly List<string> ImageExts = [".png", ".jpg", ".jpeg"];

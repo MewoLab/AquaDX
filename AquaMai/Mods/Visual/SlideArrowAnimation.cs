@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AquaMai.Attributes;
 using HarmonyLib;
 using Manager;
 using Monitor;
@@ -9,6 +9,13 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        Make the Slide Track disappear with an inward-shrinking animation, similar to AstroDX
+        """,
+    zh: """
+        使 Slide Track 消失时有类似 AstroDX 一样的向内缩入的动画
+        """)]
 public class SlideArrowAnimation
 {
     private static List<SpriteRenderer> _animatingSpriteRenderers = [];

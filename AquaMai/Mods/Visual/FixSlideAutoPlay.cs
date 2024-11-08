@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using AquaMai.Attributes;
 using HarmonyLib;
 using Manager;
 using Monitor;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(defaultOn: true)]
 public class FixSlideAutoPlay
 {
     /* 这个 Patch 用于修复以下 bug:

@@ -1,8 +1,18 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using Monitor;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        Make the judgment display of Wifi Slide different in up and down (originally all Wifi judgment displays are towards the center), just like in majdata
+        The reason for this bug is that SEGA forgot to assign EndButtonId to Wifi
+        """,
+    zh: """
+        这个 Patch 让 Wifi Slide 的判定显示有上下的区别 (原本所有 Wifi 的判定显示都是朝向圆心的), 就像 majdata 里那样
+        这个 bug 产生的原因是 SBGA 忘记给 Wifi 的 EndButtonId 赋值了
+        """)]
 public class FanJudgeFlip
 {
     /*

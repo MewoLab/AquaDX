@@ -1,9 +1,19 @@
-﻿using HarmonyLib;
+﻿using AquaMai.Attributes;
+using HarmonyLib;
 using Monitor;
 using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
+[ConfigSection(
+    en: """
+        This Patch makes the Critical judgment of BreakSlide also flicker like BreakTap
+        Recommended to use with custom skins (otherwise the visual effect may not be good)
+        """,
+    zh: """
+        这个 Patch 让 BreakSlide 的 Critical 判定也可以像 BreakTap 一样闪烁
+        推荐与自定义皮肤一起使用 (否则视觉效果可能并不好)
+        """)]
 public class BreakSlideJudgeBlink
 {
     /*
