@@ -12,7 +12,7 @@
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
     <NoWarn>414</NoWarn>
-    <OutputPath>$(SolutionDir)../Output/</OutputPath>
+    <OutputPath>$(SolutionDir)Output/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
@@ -302,7 +302,12 @@
     <PackageReference Include="ILMerge.Fody" Version="1.24.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Samboy063.Tomlet" Version="5.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(OutputPath)/AquaMai.Config.dll">
+      <LogicalName>AquaMai.Config.dll</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
