@@ -18,6 +18,7 @@ using AquaMai.Attributes;
 
 namespace AquaMai.Mods.PracticeMode;
 
+[ConfigCollapseNamespace]
 [ConfigSection(
     en: "Practice Mode",
     zh: "练习模式")]
