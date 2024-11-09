@@ -372,6 +372,5 @@ MigrationBackup/
 
 Output
 .idea
-Libs/Assembly-CSharp.dll
-Libs/AMDaemon.NET.dll
-packages
+Assembly-CSharp.dll
+AMDaemon.NET.dll

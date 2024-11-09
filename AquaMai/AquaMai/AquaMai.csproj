@@ -12,8 +12,7 @@
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
     <NoWarn>414</NoWarn>
-    <!-- <PlatformTarget>x64</PlatformTarget> -->
-    <OutputPath>$(SolutionDir)Output\</OutputPath>
+    <OutputPath>$(SolutionDir)../Output/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
@@ -29,16 +28,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'SDGA145|AnyCPU' ">
-    <DefineConstants>SDGA145</DefineConstants>
-    <Optimize>true</Optimize>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
@@ -83,9 +79,6 @@
     </Reference>
     <Reference Include="System.Xml">
       <HintPath>Libs\System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="Tomlet, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Samboy063.Tomlet.5.4.0\lib\net35\Tomlet.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>Libs\Unity.Analytics.DataPrivacy.dll</HintPath>

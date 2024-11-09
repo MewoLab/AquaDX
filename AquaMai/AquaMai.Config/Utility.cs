@@ -6,7 +6,7 @@ namespace AquaMai.Config;
 
 public static class Utility
 {
-    public static readonly bool isRunningInUnity = AppDomain.CurrentDomain.GetAssemblies().Any(assembly => assembly.FullName.Contains("UnityEngine"));
+    public static Action<string> LogFunction = System.Console.WriteLine;
 
     public static bool IsTruty(TomlValue value, string path = null)
     {
@@ -40,13 +40,6 @@ public static class Utility
     // We can test the configuration related code without loading the mod into the game.
     public static void Log(string message)
     {
-        if (isRunningInUnity)
-        {
-            MelonLoader.MelonLogger.Msg(message);
-        }
-        else
-        {
-            System.Console.WriteLine(message);
-        }
+        LogFunction(message);
     }
 }

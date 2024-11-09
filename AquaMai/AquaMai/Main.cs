@@ -8,12 +8,6 @@ using AquaMai.Resources;
 using MelonLoader;
 using UnityEngine;
 
-// Polyfill for `init` property
-namespace System.Runtime.CompilerServices
-{
-    internal static class IsExternalInit {}
-}
-
 namespace AquaMai
 {
     public static class BuildInfo
