@@ -1,9 +1,10 @@
 ﻿using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Manager;
 using Monitor;
 
-namespace AquaMai.Mods.ModKeyMap;
+namespace AquaMai.Mods.Fix;
 
 [ConfigSection(
     en: "Hold the bottom four buttons (3456) for quick retry (like in Freedom Mode, default non-utage only)",

@@ -10,7 +10,7 @@ using MAI2.Util;
 using Manager;
 using MelonLoader;
 using Monitor;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods.UX;
 

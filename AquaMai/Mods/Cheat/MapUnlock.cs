@@ -1,6 +1,6 @@
 using Manager.MaiStudio;
 using HarmonyLib;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods.Cheat;
 

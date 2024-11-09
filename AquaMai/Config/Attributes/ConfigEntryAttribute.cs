@@ -1,10 +1,9 @@
 using System;
 
-namespace AquaMai.Attributes;
+namespace AquaMai.Config.Attributes;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class ConfigEntryAttribute(string en = null, string zh = null) : Attribute
 {
-    public string CommentEn { get; } = en;
-    public string CommentZh { get; } = zh;
+    public ConfigComment Comment { get; } = new ConfigComment(en, zh);
 }

@@ -3,11 +3,11 @@ using HarmonyLib;
 using Manager;
 using Net;
 using UnityEngine;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods.Fix;
 
-[ConfigSection(defaultOn: true, hideInExample: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class BasicFix
 {
     [ConfigEntry]

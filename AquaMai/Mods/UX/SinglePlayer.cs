@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
@@ -20,6 +21,13 @@ namespace AquaMai.Mods.UX;
     zh: "单人模式，不显示 2P")]
 public class SinglePlayer
 {
+    public static bool IsEnabled { get; private set; } = false;
+
+    public static void DoCustomPatch(HarmonyLib.Harmony _)
+    {
+        IsEnabled = true;
+    }
+
     [HarmonyPatch]
     public class WhateverInitialize
     {

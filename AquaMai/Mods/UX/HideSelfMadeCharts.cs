@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using AquaMai.Helpers;
 using HarmonyLib;
 using MAI2.Util;

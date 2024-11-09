@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using AquaMai.Helpers;
 using HarmonyLib;
 using Main;
@@ -82,7 +82,7 @@ public class ShowErrorLog
 
             GUI.Box(new Rect(x, y, width, height), "", boxStyle);
             GUI.Label(new Rect(x, y, width, height), _errorLog, labelStyle);
-            if (!UX.SinglePlayer.???) // TODO: check single/multi player mode
+            if (!Config.ConfigState.GetSectionState(typeof(UX.SinglePlayer)).Enabled)
             {
                 GUI.Box(new Rect(x + GuiSizes.PlayerWidth, y, width, height), "", boxStyle);
                 GUI.Label(new Rect(x + GuiSizes.PlayerWidth, y, width, height), _errorLog, labelStyle);

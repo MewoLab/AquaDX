@@ -1,6 +1,8 @@
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods;
+
+// This class is for settings only.
 
 [ConfigSection(
     en: "AquaMai's general settings",

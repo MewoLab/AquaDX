@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Manager;
 using Manager.Operation;
@@ -8,7 +8,7 @@ using Net.Packet;
 
 namespace AquaMai.Mods.Utils;
 
-[ConfigSection(defaultOn: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class LogNetworkErrors
 {
     [HarmonyPostfix]

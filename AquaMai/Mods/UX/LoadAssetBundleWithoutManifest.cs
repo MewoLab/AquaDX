@@ -4,7 +4,7 @@ using HarmonyLib;
 using UnityEngine;
 using Manager;
 using Util;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods.UX;
 

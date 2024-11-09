@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Net.Packet;
 

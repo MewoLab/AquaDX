@@ -11,7 +11,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
-    <PlatformTarget>x64</PlatformTarget>
+    <NoWarn>414</NoWarn>
+    <!-- <PlatformTarget>x64</PlatformTarget> -->
     <OutputPath>$(SolutionDir)Output\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

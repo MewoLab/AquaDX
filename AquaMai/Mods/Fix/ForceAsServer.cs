@@ -1,5 +1,5 @@
 ﻿using AMDaemon;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 
 namespace AquaMai.Mods.Fix;

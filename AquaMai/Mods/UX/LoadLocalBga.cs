@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;

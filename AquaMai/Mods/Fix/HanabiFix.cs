@@ -1,4 +1,4 @@
-﻿using AquaMai.Attributes;
+﻿using AquaMai.Config.Attributes;
 using Fx;
 using HarmonyLib;
 using Monitor;

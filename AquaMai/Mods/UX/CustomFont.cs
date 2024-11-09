@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using MelonLoader;
 using TMPro;

@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Manager;
 
 namespace AquaMai.Mods.Fix;
 
-[ConfigSection(defaultOn: true, hideInExample: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 [GameVersion(23000)]
 public class FixConnSlide
 {

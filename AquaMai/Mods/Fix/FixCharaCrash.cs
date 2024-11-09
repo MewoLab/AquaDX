@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Process;
 using Util;
@@ -10,7 +10,7 @@ namespace AquaMai.Mods.Fix;
 /**
  * Fix character selection crashing due to missing character data
  */
-[ConfigSection(defaultOn: true, hideInExample: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class FixCharaCrash
 {
     // Check if the return is null. If it is, make up a color

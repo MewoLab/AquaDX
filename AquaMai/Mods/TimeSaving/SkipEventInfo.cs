@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Process;
 using Process.Information;

@@ -1,4 +1,5 @@
 ﻿using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using MAI2.Util;
 using Manager;
@@ -9,7 +10,7 @@ using UnityEngine;
 namespace AquaMai.Mods.Visual;
 
 [GameVersion(24000)]
-[ConfigSection(defaultOn: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class FixLevelDisplay
 {
     [HarmonyPostfix]

@@ -6,7 +6,7 @@ using HarmonyLib;
 using Manager;
 using MelonLoader;
 using UnityEngine;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods;
 

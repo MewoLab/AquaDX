@@ -1,5 +1,5 @@
 ﻿using System;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Manager;
 using Monitor;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
-[ConfigSection(defaultOn: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class FixCircleSlideJudge
 {
     /*

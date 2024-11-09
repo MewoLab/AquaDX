@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using UnityEngine;
 
 namespace AquaMai.Mods;

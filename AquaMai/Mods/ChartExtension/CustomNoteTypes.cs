@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using DB;
 using HarmonyLib;
 using MAI2.Util;

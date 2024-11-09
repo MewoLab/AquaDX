@@ -1,10 +1,10 @@
-using AquaMai.Attributes;
+using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Manager.Operation;
 
 namespace AquaMai.Mods.Fix;
 
-[ConfigSection(defaultOn: true, hideInExample: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class DisableReboot
 {
     // IsAutoRebootNeeded

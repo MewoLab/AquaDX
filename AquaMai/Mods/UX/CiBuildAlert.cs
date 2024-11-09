@@ -1,4 +1,4 @@
-﻿using AquaMai.Attributes;
+﻿using AquaMai.Config.Attributes;
 using AquaMai.Helpers;
 using AquaMai.Resources;
 using HarmonyLib;
@@ -6,13 +6,15 @@ using Process;
 
 namespace AquaMai.Mods.UX;
 
-[ConfigSection(defaultOn: true, hideInExample: true)]
+[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class CiBuildAlert
 {
     [HarmonyPatch(typeof(AdvertiseProcess), "OnStart")]
     [HarmonyPostfix]
     public static void OnStart(AdvertiseProcess __instance)
     {
+# if CI
         MessageHelper.ShowMessage(Locale.CiBuildAlertContent, title: Locale.CiBuildAlertTitle);
+# endif
     }
 }
