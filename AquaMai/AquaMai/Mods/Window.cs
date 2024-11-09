@@ -9,7 +9,7 @@ namespace AquaMai.Mods;
 [ConfigSection(
     en: "Windowed Mode / Window Settings",
     zh: "窗口化/窗口设置")]
-public class Enable
+public class Window
 {
     [ConfigEntry(
         en: "Window the game",

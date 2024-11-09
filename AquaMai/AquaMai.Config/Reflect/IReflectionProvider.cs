@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 
 namespace AquaMai.Config.Reflection;
 
@@ -18,7 +19,7 @@ public interface IReflectionType
     public string Namespace { get; }
 
     public T GetCustomAttribute<T>() where T : Attribute;
-    public IReflectionField[] GetFields();
+    public IReflectionField[] GetFields(BindingFlags bindingAttr);
 }
 
 public interface IReflectionProvider

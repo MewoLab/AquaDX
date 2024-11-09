@@ -50,7 +50,6 @@ public static class ConfigSerializer
 
         // Version
         AppendEntry(sb, "Version", 2);
-        sb.AppendLine();
 
         foreach (var section in ReflectionManager.Sections)
         {
@@ -59,6 +58,8 @@ public static class ConfigSerializer
             {
                 continue;
             }
+            sb.AppendLine();
+
             AppendComment(sb, section.Attribute.Comment, options);
             sb.AppendLine(sectionState.IsDefault ? $"#[{section.Path}]" : $"[{section.Path}]");
             if (!sectionState.IsDefault && !sectionState.Enabled)
@@ -75,7 +76,7 @@ public static class ConfigSerializer
             }
         }
 
-        return sb.ToString().TrimEnd() + "\n";
+        return sb.ToString();
     }
 
     private static string SerializeTomlValue(object value)
@@ -118,9 +119,13 @@ public static class ConfigSerializer
 
     private static void AppendComment(StringBuilder sb, string comment)
     {
-        foreach (var line in comment.Split('\n'))
+        comment = comment.Trim();
+        if (!string.IsNullOrEmpty(comment))
         {
-            sb.AppendLine($"# {line}");
+            foreach (var line in comment.Split('\n'))
+            {
+                sb.AppendLine($"## {line}");
+            }
         }
     }
 

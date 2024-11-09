@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace AquaMai.Config.Reflection;
 
@@ -25,7 +26,7 @@ public class HeadlessReflectionProvider : IReflectionProvider
     {
         public string Namespace { get; } = FullName.Substring(0, FullName.LastIndexOf('.'));
         public T GetCustomAttribute<T>() where T : Attribute => Attributes.TryGetValue(typeof(T), out var value) ? (T)value : null;
-        public IReflectionField[] GetFields() => Fields;
+        public IReflectionField[] GetFields(BindingFlags bindingAttr) => Fields;
     }
 
     // TODO: implement

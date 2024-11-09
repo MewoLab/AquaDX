@@ -6,8 +6,8 @@ public record ConfigComment(string CommentEn, string CommentZh)
 {
     public string GetLocalized(string lang) => lang switch
     {
-        "en" => CommentEn,
-        "zh" => CommentZh,
+        "en" => CommentEn ?? "",
+        "zh" => CommentZh ?? "",
         _ => throw new ArgumentException($"Unsupported language: {lang}")
     };
 }

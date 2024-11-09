@@ -8,6 +8,8 @@ public static class ConfigLoader
 {
     private static void DoLoadConfig()
     {
+        Config.Utility.LogFunction = MelonLogger.Msg;
+
         Config.Reflection.ReflectionManager.Load(new Config.Reflection.SystemReflectionProvider(typeof(AquaMai).Assembly));
 
         // Check if AquaMai.toml exists

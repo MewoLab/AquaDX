@@ -23,7 +23,7 @@ public class SystemReflectionProvider(Assembly assembly) : IReflectionProvider
         public string FullName => UnderlyingType.FullName;
         public string Namespace => UnderlyingType.Namespace;
         public T GetCustomAttribute<T>() where T : Attribute => UnderlyingType.GetCustomAttribute<T>();
-        public IReflectionField[] GetFields() => Array.ConvertAll(UnderlyingType.GetFields(), f => new ReflectionField(f));
+        public IReflectionField[] GetFields(BindingFlags bindingAttr) => Array.ConvertAll(UnderlyingType.GetFields(bindingAttr), f => new ReflectionField(f));
     }
 
     public Assembly UnderlyingAssembly { get; } = assembly;

@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using AquaMai.Config.Attributes;
@@ -61,7 +62,7 @@ public static class ReflectionManager
             }
 
             var sectionEntries = new List<Entry>();
-            foreach (var field in type.GetFields())
+            foreach (var field in type.GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 var entryAttribute = field.GetCustomAttribute<ConfigEntryAttribute>();
                 if (entryAttribute == null) continue;
@@ -75,8 +76,6 @@ public static class ReflectionManager
                 };
                 sectionEntries.Add(entry);
                 entries.Add(entryPath, entry);
-
-                Utility.Log(entryPath);
             }
 
             var section = new Section()
