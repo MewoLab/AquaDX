@@ -4,7 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai", "AquaMai/AquaMai.csproj", "{788BC472-59F7-46F6-B760-65C18BA74389}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Config", "AquaMai.Config/AquaMai.Config.csproj", "{DF1536F9-3B06-4463-B654-4CC3E708B610}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A} = {B9CA039A-A0F1-4C87-A33E-3F959974BB3A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Config", "AquaMai.Config/AquaMai.Config.csproj", "{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +20,10 @@ Global
 		{788BC472-59F7-46F6-B760-65C18BA74389}.Release|Any CPU.Build.0 = Release|Any CPU
 		{788BC472-59F7-46F6-B760-65C18BA74389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{788BC472-59F7-46F6-B760-65C18BA74389}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF1536F9-3B06-4463-B654-4CC3E708B610}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF1536F9-3B06-4463-B654-4CC3E708B610}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF1536F9-3B06-4463-B654-4CC3E708B610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF1536F9-3B06-4463-B654-4CC3E708B610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
