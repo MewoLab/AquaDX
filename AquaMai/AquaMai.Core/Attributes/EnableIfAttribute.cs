@@ -41,9 +41,15 @@ public class EnableIfAttribute(
 
     public bool ShouldEnable(Type selfType)
     {
-        var conditionFieldValue = (ReferenceType == null ? selfType : ReferenceType)
-            .GetField(ConditionField)
-            .GetValue(null);
+        var referenceType = ReferenceType ?? selfType;
+        var conditionField = referenceType.GetField(
+            ConditionField,
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+        if (conditionField == null)
+        {
+            throw new ArgumentException($"Field {ConditionField} not found in {referenceType.FullName}");
+        }
+        var conditionFieldValue = conditionField.GetValue(null);
         switch (Condition)
         {
             case EnableIfCondition.Equal:

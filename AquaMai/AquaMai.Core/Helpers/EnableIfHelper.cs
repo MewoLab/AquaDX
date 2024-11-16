@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using AquaMai.Core.Attributes;
@@ -8,7 +9,7 @@ namespace AquaMai.Core.Helpers;
 
 public class EnableIfHelper
 {
-    [HarmonyPostfix]
+    [HarmonyPrefix]
     [HarmonyPatch("HarmonyLib.PatchTools", "GetPatchMethod")]
     public static bool PostGetPatchMethod(ref MethodInfo __result)
     {
@@ -27,7 +28,7 @@ public class EnableIfHelper
 
     [HarmonyPostfix]
     [HarmonyPatch("HarmonyLib.PatchTools", "GetPatchMethods")]
-    public static bool PostGetPatchMethods(ref List<object> __result)
+    public static void PostGetPatchMethods(ref IList __result)
     {
         for (int i = 0; i < __result.Count; i++)
         {
@@ -41,7 +42,6 @@ public class EnableIfHelper
                 i--;
             }
         }
-        return false;
     }
 
     private static void PrintSkipMessage(MethodInfo method)

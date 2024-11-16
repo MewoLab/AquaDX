@@ -65,7 +65,7 @@ public static class ConfigParser
             {
                 if (table.ContainsKey(unexpectedKey))
                 {
-                    Utility.Log($"Unexpected key '{unexpectedKey}' for enable status under '{path}'. Only 'Disable' is parsed.");
+                    Utility.Log($"Unexpected key \"{unexpectedKey}\" for enable status under \"{path}\". Only \"Disable\" is parsed.");
                 }
             }
 

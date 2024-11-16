@@ -31,7 +31,7 @@ public static class AssemblyLoader
         foreach (var (assemblyName, assemblyFileName) in Assemblies)
         {
 # if DEBUG
-            MelonLoader.MelonLogger.Msg($"Loading assembly '{assemblyFileName}'...");
+            MelonLoader.MelonLogger.Msg($"Loading assembly \"{assemblyFileName}\"...");
 # endif
             LoadedAssemblies[assemblyName] = LoadAssemblyFromResource(assemblyFileName);
         }
@@ -50,7 +50,7 @@ public static class AssemblyLoader
         {
             return AppDomain.CurrentDomain.Load(DecompressToBytes(compressedStream));
         }
-        throw new Exception($"Embedded assembly '{assemblyName}' not found.");
+        throw new Exception($"Embedded assembly \"{assemblyName}\" not found.");
     }
 
     private static byte[] StreamToBytes(Stream stream)
