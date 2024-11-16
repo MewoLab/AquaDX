@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace AquaMai.Mods.ChartExtension.Lib;
+namespace AquaMai.Mods.ChartExtension.Libs;
 
 public class SlidePathGenerator
 {

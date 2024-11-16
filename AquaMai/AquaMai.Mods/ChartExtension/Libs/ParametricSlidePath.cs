@@ -5,7 +5,7 @@ using System.Numerics;
 using DB;
 using Manager;
 
-namespace AquaMai.Mods.ChartExtension.Lib;
+namespace AquaMai.Mods.ChartExtension.Libs;
 
 public class ParametricSlidePath
 {

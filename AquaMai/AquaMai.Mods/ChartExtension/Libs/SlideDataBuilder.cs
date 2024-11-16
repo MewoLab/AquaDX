@@ -5,7 +5,7 @@ using DB;
 using Manager;
 using Vector4 = UnityEngine.Vector4;
 
-namespace AquaMai.Mods.ChartExtension.Lib;
+namespace AquaMai.Mods.ChartExtension.Libs;
 
 public static class SlideDataBuilder
 {

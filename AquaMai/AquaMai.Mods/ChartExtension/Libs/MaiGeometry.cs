@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace AquaMai.Mods.ChartExtension.Lib;
+namespace AquaMai.Mods.ChartExtension.Libs;
 
 public static class MaiGeometry
 {

@@ -11,7 +11,7 @@ using Manager;
 using MelonLoader;
 using Monitor;
 using UnityEngine;
-using AquaMai.Mods.ChartExtension.Lib;
+using AquaMai.Mods.ChartExtension.Libs;
 
 namespace AquaMai.Mods.ChartExtension;
 
