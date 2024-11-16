@@ -13,21 +13,16 @@ public enum EnableIfCondition
 }
 
 [AttributeUsage(AttributeTargets.Method)]
-public class EnableIfAttribute : Attribute
+public class EnableIfAttribute(
+    Type referenceType,
+    string conditionField,
+    EnableIfCondition condition,
+    object baseValue) : Attribute
 {
-    public Type ReferenceType { get; }
-    public string ConditionField { get; }
-    public EnableIfCondition Condition { get; }
-    public object Value { get; }
-
-    // Referencing a field in another class and comparing it with a value.
-    public EnableIfAttribute(Type referenceType, string conditionField, EnableIfCondition condition, object value)
-    {
-        ReferenceType = referenceType;
-        ConditionField = conditionField;
-        Condition = condition;
-        Value = value;
-    }
+    public Type ReferenceType { get; } = referenceType;
+    public string ConditionField { get; } = conditionField;
+    public EnableIfCondition Condition { get; } = condition;
+    public object BaseValue { get; } = baseValue;
 
     // Referencing a field in another class and checking if it's true.
     public EnableIfAttribute(Type referenceType, string conditionField)
@@ -43,4 +38,33 @@ public class EnableIfAttribute : Attribute
     public EnableIfAttribute(string conditionField)
     : this(conditionField, EnableIfCondition.Equal, true)
     { }
+
+    public bool ShouldEnable(Type selfType)
+    {
+        var conditionFieldValue = (ReferenceType == null ? selfType : ReferenceType)
+            .GetField(ConditionField)
+            .GetValue(null);
+        switch (Condition)
+        {
+            case EnableIfCondition.Equal:
+                return conditionFieldValue.Equals(BaseValue);
+            case EnableIfCondition.NotEqual:
+                return !conditionFieldValue.Equals(BaseValue);
+            case EnableIfCondition.GreaterThan:
+            case EnableIfCondition.LessThan:
+            case EnableIfCondition.GreaterThanOrEqual:
+            case EnableIfCondition.LessThanOrEqual:
+                var comparison = (IComparable)conditionFieldValue;
+                return Condition switch
+                {
+                    EnableIfCondition.GreaterThan => comparison.CompareTo(BaseValue) > 0,
+                    EnableIfCondition.LessThan => comparison.CompareTo(BaseValue) < 0,
+                    EnableIfCondition.GreaterThanOrEqual => comparison.CompareTo(BaseValue) >= 0,
+                    EnableIfCondition.LessThanOrEqual => comparison.CompareTo(BaseValue) <= 0,
+                    _ => throw new NotImplementedException(),
+                };
+            default:
+                throw new NotImplementedException();
+        }
+    }
 }

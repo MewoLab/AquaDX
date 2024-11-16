@@ -31,7 +31,6 @@ namespace AquaMai
 
         private void Patch(Type type, bool isNested = false)
         {
-            // TODO: EnableIf
             var versionAttr = type.GetCustomAttribute<GameVersionAttribute>();
             var compatible = true;
             if (versionAttr != null)
@@ -59,6 +58,7 @@ namespace AquaMai
                     Patch(nested, true);
                 }
 
+                // TODO: DoCustomPatch => IOnPatch
                 var customMethod = type.GetMethod("DoCustomPatch", BindingFlags.Public | BindingFlags.Static);
                 customMethod?.Invoke(null, [HarmonyInstance]);
             }
@@ -124,6 +124,8 @@ namespace AquaMai
             Patch(typeof(MusicDirHelper));
             Patch(typeof(SharedInstances));
             Patch(typeof(GuiSizes));
+
+            Patch(typeof(EnableIfHelper));
 
             // Apply patches based on the settings
             ApplyPatches();
