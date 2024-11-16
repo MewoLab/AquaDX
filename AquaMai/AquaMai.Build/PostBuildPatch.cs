@@ -6,19 +6,19 @@ using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using Mono.Cecil;
 
-public class PostBuildTask : Task
+public class PostBuildPatch : Task
 {
     [Required]
-    public string OutputDllPath { get; set; }
+    public string DllPath { get; set; }
 
     public override bool Execute()
     {
         try
         {
-            var assembly = AssemblyDefinition.ReadAssembly(OutputDllPath);
+            var assembly = AssemblyDefinition.ReadAssembly(DllPath);
             CompressEmbeddedAssemblies(assembly);
-            File.Delete(OutputDllPath);
-            assembly.Write(OutputDllPath);
+            File.Delete(DllPath);
+            assembly.Write(DllPath);
             return true;
         }
         catch (Exception e)

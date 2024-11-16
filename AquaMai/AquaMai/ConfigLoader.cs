@@ -47,7 +47,7 @@ public static class ConfigLoader
         var examples = new Dictionary<string, string>();
         foreach (var lang in (string[]) ["en", "zh"])
         {
-            examples[lang] = ConfigSerializer.SerializeConfig(config, new ConfigSerializer.Options()
+            examples[lang] = ConfigSerializer.Serialize(config, new ConfigSerializer.Options()
             {
                 Lang = lang,
                 IncludeBanner = true

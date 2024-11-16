@@ -19,7 +19,7 @@ public static class ConfigSerializer
                                          https://github.com/clansty/MaiChartManager
                                          """;
 
-    public static string SerializeConfig(Config config, Options options)
+    public static string Serialize(Config config, Options options)
     {
         StringBuilder sb = new();
         if (options.IncludeBanner)

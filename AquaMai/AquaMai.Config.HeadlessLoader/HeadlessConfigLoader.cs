@@ -9,6 +9,9 @@ namespace AquaMai.Config.HeadlessLoader;
 
 public class HeadlessConfigLoader
 {
+    public static Config LoadFromPacked(string fileName, AppDomain appDomain = null)
+        => LoadFromPacked(new FileStream(fileName, FileMode.Open), appDomain);
+
     public static Config LoadFromPacked(byte[] assemblyBinary, AppDomain appDomain = null)
         => LoadFromPacked(new MemoryStream(assemblyBinary), appDomain);
 

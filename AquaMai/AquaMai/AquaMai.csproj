@@ -140,10 +140,14 @@
     </PackageReference>
   </ItemGroup>
 
-  <UsingTask TaskName="PostBuildTask" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
+  <UsingTask TaskName="PostBuildPatch" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
+  <Target Name="PostBuildPatch" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
+    <PostBuildPatch DllPath="$(OutputPath)$(AssemblyName).dll" />
+  </Target>
 
-  <Target Name="RunPostBuildTask" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
-    <PostBuildTask OutputDllPath="$(OutputPath)$(AssemblyName).dll" />
+  <UsingTask TaskName="GenerateExampleConfig" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
+  <Target Name="GenerateExampleConfig" AfterTargets="AfterBuild">
+    <GenerateExampleConfig DllPath="$(OutputPath)$(AssemblyName).dll" OutputPath="$(OutputPath)" />
   </Target>
 
   <ItemGroup>

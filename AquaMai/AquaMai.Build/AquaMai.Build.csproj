@@ -33,6 +33,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config.HeadlessLoader/AquaMai.Config.HeadlessLoader.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Mono.Cecil">
       <HintPath>$(LibsPath)Mono.Cecil.dll</HintPath>
     </Reference>
