@@ -12,7 +12,7 @@
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
     <NoWarn>414</NoWarn>
-    <OutputPath>$(SolutionDir)Output/</OutputPath>
+    <OutputPath>$(ProjectDir)../Output/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
