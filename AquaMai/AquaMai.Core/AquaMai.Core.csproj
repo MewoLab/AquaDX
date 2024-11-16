@@ -15,7 +15,6 @@
     <AssemblySearchPaths>$(ProjectDir)../Libs/;$(AssemblySearchPaths)</AssemblySearchPaths>
     <OutputPath>$(ProjectDir)../Output/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
 
@@ -32,6 +31,10 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="mscorlib" />

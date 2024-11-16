@@ -4,6 +4,7 @@ using Manager;
 using Net;
 using UnityEngine;
 using AquaMai.Config.Attributes;
+using AquaMai.Core.Attributes;
 
 namespace AquaMai.Mods.Fix;
 

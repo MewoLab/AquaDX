@@ -1,4 +1,5 @@
 ﻿using AquaMai.Config.Attributes;
+using AquaMai.Config.Types;
 using AquaMai.Core.Helpers;
 using HarmonyLib;
 using MAI2.Util;

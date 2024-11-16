@@ -12,6 +12,7 @@
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
     <NoWarn>414</NoWarn>
+    <AssemblySearchPaths>$(ProjectDir)../Libs/;$(AssemblySearchPaths)</AssemblySearchPaths>
     <OutputPath>$(ProjectDir)../Output/</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
@@ -30,6 +31,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="Mono.Cecil" />
+    <Reference Include="System" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />

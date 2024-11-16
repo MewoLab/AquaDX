@@ -1,6 +1,6 @@
 using System;
 
-namespace AquaMai.Config.Attributes;
+namespace AquaMai.Core.Attributes;
 
 public enum EnableIfCondition
 {

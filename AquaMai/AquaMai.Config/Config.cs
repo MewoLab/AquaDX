@@ -48,11 +48,16 @@ public class Config
 
         foreach (var entry in section.Entries)
         {
+            var defaultValue = entry.Field.GetValue(null);
+            if (defaultValue == null)
+            {
+                throw new InvalidOperationException($"Null default value for entry {entry.Path} is not allowed.");
+            }
             entries.Add(entry.Path, new EntryState()
             {
                 IsDefault = true,
-                DefaultValue = entry.Field.GetValue(null),
-                Value = entry.Field.GetValue(null)
+                DefaultValue = defaultValue,
+                Value = defaultValue
             });
         }
     }

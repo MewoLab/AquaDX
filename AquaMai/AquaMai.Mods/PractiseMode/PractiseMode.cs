@@ -15,6 +15,7 @@ using Monitor.Game;
 using Process;
 using UnityEngine;
 using AquaMai.Config.Attributes;
+using AquaMai.Config.Types;
 
 namespace AquaMai.Mods.PracticeMode;
 

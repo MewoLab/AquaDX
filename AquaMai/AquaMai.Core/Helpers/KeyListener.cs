@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using AquaMai.Config.Types;
 using HarmonyLib;
 using Main;
 using Manager;
@@ -11,8 +12,8 @@ namespace AquaMai.Core.Helpers;
 
 public static class KeyListener
 {
-    private static readonly Dictionary<KeyCodeOrName, int> _keyPressFrames = new();
-    private static readonly Dictionary<KeyCodeOrName, int> _keyPressFramesPrev = new();
+    private static readonly Dictionary<KeyCodeOrName, int> _keyPressFrames = [];
+    private static readonly Dictionary<KeyCodeOrName, int> _keyPressFramesPrev = [];
 
     static KeyListener()
     {
@@ -142,56 +143,4 @@ public static class KeyListener
             KeyCodeOrName.RightArrow => KeyCode.RightArrow,
             _ => throw new ArgumentOutOfRangeException(nameof(keyCodeOrName), keyCodeOrName, "游戏功能键需要单独处理")
         };
-}
-
-public enum KeyCodeOrName
-{
-    None,
-    Alpha0,
-    Alpha1,
-    Alpha2,
-    Alpha3,
-    Alpha4,
-    Alpha5,
-    Alpha6,
-    Alpha7,
-    Alpha8,
-    Alpha9,
-    Keypad0,
-    Keypad1,
-    Keypad2,
-    Keypad3,
-    Keypad4,
-    Keypad5,
-    Keypad6,
-    Keypad7,
-    Keypad8,
-    Keypad9,
-    F1,
-    F2,
-    F3,
-    F4,
-    F5,
-    F6,
-    F7,
-    F8,
-    F9,
-    F10,
-    F11,
-    F12,
-    Insert,
-    Delete,
-    Home,
-    End,
-    PageUp,
-    PageDown,
-    UpArrow,
-    DownArrow,
-    LeftArrow,
-    RightArrow,
-
-    Select1P,
-    Select2P,
-    Service,
-    Test,
 }

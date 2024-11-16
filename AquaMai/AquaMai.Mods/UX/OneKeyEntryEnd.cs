@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AquaMai.Config.Attributes;
+using AquaMai.Config.Types;
 using AquaMai.Core.Helpers;
 using HarmonyLib;
 using Mai2.Mai2Cue;

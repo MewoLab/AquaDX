@@ -33,7 +33,7 @@ public static class ConfigSerializer
         }
 
         // Version
-        AppendEntry(sb, "Version", 2);
+        AppendEntry(sb, null, "Version", 2);
 
         foreach (var section in config.reflectionManager.Sections)
         {
@@ -49,21 +49,21 @@ public static class ConfigSerializer
             if (!sectionState.IsDefault && !sectionState.Enabled)
             {
                 // Disabled explicitly
-                AppendEntry(sb, "Disabled", true);
+                AppendEntry(sb, null, "Disabled", true);
             }
 
             foreach (var entry in section.Entries)
             {
                 var entryState = config.GetEntryState(entry);
                 AppendComment(sb, entry.Attribute.Comment, options);
-                AppendEntry(sb, entry.Name, entryState.Value, entryState.IsDefault);
+                AppendEntry(sb, section.Path, entry.Name, entryState.Value, entryState.IsDefault);
             }
         }
 
         return sb.ToString();
     }
 
-    private static string SerializeTomlValue(object value)
+    private static string SerializeTomlValue(string diagnosticPath, object value)
     {
         var type = value.GetType();
         if (value is bool b)
@@ -89,7 +89,7 @@ public static class ConfigSerializer
         else
         {
             var currentMethod = MethodBase.GetCurrentMethod();
-            throw new NotImplementedException($"Unsupported config entry type: {type.FullName}. Please implement in {currentMethod.DeclaringType.FullName}.{currentMethod.Name}");
+            throw new NotImplementedException($"Unsupported config entry type: {type.FullName} ({diagnosticPath}). Please implement in {currentMethod.DeclaringType.FullName}.{currentMethod.Name}");
         }
     }
 
@@ -113,12 +113,15 @@ public static class ConfigSerializer
         }
     }
 
-    private static void AppendEntry(StringBuilder sb, string key, object value, bool commented = false)
+    private static void AppendEntry(StringBuilder sb, string diagnosticsSection, string key, object value, bool commented = false)
     {
         if (commented)
         {
             sb.Append('#');
         }
-        sb.AppendLine($"{key} = {SerializeTomlValue(value)}");
+        var diagnosticsPath = string.IsNullOrEmpty(diagnosticsSection)
+                                ? key
+                                : $"{diagnosticsSection}.{key}";
+        sb.AppendLine($"{key} = {SerializeTomlValue(diagnosticsPath, value)}");
     }
 }
