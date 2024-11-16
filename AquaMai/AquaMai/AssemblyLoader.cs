@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Reflection;
-using MelonLoader;
 
 namespace AquaMai;
 
@@ -36,9 +37,29 @@ public static class AssemblyLoader
     private static Assembly LoadAssemblyFromResource(string assemblyName)
     {
         var executingAssembly = Assembly.GetExecutingAssembly();
-        using var stream = executingAssembly.GetManifestResourceStream(assemblyName);
-        var assemblyRawBytes = new byte[stream.Length];
-        stream.Read(assemblyRawBytes, 0, assemblyRawBytes.Length);
-        return AppDomain.CurrentDomain.Load(assemblyRawBytes);
+        using var decompressedStream = executingAssembly.GetManifestResourceStream(assemblyName);
+        if (decompressedStream != null)
+        {
+            return AppDomain.CurrentDomain.Load(StreamToBytes(decompressedStream));
+        }
+        using var compressedStream = executingAssembly.GetManifestResourceStream($"{assemblyName}.compressed");
+        if (compressedStream != null)
+        {
+            return AppDomain.CurrentDomain.Load(DecompressToBytes(compressedStream));
+        }
+        throw new Exception($"Embedded assembly '{assemblyName}' not found.");
     }
+
+    private static byte[] StreamToBytes(Stream stream)
+    {
+        if (stream == null)
+        {
+            return [];
+        }
+        using var memoryStream = new MemoryStream();
+        stream.CopyTo(memoryStream);
+        return memoryStream.ToArray();
+    }
+
+    private static byte[] DecompressToBytes(Stream stream) => StreamToBytes(new DeflateStream(stream, CompressionMode.Decompress));
 }

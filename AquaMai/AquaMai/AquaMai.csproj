@@ -140,14 +140,20 @@
     </PackageReference>
   </ItemGroup>
 
+  <UsingTask TaskName="PostBuildTask" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
+
+  <Target Name="RunPostBuildTask" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
+    <PostBuildTask OutputDllPath="$(OutputPath)$(AssemblyName).dll" />
+  </Target>
+
   <ItemGroup>
-    <EmbeddedResource Include="$(OutputPath)/AquaMai.Config.dll">
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Config.dll">
       <LogicalName>AquaMai.Config.dll</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(OutputPath)/AquaMai.Core.dll">
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Core.dll">
       <LogicalName>AquaMai.Core.dll</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(OutputPath)/AquaMai.Mods.dll">
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Mods.dll">
       <LogicalName>AquaMai.Mods.dll</LogicalName>
     </EmbeddedResource>
   </ItemGroup>

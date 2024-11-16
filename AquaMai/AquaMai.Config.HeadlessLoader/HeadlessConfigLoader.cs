@@ -7,7 +7,7 @@ using Mono.Cecil;
 
 namespace AquaMai.Config.HeadlessLoader;
 
-public class HeadlessLoader
+public class HeadlessConfigLoader
 {
     public static Config LoadFromPacked(byte[] assemblyBinary, AppDomain appDomain = null)
         => LoadFromPacked(new MemoryStream(assemblyBinary), appDomain);
@@ -18,14 +18,7 @@ public class HeadlessLoader
     public static Config LoadFromPacked(AssemblyDefinition assembly, AppDomain appDomain = null)
     {
         return LoadFromUnpacked(
-            assembly.MainModule.Resources
-                .Where(resource => resource.Name.ToLower().EndsWith(".dll"))
-                .Select(resource => resource switch
-                {
-                    EmbeddedResource embeddedResource => embeddedResource.GetResourceData(),
-                    _ => null
-                })
-                .Where(data => data != null),
+            ResourceLoader.LoadEmbeddedAssemblies(assembly).Values,
             appDomain);
     }
 
@@ -37,9 +30,9 @@ public class HeadlessLoader
         var resolver = new CustomAssemblyResolver();
         var assemblies = assemblyStreams
             .Select(
-                assembly =>
+                assemblyStream =>
                     AssemblyDefinition.ReadAssembly(
-                        assembly,
+                        assemblyStream,
                         new ReaderParameters() {
                             AssemblyResolver = resolver
                         }))
