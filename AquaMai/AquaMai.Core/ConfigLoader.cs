@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using AquaMai.Config;
 using MelonLoader;
 
@@ -10,16 +11,17 @@ public static class ConfigLoader
     private static string ConfigFile => "AquaMai.toml";
     private static string ConfigExampleFile(string lang) => $"AquaMai.{lang}.toml";
 
-    private static Config.Config config = new(
-        new Config.Reflection.ReflectionManager(
-            new Config.Reflection.SystemReflectionProvider(
-                AssemblyLoader.GetAssembly(AssemblyLoader.AssemblyName.Mods))));
+    private static Config.Config config;
 
     public static Config.Config Config => config;
 
-    public static void LoadConfig()
+    public static void LoadConfig(Assembly modsAssembly)
     {
         Utility.LogFunction = MelonLogger.Msg;
+
+        config = new(
+            new Config.Reflection.ReflectionManager(
+                new Config.Reflection.SystemReflectionProvider(modsAssembly)));
 
         if (!File.Exists(ConfigFile))
         {

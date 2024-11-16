@@ -30,6 +30,9 @@ public static class AssemblyLoader
     {
         foreach (var (assemblyName, assemblyFileName) in Assemblies)
         {
+# if DEBUG
+            MelonLoader.MelonLogger.Msg($"Loading assembly '{assemblyFileName}'...");
+# endif
             LoadedAssemblies[assemblyName] = LoadAssemblyFromResource(assemblyFileName);
         }
     }

@@ -101,6 +101,24 @@ public class ReflectionManager
         return sectionsByFullName.TryGetValue(type.FullName, out section);
     }
 
+    public Section GetSection(string path)
+    {
+        if (!sections.TryGetValue(path, out var section))
+        {
+            throw new KeyNotFoundException($"Section {path} not found");
+        }
+        return section;
+    }
+
+    public Section GetSection(Type type)
+    {
+        if (!sectionsByFullName.TryGetValue(type.FullName, out var section))
+        {
+            throw new KeyNotFoundException($"Section {type.FullName} not found");
+        }
+        return section;
+    }
+
     public bool ContainsEntry(string path)
     {
         return entries.ContainsKey(path);
@@ -109,5 +127,14 @@ public class ReflectionManager
     public bool TryGetEntry(string path, out Entry entry)
     {
         return entries.TryGetValue(path, out entry);
+    }
+
+    public Entry GetEntry(string path)
+    {
+        if (!entries.TryGetValue(path, out var entry))
+        {
+            throw new KeyNotFoundException($"Entry {path} not found");
+        }
+        return entry;
     }
 }
