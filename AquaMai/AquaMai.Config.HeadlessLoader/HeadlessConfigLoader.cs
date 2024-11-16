@@ -50,7 +50,7 @@ public class HeadlessConfigLoader
         {
             throw new InvalidOperationException("AquaMai.Config assembly not found");
         }
-        LoadAssemblyToApp(configAssembly, appDomain);
+        ConfigAssemblyLoader.LoadConfigAssembly(configAssembly, appDomain);
         var modsAssembly = assemblies.First(assembly => assembly.Name.Name == "AquaMai.Mods");
         if (modsAssembly == null)
         {
@@ -64,16 +64,5 @@ public class HeadlessConfigLoader
         var reflectionProvider = new MonoCecilReflectionProvider(modsAssembly);
         var reflectionManager = new ReflectionManager(reflectionProvider);
         return new Config(reflectionManager);
-    }
-
-    private static void LoadAssemblyToApp(AssemblyDefinition assembly, AppDomain appDomain = null)
-    {
-        var stream = new MemoryStream();
-        assembly.Write(stream);
-        if (appDomain == null)
-        {
-            appDomain = AppDomain.CurrentDomain;
-        }
-        appDomain.Load(stream.ToArray());
     }
 }
