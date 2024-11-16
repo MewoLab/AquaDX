@@ -4,7 +4,7 @@ using AquaMai.Config.Reflection;
 
 namespace AquaMai.Config;
 
-public static class ConfigState
+public class Config
 {
     // NOTE: If a section's state is default, all underlying entries' states are default as well.
 
@@ -22,10 +22,22 @@ public static class ConfigState
         public object Value { get; set; }
     }
 
-    private static readonly Dictionary<string, SectionState> sections = new(StringComparer.OrdinalIgnoreCase);
-    private static readonly Dictionary<string, EntryState> entries = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, SectionState> sections = new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, EntryState> entries = new(StringComparer.OrdinalIgnoreCase);
 
-    public static void InitializeSection(ReflectionManager.Section section)
+    public readonly ReflectionManager reflectionManager;
+
+    public Config(ReflectionManager reflectionManager)
+    {
+        this.reflectionManager = reflectionManager;
+
+        foreach (var section in reflectionManager.Sections)
+        {
+            InitializeSection(section);
+        }
+    }
+
+    private void InitializeSection(ReflectionManager.Section section)
     {
         sections.Add(section.Path, new SectionState()
         {
@@ -45,32 +57,32 @@ public static class ConfigState
         }
     }
 
-    public static SectionState GetSectionState(ReflectionManager.Section section)
+    public SectionState GetSectionState(ReflectionManager.Section section)
     {
         return sections[section.Path];
     }
 
-    public static SectionState GetSectionState(Type type)
+    public SectionState GetSectionState(Type type)
     {
-        if (!ReflectionManager.TryGetSection(type, out var section))
+        if (!reflectionManager.TryGetSection(type, out var section))
         {
             throw new ArgumentException($"Type {type.FullName} is not a config section.");
         }
         return sections[section.Path];
     }
 
-    public static void SetSectionEnabled(ReflectionManager.Section section, bool enabled)
+    public void SetSectionEnabled(ReflectionManager.Section section, bool enabled)
     {
         sections[section.Path].IsDefault = false;
         sections[section.Path].Enabled = enabled;
     }
 
-    public static EntryState GetEntryState(ReflectionManager.Entry entry)
+    public EntryState GetEntryState(ReflectionManager.Entry entry)
     {
         return entries[entry.Path];
     }
 
-    public static void SetEntryValue(ReflectionManager.Entry entry, object value)
+    public void SetEntryValue(ReflectionManager.Entry entry, object value)
     {
         entry.Field.SetValue(null, value);
         entries[entry.Path].IsDefault = false;

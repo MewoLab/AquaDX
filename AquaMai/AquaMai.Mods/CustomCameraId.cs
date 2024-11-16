@@ -46,7 +46,7 @@ public class CustomCameraId
         zh: "二维码扫描摄像头")]
     public static int ChimeCamera;
   
-    private static readonly Dictionary<string, string> CameraTypeMap = new Dictionary<string, string>
+    private static readonly Dictionary<string, string> CameraTypeMap = new()
     {
         ["LeftQrCamera"] = "QRLeft",
         ["RightQrCamera"] = "QRRight",

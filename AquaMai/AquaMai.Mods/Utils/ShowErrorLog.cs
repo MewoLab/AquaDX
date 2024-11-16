@@ -82,7 +82,7 @@ public class ShowErrorLog
 
             GUI.Box(new Rect(x, y, width, height), "", boxStyle);
             GUI.Label(new Rect(x, y, width, height), _errorLog, labelStyle);
-            if (!Config.ConfigState.GetSectionState(typeof(UX.SinglePlayer)).Enabled)
+            if (!GuiSizes.SinglePlayer)
             {
                 GUI.Box(new Rect(x + GuiSizes.PlayerWidth, y, width, height), "", boxStyle);
                 GUI.Label(new Rect(x + GuiSizes.PlayerWidth, y, width, height), _errorLog, labelStyle);

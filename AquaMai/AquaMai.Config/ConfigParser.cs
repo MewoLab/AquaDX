@@ -1,4 +1,3 @@
-using System.IO;
 using System.Reflection;
 using System;
 using Tomlet.Models;
@@ -7,26 +6,18 @@ using AquaMai.Config.Reflection;
 
 namespace AquaMai.Config;
 
-public static class ConfigLoader
+public static class ConfigParser
 {
-    public static bool ConfigFileExists() => File.Exists("AquaMai.toml");
-
-    public static void Load()
+    public static void Parse(Config config, string tomlString)
     {
-        if (!ReflectionManager.Loaded)
-        {
-            throw new InvalidOperationException("ReflectionManager must be loaded before ConfigLoader");
-        }
-
-        var tomlString = File.ReadAllText("AquaMai.toml");
-        Hydrate(new TomlParser().Parse(tomlString), "");
+        Hydrate(config, new TomlParser().Parse(tomlString), "");
     }
 
-    private static void Hydrate(TomlValue value, string path)
+    private static void Hydrate(Config config, TomlValue value, string path)
     {
-        if (ReflectionManager.TryGetSection(path, out var section))
+        if (config.reflectionManager.TryGetSection(path, out var section))
         {
-            ParseSectionEnableState(section, value, path);
+            ParseSectionEnableState(config, section, value, path);
         }
 
         if (value is TomlTable table)
@@ -35,24 +26,24 @@ public static class ConfigLoader
             {
                 var subValue = table.GetValue(subKey);
                 var subPath = path == "" ? subKey : $"{path}.{subKey}";
-                Hydrate(subValue, subPath);
+                Hydrate(config, subValue, subPath);
             }
         }
         else
         {
             // It's an config entry value (or a primitive type for enabling a section).
-            if (!ReflectionManager.ContainsSection(path) && !ReflectionManager.ContainsEntry(path))
+            if (!config.reflectionManager.ContainsSection(path) && !config.reflectionManager.ContainsEntry(path))
             {
                 Utility.Log($"Unrecognized config entry: {path}");
                 return;
             }
 
-            if (ReflectionManager.TryGetEntry(path, out var entry))
+            if (config.reflectionManager.TryGetEntry(path, out var entry))
             {
                 try
                 {
                     var parsedValue = ParseValue(entry.Field.FieldType, value);
-                    ConfigState.SetEntryValue(entry, parsedValue);
+                    config.SetEntryValue(entry, parsedValue);
                 }
                 catch (Exception e)
                 {
@@ -62,7 +53,11 @@ public static class ConfigLoader
         }
     }
 
-    public static void ParseSectionEnableState(ReflectionManager.Section section, TomlValue value, string path)
+    public static void ParseSectionEnableState(
+        Config config,
+        ReflectionManager.Section section,
+        TomlValue value,
+        string path)
     {
         if (value is TomlTable table)
         {
@@ -77,12 +72,12 @@ public static class ConfigLoader
             if (table.TryGetValue("Disable", out var disableValue))
             {
                 var disabled = Utility.IsTruty(disableValue, path + ".Disable");
-                ConfigState.SetSectionEnabled(section, !disabled);
+                config.SetSectionEnabled(section, !disabled);
             }
         }
         else
         {
-            ConfigState.SetSectionEnabled(section, Utility.IsTruty(value, path));
+            config.SetSectionEnabled(section, Utility.IsTruty(value, path));
         }
     }
 

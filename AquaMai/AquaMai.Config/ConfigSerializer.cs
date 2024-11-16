@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using AquaMai.Config.Attributes;
-using AquaMai.Config.Reflection;
 using Tomlet.Models;
 
 namespace AquaMai.Config;
@@ -21,21 +19,7 @@ public static class ConfigSerializer
                                          https://github.com/clansty/MaiChartManager
                                          """;
 
-    public static void WriteExamples()
-    {
-        foreach (var lang in (string[]) ["en", "zh"])
-        {
-            File.WriteAllText(
-                $"AquaMai.{lang}.toml",
-                SerializeConfig(new Options()
-                {
-                    Lang = lang,
-                    IncludeBanner = true
-                }));
-        }
-    }
-
-    public static string SerializeConfig(Options options)
+    public static string SerializeConfig(Config config, Options options)
     {
         StringBuilder sb = new();
         if (options.IncludeBanner)
@@ -51,9 +35,9 @@ public static class ConfigSerializer
         // Version
         AppendEntry(sb, "Version", 2);
 
-        foreach (var section in ReflectionManager.Sections)
+        foreach (var section in config.reflectionManager.Sections)
         {
-            var sectionState = ConfigState.GetSectionState(section);
+            var sectionState = config.GetSectionState(section);
             if (section.Attribute.Example != ConfigSectionExample.Shown && sectionState.IsDefault)
             {
                 continue;
@@ -70,7 +54,7 @@ public static class ConfigSerializer
 
             foreach (var entry in section.Entries)
             {
-                var entryState = ConfigState.GetEntryState(entry);
+                var entryState = config.GetEntryState(entry);
                 AppendComment(sb, entry.Attribute.Comment, options);
                 AppendEntry(sb, entry.Name, entryState.Value, entryState.IsDefault);
             }

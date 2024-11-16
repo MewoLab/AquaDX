@@ -74,9 +74,10 @@ namespace AquaMai
          */
         private void ApplyPatches()
         {
-            foreach (var section in Config.Reflection.ReflectionManager.Sections)
+            var config = ConfigLoader.Config;
+            foreach (var section in config.reflectionManager.Sections)
             {
-                if (!Config.ConfigState.GetSectionState(section).Enabled) continue;
+                if (!config.GetSectionState(section).Enabled) continue;
                 var reflectionType = (Config.Reflection.SystemReflectionProvider.ReflectionType)section.Type;
                 Patch(reflectionType.UnderlyingType);
             }
