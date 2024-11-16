@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using AquaMai.Attributes;
-using AquaMai.Helpers;
-using AquaMai.Resources;
+using AquaMai.Core.Attributes;
+using AquaMai.Core.Helpers;
+using AquaMai.Core.Resources;
 using MelonLoader;
 using UnityEngine;
 
@@ -22,6 +22,11 @@ namespace AquaMai
 
     public class AquaMai : MelonMod
     {
+        public const string AQUAMAI_SAY = """
+                                          如果你在 dnSpy / ILSpy 里看到了这行字，请从 resources 中解包 DLLs。
+                                          If you see this line in dnSpy / ILSpy, please unpack the DLLs from resources.
+                                          """;
+
         private static bool _hasErrors;
 
         private void Patch(Type type, bool isNested = false)
@@ -100,6 +105,8 @@ namespace AquaMai
         {
             // Prevent Chinese characters from being garbled
             SetConsoleOutputCP(65001);
+
+            AssemblyLoader.LoadAssemblies();
 
             MelonLogger.Msg("Loading mod settings...");
 

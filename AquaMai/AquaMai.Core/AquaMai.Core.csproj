@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8731C0E0-53BE-4B1B-9828-193E738C6865}</ProjectGuid>
+    <ProjectGuid>{33C0D4ED-6A84-4659-9A05-12D43D75D0B3}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AquaMai.Mods</RootNamespace>
-    <AssemblyName>AquaMai.Mods</AssemblyName>
+    <RootNamespace>AquaMai.Core</RootNamespace>
+    <AssemblyName>AquaMai.Core</AssemblyName>
     <TargetFramework>net472</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,11 +32,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
-    <ProjectReference Include="../AquaMai.Core/AquaMai.Core.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -122,7 +117,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Numerics" Private="true" />
+    <EmbeddedResource Include="Resources/Locale.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources/Locale.zh.resx" WithCulture="false">
+      <DependentUpon>Locale.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

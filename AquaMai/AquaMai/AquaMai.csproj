@@ -35,6 +35,8 @@
 
   <ItemGroup>
     <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
+    <ProjectReference Include="../AquaMai.Core/AquaMai.Core.csproj" />
+    <ProjectReference Include="../AquaMai.Mods/AquaMai.Mods.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -125,16 +127,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources/Locale.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources/Locale.zh.resx" WithCulture="false">
-      <DependentUpon>Locale.resx</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
 
@@ -151,6 +143,12 @@
   <ItemGroup>
     <EmbeddedResource Include="$(OutputPath)/AquaMai.Config.dll">
       <LogicalName>AquaMai.Config.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(OutputPath)/AquaMai.Core.dll">
+      <LogicalName>AquaMai.Core.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(OutputPath)/AquaMai.Mods.dll">
+      <LogicalName>AquaMai.Mods.dll</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
