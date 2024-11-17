@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace AquaMai.Core;
 
-public class Mod
+public class Startup
 {
     private static HarmonyLib.Harmony _harmony;
 

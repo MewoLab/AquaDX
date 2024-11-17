@@ -23,7 +23,7 @@ public class AquaMai : MelonMod
 
         var modsAssembly = AssemblyLoader.GetAssembly(AssemblyLoader.AssemblyName.Mods);
         var coreAssembly = AssemblyLoader.GetAssembly(AssemblyLoader.AssemblyName.Core);
-        coreAssembly.GetType("AquaMai.Core.Mod")
+        coreAssembly.GetType("AquaMai.Core.Startup")
                     .GetMethod("Initialize", BindingFlags.Public | BindingFlags.Static)
                     .Invoke(null, [modsAssembly, HarmonyInstance]);
     }
@@ -31,7 +31,7 @@ public class AquaMai : MelonMod
     public override void OnGUI()
     {
         var coreAssembly = AssemblyLoader.GetAssembly(AssemblyLoader.AssemblyName.Core);
-        coreAssembly.GetType("AquaMai.Core.Mod")
+        coreAssembly.GetType("AquaMai.Core.Startup")
                     .GetMethod("OnGUI", BindingFlags.Public | BindingFlags.Static)
                     .Invoke(null, []);
         base.OnGUI();
