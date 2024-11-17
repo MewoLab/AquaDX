@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
-[GameVersion(24000)]
+[EnableGameVersion(24000)]
 [ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
 public class FixLevelDisplay
 {

@@ -13,7 +13,7 @@ namespace AquaMai.Mods.Fix;
 [ConfigSection(
     en: "Add notes sprite to the pool to prevent use up",
     zh: "增加更多待命的音符贴图，防止奇怪的自制谱用完音符贴图池")]
-[GameVersion(23000)]
+[EnableGameVersion(23000)]
 public class ExtendNotesPool
 {
     [ConfigEntry(

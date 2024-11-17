@@ -8,7 +8,7 @@ using Manager;
 namespace AquaMai.Mods.Fix;
 
 [ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
-[GameVersion(23000)]
+[EnableGameVersion(23000)]
 public class FixConnSlide
 {
     /* 这个 Patch 用于修复以下 bug:

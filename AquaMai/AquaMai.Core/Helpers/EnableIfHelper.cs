@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Reflection;
 using AquaMai.Core.Attributes;
+using AquaMai.Core.Resources;
 using HarmonyLib;
 using MelonLoader;
 
@@ -15,10 +16,8 @@ public class EnableIfHelper
     {
         if (__result != null)
         {
-            var enableIf = __result.GetCustomAttribute<EnableIfAttribute>();
-            if (!enableIf.ShouldEnable(__result.ReflectedType))
+            if (ShouldSkipMethodOrClass(__result.GetCustomAttribute, __result.ReflectedType, __result.Name))
             {
-                PrintMethodSkipMessage(__result);
                 __result = null;
                 return false;
             }
@@ -34,10 +33,8 @@ public class EnableIfHelper
         {
             var harmonyMethod = Traverse.Create(__result[i]).Field("info").GetValue() as HarmonyMethod;
             var method = harmonyMethod.method;
-            var enableIf = method.GetCustomAttribute<EnableIfAttribute>();
-            if (enableIf != null && !enableIf.ShouldEnable(method.ReflectedType))
+            if (ShouldSkipMethodOrClass(method.GetCustomAttribute, method.ReflectedType, method.Name))
             {
-                PrintMethodSkipMessage(method);
                 __result.RemoveAt(i);
                 i--;
             }
@@ -46,21 +43,32 @@ public class EnableIfHelper
 
     public static bool ShouldSkipClass(Type type)
     {
-        var enableIf = type.GetCustomAttribute<EnableIfAttribute>();
+        return ShouldSkipMethodOrClass(type.GetCustomAttribute, type);
+    }
+
+    private static bool ShouldSkipMethodOrClass(Func<Type, object> getCustomAttribute, Type type, string methodName = "")
+    {
+        var displayName = type.FullName + (string.IsNullOrEmpty(methodName) ? "" : $".{methodName}");
+        var enableIf = (EnableIfAttribute)getCustomAttribute(typeof(EnableIfAttribute));
         if (enableIf != null && !enableIf.ShouldEnable(type))
         {
 # if DEBUG
-            MelonLogger.Warning($"Skipping class {type.FullName}");
+            MelonLogger.Msg($"Skipping {displayName} due to EnableIf condition");
 # endif
             return true;
         }
-        return false;
-    }
-
-    private static void PrintMethodSkipMessage(MethodInfo method)
-    {
+        var enableGameVersion = (EnableGameVersionAttribute)getCustomAttribute(typeof(EnableGameVersionAttribute));
+        if (enableGameVersion != null && !enableGameVersion.ShouldEnable(GameInfo.GameVersion))
+        {
 # if DEBUG
-        MelonLogger.Warning($"Skipping method {method.ReflectedType.FullName}.{method.Name}");
+            MelonLogger.Msg($"Skipping {displayName} due to EnableGameVersion condition");
 # endif
+            if (!enableGameVersion.NoWarn)
+            {
+                MelonLogger.Warning(string.Format(Locale.SkipIncompatiblePatch, type));
+            }
+            return true;
+        }
+        return false;
     }
 }

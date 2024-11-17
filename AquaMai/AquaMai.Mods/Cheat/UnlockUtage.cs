@@ -9,7 +9,7 @@ namespace AquaMai.Mods.Cheat;
 [ConfigSection(
     en: "Unlock Utage without the need of DXRating 10000",
     zh: "不需要万分也可以进宴会场")]
-[GameVersion(24000)]
+[EnableGameVersion(24000)]
 public class UnlockUtage
 {
     [HarmonyPrefix]

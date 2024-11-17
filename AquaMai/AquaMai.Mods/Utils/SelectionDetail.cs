@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Utils;
 
-[GameVersion(23500)]
+[EnableGameVersion(23500)]
 [ConfigSection(
     en: "Show detail of selected song in music selection screen",
     zh: "选歌界面显示选择的歌曲的详情")]

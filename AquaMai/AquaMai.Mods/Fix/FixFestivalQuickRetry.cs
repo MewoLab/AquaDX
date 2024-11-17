@@ -6,7 +6,7 @@ using Manager;
 namespace AquaMai.Mods.Fix;
 
 [ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
-[GameVersion(23000, 23499)]
+[EnableGameVersion(23000, 23499)]
 public class FestivalQuickRetryFix
 {
     // Fix for the game not resetting Fast and Late counts when quick retrying

@@ -32,27 +32,10 @@ public class Startup
         method.Invoke(null, arguments);
     }
 
-    private static void Patch(Type type, bool isNested = false)
+    private static void Patch(Type type)
     {
         if (EnableIfHelper.ShouldSkipClass(type))
         {
-            return;
-        }
-        var versionAttr = type.GetCustomAttribute<GameVersionAttribute>();
-        var compatible = true;
-        if (versionAttr != null)
-        {
-            if (versionAttr.MinVersion > 0 && versionAttr.MinVersion > GameInfo.GameVersion) compatible = false;
-            if (versionAttr.MaxVersion > 0 && versionAttr.MaxVersion < GameInfo.GameVersion) compatible = false;
-        }
-
-        if (!compatible)
-        {
-            if (!isNested)
-            {
-                MelonLogger.Warning(string.Format(Locale.SkipIncompatiblePatch, type));
-            }
-
             return;
         }
 
@@ -63,7 +46,7 @@ public class Startup
             _harmony.PatchAll(type);
             foreach (var nested in type.GetNestedTypes())
             {
-                Patch(nested, true);
+                Patch(nested);
             }
             InvokeLifecycleMethod(type, "OnAfterPatch");
         }

@@ -9,7 +9,7 @@ namespace AquaMai.Mods.Fix;
 [ConfigSection(
     en: "Hold the bottom four buttons (3456) for quick retry (like in Freedom Mode, default non-utage only)",
     zh: "按住下方四个按钮（3456）快速重开本局游戏（像 Freedom Mode 一样，默认仅对非宴谱有效）")]
-[GameVersion(23000)]
+[EnableGameVersion(23000)]
 public class ForceQuickRetry
 {
     [ConfigEntry(

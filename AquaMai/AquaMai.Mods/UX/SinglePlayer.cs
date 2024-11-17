@@ -52,7 +52,7 @@ public class SinglePlayer
         return false;
     }
 
-    [GameVersion(21500)]
+    [EnableGameVersion(21500, noWarn: true)]
     public class SkipTimer
     {
         [HarmonyPostfix]
