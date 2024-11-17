@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace AquaMai.Config.Interfaces;
@@ -25,4 +26,5 @@ public interface IReflectionType
 public interface IReflectionProvider
 {
     public IReflectionType[] GetTypes();
+    public Dictionary<string, object> GetEnum(string enumName);
 }

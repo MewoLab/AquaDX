@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using AquaMai.Config.Interfaces;
 
@@ -30,4 +31,17 @@ public class SystemReflectionProvider(Assembly assembly) : IReflectionProvider
     public Assembly UnderlyingAssembly { get; } = assembly;
 
     public IReflectionType[] GetTypes() => Array.ConvertAll(UnderlyingAssembly.GetTypes(), t => new ReflectionType(t));
+
+    public Dictionary<string, object> GetEnum(string enumName)
+    {
+        var enumType = UnderlyingAssembly.GetType(enumName);
+        if (enumType == null) return null;
+        var enumValues = Enum.GetValues(enumType);
+        var enumDict = new Dictionary<string, object>();
+        foreach (var enumValue in enumValues)
+        {
+            enumDict.Add(enumValue.ToString(), enumValue);
+        }
+        return enumDict;
+    }
 }

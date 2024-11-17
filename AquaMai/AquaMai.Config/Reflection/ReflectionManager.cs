@@ -82,6 +82,25 @@ public class ReflectionManager : IReflectionManager
             sections.Add(path, section);
             sectionsByFullName.Add(type.FullName, section);
         }
+
+        var order = reflectionProvider.GetEnum("AquaMai.Mods.SetionNameOrder");
+        sections = sections
+            .OrderBy(x => x.Key)
+            .OrderBy(x =>
+            {
+                var parts = x.Key.Split('.');
+                for (int i = parts.Length; i > 0; i--)
+                {
+                    var key = string.Join("_", parts.Take(i));
+                    if (order.TryGetValue(key, out var value))
+                    {
+                        return (int)value;
+                    }
+                }
+                Utility.Log($"Section {x.Key} has no order defined, defaulting to int.MaxValue");
+                return int.MaxValue;
+            })
+            .ToDictionary(x => x.Key, x => x.Value);
     }
 
     public IEnumerable<Section> SectionValues => sections.Values;

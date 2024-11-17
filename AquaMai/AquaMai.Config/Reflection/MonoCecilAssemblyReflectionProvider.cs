@@ -41,8 +41,10 @@ public class MonoCecilReflectionProvider : IReflectionProvider
     ];
 
     private readonly IReflectionType[] reflectionTypes = [];
+    private readonly Dictionary<string, Dictionary<string, object>> enums = [];
 
     public IReflectionType[] GetTypes() => reflectionTypes;
+    public Dictionary<string, object> GetEnum(string enumName) => enums[enumName];
 
     public MonoCecilReflectionProvider(AssemblyDefinition assembly)
     {
@@ -60,14 +62,21 @@ public class MonoCecilReflectionProvider : IReflectionProvider
             }).Where(field => field != null).ToArray();
             return new ReflectionType(cType.FullName, cType.Namespace, fields, typeAttributes);
         }).ToArray();
+        enums = assembly.MainModule.Types
+            .Where(cType => cType.IsEnum)
+            .ToDictionary(cType =>
+                cType.FullName,
+                cType => cType.Fields
+                    .Where(cField => cField.IsPublic && cField.IsStatic && cField.Constant != null)
+                    .ToDictionary(cField => cField.Name, cField => cField.Constant));
     }
 
-    public Dictionary<Type, object> InstantiateAttributes(ICollection<CustomAttribute> attribute)
+    private Dictionary<Type, object> InstantiateAttributes(ICollection<CustomAttribute> attribute)
     {
         return attribute.Select(InstantiateAttribute).Where(a => a != null).ToDictionary(a => a.GetType(), a => a);
     }
 
-    public object InstantiateAttribute(CustomAttribute attribute)
+    private object InstantiateAttribute(CustomAttribute attribute)
     {
         var type = attributeTypes.FirstOrDefault(t => t.FullName == attribute.AttributeType.FullName);
         if (type != null)
@@ -86,7 +95,7 @@ public class MonoCecilReflectionProvider : IReflectionProvider
         return null;
     }
 
-    public Type GetRuntimeType(TypeReference typeReference) {
+    private Type GetRuntimeType(TypeReference typeReference) {
         if (typeReference.IsGenericInstance)
         {
             var genericInstance = (GenericInstanceType)typeReference;
@@ -103,7 +112,7 @@ public class MonoCecilReflectionProvider : IReflectionProvider
         return type;
     }
 
-    public static object GetDefaultValue(Type type)
+    private static object GetDefaultValue(Type type)
     {
         if (type.IsValueType)
         {

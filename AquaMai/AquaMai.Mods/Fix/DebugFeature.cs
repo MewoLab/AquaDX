@@ -92,7 +92,7 @@ public class DebugFeature
 
     public static double CurrentPlayMsec
     {
-        [Obsolete("不要用它，它有问题。用 PractiseMode.CurrentPlayMsec")]
+        [Obsolete("不要用它，它有问题。用 PracticeMode.CurrentPlayMsec")]
         get
         {
             if (IsPolyfill)

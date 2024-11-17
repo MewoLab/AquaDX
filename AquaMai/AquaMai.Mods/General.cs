@@ -14,3 +14,21 @@ public class General
         zh: "Mod 界面的语言，支持 en 和 zh")]
     public static readonly string Locale = "";
 }
+
+// Please add/remove corresponding entries in SetionNameOrder enum when adding/removing sections.
+public enum SetionNameOrder
+{
+    General,
+    Fix,
+    Cheat,
+    Window,
+    TimeSaving,
+    PracticeMode,
+    CustomCameraId,
+    GameKeyMap,
+    UX,
+    Visual,
+    Utils,
+    ChartExtension,
+    TouchSensitivity,
+}

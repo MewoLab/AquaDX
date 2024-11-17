@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AquaMai.Config.Interfaces</RootNamespace>
     <AssemblyName>AquaMai.Config.Interfaces</AssemblyName>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
