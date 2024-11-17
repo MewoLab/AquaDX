@@ -8,7 +8,7 @@ using MelonLoader;
 
 namespace AquaMai.Core.Helpers;
 
-public class EnableIfHelper
+public class EnableConditionHelper
 {
     [HarmonyPrefix]
     [HarmonyPatch("HarmonyLib.PatchTools", "GetPatchMethod")]

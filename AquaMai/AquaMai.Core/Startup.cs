@@ -34,7 +34,7 @@ public class Startup
 
     private static void Patch(Type type)
     {
-        if (EnableIfHelper.ShouldSkipClass(type))
+        if (EnableConditionHelper.ShouldSkipClass(type))
         {
             return;
         }
@@ -96,7 +96,7 @@ public class Startup
         Patch(typeof(SharedInstances));
         Patch(typeof(GuiSizes));
 
-        Patch(typeof(EnableIfHelper));
+        Patch(typeof(EnableConditionHelper));
 
         // Apply patches based on the settings
         var config = ConfigLoader.Config;
