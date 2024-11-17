@@ -15,13 +15,13 @@ namespace AquaMai.Mods.TimeSaving;
     zh: "音符结束之后显示像 AstroDX 一样的「跳过」按钮")]
 public class ShowQuickEndPlay
 {
-    private static bool _showUi;
+    private static int _timer;
 
     [HarmonyPatch(typeof(GameProcess), "OnStart")]
     [HarmonyPostfix]
     public static void GameProcessPostStart(GameMonitor[] ____monitors)
     {
-        _showUi = false;
+        _timer = 0;
         ____monitors[0].gameObject.AddComponent<Ui>();
     }
 
@@ -29,14 +29,20 @@ public class ShowQuickEndPlay
     [HarmonyPostfix]
     public static void GameProcessPostUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container, byte ____sequence)
     {
-        _showUi = ____sequence switch
+        switch (____sequence)
         {
-            9 => false,
-            > 4 => true,
-            _ => false
-        };
+            case 9:
+                _timer = 0;
+                break;
+            case > 4:
+                _timer++;
+                break;
+            default:
+                _timer = 0;
+                break;
+        }
 
-        if (_showUi && (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B4) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E4)))
+        if (_timer > 60 && (InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.B4) || InputManager.GetTouchPanelAreaDown(InputManager.TouchPanelArea.E4)))
         {
             var traverse = Traverse.Create(__instance);
             ___container.processManager.SendMessage(____message[0]);
@@ -49,7 +55,7 @@ public class ShowQuickEndPlay
     {
         public void OnGUI()
         {
-            if (!_showUi) return;
+            if (_timer < 60) return;
 
             // 这里重新 setup 一下 style 也可以
             var x = GuiSizes.PlayerCenter;

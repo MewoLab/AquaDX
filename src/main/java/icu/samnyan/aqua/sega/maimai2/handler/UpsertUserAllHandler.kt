@@ -52,8 +52,15 @@ class UpsertUserAllHandler(
             if (!userName.isValidUsername())
             {
                 // Maybe it's encoded
-                userName = String(userName.toByteArray(Charsets.ISO_8859_1), Charsets.UTF_8)
-                if (!userName.isValidUsername()) 400 - "Invalid username"
+                val decodeUserName = String(userName.toByteArray(Charsets.ISO_8859_1), Charsets.UTF_8)
+                if (userName.isValidUsername()) {
+                    userName = decodeUserName
+                } else {
+                    logger.warn("Invalid username: $userName")
+                    // Maybe it's from some self-made import tools or modified game
+                    // So apply it if user not in database
+                    userName = userData?.userName ?: userName
+                }
             }
         })
 

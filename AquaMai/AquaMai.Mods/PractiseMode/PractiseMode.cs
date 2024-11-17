@@ -165,6 +165,16 @@ public class PracticeMode
         ui = null;
     }
 
+    [HarmonyPatch(typeof(GameProcess), "OnRelease")]
+    [HarmonyPostfix]
+    public static void GameProcessPostRelease()
+    {
+        repeatStart = -1;
+        repeatEnd = -1;
+        speed = 1;
+        ui = null;
+    }
+
     [HarmonyPatch(typeof(GameCtrl), "Initialize")]
     [HarmonyPostfix]
     public static void GameCtrlPostInitialize(GameCtrl __instance)

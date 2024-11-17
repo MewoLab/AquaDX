@@ -101,4 +101,7 @@
     <data name="CiBuildAlertContent" xml:space="preserve">
         <value>You are using AquaMai CI build version. This version is built from the latest mainline code and may contain undocumented configuration changes or potential issues.</value>
     </data>
+    <data name="PlayCount" xml:space="preserve">
+        <value>游玩次数：{0}</value>
+    </data>
 </root>

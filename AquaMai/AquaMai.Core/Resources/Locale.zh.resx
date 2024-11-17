@@ -94,4 +94,7 @@
     <data name="CiBuildAlertContent" xml:space="preserve">
         <value>您正在使用的是 AquaMai CI 构建版本。由于该版本基于最新的主线代码构建，可能包含未通知的配置文件变更或潜在问题。</value>
     </data>
+    <data name="PlayCount" xml:space="preserve">
+        <value>Play Count: {0}</value>
+    </data>
 </root>
