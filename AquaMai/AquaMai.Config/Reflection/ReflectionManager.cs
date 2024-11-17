@@ -2,13 +2,14 @@ using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using AquaMai.Config.Attributes;
+using AquaMai.Config.Interfaces;
 using System;
 
 namespace AquaMai.Config.Reflection;
 
-public class ReflectionManager
+public class ReflectionManager : IReflectionManager
 {
-    public record Entry
+    public record Entry : IReflectionManager.IEntry
     {
         public string Path { get; init; }
         public string Name { get; init; }
@@ -16,12 +17,13 @@ public class ReflectionManager
         public ConfigEntryAttribute Attribute { get; init; }
     }
 
-    public record Section
+    public record Section : IReflectionManager.ISection
     {
         public string Path { get; init; }
         public IReflectionType Type { get; init; }
         public ConfigSectionAttribute Attribute { get; init; }
-        public List<Entry> Entries { get; init; }
+        public List<Entry> entries;
+        public List<IReflectionManager.IEntry> Entries => entries.Cast<IReflectionManager.IEntry>().ToList();
     }
 
     private readonly Dictionary<string, Section> sections = new(StringComparer.OrdinalIgnoreCase);
@@ -75,33 +77,41 @@ public class ReflectionManager
                 Path = path,
                 Type = type,
                 Attribute = sectionAttribute,
-                Entries = sectionEntries
+                entries = sectionEntries
             };
             sections.Add(path, section);
             sectionsByFullName.Add(type.FullName, section);
         }
     }
 
-    public IEnumerable<Section> Sections => sections.Values;
+    public IEnumerable<Section> SectionValues => sections.Values;
+    public IEnumerable<IReflectionManager.ISection> Sections => sections.Values.Cast<IReflectionManager.ISection>();
 
-    public IEnumerable<Entry> Entries => entries.Values;
+    public IEnumerable<Entry> EntryValues => entries.Values;
+    public IEnumerable<IReflectionManager.IEntry> Entries => entries.Values.Cast<IReflectionManager.IEntry>();
 
     public bool ContainsSection(string path)
     {
         return sections.ContainsKey(path);
     }
 
-    public bool TryGetSection(string path, out Section section)
+    public bool TryGetSection(string path, out IReflectionManager.ISection section)
     {
-        return sections.TryGetValue(path, out section);
+        if (sections.TryGetValue(path, out var sectionValue))
+        {
+            section = sectionValue;
+            return true;
+        }
+        section = null;
+        return false;
     }
 
-    public bool TryGetSection(Type type, out Section section)
+    public bool TryGetSection(Type type, out IReflectionManager.ISection section)
     {
-        return sectionsByFullName.TryGetValue(type.FullName, out section);
+        return TryGetSection(type.FullName, out section);
     }
 
-    public Section GetSection(string path)
+    public IReflectionManager.ISection GetSection(string path)
     {
         if (!sections.TryGetValue(path, out var section))
         {
@@ -110,7 +120,7 @@ public class ReflectionManager
         return section;
     }
 
-    public Section GetSection(Type type)
+    public IReflectionManager.ISection GetSection(Type type)
     {
         if (!sectionsByFullName.TryGetValue(type.FullName, out var section))
         {
@@ -124,12 +134,18 @@ public class ReflectionManager
         return entries.ContainsKey(path);
     }
 
-    public bool TryGetEntry(string path, out Entry entry)
+    public bool TryGetEntry(string path, out IReflectionManager.IEntry entry)
     {
-        return entries.TryGetValue(path, out entry);
+        if (entries.TryGetValue(path, out var entryValue))
+        {
+            entry = entryValue;
+            return true;
+        }
+        entry = null;
+        return false;
     }
 
-    public Entry GetEntry(string path)
+    public IReflectionManager.IEntry GetEntry(string path)
     {
         if (!entries.TryGetValue(path, out var entry))
         {

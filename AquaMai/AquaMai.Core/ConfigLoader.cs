@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using AquaMai.Config;
+using AquaMai.Config.Interfaces;
 using MelonLoader;
 
 namespace AquaMai;
@@ -41,7 +42,7 @@ public static class ConfigLoader
         }
 
         // Read AquaMai.toml to load settings
-        ConfigParser.Parse(config, File.ReadAllText(ConfigFile));
+        new ConfigParser().Parse(config, File.ReadAllText(ConfigFile));
     }
 
     public static IDictionary<string, string> GenerateExamples()
@@ -49,11 +50,12 @@ public static class ConfigLoader
         var examples = new Dictionary<string, string>();
         foreach (var lang in (string[]) ["en", "zh"])
         {
-            examples[lang] = ConfigSerializer.Serialize(config, new ConfigSerializer.Options()
+            var configSerializer = new ConfigSerializer(new IConfigSerializer.Options()
             {
                 Lang = lang,
                 IncludeBanner = true
             });
+            examples[lang] = configSerializer.Serialize(config);
         }
         return examples;
     }

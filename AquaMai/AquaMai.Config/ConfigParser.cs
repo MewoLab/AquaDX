@@ -2,22 +2,23 @@ using System.Reflection;
 using System;
 using Tomlet.Models;
 using Tomlet;
+using AquaMai.Config.Interfaces;
 using AquaMai.Config.Reflection;
 
 namespace AquaMai.Config;
 
-public static class ConfigParser
+public class ConfigParser : IConfigParser
 {
-    public static void Parse(Config config, string tomlString)
+    public void Parse(IConfig config, string tomlString)
     {
-        Hydrate(config, new TomlParser().Parse(tomlString), "");
+        Hydrate((Config)config, new TomlParser().Parse(tomlString), "");
     }
 
     private static void Hydrate(Config config, TomlValue value, string path)
     {
-        if (config.reflectionManager.TryGetSection(path, out var section))
+        if (config.ReflectionManager.TryGetSection(path, out var section))
         {
-            ParseSectionEnableState(config, section, value, path);
+            ParseSectionEnableState(config, (ReflectionManager.Section)section, value, path);
         }
 
         if (value is TomlTable table)
@@ -32,13 +33,13 @@ public static class ConfigParser
         else
         {
             // It's an config entry value (or a primitive type for enabling a section).
-            if (!config.reflectionManager.ContainsSection(path) && !config.reflectionManager.ContainsEntry(path))
+            if (!config.ReflectionManager.ContainsSection(path) && !config.ReflectionManager.ContainsEntry(path))
             {
                 Utility.Log($"Unrecognized config entry: {path}");
                 return;
             }
 
-            if (config.reflectionManager.TryGetEntry(path, out var entry))
+            if (config.ReflectionManager.TryGetEntry(path, out var entry))
             {
                 try
                 {

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace AquaMai.Config.Reflection;
+namespace AquaMai.Config.Interfaces;
 
 public interface IReflectionField
 {

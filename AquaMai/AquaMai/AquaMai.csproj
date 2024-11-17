@@ -34,6 +34,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config.Interfaces/AquaMai.Config.Interfaces.csproj" />
     <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
     <ProjectReference Include="../AquaMai.Core/AquaMai.Core.csproj" />
     <ProjectReference Include="../AquaMai.Mods/AquaMai.Mods.csproj" />
@@ -151,6 +152,9 @@
   </Target>
 
   <ItemGroup>
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Config.Interfaces.dll">
+      <LogicalName>AquaMai.Config.Interfaces.dll</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(OutputPath)AquaMai.Config.dll">
       <LogicalName>AquaMai.Config.dll</LogicalName>
     </EmbeddedResource>

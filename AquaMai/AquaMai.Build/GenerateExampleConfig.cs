@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using AquaMai.Config;
+using AquaMai.Config.Interfaces;
 using AquaMai.Config.HeadlessLoader;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
@@ -17,14 +17,16 @@ public class GenerateExampleConfig : Task
     {
         try
         {
-            var config = HeadlessConfigLoader.LoadFromPacked(DllPath);
+            var configInterface = HeadlessConfigLoader.LoadFromPacked(DllPath);
+            var config = configInterface.CreateConfig();
             foreach (var lang in (string[]) ["en", "zh"])
             {
-                var example = ConfigSerializer.Serialize(config, new ConfigSerializer.Options()
+                var configSerializer = configInterface.CreateConfigSerializer(new IConfigSerializer.Options()
                 {
                     Lang = lang,
                     IncludeBanner = true
                 });
+                var example = configSerializer.Serialize(config);
                 File.WriteAllText(Path.Combine(OutputPath, $"AquaMai.{lang}.toml"), example);
             }
 

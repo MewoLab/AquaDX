@@ -2,29 +2,26 @@
 using System.Reflection;
 using System.Text;
 using AquaMai.Config.Attributes;
+using AquaMai.Config.Interfaces;
 using Tomlet.Models;
 
 namespace AquaMai.Config;
 
-public static class ConfigSerializer
+public class ConfigSerializer(IConfigSerializer.Options Options) : IConfigSerializer
 {
-    public record Options
-    {
-        public string Lang { get; init; }
-        public bool IncludeBanner { get; init; }
-    }
-
     private const string ZH_MCM_BANNER = """
                                          试试使用 MaiChartManager 图形化配置 AquaMai 吧！
                                          https://github.com/clansty/MaiChartManager
                                          """;
 
-    public static string Serialize(Config config, Options options)
+    private readonly IConfigSerializer.Options Options = Options;
+
+    public string Serialize(IConfig config)
     {
         StringBuilder sb = new();
-        if (options.IncludeBanner)
+        if (Options.IncludeBanner)
         {
-            var banner = options.Lang == "zh" ? ZH_MCM_BANNER : null;
+            var banner = Options.Lang == "zh" ? ZH_MCM_BANNER : null;
             if (banner != null)
             {
                 AppendComment(sb, banner.TrimEnd());
@@ -35,7 +32,7 @@ public static class ConfigSerializer
         // Version
         AppendEntry(sb, null, "Version", 2);
 
-        foreach (var section in config.reflectionManager.Sections)
+        foreach (var section in ((Config)config).reflectionManager.SectionValues)
         {
             var sectionState = config.GetSectionState(section);
             if (section.Attribute.Example != ConfigSectionExample.Shown && sectionState.IsDefault)
@@ -44,7 +41,7 @@ public static class ConfigSerializer
             }
             sb.AppendLine();
 
-            AppendComment(sb, section.Attribute.Comment, options);
+            AppendComment(sb, section.Attribute.Comment);
             sb.AppendLine(sectionState.IsDefault ? $"#[{section.Path}]" : $"[{section.Path}]");
             if (!sectionState.IsDefault && !sectionState.Enabled)
             {
@@ -52,10 +49,10 @@ public static class ConfigSerializer
                 AppendEntry(sb, null, "Disabled", true);
             }
 
-            foreach (var entry in section.Entries)
+            foreach (var entry in section.entries)
             {
                 var entryState = config.GetEntryState(entry);
-                AppendComment(sb, entry.Attribute.Comment, options);
+                AppendComment(sb, entry.Attribute.Comment);
                 AppendEntry(sb, section.Path, entry.Name, entryState.Value, entryState.IsDefault);
             }
         }
@@ -93,11 +90,11 @@ public static class ConfigSerializer
         }
     }
 
-    private static void AppendComment(StringBuilder sb, ConfigComment comment, Options options)
+    private void AppendComment(StringBuilder sb, ConfigComment comment)
     {
         if (comment != null)
         {
-            AppendComment(sb, comment.GetLocalized(options.Lang));
+            AppendComment(sb, comment.GetLocalized(Options.Lang));
         }
     }
 

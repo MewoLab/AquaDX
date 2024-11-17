@@ -57,7 +57,7 @@ public class Mod
 
     private static void InitLocale()
     {
-        var localeConfigEntry = ConfigLoader.Config.reflectionManager.GetEntry("General.Locale");
+        var localeConfigEntry = ConfigLoader.Config.ReflectionManager.GetEntry("General.Locale");
         var localeValue = (string)ConfigLoader.Config.GetEntryState(localeConfigEntry).Value;
         if (!string.IsNullOrEmpty(localeValue))
         {
@@ -97,7 +97,7 @@ public class Mod
 
         // Apply patches based on the settings
         var config = ConfigLoader.Config;
-        foreach (var section in config.reflectionManager.Sections)
+        foreach (var section in config.ReflectionManager.Sections)
         {
             if (!config.GetSectionState(section).Enabled) continue;
             var reflectionType = (Config.Reflection.SystemReflectionProvider.ReflectionType)section.Type;

@@ -5,9 +5,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DF1536F9-3B06-4463-B654-4CC3E708B610}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AquaMai.Config</RootNamespace>
-    <AssemblyName>AquaMai.Config</AssemblyName>
-    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>AquaMai.Config.Interfaces</RootNamespace>
+    <AssemblyName>AquaMai.Config.Interfaces</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <LangVersion>12</LangVersion>
@@ -33,28 +33,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../AquaMai.Config.Interfaces/AquaMai.Config.Interfaces.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="Mono.Cecil" />
     <Reference Include="System" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="6.8.1">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="ILMerge.Fody" Version="1.24.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Samboy063.Tomlet" Version="5.4.0" />
   </ItemGroup>
 
 </Project>

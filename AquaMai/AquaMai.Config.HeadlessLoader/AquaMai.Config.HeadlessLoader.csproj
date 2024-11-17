@@ -33,7 +33,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
+    <ProjectReference Include="../AquaMai.Config.Interfaces/AquaMai.Config.Interfaces.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,6 +10,7 @@ public static class AssemblyLoader
 {
     public enum AssemblyName
     {
+        ConfigInterfaces,
         Config,
         Core,
         Mods,
@@ -17,6 +18,7 @@ public static class AssemblyLoader
 
     private static readonly Dictionary<AssemblyName, string> Assemblies = new()
     {
+        [AssemblyName.ConfigInterfaces] = "AquaMai.Config.Interfaces.dll",
         [AssemblyName.Config] = "AquaMai.Config.dll",
         [AssemblyName.Core] = "AquaMai.Core.dll",
         [AssemblyName.Mods] = "AquaMai.Mods.dll",

@@ -2,33 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using AquaMai.Config.Reflection;
 using Mono.Cecil;
 
 namespace AquaMai.Config.HeadlessLoader;
 
 public class HeadlessConfigLoader
 {
-    public static Config LoadFromPacked(string fileName, AppDomain appDomain = null)
-        => LoadFromPacked(new FileStream(fileName, FileMode.Open), appDomain);
+    public static HeadlessConfigInterface LoadFromPacked(string fileName)
+        => LoadFromPacked(new FileStream(fileName, FileMode.Open));
 
-    public static Config LoadFromPacked(byte[] assemblyBinary, AppDomain appDomain = null)
-        => LoadFromPacked(new MemoryStream(assemblyBinary), appDomain);
+    public static HeadlessConfigInterface LoadFromPacked(byte[] assemblyBinary)
+        => LoadFromPacked(new MemoryStream(assemblyBinary));
 
-    public static Config LoadFromPacked(Stream assemblyStream, AppDomain appDomain = null)
-        => LoadFromPacked(AssemblyDefinition.ReadAssembly(assemblyStream), appDomain);
+    public static HeadlessConfigInterface LoadFromPacked(Stream assemblyStream)
+        => LoadFromPacked(AssemblyDefinition.ReadAssembly(assemblyStream));
 
-    public static Config LoadFromPacked(AssemblyDefinition assembly, AppDomain appDomain = null)
+    public static HeadlessConfigInterface LoadFromPacked(AssemblyDefinition assembly)
     {
         return LoadFromUnpacked(
-            ResourceLoader.LoadEmbeddedAssemblies(assembly).Values,
-            appDomain);
+            ResourceLoader.LoadEmbeddedAssemblies(assembly).Values);
     }
 
-    public static Config LoadFromUnpacked(IEnumerable<byte[]> assemblyBinariess, AppDomain appDomain = null) =>
-        LoadFromUnpacked(assemblyBinariess.Select(binary => new MemoryStream(binary)), appDomain);
+    public static HeadlessConfigInterface LoadFromUnpacked(IEnumerable<byte[]> assemblyBinariess) =>
+        LoadFromUnpacked(assemblyBinariess.Select(binary => new MemoryStream(binary)));
 
-    public static Config LoadFromUnpacked(IEnumerable<Stream> assemblyStreams, AppDomain appDomain = null)
+    public static HeadlessConfigInterface LoadFromUnpacked(IEnumerable<Stream> assemblyStreams)
     {
         var resolver = new CustomAssemblyResolver();
         var assemblies = assemblyStreams
@@ -50,19 +48,12 @@ public class HeadlessConfigLoader
         {
             throw new InvalidOperationException("AquaMai.Config assembly not found");
         }
-        ConfigAssemblyLoader.LoadConfigAssembly(configAssembly, appDomain);
+        var loadedConfigAssembly = ConfigAssemblyLoader.LoadConfigAssembly(configAssembly);
         var modsAssembly = assemblies.First(assembly => assembly.Name.Name == "AquaMai.Mods");
         if (modsAssembly == null)
         {
             throw new InvalidOperationException("AquaMai.Mods assembly not found");
         }
-        return LoadConfig(modsAssembly);
-    }
-
-    private static Config LoadConfig(AssemblyDefinition modsAssembly)
-    {
-        var reflectionProvider = new MonoCecilReflectionProvider(modsAssembly);
-        var reflectionManager = new ReflectionManager(reflectionProvider);
-        return new Config(reflectionManager);
+        return new(loadedConfigAssembly, modsAssembly);
     }
 }
