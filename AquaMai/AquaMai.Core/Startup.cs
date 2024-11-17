@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using AquaMai.Core.Attributes;
 using AquaMai.Core.Helpers;
@@ -14,6 +15,22 @@ public class Startup
     private static HarmonyLib.Harmony _harmony;
 
     private static bool _hasErrors;
+
+    private static void InvokeLifecycleMethod(Type type, string methodName)
+    {
+        var method = type.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        if (method == null)
+        {
+            return;
+        }
+        var parameters = method.GetParameters();
+        var arguments = parameters.Select(p =>
+        {
+            if (p.ParameterType == typeof(HarmonyLib.Harmony)) return _harmony;
+            throw new InvalidOperationException($"Unsupported parameter type {p.ParameterType} in lifecycle method {type.FullName}.{methodName}");
+        }).ToArray();
+        method.Invoke(null, arguments);
+    }
 
     private static void Patch(Type type, bool isNested = false)
     {
@@ -38,19 +55,18 @@ public class Startup
         MelonLogger.Msg($"> Patching {type}");
         try
         {
+            InvokeLifecycleMethod(type, "OnBeforePatch");
             _harmony.PatchAll(type);
             foreach (var nested in type.GetNestedTypes())
             {
                 Patch(nested, true);
             }
-
-            // TODO: DoCustomPatch => IOnPatch
-            var customMethod = type.GetMethod("DoCustomPatch", BindingFlags.Public | BindingFlags.Static);
-            customMethod?.Invoke(null, [_harmony]);
+            InvokeLifecycleMethod(type, "OnAfterPatch");
         }
         catch (Exception e)
         {
             MelonLogger.Error($"Failed to patch {type}: {e}");
+            InvokeLifecycleMethod(type, "OnPatchError");
             _hasErrors = true;
         }
     }

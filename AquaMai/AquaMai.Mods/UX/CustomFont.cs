@@ -24,7 +24,7 @@ public class CustomFont
     private static Font font;
     private static TMP_FontAsset fontAsset;
 
-    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    public static void OnBeforePatch(HarmonyLib.Harmony h)
     {
         var fontPath = Path.Combine(Environment.CurrentDirectory, "LocalAssets", "font.ttf");
         if (!File.Exists(fontPath)) return;

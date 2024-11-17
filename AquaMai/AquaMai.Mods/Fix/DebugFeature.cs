@@ -31,7 +31,7 @@ public class DebugFeature
         PolyFill.timer = 0;
     }
 
-    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    public static void OnBeforePatch(HarmonyLib.Harmony h)
     {
         var original = typeof(GameProcess).GetField("debugFeature", BindingFlags.NonPublic | BindingFlags.Instance);
         if (original is null)

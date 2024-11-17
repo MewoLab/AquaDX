@@ -43,7 +43,7 @@ public class CustomNoteTypes
     public static int LastMa2RecordID = -1;
     public static Array Ma2FileRecordData;
     
-    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    public static void OnAfterPatch()
     {
         var arrayTraverse = Traverse.Create(typeof(Ma2fileRecordID)).Field("s_Ma2fileRecord_Data");
         var targetArray = arrayTraverse.GetValue<Array>();

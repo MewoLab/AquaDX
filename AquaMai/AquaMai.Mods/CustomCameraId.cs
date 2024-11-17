@@ -111,7 +111,7 @@ public class CustomCameraId
         yield break;
     }
 
-    public static void DoCustomPatch(HarmonyLib.Harmony _)
+    public static void OnBeforePatch()
     {
         if (!PrintCameraList)
         {

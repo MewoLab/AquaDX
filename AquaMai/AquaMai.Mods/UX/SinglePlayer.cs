@@ -21,7 +21,7 @@ namespace AquaMai.Mods.UX;
     zh: "单人模式，不显示 2P")]
 public class SinglePlayer
 {
-    public static void DoCustomPatch(HarmonyLib.Harmony _)
+    public static void OnAfterPatch(HarmonyLib.Harmony _)
     {
         Core.Helpers.GuiSizes.SinglePlayer = true;
     }

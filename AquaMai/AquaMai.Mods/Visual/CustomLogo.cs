@@ -16,7 +16,7 @@ public class CustomLogo
     private static List<Sprite> segaLogo = new();
     private static List<Sprite> allNetLogo = new();
 
-    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    public static void OnBeforePatch(HarmonyLib.Harmony h)
     {
         EnumSprite(segaLogo, Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SegaLogo"));
         EnumSprite(allNetLogo, Path.Combine(Environment.CurrentDirectory, "LocalAssets", "AllNetLogo"));

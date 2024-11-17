@@ -4,8 +4,10 @@ using AquaMai.Config.Attributes;
 using AquaMai.Config.Types;
 using AquaMai.Core.Attributes;
 using AquaMai.Core.Helpers;
+using AquaMai.Mods.UX;
 using HarmonyLib;
 using Manager;
+using MelonLoader;
 
 namespace AquaMai.Mods;
 
@@ -83,7 +85,26 @@ public class GameKeyMap
             启用后，测试键必须长按才能进入游戏测试模式
             当测试键被绑定到其它功能时，此选项自动开启
             """)]
-    public static readonly bool TestProof = false; // TODO: auto enable when Test is bound to other features
+    public static readonly bool TestProof = false;
+
+    public static bool testProofImplied = false;
+    public static bool TestProofEnabled => TestProof || testProofImplied;
+
+    public static void OnBeforePatch()
+    {
+        KeyCodeOrName[] featureKeys = [
+            OneKeyEntryEnd.Key,
+            OneKeyRetrySkip.RetryKey,
+            OneKeyRetrySkip.SkipKey,
+            HideSelfMadeCharts.Key,
+            PracticeMode.PracticeMode.Key
+        ];
+        testProofImplied = featureKeys.Any(it => it == KeyCodeOrName.Test || it.ToString() == Test.ToString());
+        if (testProofImplied && !TestProof)
+        {
+            MelonLogger.Warning("Test button bound to other feature, enabling test proof");
+        }
+    }
 
     [HarmonyPatch(typeof(DB.JvsButtonTableRecord), MethodType.Constructor, typeof(int), typeof(string), typeof(string), typeof(int), typeof(string), typeof(int), typeof(int), typeof(int))]
     [HarmonyPostfix]
@@ -93,7 +114,7 @@ public class GameKeyMap
         __instance.SubstituteKey = prop;
     }
 
-    [EnableIf(nameof(TestProof))]
+    [EnableIf(nameof(TestProofEnabled))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(InputManager), "GetSystemInputDown")]
     public static bool GetSystemInputDown(ref bool __result, InputManager.SystemButtonSetting button, bool[] ___SystemButtonDown)

@@ -37,7 +37,7 @@ public class Window
 
     private static IntPtr hwnd = IntPtr.Zero;
 
-    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    public static void OnBeforePatch()
     {
         if (Windowed)
         {

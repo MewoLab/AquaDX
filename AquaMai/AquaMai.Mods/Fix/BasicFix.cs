@@ -92,7 +92,7 @@ public class BasicFix
     [ConfigEntry]
     private readonly static bool BypassSpecialNumCheck = true;
 
-    public static void DoCustomPatch(HarmonyLib.Harmony h)
+    public static void OnAfterPatch(HarmonyLib.Harmony h)
     {
         if (BypassSpecialNumCheck)
         {
