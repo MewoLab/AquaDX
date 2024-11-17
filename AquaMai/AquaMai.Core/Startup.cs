@@ -34,6 +34,10 @@ public class Startup
 
     private static void Patch(Type type, bool isNested = false)
     {
+        if (EnableIfHelper.ShouldSkipClass(type))
+        {
+            return;
+        }
         var versionAttr = type.GetCustomAttribute<GameVersionAttribute>();
         var compatible = true;
         if (versionAttr != null)

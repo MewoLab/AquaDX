@@ -12,7 +12,7 @@ public enum EnableIfCondition
     LessThanOrEqual
 }
 
-[AttributeUsage(AttributeTargets.Method)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
 public class EnableIfAttribute(
     Type referenceType,
     string conditionField,

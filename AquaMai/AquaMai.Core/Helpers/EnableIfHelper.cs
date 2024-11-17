@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
 using AquaMai.Core.Attributes;
 using HarmonyLib;
@@ -18,7 +18,7 @@ public class EnableIfHelper
             var enableIf = __result.GetCustomAttribute<EnableIfAttribute>();
             if (!enableIf.ShouldEnable(__result.ReflectedType))
             {
-                PrintSkipMessage(__result);
+                PrintMethodSkipMessage(__result);
                 __result = null;
                 return false;
             }
@@ -37,17 +37,30 @@ public class EnableIfHelper
             var enableIf = method.GetCustomAttribute<EnableIfAttribute>();
             if (enableIf != null && !enableIf.ShouldEnable(method.ReflectedType))
             {
-                PrintSkipMessage(method);
+                PrintMethodSkipMessage(method);
                 __result.RemoveAt(i);
                 i--;
             }
         }
     }
 
-    private static void PrintSkipMessage(MethodInfo method)
+    public static bool ShouldSkipClass(Type type)
+    {
+        var enableIf = type.GetCustomAttribute<EnableIfAttribute>();
+        if (enableIf != null && !enableIf.ShouldEnable(type))
+        {
+# if DEBUG
+            MelonLogger.Warning($"Skipping class {type.FullName}");
+# endif
+            return true;
+        }
+        return false;
+    }
+
+    private static void PrintMethodSkipMessage(MethodInfo method)
     {
 # if DEBUG
-        MelonLogger.Warning($"Skipping {method.ReflectedType.FullName}.{method.Name}");
+        MelonLogger.Warning($"Skipping method {method.ReflectedType.FullName}.{method.Name}");
 # endif
     }
 }
