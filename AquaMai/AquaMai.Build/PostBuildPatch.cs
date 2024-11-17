@@ -15,10 +15,11 @@ public class PostBuildPatch : Task
     {
         try
         {
-            var assembly = AssemblyDefinition.ReadAssembly(DllPath);
+            var assembly = AssemblyDefinition.ReadAssembly(new MemoryStream(File.ReadAllBytes(DllPath)));
             CompressEmbeddedAssemblies(assembly);
-            File.Delete(DllPath);
-            assembly.Write(DllPath);
+            var outputStream = new MemoryStream();
+            assembly.Write(outputStream);
+            File.WriteAllBytes(DllPath, outputStream.ToArray());
             return true;
         }
         catch (Exception e)
