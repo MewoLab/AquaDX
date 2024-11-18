@@ -82,4 +82,9 @@ public class Config
         en: "Prevent gray network caused by mistakenly thinking it's an AimeDB server issue",
         zh: "防止因错误认为 AimeDB 服务器问题引起的灰网，建议开启")]
     public bool IgnoreAimeServerError { get; set; }
+
+    [ConfigComment(
+        en: "Reset touch panel after playing track",
+        zh: "在游玩一首曲目后重置触摸面板")]
+    public bool TouchResetAfterTrack { get; set; }
 }

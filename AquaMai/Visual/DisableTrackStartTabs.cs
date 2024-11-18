@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Monitor;
+using TMPro;
 using UI;
 using UnityEngine;
 
@@ -13,7 +14,8 @@ public class DisableTrackStartTabs
     [HarmonyPatch(typeof(TrackStartMonitor), "SetTrackStart")]
     private static void DisableTabs(
         SpriteCounter ____trackNumber, SpriteCounter ____bossTrackNumber, SpriteCounter ____utageTrackNumber,
-        MultipleImage ____musicTabImage, GameObject[] ____musicTabObj, GameObject ____derakkumaRoot
+        MultipleImage ____musicTabImage, GameObject[] ____musicTabObj, GameObject ____derakkumaRoot,
+        TimelineRoot ____musicDetail
     )
     {
         ____trackNumber.transform.parent.gameObject.SetActive(false);
@@ -24,5 +26,15 @@ public class DisableTrackStartTabs
         ____musicTabObj[1].gameObject.SetActive(false);
         ____musicTabObj[2].gameObject.SetActive(false);
         ____derakkumaRoot.SetActive(false);
+        var traverse = Traverse.Create(____musicDetail);
+        traverse.Field<MultipleImage>("_achivement_Base").Value.ChangeSprite(1);
+        traverse.Field<MultipleImage>("_clearRank_Base").Value.ChangeSprite(1);
+        traverse.Field<TextMeshProUGUI>("_achivement_Text").Value.gameObject.SetActive(false);
+        traverse.Field<TextMeshProUGUI>("_achivement_decimal_Text").Value.gameObject.SetActive(false);
+        traverse.Field<TextMeshProUGUI>("_achivement_percent_Text").Value.gameObject.SetActive(false);
+        traverse.Field<MultipleImage>("_clearRank_Image").Value.gameObject.SetActive(false);
+        traverse.Field<GameObject>("_deluxScore_Obj").Value.SetActive(false);
+        traverse.Field<MultipleImage>("_comboRank_Image").Value.ChangeSprite(0);
+        traverse.Field<MultipleImage>("_syncRank_Image").Value.ChangeSprite(0);
     }
 }

@@ -88,4 +88,13 @@
     <data name="RepeatStartTimeNotSet" xml:space="preserve">
         <value>请先设置循环开始时间</value>
     </data>
+    <data name="CiBuildAlertTitle" xml:space="preserve">
+        <value>重要提示：测试版本</value>
+    </data>
+    <data name="CiBuildAlertContent" xml:space="preserve">
+        <value>您正在使用的是 AquaMai CI 构建版本。由于该版本基于最新的主线代码构建，可能包含未通知的配置文件变更或潜在问题。</value>
+    </data>
+    <data name="PlayCount" xml:space="preserve">
+        <value>Play Count: {0}</value>
+    </data>
 </root>

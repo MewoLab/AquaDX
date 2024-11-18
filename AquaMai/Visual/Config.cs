@@ -84,4 +84,24 @@ public class Config
             推荐与自定义皮肤一起使用 (否则视觉效果可能并不好)
             """)]
     public bool BreakSlideJudgeBlink { get; set; }
+    
+    [ConfigComment(
+        en: """
+            Make the Slide Track disappear with an inward-shrinking animation, similar to AstroDX
+            """,
+        zh: """
+            使 Slide Track 消失时有类似 AstroDX 一样的向内缩入的动画
+            """)]
+    public bool SlideArrowAnimation { get; set; }
+    
+    [ConfigComment(
+        en: """
+            Invert the Slide hierarchy, so that the new Slide appears on top like Maimai classic
+            Enable to support color changing effects achieved by overlaying multiple stars
+            """,
+        zh: """
+            反转 Slide 层级, 使新出现的 Slide 像旧框一样显示在上层
+            启用以支持通过叠加多个星星达成的变色效果
+            """)]
+    public bool SlideLayerReverse { get; set; }
 }

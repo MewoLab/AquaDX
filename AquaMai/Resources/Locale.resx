@@ -95,4 +95,13 @@
     <data name="RepeatEndTimeLessThenStartTime" xml:space="preserve">
         <value>Repeat end time cannot be less than repeat start time</value>
     </data>
+    <data name="CiBuildAlertTitle" xml:space="preserve">
+        <value>Important Notice: Test Version</value>
+    </data>
+    <data name="CiBuildAlertContent" xml:space="preserve">
+        <value>You are using AquaMai CI build version. This version is built from the latest mainline code and may contain undocumented configuration changes or potential issues.</value>
+    </data>
+    <data name="PlayCount" xml:space="preserve">
+        <value>游玩次数：{0}</value>
+    </data>
 </root>

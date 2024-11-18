@@ -13,12 +13,11 @@ public class BreakSlideJudgeBlink
     [HarmonyPostfix]
     [HarmonyPatch(typeof(SlideJudge), "UpdateBreakEffectAdd")]
     private static void FixBreakSlideJudgeBlink(
-        SpriteRenderer ___SpriteRenderAdd, SpriteRenderer ___SpriteRender,
-        SlideJudge.SlideJudgeType ____judgeType, SlideJudge.SlideAngle ____angle
+        SpriteRenderer ___SpriteRenderAdd, int ____addEffectCount
     )
     {
         if (!___SpriteRenderAdd.gameObject.activeSelf) return;
-        float num = ___SpriteRenderAdd.color.r;
+        float num = (____addEffectCount & 0b10) >> 1;
         ___SpriteRenderAdd.color = new Color(num, num, num, 1f);
     }
 }

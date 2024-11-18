@@ -17,7 +17,7 @@ public class MessageHelper
         _genericManager = genericManager;
     }
 
-    public static void ShowMessage(string message, WindowSizeID size = WindowSizeID.Middle)
+    public static void ShowMessage(string message, WindowSizeID size = WindowSizeID.Middle, string title = null)
     {
         if (_genericManager is null)
         {
@@ -27,7 +27,9 @@ public class MessageHelper
 
         _genericManager.Enqueue(0, WindowMessageID.CollectionAttentionEmptyFavorite, new WindowParam()
         {
-            hideTitle = true,
+            hideTitle = title is null,
+            replaceTitle = true,
+            title = title,
             replaceText = true,
             text = message,
             changeSize = true,

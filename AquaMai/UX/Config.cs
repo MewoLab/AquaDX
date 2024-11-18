@@ -100,6 +100,16 @@ public class Config
     public bool HideHanabi { get; set; }
 
     [ConfigComment(
+        zh: "取消星星从 50% 透明度直接闪为 100% 的特性，星星会慢慢出现",
+        en: "Slides will fade in instead of instantly appearing")]
+    public bool SlideFadeInTweak { get; set; }
+
+    [ConfigComment(
+        zh: "在游戏总结的计分板中显示判定的详细信息（毫秒数）",
+        en: "Show detailed judgment information (in milliseconds) in the score board")]
+    public bool JudgeAccuracyInfo { get; set; }
+
+    [ConfigComment(
         en: "Set the version string displayed at the top-right corner of the screen",
         zh: "把右上角的版本更改为自定义文本")]
     public string CustomVersionString { get; set; } = "";
