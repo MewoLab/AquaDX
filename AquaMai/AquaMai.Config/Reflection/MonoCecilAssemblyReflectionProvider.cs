@@ -71,29 +71,30 @@ public class MonoCecilReflectionProvider : IReflectionProvider
                     .ToDictionary(cField => cField.Name, cField => cField.Constant));
     }
 
-    private Dictionary<Type, object> InstantiateAttributes(ICollection<CustomAttribute> attribute)
-    {
-        return attribute.Select(InstantiateAttribute).Where(a => a != null).ToDictionary(a => a.GetType(), a => a);
-    }
+    private Dictionary<Type, object> InstantiateAttributes(ICollection<CustomAttribute> attribute) =>
+        attribute
+            .Select(InstantiateAttribute)
+            .Where(a => a != null)
+            .ToDictionary(a => a.GetType(), a => a);
 
-    private object InstantiateAttribute(CustomAttribute attribute)
-    {
-        var type = attributeTypes.FirstOrDefault(t => t.FullName == attribute.AttributeType.FullName);
-        if (type != null)
+    private object InstantiateAttribute(CustomAttribute attribute) =>
+        attributeTypes.FirstOrDefault(t => t.FullName == attribute.AttributeType.FullName) switch
         {
-            var parameterTypes = attribute.Constructor.Parameters.Select(p => GetRuntimeType(p.ParameterType)).ToArray();
-            var parameters = attribute.ConstructorArguments.Select(a => a.Value).ToArray();
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                if (parameterTypes[i].IsEnum)
-                {
-                    parameters[i] = Enum.Parse(parameterTypes[i], parameters[i].ToString());
-                }
-            }
-            return Activator.CreateInstance(type, parameters);
-        }
-        return null;
-    }
+            Type type => Activator.CreateInstance(type,
+                attribute.Constructor.Parameters
+                    .Select((parameter, i) =>
+                    {
+                        var runtimeType = GetRuntimeType(parameter.ParameterType);
+                        var value = attribute.ConstructorArguments[i].Value;
+                        if (runtimeType.IsEnum)
+                        {
+                            return Enum.Parse(runtimeType, value.ToString());
+                        }
+                        return value;
+                    })
+                    .ToArray()),
+            _ => null
+        };
 
     private Type GetRuntimeType(TypeReference typeReference) {
         if (typeReference.IsGenericInstance)
