@@ -7,11 +7,11 @@ using Monitor;
 using Monitor.MusicSelect.ChainList;
 using UnityEngine;
 
-namespace AquaMai.Mods.Visual;
+namespace AquaMai.Mods.Fix.Legacy;
 
 [EnableGameVersion(24000)]
 [ConfigSection(exampleHidden: true, defaultOn: true)]
-public class FixLevelDisplay
+public class Fix140LevelDisplay
 {
     [HarmonyPostfix]
     [HarmonyPatch(typeof(MusicChainCardObejct), "SetLevel")]

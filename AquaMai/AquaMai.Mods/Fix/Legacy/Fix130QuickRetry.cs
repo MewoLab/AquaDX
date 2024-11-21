@@ -3,11 +3,11 @@ using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Manager;
 
-namespace AquaMai.Mods.Fix;
+namespace AquaMai.Mods.Fix.Legacy;
 
 [ConfigSection(exampleHidden: true, defaultOn: true)]
 [EnableGameVersion(23000, 23499)]
-public class FestivalQuickRetryFix
+public class Fix130QuickRetry
 {
     // Fix for the game not resetting Fast and Late counts when quick retrying
     // For game version < 1.35.0
