@@ -132,7 +132,14 @@ public class MonoCecilReflectionProvider : IReflectionProvider
             var store = cctor.Body.Instructions.SingleOrDefault(i => i.OpCode == OpCodes.Stsfld && i.Operand == cField);
             if (store != null)
             {
-                defaultValue = store.Previous.Operand;
+                if (fieldType == typeof(bool))
+                {
+                    defaultValue = store.Previous.OpCode == OpCodes.Ldc_I4_1;
+                }
+                else
+                {
+                    defaultValue = store.Previous.Operand;
+                }
             }
         }
 
