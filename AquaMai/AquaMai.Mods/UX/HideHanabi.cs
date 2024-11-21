@@ -7,11 +7,8 @@ using UnityEngine;
 namespace AquaMai.Mods.UX;
 
 [ConfigSection(
-    en: "Cannot be used together with HanabiFix",
-    zh: """
-        完全隐藏烟花
-        不能和 HanabiFix 一起使用
-        """)]
+    en: "Hide hanabi completely",
+    zh: "完全隐藏烟花")]
 public class HideHanabi
 {
     [HarmonyPatch(typeof(TapCEffect), "SetUpParticle")]

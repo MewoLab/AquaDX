@@ -6,10 +6,12 @@ using HarmonyLib;
 using MAI2.Util;
 using Manager;
 using MelonLoader;
+using Monitor;
 using Monitor.Common;
 using Monitor.Entry;
 using Monitor.Entry.Parts.Screens;
 using UnityEngine;
+using Fx;
 using Type = System.Type;
 
 namespace AquaMai.Mods.UX;
@@ -21,11 +23,6 @@ namespace AquaMai.Mods.UX;
     zh: "单人模式，不显示 2P")]
 public class SinglePlayer
 {
-    public static void OnAfterPatch(HarmonyLib.Harmony _)
-    {
-        Core.Helpers.GuiSizes.SinglePlayer = true;
-    }
-
     [HarmonyPatch]
     public class WhateverInitialize
     {
@@ -76,5 +73,38 @@ public class SinglePlayer
         {
             return false;
         }
+    }
+
+    [ConfigEntry(
+        en: "Fix hanabi effect under single-player mode (disabled automatically if HideHanabi is enabled)",
+        zh: "修复单人模式下的烟花效果（如果启用了 HideHanabi，则会自动禁用）")]
+    public static bool FixHanabi = true;
+
+    private static bool fixHanabiDisableImplied = false;
+    private static bool FixHanabiEnabled => FixHanabi && !fixHanabiDisableImplied;
+
+    [EnableIf(nameof(FixHanabiEnabled))]
+    [HarmonyPatch(typeof(TapCEffect), "SetUpParticle")]
+    [HarmonyPostfix]
+    public static void PostSetUpParticle(TapCEffect __instance, FX_Mai2_Note_Color ____particleControler)
+    {
+        var entities = ____particleControler.GetComponentsInChildren<ParticleSystemRenderer>(true);
+        foreach (var entity in entities)
+        {
+            entity.maxParticleSize = 1f;
+        }
+    }
+
+    public static void OnBeforePatch(HarmonyLib.Harmony _)
+    {
+        if (ConfigLoader.Config.GetSectionState(typeof(HideHanabi)).Enabled)
+        {
+            fixHanabiDisableImplied = true;
+        }
+    }
+
+    public static void OnAfterPatch(HarmonyLib.Harmony _)
+    {
+        Core.Helpers.GuiSizes.SinglePlayer = true;
     }
 }
