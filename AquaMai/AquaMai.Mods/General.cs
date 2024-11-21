@@ -20,15 +20,12 @@ public enum SetionNameOrder
 {
     General,
     Fix,
-    Cheat,
-    Window,
-    TimeSaving,
-    PracticeMode,
-    CustomCameraId,
-    GameKeyMap,
+    SkipProcesses,
+    GameSystem,
+    GameAssets,
+    GameSettings,
     UX,
-    Visual,
+    PracticeMode,
     Utils,
-    ChartExtension,
-    TouchSensitivity,
+    Fancy
 }

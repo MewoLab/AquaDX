@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using AquaMai.Config.Attributes;
 using AquaMai.Config.Interfaces;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
 
 namespace AquaMai.Config.Reflection;
 
@@ -51,14 +53,22 @@ public class MonoCecilReflectionProvider : IReflectionProvider
         reflectionTypes = assembly.MainModule.Types.Select(cType => {
             var typeAttributes = InstantiateAttributes(cType.CustomAttributes);
             var fields = cType.Fields.Select(cField => {
-                var fieldAttributes = InstantiateAttributes(cField.CustomAttributes);
-                if (fieldAttributes.Count == 0)
+                try
                 {
-                    return null;
+                    var fieldAttributes = InstantiateAttributes(cField.CustomAttributes);
+                    if (fieldAttributes.Count == 0)
+                    {
+                        return null;
+                    }
+                    var type = GetRuntimeType(cField.FieldType);
+                    var defaultValue = GetFieldDefaultValue(cType, cField, type);
+                    return new ReflectionField(cField.Name, type, defaultValue, fieldAttributes);
                 }
-                var type = GetRuntimeType(cField.FieldType);
-                var defaultValue = cField.HasDefault ? cField.InitialValue : GetDefaultValue(type);
-                return new ReflectionField(cField.Name, type, defaultValue, fieldAttributes);
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                return null;
             }).Where(field => field != null).ToArray();
             return new ReflectionType(cType.FullName, cType.Namespace, fields, typeAttributes);
         }).ToArray();
@@ -111,6 +121,35 @@ public class MonoCecilReflectionProvider : IReflectionProvider
             throw new TypeLoadException($"Type {typeReference.FullName} not found.");
         }
         return type;
+    }
+
+    private static object GetFieldDefaultValue(TypeDefinition cType, FieldDefinition cField, Type fieldType)
+    {
+        object defaultValue = null;
+        var cctor = cType.Methods.SingleOrDefault(m => m.Name == ".cctor");
+        if (cctor != null)
+        {
+            var store = cctor.Body.Instructions.SingleOrDefault(i => i.OpCode == OpCodes.Stsfld && i.Operand == cField);
+            if (store != null)
+            {
+                defaultValue = store.Previous.Operand;
+            }
+        }
+
+        defaultValue ??= cField.HasDefault ? cField.InitialValue : GetDefaultValue(fieldType);
+
+        if (fieldType.IsEnum)
+        {
+            var enumType = fieldType.GetEnumUnderlyingType();
+            // Assume casting is safe since we're getting the default value from the field
+            var castedValue = Convert.ChangeType(defaultValue, enumType);
+            if (Enum.IsDefined(fieldType, castedValue))
+            {
+                return Enum.ToObject(fieldType, castedValue);
+            }
+        }
+
+        return defaultValue;
     }
 
     private static object GetDefaultValue(Type type)

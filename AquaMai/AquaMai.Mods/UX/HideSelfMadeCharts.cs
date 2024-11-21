@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,8 +16,8 @@ using Util;
 namespace AquaMai.Mods.UX;
 
 [ConfigSection(
-    en: "One key to hide all self-made charts in the music select process",
-    zh: "在选曲界面一键隐藏所有自制谱")]
+    en: "One key to hide all self-made charts in the music select process. Or hide for some users",
+    zh: "在选曲界面一键隐藏所有自制谱，或对一部分用户进行隐藏")]
 public class HideSelfMadeCharts
 {
     [ConfigEntry(
@@ -28,6 +27,16 @@ public class HideSelfMadeCharts
 
     [ConfigEntry]
     public static readonly bool LongPress = false;
+
+    [ConfigEntry(
+        en: "One user ID per line in the file. Hide self-made charts when these users login",
+        zh: "该文件中每行一个用户 ID，当这些用户登录时隐藏自制谱")]
+    private static readonly string SelfMadeChartsDenyUsersFile = "LocalAssets/SelfMadeChartsDenyUsers.txt";
+
+    [ConfigEntry(
+        en: "One user ID per line in the file. Only show self-made charts when these users login",
+        zh: "该文件中每行一个用户 ID，只有这些用户登录时才显示自制谱")]
+    private static readonly string SelfMadeChartsWhiteListUsersFile = "LocalAssets/SelfMadeChartsWhiteListUsers.txt";
 
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musics;
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musicsNoneSelfMade;
@@ -85,9 +94,10 @@ public class HideSelfMadeCharts
     [HarmonyPatch(typeof(MusicSelectProcess), "OnStart")]
     public static void MusicSelectProcessOnStart(ref MusicSelectProcess __instance)
     {
-        if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsDenyUsers.txt")))
+        var denyPath = FileSystem.ResolvePath(SelfMadeChartsDenyUsersFile);
+        if (File.Exists(denyPath))
         {
-            var userIds = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsDenyUsers.txt"));
+            var userIds = File.ReadAllLines(denyPath);
             for (var i = 0; i < 2; i++)
             {
                 var user = Singleton<UserDataManager>.Instance.GetUserData(i);
@@ -98,9 +108,10 @@ public class HideSelfMadeCharts
             }
         }
 
-        if (File.Exists(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsWhiteListUsers.txt")))
+        var whiteListPath = FileSystem.ResolvePath(SelfMadeChartsWhiteListUsersFile);
+        if (File.Exists(whiteListPath))
         {
-            var userIds = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "LocalAssets", "SelfMadeChartsWhiteListUsers.txt"));
+            var userIds = File.ReadAllLines(whiteListPath);
             for (var i = 0; i < 2; i++)
             {
                 var user = Singleton<UserDataManager>.Instance.GetUserData(i);
