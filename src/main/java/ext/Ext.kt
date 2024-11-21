@@ -5,6 +5,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
+import jakarta.persistence.Query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.tika.Tika
@@ -56,7 +57,7 @@ annotation class SettingField(
 fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? Var<T, Any> }
 fun <T : Any> KClass<T>.varsMap() = vars().associateBy { it.name }
 fun <T : Any> KClass<T>.getters() = java.methods.filter { it.name.startsWith("get") }
-fun <T : Any> KClass<T>.gettersMap() = getters().associateBy { it.name.removePrefix("get").decapitalize() }
+fun <T : Any> KClass<T>.gettersMap() = getters().associateBy { it.name.removePrefix("get").firstCharLower() }
 infix fun KCallable<*>.returns(type: KClass<*>) = returnType.jvmErasure.isSubclassOf(type)
 @Suppress("UNCHECKED_CAST")
 fun <C, T: Any> Var<C, T>.setCast(obj: C, value: String) = set(obj, when (returnType.classifier) {
@@ -129,6 +130,7 @@ val Date.sec get() = time / 1000
 // Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
 fun Map<String, Any>.toUrl() = entries.joinToString("&") { (k, v) -> "$k=$v" }
+fun String.firstCharLower() = replaceFirstChar { it.lowercase() }
 
 fun Any.long() = when (this) {
     is Boolean -> if (this) 1L else 0
@@ -138,7 +140,26 @@ fun Any.long() = when (this) {
 }
 fun Any.uint32() = long() and 0xFFFFFFFF
 fun Any.int() = long().toInt()
+val Any.long get() = long()
+val Any.int get() = int()
+val Any.double get() = when (this) {
+    is Boolean -> if (this) 1.0 else 0.0
+    is Number -> toDouble()
+    is String -> toDouble()
+    else -> 400 - "Invalid number: $this"
+}
 operator fun Bool.unaryPlus() = if (this) 1 else 0
+val Any?.truthy get() = when (this) {
+    null -> false
+    is Bool -> this
+    is Float -> this != 0f && !isNaN()
+    is Double -> this != 0.0 && !isNaN()
+    is Number -> this != 0
+    is String -> this.isNotBlank()
+    is Collection<*> -> isNotEmpty()
+    is Map<*, *> -> isNotEmpty()
+    else -> true
+}
 
 // Collections
 fun <T> ls(vararg args: T) = args.toList()
@@ -176,7 +197,7 @@ fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
 
 fun <T: Any> T.logger() = LoggerFactory.getLogger(this::class.java)
 
-// I hate this ;-;
+// I hate this ;-; (list destructuring)
 operator fun <E> List<E>.component6(): E = get(5)
 operator fun <E> List<E>.component7(): E = get(6)
 operator fun <E> List<E>.component8(): E = get(7)
@@ -185,3 +206,11 @@ operator fun <E> List<E>.component10(): E = get(9)
 operator fun <E> List<E>.component11(): E = get(10)
 operator fun <E> List<E>.component12(): E = get(11)
 operator fun <E> List<E>.component13(): E = get(12)
+
+inline operator fun <reified E> List<Any?>.invoke(i: Int) = get(i) as E
+
+val <F> Pair<F, *>.l get() = component1()
+val <S> Pair<*, S>.r get() = component2()
+
+// Database
+val Query.exec get() = resultList.map { (it as Array<*>).toList() }

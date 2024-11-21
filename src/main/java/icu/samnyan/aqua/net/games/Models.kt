@@ -51,7 +51,7 @@ data class GenericGameSummary(
 )
 
 data class GenericRankingPlayer(
-    val rank: Int,
+    var rank: Int,
     val name: String,
     val username: String?,
     val accuracy: Double,

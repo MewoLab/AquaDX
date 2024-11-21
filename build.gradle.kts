@@ -113,7 +113,6 @@ springBoot {
 hibernate {
     enhancement {
         enableLazyInitialization = true
-        enableDirtyTracking = false
         enableAssociationManagement = false
         enableExtendedEnhancement = false
     }

@@ -1,5 +1,0 @@
-INSERT INTO maimai2_game_charge (id, order_id, charge_id, price, start_date, end_date) VALUES (1, 1, 2, 1, '2019-01-01 00:00:00.000000', '2099-01-01 00:00:00.000000');
-INSERT INTO maimai2_game_charge (id, order_id, charge_id, price, start_date, end_date) VALUES (2, 2, 3, 2, '2019-01-01 00:00:00.000000', '2099-01-01 00:00:00.000000');
-INSERT INTO maimai2_game_charge (id, order_id, charge_id, price, start_date, end_date) VALUES (3, 3, 4, 3, '2019-01-01 00:00:00.000000', '2099-01-01 00:00:00.000000');
-INSERT INTO maimai2_game_charge (id, order_id, charge_id, price, start_date, end_date) VALUES (4, 4, 5, 4, '2019-01-01 00:00:00.000000', '2099-01-01 00:00:00.000000');
-INSERT INTO maimai2_game_charge (id, order_id, charge_id, price, start_date, end_date) VALUES (5, 5, 6, 5, '2019-01-01 00:00:00.000000', '2099-01-01 00:00:00.000000');
