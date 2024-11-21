@@ -31,7 +31,7 @@ public class GetGameSettingHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         // Fixed reboot time triggers chunithm maintenance lockout, so let's try minime method which sets it dynamically
         // Special thanks to skogaby

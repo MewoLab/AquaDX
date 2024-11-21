@@ -34,7 +34,7 @@ public class GetUserDataHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
         Optional<UserData> userDataOptional = userDataRepository.findByCard_ExtId(userId);

@@ -33,7 +33,7 @@ public class GetGameIdlistHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         Integer type = (Integer) request.get("type");
 
         Optional<PropertyEntry> propertyEntryOptional;

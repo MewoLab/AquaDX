@@ -34,7 +34,7 @@ public class GetGamePresentHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         Boolean isAllPresent = (Boolean) request.get("isAllPresent");
 
         List<GamePresent> presentList = gamePresentRepository.findAll();

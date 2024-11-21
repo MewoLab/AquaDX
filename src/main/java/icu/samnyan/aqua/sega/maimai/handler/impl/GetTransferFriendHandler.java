@@ -34,7 +34,7 @@ public class GetTransferFriendHandler implements BaseHandler {
      *
      */
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         return "{}";
     }
 }

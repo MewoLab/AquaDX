@@ -89,7 +89,7 @@ public class SlideArrowAnimation
         for (var num = _animatingSpriteRenderers.Count - 1; num >= 0; num--)
         {
             var spriteRenderer = _animatingSpriteRenderers[num];
-            if (spriteRenderer == null)
+            if (spriteRenderer == null || !spriteRenderer.gameObject.activeSelf)
             {
                 _animatingSpriteRenderers.RemoveAt(num);
             }

@@ -40,7 +40,7 @@ public class GetGameConnectHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         int type = ((Number) request.get("type")).intValue(); // Allnet enabled or not
         long version = ((Number) request.get("version")).longValue(); // Rom version
         

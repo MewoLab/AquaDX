@@ -25,7 +25,7 @@ public class UserLogoutHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         String json = mapper.write(new CodeResp(1));
         logger.info("Response: " + json);

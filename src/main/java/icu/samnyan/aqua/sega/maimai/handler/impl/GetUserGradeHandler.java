@@ -31,7 +31,7 @@ public class GetUserGradeHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
         UserGeneralData userData = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "user_grade_status")

@@ -31,7 +31,7 @@ public class GetUserCardPrintErrorHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         Long userId = ((Number) request.get("userId")).longValue();
 
         List<UserCardPrintState> userCardPrintStateList = userCardPrintStateRepository.findByUser_Card_ExtIdAndHasCompleted(userId, false);

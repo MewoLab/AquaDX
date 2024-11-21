@@ -28,7 +28,7 @@ public class EndMatchingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         //roomId, userId
 
         Map<String, Object> matchingResult = new LinkedHashMap<>();

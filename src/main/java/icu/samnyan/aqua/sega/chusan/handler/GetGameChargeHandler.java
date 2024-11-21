@@ -31,7 +31,7 @@ public class GetGameChargeHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         List<GameCharge> gameChargeList = gameChargeRepository.findAll();
 

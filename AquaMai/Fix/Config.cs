@@ -18,7 +18,7 @@ public class Config
             开了这个选项之后就不会加密连接了，同时也会移除不同版本的客户端可能会对 API 接口加的后缀
             正常情况下，请保持这个选项开启
             """)]
-    public bool RemoveEncryption { get; set; }
+    public bool RemoveEncryption { get; set; } = true;
 
     [ConfigComment(
         zh: "如果要配置店内招募的话，应该要把这个关闭")]

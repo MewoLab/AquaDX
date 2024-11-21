@@ -35,7 +35,7 @@ public class GetGameRankingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String type = (String) request.get("type");
 
         Page<GameRanking> rankingPage = userPlaylogRepository.findGameRankingByPlaylog(PageRequest.of(0, 10));

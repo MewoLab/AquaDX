@@ -42,7 +42,7 @@ public class GetUserMusicHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
         int currentIndex = Integer.parseInt((String) request.get("nextIndex"));
         int maxCount = Integer.parseInt((String) request.get("maxCount"));

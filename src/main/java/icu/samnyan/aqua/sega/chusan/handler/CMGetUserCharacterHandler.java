@@ -38,7 +38,7 @@ public class CMGetUserCharacterHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         int nextIndex = ((Number) request.get("nextIndex")).intValue();
         int maxCount = ((Number) request.get("maxCount")).intValue();

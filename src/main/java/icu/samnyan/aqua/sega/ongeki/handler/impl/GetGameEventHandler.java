@@ -35,7 +35,7 @@ public class GetGameEventHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         Integer type = (Integer) request.get("type");
 
         List<GameEvent> eventIdList = gameEventRepository.findAll();

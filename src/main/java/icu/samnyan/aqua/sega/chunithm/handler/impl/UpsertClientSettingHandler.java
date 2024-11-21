@@ -30,7 +30,7 @@ public class UpsertClientSettingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         var req = mapper.convert(request, ClientSettingRequest.class);
         var set = req.getClientSetting();
         var serial = (String) request.get(SERIAL_KEY);

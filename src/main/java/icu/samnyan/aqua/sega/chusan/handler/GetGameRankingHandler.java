@@ -28,7 +28,7 @@ public class GetGameRankingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String type = (String) request.get("type");
 
         Map<String, Object> resultMap = new LinkedHashMap<>();

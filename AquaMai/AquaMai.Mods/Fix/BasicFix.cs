@@ -90,6 +90,31 @@ public class BasicFix
     }
 
     [ConfigEntry]
+    private readonly static bool ForceNonTarget = true;
+
+    [EnableIf(nameof(ForceNonTarget))]
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(MAI2System.Config), "IsTarget", MethodType.Getter)]
+    private static bool PreIsTarget(ref bool __result)
+    {
+        // Who is teaching others to set `Target = 1`?!
+        __result = false;
+        return false;
+    }
+
+    [ConfigEntry]
+    private readonly static bool ForceIgnoreError = true;
+
+    [EnableIf(nameof(ForceIgnoreError))]
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(MAI2System.Config), "IsIgnoreError", MethodType.Getter)]
+    private static bool PreIsIgnoreError(ref bool __result)
+    {
+        __result = true;
+        return false;
+    }
+
+    [ConfigEntry]
     private readonly static bool BypassSpecialNumCheck = true;
 
     public static void OnAfterPatch(HarmonyLib.Harmony h)

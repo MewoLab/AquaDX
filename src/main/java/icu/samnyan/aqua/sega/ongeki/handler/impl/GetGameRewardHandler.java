@@ -34,7 +34,7 @@ public class GetGameRewardHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         Boolean isAllGP = (Boolean) request.get("isAllReward");
 
         List<GameReward> rewardList = gameRewardRepository.findAll();

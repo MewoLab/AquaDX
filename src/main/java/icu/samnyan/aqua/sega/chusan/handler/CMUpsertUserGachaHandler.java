@@ -46,7 +46,7 @@ public class CMUpsertUserGachaHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         int gachaId = ((Number) request.get("gachaId")).intValue();
         int placeId = ((Number) request.get("placeId")).intValue();

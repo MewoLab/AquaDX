@@ -16,7 +16,7 @@ import java.util.*
  */
 @Entity @Table(name = "wacca_user")
 class WaccaUser : BaseEntity(), IUserData {
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aime_card_id", unique = true)
     override var card: Card? = Card()
 

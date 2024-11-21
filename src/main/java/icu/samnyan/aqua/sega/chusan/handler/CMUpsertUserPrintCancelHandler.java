@@ -33,7 +33,7 @@ public class CMUpsertUserPrintCancelHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         List<Integer> orderIdList = mapper.convert(request.get("orderIdList"), new TypeReference<List<Integer>>() {});
 

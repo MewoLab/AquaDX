@@ -42,7 +42,7 @@ public class GetUserPortraitHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         if (enable) {
             var userId = ((Number) request.get("userId")).longValue();
             var list = new ArrayList<UserPortrait>();

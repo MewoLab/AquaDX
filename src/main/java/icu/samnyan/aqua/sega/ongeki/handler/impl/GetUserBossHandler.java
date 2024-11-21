@@ -34,7 +34,7 @@ public class GetUserBossHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
         List<UserBoss> userBossList = userBossRepository.findByUser_Card_ExtId(userId);

@@ -34,7 +34,7 @@ public class GetUserRivalMusicHandler implements BaseHandler {
         this.userMusicDetailRepository = userMusicDetailRepository;
     }
 
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
         long rivalId = ((Number) request.get("rivalId")).intValue();
 

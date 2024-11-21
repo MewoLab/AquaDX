@@ -31,7 +31,7 @@ public class GameLoginHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
         Optional<UserData> userDataOptional = userDataService.getUserByExtId(userId);
         userDataOptional.ifPresent(userDataService::updateLoginTime);

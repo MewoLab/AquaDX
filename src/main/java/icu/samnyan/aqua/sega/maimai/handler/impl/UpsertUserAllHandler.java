@@ -56,7 +56,7 @@ public class UpsertUserAllHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         UpsertUserAll upsertUserAll = mapper.convert(request, UpsertUserAll.class);
         long userId = upsertUserAll.getUserId();

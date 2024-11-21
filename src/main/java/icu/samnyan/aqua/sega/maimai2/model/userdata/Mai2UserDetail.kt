@@ -16,7 +16,7 @@ import jakarta.persistence.*
 class Mai2UserDetail(
     @get:JsonSerialize(using = AccessCodeSerializer::class)
     @get:JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aime_card_id", unique = true)
     override var card: Card? = null,
 

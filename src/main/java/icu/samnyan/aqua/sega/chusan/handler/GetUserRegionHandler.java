@@ -29,7 +29,7 @@ public class GetUserRegionHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
 
         List<Object> userRegionList = new ArrayList<>();

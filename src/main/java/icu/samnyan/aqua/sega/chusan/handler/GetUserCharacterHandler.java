@@ -36,7 +36,7 @@ public class GetUserCharacterHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
         int nextIndex = Integer.parseInt((String) request.get("nextIndex"));
         int maxCount = Integer.parseInt((String) request.get("maxCount"));
