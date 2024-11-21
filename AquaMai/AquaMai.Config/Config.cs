@@ -44,8 +44,8 @@ public class Config : IConfig
         sections.Add(section.Path, new SectionState()
         {
             IsDefault = true,
-            DefaultEnabled = section.Attribute.Example == Attributes.ConfigSectionExample.HiddenDefaultOn,
-            Enabled = section.Attribute.Example == Attributes.ConfigSectionExample.HiddenDefaultOn
+            DefaultEnabled = section.Attribute.DefaultOn,
+            Enabled = section.Attribute.DefaultOn
         });
 
         foreach (var entry in section.Entries)

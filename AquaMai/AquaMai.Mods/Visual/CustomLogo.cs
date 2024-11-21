@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace AquaMai.Mods.Visual;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class CustomLogo
 {
     private static List<Sprite> segaLogo = new();

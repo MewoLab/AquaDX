@@ -35,20 +35,39 @@ public class ConfigSerializer(IConfigSerializer.Options Options) : IConfigSerial
         foreach (var section in ((Config)config).reflectionManager.SectionValues)
         {
             var sectionState = config.GetSectionState(section);
-            if (section.Attribute.Example != ConfigSectionExample.Shown && sectionState.IsDefault)
+
+            // If the state is default, print the example only. If the example is hidden, skip it.
+            if (sectionState.IsDefault && section.Attribute.ExampleHidden)
             {
                 continue;
             }
             sb.AppendLine();
 
             AppendComment(sb, section.Attribute.Comment);
-            sb.AppendLine(sectionState.IsDefault ? $"#[{section.Path}]" : $"[{section.Path}]");
-            if (!sectionState.IsDefault && !sectionState.Enabled)
+
+            // If the section is hidden and hidden by default, print it as commented.
+            if (sectionState.IsDefault && !sectionState.Enabled)
             {
-                // Disabled explicitly
-                AppendEntry(sb, null, "Disabled", true);
+                sb.AppendLine($"#[{section.Path}]");
+            }
+            else // If the section is overridden, or is enabled by any means, print it normally.
+            {
+                sb.AppendLine($"[{section.Path}]");
             }
 
+            // If the section is disabled explicitly, print the "Disabled" meta entry.
+            if (!sectionState.IsDefault && !sectionState.Enabled)
+            {
+                AppendEntry(sb, null, "Disabled", true);
+            }
+            // If the section is enabled by default, print the "Disabled" meta entry as commented.
+            else if (sectionState.IsDefault && section.Attribute.DefaultOn)
+            {
+                AppendEntry(sb, null, "Disabled", false, true);
+            }
+            // Otherwise, don't print the "Disabled" meta entry.
+
+            // Print entries.
             foreach (var entry in section.entries)
             {
                 var entryState = config.GetEntryState(entry);

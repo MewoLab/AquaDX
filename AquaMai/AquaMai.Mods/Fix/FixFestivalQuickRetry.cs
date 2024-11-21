@@ -5,7 +5,7 @@ using Manager;
 
 namespace AquaMai.Mods.Fix;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 [EnableGameVersion(23000, 23499)]
 public class FestivalQuickRetryFix
 {

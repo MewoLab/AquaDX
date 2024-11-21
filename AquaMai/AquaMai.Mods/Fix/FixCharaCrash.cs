@@ -10,7 +10,7 @@ namespace AquaMai.Mods.Fix;
 /**
  * Fix character selection crashing due to missing character data
  */
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class FixCharaCrash
 {
     // Check if the return is null. If it is, make up a color

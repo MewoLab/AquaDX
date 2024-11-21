@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Fix;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class DebugFeature
 {
     public static bool IsPolyfill { get; private set; }

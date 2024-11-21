@@ -8,7 +8,7 @@ using AquaMai.Core.Attributes;
 
 namespace AquaMai.Mods.Fix;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class BasicFix
 {
     [ConfigEntry]

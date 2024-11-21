@@ -6,7 +6,7 @@ using Process;
 
 namespace AquaMai.Mods.UX;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class CiBuildAlert
 {
     [HarmonyPatch(typeof(AdvertiseProcess), "OnStart")]

@@ -6,7 +6,7 @@ using Monitor;
 
 namespace AquaMai.Mods.Visual;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class FixSlideAutoPlay
 {
     /* 这个 Patch 用于修复以下 bug:

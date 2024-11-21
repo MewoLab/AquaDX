@@ -17,7 +17,8 @@ namespace AquaMai.Mods.Fix;
         如果你在用未经修改的客户端，会默认加密到服务器的连接，而连接私服的时候不应该加密
         开了这个选项之后就不会加密连接了，同时也会移除不同版本的客户端可能会对 API 接口加的后缀
         正常情况下，请保持这个选项开启
-        """)]
+        """,
+    defaultOn: true)]
 public class RemoveEncryption
 {
     [HarmonyPrefix]

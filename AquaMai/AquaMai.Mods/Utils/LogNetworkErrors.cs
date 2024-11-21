@@ -8,7 +8,7 @@ using Net.Packet;
 
 namespace AquaMai.Mods.Utils;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class LogNetworkErrors
 {
     [HarmonyPostfix]

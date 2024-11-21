@@ -10,7 +10,7 @@ using UnityEngine;
 namespace AquaMai.Mods.Visual;
 
 [EnableGameVersion(24000)]
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class FixLevelDisplay
 {
     [HarmonyPostfix]

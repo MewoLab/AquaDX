@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace AquaMai.Mods.Visual;
 
-[ConfigSection(example: ConfigSectionExample.HiddenDefaultOn)]
+[ConfigSection(exampleHidden: true, defaultOn: true)]
 public class FixCircleSlideJudge
 {
     /*
