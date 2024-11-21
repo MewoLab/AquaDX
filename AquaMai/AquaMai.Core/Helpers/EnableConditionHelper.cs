@@ -10,19 +10,17 @@ namespace AquaMai.Core.Helpers;
 
 public class EnableConditionHelper
 {
-    [HarmonyPrefix]
+    [HarmonyPostfix]
     [HarmonyPatch("HarmonyLib.PatchTools", "GetPatchMethod")]
-    public static bool PostGetPatchMethod(ref MethodInfo __result)
+    public static void PostGetPatchMethod(ref MethodInfo __result)
     {
         if (__result != null)
         {
             if (ShouldSkipMethodOrClass(__result.GetCustomAttribute, __result.ReflectedType, __result.Name))
             {
                 __result = null;
-                return false;
             }
         }
-        return true;
     }
 
     [HarmonyPostfix]
