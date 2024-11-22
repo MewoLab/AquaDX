@@ -14,12 +14,12 @@ public class JudgeAdjust
     [ConfigEntry(
         en: "Adjust A judgment",
         zh: "调整 A 判")]
-    private static readonly float A = 0;
+    private static readonly double A = 0;
 
     [ConfigEntry(
         en: "Adjust B judgment",
         zh: "调整 B 判")]
-    private static readonly float B = 0;
+    private static readonly double B = 0;
 
     [ConfigEntry(
         en: "Increase touch delay",
@@ -30,14 +30,14 @@ public class JudgeAdjust
     [HarmonyPatch(typeof(UserOption), "GetAdjustMSec")]
     public static void GetAdjustMSec(ref float __result)
     {
-        __result += A * 16.666666f;
+        __result += (float)(A * 16.666666d);
     }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(UserOption), "GetJudgeTimingFrame")]
     public static void GetJudgeTimingFrame(ref float __result)
     {
-        __result += B;
+        __result += (float)B;
     }
 
     [HarmonyPrefix]
