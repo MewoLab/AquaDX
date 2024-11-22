@@ -22,21 +22,38 @@ public class HeadlessConfigInterface
             loadedConfigAssembly.GetType("AquaMai.Config.Reflection.ReflectionManager"), [ReflectionProvider]) as IReflectionManager;
     }
 
+    public IConfigView CreateConfigView(string tomlString = null)
+    {
+        return Activator.CreateInstance(
+            loadedConfigAssembly.GetType("AquaMai.Config.ConfigView"),
+            tomlString == null ? [] : [tomlString]) as IConfigView;
+    }
+
     public IConfig CreateConfig()
     {
         return Activator.CreateInstance(
             loadedConfigAssembly.GetType("AquaMai.Config.Config"), [ReflectionManager]) as IConfig;
     }
 
-    public IConfigParser CreateConfigParser()
+    public IConfigParser GetConfigParser()
     {
-        return Activator.CreateInstance(
-            loadedConfigAssembly.GetType("AquaMai.Config.ConfigParser"), []) as IConfigParser;
+        return loadedConfigAssembly
+            .GetType("AquaMai.Config.ConfigParser")
+            .GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
+            .GetValue(null) as IConfigParser;
     }
 
     public IConfigSerializer CreateConfigSerializer(IConfigSerializer.Options options)
     {
         return Activator.CreateInstance(
             loadedConfigAssembly.GetType("AquaMai.Config.ConfigSerializer"), [options]) as IConfigSerializer;
+    }
+
+    public IConfigMigrationManager GetConfigMigrationManager()
+    {
+        return loadedConfigAssembly
+            .GetType("AquaMai.Config.Migration.ConfigMigrationManager")
+            .GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
+            .GetValue(null) as IConfigMigrationManager;
     }
 }

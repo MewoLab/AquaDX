@@ -3,6 +3,8 @@ using System.IO;
 using System.Reflection;
 using AquaMai.Config;
 using AquaMai.Config.Interfaces;
+using AquaMai.Config.Migration;
+using AquaMail.Config;
 using MelonLoader;
 
 namespace AquaMai;
@@ -41,8 +43,11 @@ public static class ConfigLoader
             return;
         }
 
+        var configView = new ConfigView(File.ReadAllText(ConfigFile));
+        configView = (ConfigView)ConfigMigrationManager.Instance.Migrate(configView);
+
         // Read AquaMai.toml to load settings
-        new ConfigParser().Parse(config, File.ReadAllText(ConfigFile));
+        ConfigParser.Instance.Parse(config, configView);
     }
 
     public static IDictionary<string, string> GenerateExamples()

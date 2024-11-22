@@ -1,17 +1,34 @@
 using System.Reflection;
 using System;
 using Tomlet.Models;
-using Tomlet;
 using AquaMai.Config.Interfaces;
 using AquaMai.Config.Reflection;
+using AquaMail.Config;
+using AquaMai.Config.Migration;
 
 namespace AquaMai.Config;
 
 public class ConfigParser : IConfigParser
 {
+    public readonly static ConfigParser Instance = new();
+
+    private ConfigParser()
+    {}
+
     public void Parse(IConfig config, string tomlString)
     {
-        Hydrate((Config)config, new TomlParser().Parse(tomlString), "");
+        var configView = new ConfigView(tomlString);
+        Parse(config, configView);
+    }
+
+    public void Parse(IConfig config, IConfigView configView)
+    {
+        var configVersion = ConfigMigrationManager.Instance.GetVersion(configView);
+        if (configVersion != ConfigMigrationManager.Instance.latestVersion)
+        {
+            throw new InvalidOperationException($"Config version mismatch: expected {ConfigMigrationManager.Instance.latestVersion}, got {configVersion}");
+        }
+        Hydrate((Config)config, ((ConfigView)configView).root, "");
     }
 
     private static void Hydrate(Config config, TomlValue value, string path)
