@@ -1,4 +1,3 @@
-using System.Reflection;
 using System;
 using Tomlet.Models;
 using AquaMai.Config.Interfaces;
@@ -60,7 +59,7 @@ public class ConfigParser : IConfigParser
             {
                 try
                 {
-                    var parsedValue = ParseValue(entry.Field.FieldType, value);
+                    var parsedValue = Utility.ParseTomlValue(entry.Field.FieldType, value);
                     config.SetEntryValue(entry, parsedValue);
                 }
                 catch (Exception e)
@@ -96,91 +95,6 @@ public class ConfigParser : IConfigParser
         else
         {
             config.SetSectionEnabled(section, Utility.IsTruty(value, path));
-        }
-    }
-
-    private static object ParseValue(Type type, TomlValue value)
-    {
-        if (type == typeof(bool))
-        {
-            return Utility.IsTruty(value);
-        }
-        else if (Utility.IsNumberType(type))
-        {
-            if (TryGetTomlNumberObject(value, out var numberObject))
-            {
-                return Convert.ChangeType(numberObject, type);
-            }
-            else
-            {
-                throw new InvalidCastException($"Non-number TOML type: {value.GetType().Name}");
-            }
-        }
-        else if (type == typeof(string))
-        {
-            if (value is TomlString @string)
-            {
-                return @string.Value;
-            }
-            else
-            {
-                throw new InvalidCastException($"Non-string TOML type: {value.GetType().Name}");
-            }
-        }
-        else if (type.IsEnum)
-        {
-            if (value is TomlString @string)
-            {
-                try
-                {
-                    return Enum.Parse(type, @string.Value);
-                }
-                catch
-                {
-                    throw new InvalidCastException($"Invalid enum {type.FullName} value: {@string.SerializedValue}");
-                }
-            }
-            else if (value is TomlLong @long)
-            {
-                if (Enum.IsDefined(type, @long.Value))
-                {
-                    try
-                    {
-                        return Enum.ToObject(type, @long.Value);
-                    }
-                    catch
-                    {}
-                }
-                throw new InvalidCastException($"Invalid enum {type.FullName} value: {@long.Value}");
-            }
-            else
-            {
-                throw new InvalidCastException($"Non-enum TOML type: {value.GetType().Name}");
-            }
-        }
-        else
-        {
-            var currentMethod = MethodBase.GetCurrentMethod();
-            throw new NotImplementedException($"Unsupported config entry type: {type.FullName}. Please implement in {currentMethod.DeclaringType.FullName}.{currentMethod.Name}");
-        }
-    }
-
-    private static bool TryGetTomlNumberObject(TomlValue value, out object numberObject)
-    {
-        if (value is TomlLong @long)
-        {
-            numberObject = @long.Value;
-            return true;
-        }
-        else if (value is TomlDouble @double)
-        {
-            numberObject = @double.Value;
-            return true;
-        }
-        else
-        {
-            numberObject = null;
-            return false;
         }
     }
 }

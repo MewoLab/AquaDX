@@ -31,7 +31,23 @@ public class ConfigView : IConfigView
         root = tomlTable;
     }
 
-    public void Set(string path, object value)
+    public TomlTable EnsureDictionary(string path)
+    {
+        var pathComponents = path.Split('.');
+        var current = root;
+        foreach (var component in pathComponents)
+        {
+            if (!current.TryGetValue(component, out var next))
+            {
+                next = new TomlTable();
+                current.Put(component, next);
+            }
+            current = (TomlTable)next;
+        }
+        return current;
+    }
+
+    public void SetValue(string path, object value)
     {
         var pathComponents = path.Split('.');
         var current = root;
@@ -47,12 +63,12 @@ public class ConfigView : IConfigView
         current.Put(pathComponents.Last(), value);
     }
 
-    public T Get<T>(string path, T defaultValue = default)
+    public T GetValueOrDefault<T>(string path, T defaultValue = default)
     {
-        return TryGet(path, out T resultValue) ? resultValue : defaultValue;
+        return TryGetValue(path, out T resultValue) ? resultValue : defaultValue;
     }
 
-    public bool TryGet<T>(string path, out T resultValue)
+    public bool TryGetValue<T>(string path, out T resultValue)
     {
         var pathComponents = path.Split('.');
         var current = root;
@@ -70,14 +86,17 @@ public class ConfigView : IConfigView
             resultValue = default;
             return false;
         }
-        if (value is not T tValue)
+        try
         {
-            Utility.Log($"Unexpected type {value.GetType()} at {path}, expected {typeof(T)}");
+            resultValue = Utility.ParseTomlValue<T>(value);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Utility.Log($"Failed to parse value at {path}: {e.Message}");
             resultValue = default;
             return false;
         }
-        resultValue = tValue;
-        return true;
     }
 
     private bool TomlTryGetValueCaseInsensitive(TomlTable table, string key, out TomlValue value)

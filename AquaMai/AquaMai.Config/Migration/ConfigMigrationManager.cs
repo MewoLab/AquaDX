@@ -43,7 +43,7 @@ public class ConfigMigrationManager : IConfigMigrationManager
 
     public string GetVersion(IConfigView config)
     {
-        if (config.TryGet<string>("Version", out var version))
+        if (config.TryGetValue<string>("Version", out var version))
         {
             return version;
         }

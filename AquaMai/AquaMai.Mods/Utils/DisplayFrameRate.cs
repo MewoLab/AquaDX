@@ -9,7 +9,7 @@ namespace AquaMai.Mods.Utils;
 [ConfigSection(
     en: "Display framerate",
     zh: "显示帧率")]
-public class FrameRateDisplay
+public class DisplayFrameRate
 {
     [HarmonyPatch(typeof(GameMainObject), "Awake")]
     [HarmonyPostfix]

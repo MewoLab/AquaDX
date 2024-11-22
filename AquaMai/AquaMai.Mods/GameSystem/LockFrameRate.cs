@@ -1,7 +1,7 @@
 ﻿using AquaMai.Config.Attributes;
 using UnityEngine;
 
-namespace AquaMai.Mods.Fix;
+namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
     en: "Force the frame rate limit to 60 FPS and disable vSync. Do not use if your game has no issues",

@@ -4,7 +4,7 @@ using MAI2.Util;
 using Manager;
 using Process;
 
-namespace AquaMai.Mods.Fix;
+namespace AquaMai.Mods.Fix.Stability;
 
 [ConfigSection(
     en: "Reset touch panel after playing track",

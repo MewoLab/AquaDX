@@ -5,13 +5,13 @@ using HarmonyLib;
 using Process;
 using Util;
 
-namespace AquaMai.Mods.Fix;
+namespace AquaMai.Mods.Fix.Stability;
 
 /**
  * Fix character selection crashing due to missing character data
  */
 [ConfigSection(exampleHidden: true, defaultOn: true)]
-public class FixCharaCrash
+public class FixMissingCharaCrash
 {
     // Check if the return is null. If it is, make up a color
     [HarmonyPostfix]

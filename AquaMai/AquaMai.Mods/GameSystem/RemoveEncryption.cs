@@ -5,7 +5,7 @@ using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Net.Packet;
 
-namespace AquaMai.Mods.Fix;
+namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
     en: """

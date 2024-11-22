@@ -7,7 +7,10 @@ using HarmonyLib;
 
 namespace AquaMai.Mods.GameSystem;
 
-public class UnlockAll
+[ConfigSection(
+    en: "Unlock normally locked (including normally non-unlockable) game content",
+    zh: "解锁原本锁定（包括正常途径无法解锁）的游戏内容")]
+public class Unlock
 {
     [ConfigEntry(
         en: "Unlock maps that are not in this version",

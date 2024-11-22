@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using AquaMai.Config.Attributes;
 using AquaMai.Config.Interfaces;
 using Mono.Cecil;
@@ -132,18 +131,23 @@ public class MonoCecilReflectionProvider : IReflectionProvider
             var store = cctor.Body.Instructions.SingleOrDefault(i => i.OpCode == OpCodes.Stsfld && i.Operand == cField);
             if (store != null)
             {
+                var loadOperand = ParseConstantLoadOperand(store.Previous);
                 if (fieldType == typeof(bool))
                 {
-                    defaultValue = store.Previous.OpCode == OpCodes.Ldc_I4_1;
+                    defaultValue = Convert.ToBoolean(loadOperand);
                 }
                 else
                 {
-                    defaultValue = store.Previous.Operand;
+                    defaultValue = loadOperand;
                 }
             }
         }
 
-        defaultValue ??= cField.HasDefault ? cField.InitialValue : GetDefaultValue(fieldType);
+        if (defaultValue == null && cField.HasDefault)
+        {
+            throw new InvalidOperationException($"Field {cType.FullName}.{cField.Name} has default value but no .cctor stsfld instruction.");
+        }
+        defaultValue ??= GetDefaultValue(fieldType);
 
         if (fieldType.IsEnum)
         {
@@ -157,6 +161,79 @@ public class MonoCecilReflectionProvider : IReflectionProvider
         }
 
         return defaultValue;
+    }
+
+    private static object ParseConstantLoadOperand(Instruction instruction)
+    {
+        if (instruction.OpCode == OpCodes.Ldc_I4_M1)
+        {
+            return -1;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_0)
+        {
+            return 0;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_1)
+        {
+            return 1;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_2)
+        {
+            return 2;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_3)
+        {
+            return 3;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_4)
+        {
+            return 4;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_5)
+        {
+            return 5;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_6)
+        {
+            return 6;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_7)
+        {
+            return 7;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_8)
+        {
+            return 8;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4_S)
+        {
+            return Convert.ToInt32((sbyte)instruction.Operand);
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I4)
+        {
+            return (int)instruction.Operand;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_I8)
+        {
+            return (long)instruction.Operand;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_R4)
+        {
+            return (float)instruction.Operand;
+        }
+        if (instruction.OpCode == OpCodes.Ldc_R8)
+        {
+            return (double)instruction.Operand;
+        }
+        if (instruction.OpCode == OpCodes.Ldstr)
+        {
+            return (string)instruction.Operand;
+        }
+        else
+        {
+            var currentMethod = MethodBase.GetCurrentMethod();
+            throw new NotImplementedException($"Unsupported constant load: {instruction}. Please implement in {currentMethod.DeclaringType.FullName}.{currentMethod.Name}");
+        }
     }
 
     private static object GetDefaultValue(Type type)
