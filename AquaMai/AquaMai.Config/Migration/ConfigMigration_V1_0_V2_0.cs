@@ -70,7 +70,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             dst.SetValue("GameSettings.CreditConfig.IsFreePlay", false);
             dst.SetValue("GameSettings.CreditConfig.LockCredits", 24);
         }
-        MapValueToEntryValueIfNonNullOrDefault(src, dst, "Fix.ExtendNotesPool", "Fancy.GamePlay.ExtendNotesPool", 0);
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "Fix.ExtendNotesPool", "Fancy.GamePlay.ExtendNotesPool.Count", 0);
         MapBooleanTrueToSectionEnable(src, dst, "Fix.FrameRateLock", "GameSystem.LockFrameRate");
         if (src.GetValueOrDefault<bool>("Font.FontFix") &&
             !src.GetValueOrDefault<bool>("UX.CustomFont"))
