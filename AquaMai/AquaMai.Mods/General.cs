@@ -22,7 +22,7 @@ public class General
             配置文件也将以此语言保存
             """,
         specialConfigEntry: SpecialConfigEntry.Locale)]
-    public static readonly string Locale = "";
+    public static readonly string locale = "";
 }
 
 // Please add/remove corresponding entries in SetionNameOrder enum when adding/removing sections.

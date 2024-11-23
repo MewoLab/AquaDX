@@ -14,13 +14,13 @@ public class QuickRetry
     [ConfigEntry(
         en: "Force enable in Utage",
         zh: "在宴谱中强制启用")]
-    private static readonly bool EnableInUtage = false;
+    private static readonly bool enableInUtage = false;
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(QuickRetry), "IsQuickRetryEnable")]
     public static bool OnQuickRetryIsQuickRetryEnable(ref bool __result)
     {
-        if (EnableInUtage)
+        if (enableInUtage)
         {
             __result = true;
         }

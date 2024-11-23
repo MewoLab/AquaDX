@@ -26,12 +26,12 @@ public class Fonts
             使用分号分隔多个路径以构成 Fallback 链。
             默认为微软雅黑 Bold。
             """)]
-    private static readonly string Paths = "%SYSTEMROOT%/Fonts/msyhbd.ttc";
+    private static readonly string paths = "%SYSTEMROOT%/Fonts/msyhbd.ttc";
 
     [ConfigEntry(
         en: "Add custom font(s) as fallback, use original game font when possible",
         zh: "将自定义字体作为游戏原字体的回退，尽可能使用游戏原字体")]
-    private static readonly bool AddAsFallback = true;
+    private static readonly bool addAsFallback = true;
 
     private static List<TMP_FontAsset> fontAssets = [];
     private static readonly List<TMP_FontAsset> processedFonts = [];
@@ -41,7 +41,7 @@ public class Fonts
 
     public static void OnBeforePatch(HarmonyLib.Harmony h)
     {
-        var paths = Paths
+        var paths = Fonts.paths
             .Split(';')
             .Where(p => !string.IsNullOrWhiteSpace(p))
             .Select(FileSystem.ResolvePath);
@@ -64,7 +64,7 @@ public class Fonts
         {
             MelonLogger.Warning("[Fonts] No font loaded.");
         }
-        else if (AddAsFallback)
+        else if (addAsFallback)
         {
             fallbackFontAssets = fontAssets;
         }

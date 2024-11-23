@@ -20,20 +20,20 @@ namespace AquaMai.Mods.GameAssets;
 public class LoadLocalImages
 {
     [ConfigEntry]
-    private static readonly string LocalAssetsDir = "LocalAssets";
+    private static readonly string localAssetsDir = "LocalAssets";
 
-    private static string[] imageExts = [".jpg", ".png", ".jpeg"];
-    private static Dictionary<string, string> jacketPaths = new();
-    private static Dictionary<string, string> framePaths = new();
-    private static Dictionary<string, string> platePaths = new();
-    private static Dictionary<string, string> framemaskPaths = new();
-    private static Dictionary<string, string> framepatternPaths = new();
-    private static Dictionary<string, string> iconPaths = new();
-    private static Dictionary<string, string> charaPaths = new();
-    private static Dictionary<string, string> partnerPaths = new();
-    //private static Dictionary<string, string> navicharaPaths = new();
-    private static Dictionary<string, string> tabTitlePaths = new();
-    private static Dictionary<string, string> localAssetsContents = new();
+    private static readonly string[] imageExts = [".jpg", ".png", ".jpeg"];
+    private static readonly Dictionary<string, string> jacketPaths = [];
+    private static readonly Dictionary<string, string> framePaths = [];
+    private static readonly Dictionary<string, string> platePaths = [];
+    private static readonly Dictionary<string, string> framemaskPaths = [];
+    private static readonly Dictionary<string, string> framepatternPaths = [];
+    private static readonly Dictionary<string, string> iconPaths = [];
+    private static readonly Dictionary<string, string> charaPaths = [];
+    private static readonly Dictionary<string, string> partnerPaths = [];
+    //private static readonly Dictionary<string, string> navicharaPaths = [];
+    private static readonly Dictionary<string, string> tabTitlePaths = [];
+    private static readonly Dictionary<string, string> localAssetsContents = [];
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(DataManager), "LoadMusicBase")]
@@ -122,7 +122,7 @@ public class LoadLocalImages
 
         MelonLogger.Msg($"[LoadLocalImages] Loaded {jacketPaths.Count} Jacket, {platePaths.Count} NamePlate, {framePaths.Count} Frame, {framemaskPaths.Count} FrameMask, {framepatternPaths.Count} FramePattern, {iconPaths.Count} Icon, {charaPaths.Count} Chara, {partnerPaths.Count} PartnerLogo, {tabTitlePaths.Count} Tab Titles from AssetBundleImages.");
 
-        var resolvedDir = FileSystem.ResolvePath(LocalAssetsDir);
+        var resolvedDir = FileSystem.ResolvePath(localAssetsDir);
         if (Directory.Exists(resolvedDir))
             foreach (var laFile in Directory.EnumerateFiles(resolvedDir))
             {

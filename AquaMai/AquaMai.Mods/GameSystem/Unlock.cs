@@ -15,9 +15,9 @@ public class Unlock
     [ConfigEntry(
         en: "Unlock maps that are not in this version",
         zh: "解锁游戏里所有的区域，包括非当前版本的（并不会帮你跑完）")]
-    private static readonly bool Maps = true;
+    private static readonly bool maps = true;
 
-    [EnableIf(nameof(Maps))]
+    [EnableIf(nameof(maps))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(MapData), "get_OpenEventId")]
     public static bool get_OpenEventId(ref StringID __result)
@@ -39,9 +39,9 @@ public class Unlock
     [ConfigEntry(
         en: "Unlock normally event-only tickets",
         zh: "解锁游戏里所有可能的跑图券")]
-    private static readonly bool Tickets = true;
+    private static readonly bool tickets = true;
 
-    [EnableIf(nameof(Tickets))]
+    [EnableIf(nameof(tickets))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(TicketData), "get_ticketEvent")]
     public static bool get_ticketEvent(ref StringID __result)
@@ -60,7 +60,7 @@ public class Unlock
         return false;
     }
 
-    [EnableIf(nameof(Tickets))]
+    [EnableIf(nameof(tickets))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(TicketData), "get_maxCount")]
     public static bool get_maxCount(ref int __result)
@@ -75,9 +75,9 @@ public class Unlock
     [ConfigEntry(
         en: "Unlock Utage without the need of DXRating 10000",
         zh: "不需要万分也可以进宴会场")]
-    private static readonly bool Utage = true;
+    private static readonly bool utage = true;
 
-    [EnableIf(nameof(Utage))]
+    [EnableIf(nameof(utage))]
     [EnableGameVersion(24000)]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GameManager), "CanUnlockUtageTotalJudgement")]

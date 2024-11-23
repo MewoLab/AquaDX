@@ -14,7 +14,7 @@ public class Window
     [ConfigEntry(
         en: "Window the game",
         zh: "窗口化游戏")]
-    private static readonly bool Windowed = false;
+    private static readonly bool windowed = false;
 
     [ConfigEntry(
         en: """
@@ -25,12 +25,12 @@ public class Window
             宽度（和高度）窗口化时为游戏窗口大小，全屏时为渲染分辨率
             如果设为 0，窗口化将记住用户设定的大小，全屏时将使用当前显示器分辨率
             """)]
-    private static readonly int Width = 0;
+    private static readonly int width = 0;
 
     [ConfigEntry(
         en: "Height, as above",
         zh: "高度，同上")]
-    private static readonly int Height = 0;
+    private static readonly int height = 0;
 
     private const int GWL_STYLE = -16;
     private const int WS_WHATEVER = 0x14CF0000;
@@ -39,17 +39,17 @@ public class Window
 
     public static void OnBeforePatch()
     {
-        if (Windowed)
+        if (windowed)
         {
             var alreadyWindowed = Screen.fullScreenMode == FullScreenMode.Windowed;
-            if (Width == 0 || Height == 0)
+            if (width == 0 || height == 0)
             {
                 Screen.fullScreenMode = FullScreenMode.Windowed;
             }
             else
             {
                 alreadyWindowed = false;
-                Screen.SetResolution(Width, Height, FullScreenMode.Windowed);
+                Screen.SetResolution(width, height, FullScreenMode.Windowed);
             }
 
             hwnd = GetWindowHandle();
@@ -69,8 +69,8 @@ public class Window
         }
         else
         {
-            var width = Width == 0 ? Display.main.systemWidth : Width;
-            var height = Height == 0 ? Display.main.systemHeight : Height;
+            var width = Window.width == 0 ? Display.main.systemWidth : Window.width;
+            var height = Window.height == 0 ? Display.main.systemHeight : Window.height;
             Screen.SetResolution(width, height, FullScreenMode.FullScreenWindow);
         }
     }

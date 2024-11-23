@@ -17,20 +17,20 @@ public class Triggers
             在游戏闲置的时候执行指定的命令脚本
             比如说可以在游戏闲置是降低显示器的亮度
             """)]
-    private static readonly string ExecOnIdle = "";
+    private static readonly string execOnIdle = "";
 
     [ConfigEntry(
         en: "Execute some command on game start",
         zh: "在玩家登录的时候执行指定的命令脚本")]
-    private static readonly string ExecOnEntry = "";
+    private static readonly string execOnEntry = "";
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(AdvertiseProcess), "OnStart")]
     public static void AdvertiseProcessPreStart()
     {
-        if (!string.IsNullOrWhiteSpace(ExecOnIdle))
+        if (!string.IsNullOrWhiteSpace(execOnIdle))
         {
-            Exec(ExecOnIdle);
+            Exec(execOnIdle);
         }
     }
 
@@ -38,9 +38,9 @@ public class Triggers
     [HarmonyPatch(typeof(EntryProcess), "OnStart")]
     public static void EntryProcessPreStart()
     {
-        if (!string.IsNullOrWhiteSpace(ExecOnEntry))
+        if (!string.IsNullOrWhiteSpace(execOnEntry))
         {
-            Exec(ExecOnEntry);
+            Exec(execOnEntry);
         }
     }
 
@@ -48,9 +48,9 @@ public class Triggers
     [HarmonyPatch(typeof(MusicSelectProcess), "OnStart")]
     public static void MusicSelectProcessPreStart()
     {
-        if (!string.IsNullOrWhiteSpace(ExecOnEntry))
+        if (!string.IsNullOrWhiteSpace(execOnEntry))
         {
-            Exec(ExecOnEntry);
+            Exec(execOnEntry);
         }
     }
 

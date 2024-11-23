@@ -24,7 +24,7 @@ namespace AquaMai.Mods.Fancy;
 public class RandomBgm
 {
     [ConfigEntry]
-    private static readonly string Mai2CueDir = "LocalAssets/Mai2Cue";
+    private static readonly string mai2CueDir = "LocalAssets/Mai2Cue";
 
     private static List<string> _acbs = new List<string>();
 
@@ -32,7 +32,7 @@ public class RandomBgm
     [HarmonyPatch(typeof(SoundManager), "Initialize")]
     public static void Init()
     {
-        var resolvedDir = FileSystem.ResolvePath(Mai2CueDir);
+        var resolvedDir = FileSystem.ResolvePath(mai2CueDir);
         if (!Directory.Exists(resolvedDir)) return;
         var files = Directory.EnumerateFiles(resolvedDir);
         foreach (var file in files)

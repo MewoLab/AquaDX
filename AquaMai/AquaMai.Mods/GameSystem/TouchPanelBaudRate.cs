@@ -18,13 +18,13 @@ public class TouchPanelBaudRate
     [ConfigEntry(
         en: "Baud rate",
         zh: "波特率")]
-    private static readonly int BaudRate = 9600;
+    private static readonly int baudRate = 9600;
 
     [HarmonyPatch(typeof(NewTouchPanel), "Open")]
     [HarmonyPrefix]
     private static void OpenPrefix(ref int ___BaudRate)
     {
-        if (BaudRate <= 0) return;
-        ___BaudRate = BaudRate;
+        if (baudRate <= 0) return;
+        ___BaudRate = baudRate;
     }
 }

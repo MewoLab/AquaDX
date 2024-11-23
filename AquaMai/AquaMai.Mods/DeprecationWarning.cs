@@ -1,4 +1,3 @@
-using System.Linq;
 using AquaMai.Config.Attributes;
 
 namespace AquaMai.Mods;

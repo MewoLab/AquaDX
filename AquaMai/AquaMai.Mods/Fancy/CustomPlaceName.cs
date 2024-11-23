@@ -16,26 +16,26 @@ namespace AquaMai.Mods.Fancy;
 public class CustomPlaceName
 {
     [ConfigEntry]
-    private static readonly string PlaceName = "";
+    private static readonly string placeName = "";
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(OperationManager), "CheckAuth_Proc")]
     public static void CheckAuth_Proc(OperationManager __instance)
     {
-        if (string.IsNullOrEmpty(PlaceName))
+        if (string.IsNullOrEmpty(placeName))
         {
             return;
         }
 
-        __instance.ShopData.ShopName = PlaceName;
-        __instance.ShopData.ShopNickName = PlaceName;
+        __instance.ShopData.ShopName = placeName;
+        __instance.ShopData.ShopNickName = placeName;
     }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(ResultCardBaseController), "Initialize")]
     public static void Initialize(ResultCardBaseController __instance)
     {
-        if (string.IsNullOrEmpty(PlaceName))
+        if (string.IsNullOrEmpty(placeName))
         {
             return;
         }

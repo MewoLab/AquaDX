@@ -60,11 +60,12 @@ public class ReflectionManager : IReflectionManager
             {
                 var entryAttribute = field.GetCustomAttribute<ConfigEntryAttribute>();
                 if (entryAttribute == null) continue;
-                var entryPath = $"{path}.{field.Name}";
+                var transformedName = Utility.ToPascalCase(field.Name);
+                var entryPath = $"{path}.{transformedName}";
                 var entry = new Entry()
                 {
                     Path = entryPath,
-                    Name = field.Name,
+                    Name = transformedName,
                     Field = field,
                     Attribute = entryAttribute
                 };

@@ -24,14 +24,14 @@ namespace AquaMai.Mods.Fancy;
 public class CustomSkins
 {
     [ConfigEntry]
-    private static readonly string SkinsDir = "LocalAssets/Skins";
+    private static readonly string skinsDir = "LocalAssets/Skins";
 
     private static readonly List<string> ImageExts = [".png", ".jpg", ".jpeg"];
     private static readonly List<string> SlideFanFields = ["_normalSlideFan", "_eachSlideFan", "_breakSlideFan", "_breakSlideFanEff"];
     private static readonly List<string> CustomTrackStartFields = ["_musicBase", "_musicTab", "_musicLvBase", "_musicLvText"];
 
     private static Sprite customOutline;
-    private static Sprite[,] customSlideFan = new Sprite[4, 11];
+    private readonly static Sprite[,] customSlideFan = new Sprite[4, 11];
 
     public static readonly Sprite[,] CustomJudge = new Sprite[2, ((int)NoteJudge.ETiming.End + 1)];
     public static readonly Sprite[,,,] CustomJudgeSlide = new Sprite[2, 3, 2, ((int)NoteJudge.ETiming.End + 1)];
@@ -109,7 +109,7 @@ public class CustomSkins
     [HarmonyPatch(typeof(GameNotePrefabContainer), "Initialize")]
     private static void LoadNoteSkin()
     {
-        var resolvedDir = FileSystem.ResolvePath(SkinsDir);
+        var resolvedDir = FileSystem.ResolvePath(skinsDir);
         if (!Directory.Exists(resolvedDir)) return;
 
         foreach (var laFile in Directory.EnumerateFiles(resolvedDir))

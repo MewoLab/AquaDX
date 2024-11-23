@@ -9,7 +9,7 @@ namespace AquaMai.Mods.Fancy;
 public class CustomVersionString
 {
     [ConfigEntry]
-    private static readonly string VersionString = "";
+    private static readonly string versionString = "";
 
     /*
      * Patch displayVersionString Property Getter
@@ -18,12 +18,12 @@ public class CustomVersionString
     [HarmonyPatch(typeof(MAI2System.Config), "displayVersionString", MethodType.Getter)]
     public static bool GetDisplayVersionString(ref string __result)
     {
-        if (string.IsNullOrEmpty(VersionString))
+        if (string.IsNullOrEmpty(versionString))
         {
             return true;
         }
 
-        __result = VersionString;
+        __result = versionString;
         // Return false to block the original method
         return false;
     }

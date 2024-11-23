@@ -24,29 +24,29 @@ public class CustomCameraId
     [ConfigEntry(
         en: "Print the camera list to the log when starting, can be used as a basis for modification",
         zh: "启动时打印摄像头列表到日志中，可以作为修改的依据")]
-    public static bool PrintCameraList;
+    public static bool printCameraList;
 
     [ConfigEntry(
         en: "DX Pass 1P",
         zh: "DX Pass 1P")]
-    public static int LeftQrCamera;
+    public static int leftQrCamera;
 
     [ConfigEntry(
         en: "DX Pass 2P",
         zh: "DX Pass 2P")]
-    public static int RightQrCamera;
+    public static int rightQrCamera;
 
     [ConfigEntry(
         en: "Player Camera",
         zh: "玩家摄像头")]
-    public static int PhotoCamera;
+    public static int photoCamera;
 
     [ConfigEntry(
         en: "WeChat QRCode Camera",
         zh: "二维码扫描摄像头")]
-    public static int ChimeCamera;
+    public static int chimeCamera;
   
-    private static readonly Dictionary<string, string> CameraTypeMap = new()
+    private static readonly Dictionary<string, string> cameraTypeMap = new()
     {
         ["LeftQrCamera"] = "QRLeft",
         ["RightQrCamera"] = "QRRight",
@@ -66,7 +66,7 @@ public class CustomCameraId
     {
         var textureCache = new WebCamTexture[WebCamTexture.devices.Length];
         SortedDictionary<CameraManager.CameraTypeEnum, WebCamTexture> webCamTextures = [];
-        foreach (var (configEntry, cameraTypeName) in CameraTypeMap)
+        foreach (var (configEntry, cameraTypeName) in cameraTypeMap)
         {
             int deviceId = Traverse.Create(typeof(CustomCameraId)).Field(configEntry).GetValue<int>();
             if (deviceId < 0 || deviceId >= WebCamTexture.devices.Length)
@@ -113,7 +113,7 @@ public class CustomCameraId
 
     public static void OnBeforePatch()
     {
-        if (!PrintCameraList)
+        if (!printCameraList)
         {
             return;
         }

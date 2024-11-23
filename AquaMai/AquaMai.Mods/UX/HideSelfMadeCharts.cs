@@ -23,20 +23,20 @@ public class HideSelfMadeCharts
     [ConfigEntry(
         en: "Key to toggle self-made charts",
         zh: "切换自制谱显示的按键")]
-    public static readonly KeyCodeOrName Key = KeyCodeOrName.Test;
+    public static readonly KeyCodeOrName key = KeyCodeOrName.Test;
 
     [ConfigEntry]
-    public static readonly bool LongPress = false;
+    public static readonly bool longPress = false;
 
     [ConfigEntry(
         en: "One user ID per line in the file. Hide self-made charts when these users login",
         zh: "该文件中每行一个用户 ID，当这些用户登录时隐藏自制谱")]
-    private static readonly string SelfMadeChartsDenyUsersFile = "LocalAssets/SelfMadeChartsDenyUsers.txt";
+    private static readonly string selfMadeChartsDenyUsersFile = "LocalAssets/SelfMadeChartsDenyUsers.txt";
 
     [ConfigEntry(
         en: "One user ID per line in the file. Only show self-made charts when these users login",
         zh: "该文件中每行一个用户 ID，只有这些用户登录时才显示自制谱")]
-    private static readonly string SelfMadeChartsWhiteListUsersFile = "LocalAssets/SelfMadeChartsWhiteListUsers.txt";
+    private static readonly string selfMadeChartsWhiteListUsersFile = "LocalAssets/SelfMadeChartsWhiteListUsers.txt";
 
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musics;
     private static Safe.ReadonlySortedDictionary<int, Manager.MaiStudio.MusicData> _musicsNoneSelfMade;
@@ -79,7 +79,7 @@ public class HideSelfMadeCharts
     public static void MusicSelectProcessOnUpdate(ref MusicSelectProcess __instance)
     {
         if (isForceDisable) return;
-        if (!KeyListener.GetKeyDownOrLongPress(Key, LongPress)) return;
+        if (!KeyListener.GetKeyDownOrLongPress(key, longPress)) return;
         isShowSelfMadeCharts = !isShowSelfMadeCharts;
         MelonLogger.Msg($"[HideSelfMadeCharts] isShowSelfMadeCharts: {isShowSelfMadeCharts}");
         SharedInstances.ProcessDataContainer.processManager.AddProcess(new FadeProcess(SharedInstances.ProcessDataContainer, __instance, new MusicSelectProcess(SharedInstances.ProcessDataContainer)));
@@ -94,7 +94,7 @@ public class HideSelfMadeCharts
     [HarmonyPatch(typeof(MusicSelectProcess), "OnStart")]
     public static void MusicSelectProcessOnStart(ref MusicSelectProcess __instance)
     {
-        var denyPath = FileSystem.ResolvePath(SelfMadeChartsDenyUsersFile);
+        var denyPath = FileSystem.ResolvePath(selfMadeChartsDenyUsersFile);
         if (File.Exists(denyPath))
         {
             var userIds = File.ReadAllLines(denyPath);
@@ -108,7 +108,7 @@ public class HideSelfMadeCharts
             }
         }
 
-        var whiteListPath = FileSystem.ResolvePath(SelfMadeChartsWhiteListUsersFile);
+        var whiteListPath = FileSystem.ResolvePath(selfMadeChartsWhiteListUsersFile);
         if (File.Exists(whiteListPath))
         {
             var userIds = File.ReadAllLines(whiteListPath);

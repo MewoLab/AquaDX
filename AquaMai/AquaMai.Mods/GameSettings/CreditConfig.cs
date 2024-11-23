@@ -12,22 +12,22 @@ public class CreditConfig
     [ConfigEntry(
         en: "Set to Free Play (set to false for Paid Play)",
         zh: "是否免费游玩（设为 false 时为付费游玩）")]
-    private static readonly bool IsFreePlay = true;
+    private static readonly bool isFreePlay = true;
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Manager.Credit), "IsFreePlay")]
     private static bool PreIsFreePlay(ref bool __result)
     {
-        __result = IsFreePlay;
+        __result = isFreePlay;
         return false;
     }
 
     [ConfigEntry(
         en: "Lock credits amount (only valid in Paid Play). Set to 0 to disable.",
         zh: "锁定可用点数数量（仅在付费游玩时有效），设为 0 以禁用。")]
-    private static readonly uint LockCredits = 24;
+    private static readonly uint lockCredits = 24;
 
-    private static bool ShouldLockCredits => !IsFreePlay && LockCredits > 0;
+    private static bool ShouldLockCredits => !isFreePlay && lockCredits > 0;
 
     [EnableIf(nameof(ShouldLockCredits))]
     [HarmonyPrefix]

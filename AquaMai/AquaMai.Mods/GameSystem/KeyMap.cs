@@ -17,64 +17,64 @@ namespace AquaMai.Mods.GameSystem;
 public class KeyMap
 {
     [ConfigEntry]
-    public static readonly KeyCodeID Test = (KeyCodeID)115;
+    private static readonly KeyCodeID Test = (KeyCodeID)115;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Service = (KeyCodeID)5;
+    private static readonly KeyCodeID Service = (KeyCodeID)5;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button1_1P = (KeyCodeID)67;
+    private static readonly KeyCodeID Button1_1P = (KeyCodeID)67;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button2_1P = (KeyCodeID)49;
+    private static readonly KeyCodeID Button2_1P = (KeyCodeID)49;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button3_1P = (KeyCodeID)48;
+    private static readonly KeyCodeID Button3_1P = (KeyCodeID)48;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button4_1P = (KeyCodeID)47;
+    private static readonly KeyCodeID Button4_1P = (KeyCodeID)47;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button5_1P = (KeyCodeID)68;
+    private static readonly KeyCodeID Button5_1P = (KeyCodeID)68;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button6_1P = (KeyCodeID)70;
+    private static readonly KeyCodeID Button6_1P = (KeyCodeID)70;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button7_1P = (KeyCodeID)45;
+    private static readonly KeyCodeID Button7_1P = (KeyCodeID)45;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button8_1P = (KeyCodeID)61;
+    private static readonly KeyCodeID Button8_1P = (KeyCodeID)61;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Select_1P = (KeyCodeID)25;
+    private static readonly KeyCodeID Select_1P = (KeyCodeID)25;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button1_2P = (KeyCodeID)80;
+    private static readonly KeyCodeID Button1_2P = (KeyCodeID)80;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button2_2P = (KeyCodeID)81;
+    private static readonly KeyCodeID Button2_2P = (KeyCodeID)81;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button3_2P = (KeyCodeID)78;
+    private static readonly KeyCodeID Button3_2P = (KeyCodeID)78;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button4_2P = (KeyCodeID)75;
+    private static readonly KeyCodeID Button4_2P = (KeyCodeID)75;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button5_2P = (KeyCodeID)74;
+    private static readonly KeyCodeID Button5_2P = (KeyCodeID)74;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button6_2P = (KeyCodeID)73;
+    private static readonly KeyCodeID Button6_2P = (KeyCodeID)73;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button7_2P = (KeyCodeID)76;
+    private static readonly KeyCodeID Button7_2P = (KeyCodeID)76;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Button8_2P = (KeyCodeID)79;
+    private static readonly KeyCodeID Button8_2P = (KeyCodeID)79;
 
     [ConfigEntry]
-    public static readonly KeyCodeID Select_2P = (KeyCodeID)84;
+    private static readonly KeyCodeID Select_2P = (KeyCodeID)84;
 
     [ConfigEntry(
         en: """
@@ -85,22 +85,22 @@ public class KeyMap
             启用后，测试键必须长按才能进入游戏测试模式
             当测试键被绑定到其它功能时，此选项自动开启
             """)]
-    public static readonly bool TestProof = false;
+    public static readonly bool testProof = false;
 
     public static bool testProofImplied = false;
-    public static bool TestProofEnabled => TestProof || testProofImplied;
+    public static bool TestProofEnabled => testProof || testProofImplied;
 
     public static void OnBeforePatch()
     {
         KeyCodeOrName[] featureKeys = [
-            OneKeyEntryEnd.Key,
-            OneKeyRetrySkip.RetryKey,
-            OneKeyRetrySkip.SkipKey,
-            HideSelfMadeCharts.Key,
-            PracticeMode.PracticeMode.Key
+            OneKeyEntryEnd.key,
+            OneKeyRetrySkip.retryKey,
+            OneKeyRetrySkip.skipKey,
+            HideSelfMadeCharts.key,
+            PracticeMode.PracticeMode.key
         ];
         testProofImplied = featureKeys.Any(it => it == KeyCodeOrName.Test || it.ToString() == Test.ToString());
-        if (testProofImplied && !TestProof)
+        if (testProofImplied && !testProof)
         {
             MelonLogger.Warning("Test button bound to other feature, enabling test proof");
         }

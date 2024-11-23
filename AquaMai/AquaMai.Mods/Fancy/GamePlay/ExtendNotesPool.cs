@@ -19,7 +19,7 @@ public class ExtendNotesPool
     [ConfigEntry(
         en: "Number of objects to add",
         zh: "要增加的对象数量")]
-    private readonly static int Count = 128;
+    private readonly static int count = 128;
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameCtrl), "CreateNotePool")]
@@ -41,7 +41,7 @@ public class ExtendNotesPool
         List<SpriteRenderer> ____arrowObjectList, List<BreakSlide> ____breakArrowObjectList
     )
     {
-        for (var i = 0; i < Count; i++)
+        for (var i = 0; i < count; i++)
         {
             var tapNote = Object.Instantiate(GameNotePrefabContainer.Tap, ____tapListParent.transform);
             tapNote.gameObject.SetActive(false);

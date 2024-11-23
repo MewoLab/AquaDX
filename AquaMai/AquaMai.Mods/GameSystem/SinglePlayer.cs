@@ -79,10 +79,10 @@ public class SinglePlayer
     [ConfigEntry(
         en: "Fix hanabi effect under single-player mode (disabled automatically if HideHanabi is enabled)",
         zh: "修复单人模式下的烟花效果（如果启用了 HideHanabi，则会自动禁用）")]
-    public static bool FixHanabi = true;
+    public static bool fixHanabi = true;
 
     private static bool fixHanabiDisableImplied = false;
-    private static bool FixHanabiEnabled => FixHanabi && !fixHanabiDisableImplied;
+    private static bool FixHanabiEnabled => fixHanabi && !fixHanabiDisableImplied;
 
     [EnableIf(nameof(FixHanabiEnabled))]
     [HarmonyPatch(typeof(TapCEffect), "SetUpParticle")]

@@ -18,20 +18,20 @@ public class CustomLogo
     [ConfigEntry(
         en: "Replace the \"SEGA\" logo with a random PNG image from this directory",
         zh: "从此目录中随机选择一张 PNG 图片用于「SEGA」标志")]
-    private static readonly string SegaLogoDir = "LocalAssets/SegaLogo";
+    private static readonly string segaLogoDir = "LocalAssets/SegaLogo";
 
     [ConfigEntry(
         en: "Replace the \"ALL.Net\" logo with a random PNG image from this directory",
         zh: "从此目录中随机选择一张 PNG 图片用于「ALL.Net」标志")]
-    private static readonly string AllNetLogoDir = "LocalAssets/AllNetLogo";
+    private static readonly string allNetLogoDir = "LocalAssets/AllNetLogo";
 
-    private static List<Sprite> segaLogo = new();
-    private static List<Sprite> allNetLogo = new();
+    private readonly static List<Sprite> segaLogo = [];
+    private readonly static List<Sprite> allNetLogo = [];
 
     public static void OnBeforePatch(HarmonyLib.Harmony h)
     {
-        EnumSprite(segaLogo, FileSystem.ResolvePath(SegaLogoDir));
-        EnumSprite(allNetLogo, FileSystem.ResolvePath(AllNetLogoDir));
+        EnumSprite(segaLogo, FileSystem.ResolvePath(segaLogoDir));
+        EnumSprite(allNetLogo, FileSystem.ResolvePath(allNetLogoDir));
     }
 
     private static void EnumSprite(List<Sprite> collection, string path)

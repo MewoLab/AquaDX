@@ -128,6 +128,16 @@ public static class Utility
         }
     }
 
+    public static string ToPascalCase(string str)
+    {
+        return str.Length switch
+        {
+            0 => str,
+            1 => char.ToUpperInvariant(str[0]).ToString(),
+            _ => char.ToUpperInvariant(str[0]) + str.Substring(1)
+        };
+    }
+
     // We can test the configuration related code without loading the mod into the game.
     public static void Log(string message)
     {

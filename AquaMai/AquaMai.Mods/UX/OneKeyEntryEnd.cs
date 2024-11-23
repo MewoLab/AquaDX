@@ -17,16 +17,16 @@ namespace AquaMai.Mods.UX;
 public class OneKeyEntryEnd
 {
     [ConfigEntry]
-    public static readonly KeyCodeOrName Key = KeyCodeOrName.Service;
+    public static readonly KeyCodeOrName key = KeyCodeOrName.Service;
 
     [ConfigEntry]
-    public static readonly bool LongPress = true;
+    public static readonly bool longPress = true;
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GameMainObject), "Update")]
     public static void OnGameMainObjectUpdate()
     {
-        if (!KeyListener.GetKeyDownOrLongPress(Key, LongPress)) return;
+        if (!KeyListener.GetKeyDownOrLongPress(key, longPress)) return;
         MelonLogger.Msg("[QuickSkip] Activated");
 
         var traverse = Traverse.Create(SharedInstances.ProcessDataContainer.processManager);

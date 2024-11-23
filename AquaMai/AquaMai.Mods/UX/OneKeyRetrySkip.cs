@@ -14,22 +14,22 @@ namespace AquaMai.Mods.UX;
 public class OneKeyRetrySkip
 {
     [ConfigEntry]
-    public static readonly KeyCodeOrName RetryKey = KeyCodeOrName.Service;
+    public static readonly KeyCodeOrName retryKey = KeyCodeOrName.Service;
 
     [ConfigEntry]
-    public static readonly bool RetryLongPress = false;
+    public static readonly bool retryLongPress = false;
 
     [ConfigEntry]
-    public static readonly KeyCodeOrName SkipKey = KeyCodeOrName.Service;
+    public static readonly KeyCodeOrName skipKey = KeyCodeOrName.Service;
 
     [ConfigEntry]
-    public static readonly bool SkipLongPress = true;
+    public static readonly bool skipLongPress = true;
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(GameProcess), "OnUpdate")]
     public static void PostGameProcessUpdate(GameProcess __instance, Message[] ____message, ProcessDataContainer ___container)
     {
-        if (KeyListener.GetKeyDownOrLongPress(SkipKey, SkipLongPress))
+        if (KeyListener.GetKeyDownOrLongPress(skipKey, skipLongPress))
         {
             var traverse = Traverse.Create(__instance);
             ___container.processManager.SendMessage(____message[0]);
@@ -37,7 +37,7 @@ public class OneKeyRetrySkip
             traverse.Method("SetRelease").GetValue();
         }
 
-        if (KeyListener.GetKeyDownOrLongPress(RetryKey, RetryLongPress) && GameInfo.GameVersion >= 23000)
+        if (KeyListener.GetKeyDownOrLongPress(retryKey, retryLongPress) && GameInfo.GameVersion >= 23000)
         {
             // This is original typo in Assembly-CSharp
             Singleton<GamePlayManager>.Instance.SetQuickRetryFrag(flag: true);

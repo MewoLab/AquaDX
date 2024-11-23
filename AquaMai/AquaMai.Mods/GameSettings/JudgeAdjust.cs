@@ -14,37 +14,37 @@ public class JudgeAdjust
     [ConfigEntry(
         en: "Adjust A judgment",
         zh: "调整 A 判")]
-    private static readonly double A = 0;
+    private static readonly double a = 0;
 
     [ConfigEntry(
         en: "Adjust B judgment",
         zh: "调整 B 判")]
-    private static readonly double B = 0;
+    private static readonly double b = 0;
 
     [ConfigEntry(
         en: "Increase touch delay",
         zh: "增加触摸延迟")]
-    private static readonly int TouchDelay = 0;
+    private static readonly int touchDelay = 0;
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(UserOption), "GetAdjustMSec")]
     public static void GetAdjustMSec(ref float __result)
     {
-        __result += (float)(A * 16.666666d);
+        __result += (float)(a * 16.666666d);
     }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(UserOption), "GetJudgeTimingFrame")]
     public static void GetJudgeTimingFrame(ref float __result)
     {
-        __result += (float)B;
+        __result += (float)b;
     }
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(NewTouchPanel), "Recv")]
     public static void NewTouchPanelRecv()
     {
-        if (TouchDelay <= 0) return;
-        Thread.Sleep(TouchDelay);
+        if (touchDelay <= 0) return;
+        Thread.Sleep(touchDelay);
     }
 }

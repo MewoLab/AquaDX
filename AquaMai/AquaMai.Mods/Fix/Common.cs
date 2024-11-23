@@ -12,9 +12,9 @@ namespace AquaMai.Mods.Fix;
 public class Common
 {
     [ConfigEntry]
-    private readonly static bool PreventIniFileClear = true;
+    private readonly static bool preventIniFileClear = true;
 
-    [EnableIf(nameof(PreventIniFileClear))]
+    [EnableIf(nameof(preventIniFileClear))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(MAI2System.IniFile), "clear")]
     private static bool PreIniFileClear()
@@ -23,9 +23,9 @@ public class Common
     }
 
     [ConfigEntry]
-    private readonly static bool FixDebugInput = true;
+    private readonly static bool fixDebugInput = true;
 
-    [EnableIf(nameof(FixDebugInput))]
+    [EnableIf(nameof(fixDebugInput))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(DebugInput), "GetKey")]
     private static bool GetKey(ref bool __result, KeyCode name)
@@ -34,7 +34,7 @@ public class Common
         return false;
     }
 
-    [EnableIf(nameof(FixDebugInput))]
+    [EnableIf(nameof(fixDebugInput))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(DebugInput), "GetKeyDown")]
     private static bool GetKeyDown(ref bool __result, KeyCode name)
@@ -43,7 +43,7 @@ public class Common
         return false;
     }
 
-    [EnableIf(nameof(FixDebugInput))]
+    [EnableIf(nameof(fixDebugInput))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(DebugInput), "GetMouseButton")]
     private static bool GetMouseButton(ref bool __result, int button)
@@ -52,7 +52,7 @@ public class Common
         return false;
     }
 
-    [EnableIf(nameof(FixDebugInput))]
+    [EnableIf(nameof(fixDebugInput))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(DebugInput), "GetMouseButtonDown")]
     private static bool GetMouseButtonDown(ref bool __result, int button)
@@ -62,9 +62,9 @@ public class Common
     }
 
     [ConfigEntry]
-    private readonly static bool BypassCakeHashCheck = true;
+    private readonly static bool bypassCakeHashCheck = true;
 
-    [EnableIf(nameof(BypassCakeHashCheck))]
+    [EnableIf(nameof(bypassCakeHashCheck))]
     [HarmonyPostfix]
     [HarmonyPatch(typeof(NetHttpClient), MethodType.Constructor)]
     private static void OnNetHttpClientConstructor(NetHttpClient __instance)
@@ -78,9 +78,9 @@ public class Common
     }
 
     [ConfigEntry]
-    private readonly static bool RestoreCertificateValidation = true;
+    private readonly static bool restoreCertificateValidation = true;
 
-    [EnableIf(nameof(RestoreCertificateValidation))]
+    [EnableIf(nameof(restoreCertificateValidation))]
     [HarmonyPostfix]
     [HarmonyPatch(typeof(NetHttpClient), "Create")]
     private static void OnNetHttpClientCreate()
@@ -90,9 +90,9 @@ public class Common
     }
 
     [ConfigEntry]
-    private readonly static bool ForceNonTarget = true;
+    private readonly static bool forceNonTarget = true;
 
-    [EnableIf(nameof(ForceNonTarget))]
+    [EnableIf(nameof(forceNonTarget))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(MAI2System.Config), "IsTarget", MethodType.Getter)]
     private static bool PreIsTarget(ref bool __result)
@@ -103,9 +103,9 @@ public class Common
     }
 
     [ConfigEntry]
-    private readonly static bool ForceIgnoreError = true;
+    private readonly static bool forceIgnoreError = true;
 
-    [EnableIf(nameof(ForceIgnoreError))]
+    [EnableIf(nameof(forceIgnoreError))]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(MAI2System.Config), "IsIgnoreError", MethodType.Getter)]
     private static bool PreIsIgnoreError(ref bool __result)
@@ -115,11 +115,11 @@ public class Common
     }
 
     [ConfigEntry]
-    private readonly static bool BypassSpecialNumCheck = true;
+    private readonly static bool bypassSpecialNumCheck = true;
 
     public static void OnAfterPatch(HarmonyLib.Harmony h)
     {
-        if (BypassSpecialNumCheck)
+        if (bypassSpecialNumCheck)
         {
             if (typeof(GameManager).GetMethod("CalcSpecialNum") is null) return;
             h.PatchAll(typeof(CalcSpecialNumPatch));

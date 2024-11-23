@@ -28,10 +28,10 @@ public class PracticeMode
     [ConfigEntry(
         en: "Key to show Practice Mode UI",
         zh: "显示练习模式 UI 的按键")]
-    public static readonly KeyCodeOrName Key = KeyCodeOrName.Test;
+    public static readonly KeyCodeOrName key = KeyCodeOrName.Test;
 
     [ConfigEntry]
-    public static readonly bool LongPress = false;
+    public static readonly bool longPress = false;
 
     public static double repeatStart = -1;
     public static double repeatEnd = -1;
@@ -198,7 +198,7 @@ public class PracticeMode
     [HarmonyPostfix]
     public static void GameProcessPostUpdate(GameProcess __instance, GameMonitor[] ____monitors)
     {
-        if (KeyListener.GetKeyDownOrLongPress(Key, LongPress) && ui is null)
+        if (KeyListener.GetKeyDownOrLongPress(key, longPress) && ui is null)
         {
             ui = ____monitors[0].gameObject.AddComponent<PracticeModeUI>();
         }
