@@ -128,7 +128,9 @@ public class ReflectionManager : IReflectionManager
 
     public bool TryGetSection(Type type, out IReflectionManager.ISection section)
     {
-        return TryGetSection(type.FullName, out section);
+        bool result = sectionsByFullName.TryGetValue(type.FullName, out var sectionValue);
+        section = sectionValue;
+        return result;
     }
 
     public IReflectionManager.ISection GetSection(string path)
@@ -142,7 +144,7 @@ public class ReflectionManager : IReflectionManager
 
     public IReflectionManager.ISection GetSection(Type type)
     {
-        if (!sectionsByFullName.TryGetValue(type.FullName, out var section))
+        if (!TryGetSection(type.FullName, out var section))
         {
             throw new KeyNotFoundException($"Section {type.FullName} not found");
         }
