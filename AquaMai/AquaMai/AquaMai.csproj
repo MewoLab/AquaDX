@@ -123,24 +123,6 @@
     <Reference Include="UnityEngine.XRModule" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Numerics" Private="true" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="6.8.1">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="ILMerge.Fody" Version="1.24.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-
   <UsingTask TaskName="PostBuildPatch" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
   <Target Name="PostBuildPatch" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
     <PostBuildPatch DllPath="$(OutputPath)$(AssemblyName).dll" />
