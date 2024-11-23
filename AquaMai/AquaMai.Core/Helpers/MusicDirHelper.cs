@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using HarmonyLib;
-using Manager;
-using MelonLoader;
 
 namespace AquaMai.Core.Helpers;
 
