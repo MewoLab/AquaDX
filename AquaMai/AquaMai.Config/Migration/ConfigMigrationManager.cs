@@ -23,7 +23,7 @@ public class ConfigMigrationManager : IConfigMigrationManager
             .OrderByDescending(version =>
             {
                 var versionParts = version.Split('.').Select(int.Parse).ToArray();
-                return versionParts[0] * 100000 + (versionParts.Length < 2 ? 0 : versionParts[1]);
+                return versionParts[0] * 100000 + versionParts[1];
             })
             .First();
     }
