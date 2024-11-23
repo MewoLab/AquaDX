@@ -17,7 +17,7 @@ public class QuickRetry
     private static readonly bool enableInUtage = false;
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(QuickRetry), "IsQuickRetryEnable")]
+    [HarmonyPatch(typeof(Monitor.QuickRetry), "IsQuickRetryEnable")]
     public static bool OnQuickRetryIsQuickRetryEnable(ref bool __result)
     {
         if (enableInUtage)
