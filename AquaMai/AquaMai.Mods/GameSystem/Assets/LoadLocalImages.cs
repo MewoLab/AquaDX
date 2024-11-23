@@ -488,7 +488,6 @@ public class LoadLocalImages
             return true;
         }
 
-        MelonLogger.Msg(filename);
         var id = matches[0].Groups[1].Value;
 
         var texture = GetIconTexture2D(id);

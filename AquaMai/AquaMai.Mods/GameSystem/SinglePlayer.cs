@@ -57,7 +57,9 @@ public class SinglePlayer
         [HarmonyPatch(typeof(EntryMonitor), "DecideEntry")]
         public static void PostDecideEntry(EntryMonitor __instance)
         {
+# if DEBUG
             MelonLogger.Msg("Confirm Entry");
+# endif
             TimeManager.MarkGameStartTime();
             Singleton<EventManager>.Instance.UpdateEvent();
             Singleton<ScoreRankingManager>.Instance.UpdateData();

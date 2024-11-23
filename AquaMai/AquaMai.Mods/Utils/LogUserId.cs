@@ -17,6 +17,6 @@ public class LogUserId
     [HarmonyPatch(typeof(PacketGetUserPreview), MethodType.Constructor, typeof(ulong), typeof(string), typeof(Action<ulong, UserPreviewResponseVO>), typeof(Action<PacketStatus>))]
     public static void Postfix(ulong userId)
     {
-        MelonLogger.Msg($"UserLogin: {userId}");
+        MelonLogger.Msg($"[LogUserId] UserLogin: {userId}");
     }
 }
