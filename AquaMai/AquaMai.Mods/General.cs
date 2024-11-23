@@ -1,4 +1,6 @@
+using System.Linq;
 using AquaMai.Config.Attributes;
+using Harmony;
 
 namespace AquaMai.Mods;
 
@@ -24,6 +26,7 @@ public class General
 // Please add/remove corresponding entries in SetionNameOrder enum when adding/removing sections.
 public enum SetionNameOrder
 {
+    DeprecationWarning,
     General,
     Fix,
     SkipProcesses,

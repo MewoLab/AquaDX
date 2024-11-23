@@ -11,7 +11,7 @@ public class ConfigMigrationManager : IConfigMigrationManager
     private readonly Dictionary<string, IConfigMigration> migrationMap =
         new List<IConfigMigration>
         {
-            new ConfigMigration_V1_V2()
+            new ConfigMigration_V1_0_V2_0()
         }.ToDictionary(m => m.FromVersion);
 
     public readonly string latestVersion;
@@ -47,7 +47,7 @@ public class ConfigMigrationManager : IConfigMigrationManager
         {
             return version;
         }
-        // Assume version 1 if not found
-        return "1";
+        // Assume v1.0 if not found
+        return "1.0";
     }
 }

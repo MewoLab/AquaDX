@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using AquaMai.Core.Attributes;
 using AquaMai.Core.Helpers;
 using AquaMai.Core.Resources;
 using MelonLoader;
@@ -16,9 +16,26 @@ public class Startup
 
     private static bool _hasErrors;
 
-    private static void InvokeLifecycleMethod(Type type, string methodName)
+    private enum ModLifecycleMethod
     {
-        var method = type.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        // Invoked before all patches are applied, including core patches
+        OnBeforeAllPatch,
+        // Invoked after all patches are applied
+        OnAfterAllPatch,
+        // Invoked before the current patch is applied
+        OnBeforePatch,
+        // Invoked after the current patch is applied
+        // Subclasses are treated as separate patches
+        OnAfterPatch,
+        // Invoked when an error occurs applying the current patch
+        // Lifecycle methods' excpetions not included
+        // Subclasses' error not included
+        OnPatchError
+    }
+
+    private static void InvokeLifecycleMethod(Type type, ModLifecycleMethod methodName)
+    {
+        var method = type.GetMethod(methodName.ToString(), BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
         if (method == null)
         {
             return;
@@ -29,31 +46,44 @@ public class Startup
             if (p.ParameterType == typeof(HarmonyLib.Harmony)) return _harmony;
             throw new InvalidOperationException($"Unsupported parameter type {p.ParameterType} in lifecycle method {type.FullName}.{methodName}");
         }).ToArray();
-        method.Invoke(null, arguments);
+        try
+        {
+            method.Invoke(null, arguments);
+        }
+        catch (TargetInvocationException e)
+        {
+            MelonLogger.Error($"Failed to invoke lifecycle method {type.FullName}.{methodName}: {e.InnerException}");
+            _hasErrors = true;
+        }
     }
 
-    private static void Patch(Type type)
+    private static void CollectWantedPatches(List<Type> wantedPatches, Type type)
     {
-        if (EnableConditionHelper.ShouldSkipClass(type))
+        if (!EnableConditionHelper.ShouldSkipClass(type))
         {
             return;
         }
 
+        wantedPatches.Add(type);
+        foreach (var nested in type.GetNestedTypes())
+        {
+            CollectWantedPatches(wantedPatches, nested);
+        }
+    }
+
+    private static void Patch(Type type)
+    {
         MelonLogger.Msg($"> Patching {type}");
         try
         {
-            InvokeLifecycleMethod(type, "OnBeforePatch");
+            InvokeLifecycleMethod(type, ModLifecycleMethod.OnBeforePatch);
             _harmony.PatchAll(type);
-            foreach (var nested in type.GetNestedTypes())
-            {
-                Patch(nested);
-            }
-            InvokeLifecycleMethod(type, "OnAfterPatch");
+            InvokeLifecycleMethod(type, ModLifecycleMethod.OnAfterPatch);
         }
         catch (Exception e)
         {
             MelonLogger.Error($"Failed to patch {type}: {e}");
-            InvokeLifecycleMethod(type, "OnPatchError");
+            InvokeLifecycleMethod(type, ModLifecycleMethod.OnPatchError);
             _hasErrors = true;
         }
     }
@@ -89,22 +119,34 @@ public class Startup
         Patch(typeof(I18nSingleAssemblyHook));
         InitLocale(); // Must be called after I18nSingleAssemblyHook patched and config loaded
 
-        // Helpers that does not have side effects
-        // These don't need to be configurable
-        Patch(typeof(MessageHelper));
-        Patch(typeof(MusicDirHelper));
-        Patch(typeof(SharedInstances));
-        Patch(typeof(GuiSizes));
+        // The patch list is ordered
+        List<Type> wantedPatches = [];
 
-        Patch(typeof(EnableConditionHelper));
+        // Must be patched first to support [EnableIf(...)] and [EnableGameVersion(...)]
+        CollectWantedPatches(wantedPatches, typeof(EnableConditionHelper));
+        // Core helpers patched first
+        CollectWantedPatches(wantedPatches, typeof(MessageHelper));
+        CollectWantedPatches(wantedPatches, typeof(MusicDirHelper));
+        CollectWantedPatches(wantedPatches, typeof(SharedInstances));
+        CollectWantedPatches(wantedPatches, typeof(GuiSizes));
 
-        // Apply patches based on the settings
+        // Collect patches based on the config
         var config = ConfigLoader.Config;
         foreach (var section in config.ReflectionManager.Sections)
         {
             if (!config.GetSectionState(section).Enabled) continue;
             var reflectionType = (Config.Reflection.SystemReflectionProvider.ReflectionType)section.Type;
-            Patch(reflectionType.UnderlyingType);
+            CollectWantedPatches(wantedPatches, reflectionType.UnderlyingType);
+        }
+
+        foreach (var type in wantedPatches)
+        {
+            InvokeLifecycleMethod(type, ModLifecycleMethod.OnBeforeAllPatch);
+        }
+
+        foreach (var type in wantedPatches)
+        {
+            InvokeLifecycleMethod(type, ModLifecycleMethod.OnAfterAllPatch);
         }
 
         if (_hasErrors)

@@ -5,16 +5,16 @@ using AquaMai.Config.Types;
 
 namespace AquaMai.Config.Migration;
 
-public class ConfigMigration_V1_V2 : IConfigMigration
+public class ConfigMigration_V1_0_V2_0 : IConfigMigration
 {
-    public string FromVersion => "1";
-    public string ToVersion => "2";
+    public string FromVersion => "1.0";
+    public string ToVersion => "2.0";
 
     public IConfigView Migrate(IConfigView src)
     {
         var dst = new ConfigView();
 
-        dst.SetValue("Version", "2");
+        dst.SetValue("Version", ToVersion);
 
         // UX.*
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.Locale", "General.Locale", "");
@@ -161,6 +161,12 @@ public class ConfigMigration_V1_V2 : IConfigMigration
             MapValueToEntryValueIfNonNull<bool>(src, dst, "ModKeyMap.HideSelfMadeChartsLongPress", "UX.HideSelfMadeCharts.LongPress");
         }
         MapBooleanTrueToSectionEnable(src, dst, "ModKeyMap.EnableNativeQuickRetry", "GameSystem.QuickRetry");
+        if (src.TryGetValue<string>("ModKeyMap.TestMode", out var testMode) &&
+            testMode != "" &&
+            testMode != "Test")
+        {
+            dst.SetValue("DeprecationWarning.v1_0_ModKeyMap_TestMode", true);
+        }
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "ModKeyMap.TestModeLongPress", "GameSystem.KeyMap.TestProof", false);
 
         // WindowState.*

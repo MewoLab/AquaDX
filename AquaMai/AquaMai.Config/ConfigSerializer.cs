@@ -30,7 +30,7 @@ public class ConfigSerializer(IConfigSerializer.Options Options) : IConfigSerial
         }
 
         // Version
-        AppendEntry(sb, null, "Version", "2");
+        AppendEntry(sb, null, "Version", "2.0");
 
         foreach (var section in ((Config)config).reflectionManager.SectionValues)
         {
