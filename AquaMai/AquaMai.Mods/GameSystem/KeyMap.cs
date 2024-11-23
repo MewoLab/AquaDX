@@ -2,6 +2,7 @@ using System.Reflection;
 using AquaMai.Config.Attributes;
 using AquaMai.Config.Types;
 using HarmonyLib;
+using MelonLoader;
 
 namespace AquaMai.Mods.GameSystem;
 
@@ -74,7 +75,7 @@ public class KeyMap
     [HarmonyPostfix]
     public static void JvsButtonTableRecordConstructor(DB.JvsButtonTableRecord __instance, string Name)
     {
-        var prop = (DB.KeyCodeID)typeof(KeyMap).GetField(Name, BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+        var prop = (DB.KeyCodeID)typeof(KeyMap).GetField(Name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static).GetValue(null);
         __instance.SubstituteKey = prop;
     }
 }
