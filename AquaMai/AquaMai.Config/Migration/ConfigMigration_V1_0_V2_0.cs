@@ -58,7 +58,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "Fix.SkipVersionCheck", "GameSystem.SkipUserVersionCheck");
         if (!src.GetValueOrDefault<bool>("Fix.RemoveEncryption"))
         {
-            dst.SetValue("GameSystem.RemoveEncryption.Disable", true); // Enabled by default in V2
+            dst.SetValue("GameSystem.RemoveEncryption.Disabled", true); // Enabled by default in V2
         }
         MapBooleanTrueToSectionEnable(src, dst, "Fix.ForceAsServer", "GameSettings.ForceAsServer");
         if (src.GetValueOrDefault<bool>("Fix.ForceFreePlay"))

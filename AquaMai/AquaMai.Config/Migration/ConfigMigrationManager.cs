@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AquaMai.Config.Interfaces;
@@ -37,6 +38,10 @@ public class ConfigMigrationManager : IConfigMigrationManager
             Utility.Log($"Migrating config from v{migration.FromVersion} to v{migration.ToVersion}");
             config = migration.Migrate(config);
             currentVersion = migration.ToVersion;
+        }
+        if (currentVersion != latestVersion)
+        {
+            throw new ArgumentException($"Could not migrate the config from v{currentVersion} to v{latestVersion}");
         }
         return config;
     }

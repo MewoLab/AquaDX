@@ -24,7 +24,8 @@ public class GenerateExampleConfig : Task
                 var configSerializer = configInterface.CreateConfigSerializer(new IConfigSerializer.Options()
                 {
                     Lang = lang,
-                    IncludeBanner = true
+                    IncludeBanner = true,
+                    OverrideLocaleValue = true
                 });
                 var example = configSerializer.Serialize(config);
                 File.WriteAllText(Path.Combine(OutputPath, $"AquaMai.{lang}.toml"), example);

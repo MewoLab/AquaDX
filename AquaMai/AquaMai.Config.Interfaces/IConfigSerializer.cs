@@ -6,6 +6,7 @@ public interface IConfigSerializer
     {
         public string Lang { get; init; }
         public bool IncludeBanner { get; init; }
+        public bool OverrideLocaleValue { get; init; }
     }
 
     public string Serialize(IConfig config);

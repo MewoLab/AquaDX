@@ -13,10 +13,10 @@ public class ConfigParser : IConfigParser
 
     private readonly static string[] supressUnrecognizedConfigPaths = ["Version"];
     private readonly static string[] supressUnrecognizedConfigPathSuffixes = [
-        ".Disable", // For section enable state.
-        ".Disabled", // For section enable state, but the wrong key, warn later.
-        ".Enable", // For section enable state, but the wrong key, warn later.
+        ".Disabled", // For section enable state.
+        ".Disable", // For section enable state, but the wrong key, warn later.
         ".Enabled", // For section enable state, but the wrong key, warn later.
+        ".Enable", // For section enable state, but the wrong key, warn later.
     ];
 
     private ConfigParser()
@@ -99,17 +99,17 @@ public class ConfigParser : IConfigParser
     {
         if (value is TomlTable table)
         {
-            foreach (var unexpectedKey in (string[]) ["Enable", "Enabled", "Disabled"])
+            foreach (var unexpectedKey in (string[]) ["Enable", "Enabled", "Disable"])
             {
                 if (table.ContainsKey(unexpectedKey))
                 {
-                    Utility.Log($"Unexpected key \"{unexpectedKey}\" for enable status under \"{path}\". Only \"Disable\" is parsed.");
+                    Utility.Log($"Unexpected key \"{unexpectedKey}\" for enable status under \"{path}\". Only \"Disabled\" is parsed.");
                 }
             }
 
-            if (table.TryGetValue("Disable", out var disableValue))
+            if (table.TryGetValue("Disabled", out var disableValue) && !section.Attribute.AlwaysEnabled)
             {
-                var disabled = Utility.IsTruty(disableValue, path + ".Disable");
+                var disabled = Utility.IsTruty(disableValue, path + ".Disabled");
                 config.SetSectionEnabled(section, !disabled);
             }
             else

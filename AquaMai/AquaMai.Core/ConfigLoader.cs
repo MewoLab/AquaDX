@@ -12,12 +12,13 @@ public static class ConfigLoader
 {
     private static string ConfigFile => "AquaMai.toml";
     private static string ConfigExampleFile(string lang) => $"AquaMai.{lang}.toml";
+    private static string OldConfigFile(string version) => $"AquaMai.toml.old-v{version}.";
 
     private static Config.Config config;
 
     public static Config.Config Config => config;
 
-    public static void LoadConfig(Assembly modsAssembly)
+    public static bool LoadConfig(Assembly modsAssembly)
     {
         Utility.LogFunction = MelonLogger.Msg;
 
@@ -39,27 +40,43 @@ public static class ConfigLoader
             MelonLogger.Error("Example copied to AquaMai.en.toml");
             MelonLogger.Error("示例已复制到 AquaMai.zh.toml");
             MelonLogger.Error("=========================================");
-            return;
+            return false;
         }
 
-        var configView = new ConfigView(File.ReadAllText(ConfigFile));
-        configView = (ConfigView)ConfigMigrationManager.Instance.Migrate(configView);
+        var configText = File.ReadAllText(ConfigFile);
+        var configView = new ConfigView(configText);
+        var configVersion = ConfigMigrationManager.Instance.GetVersion(configView);
+        if (configVersion != ConfigMigrationManager.Instance.latestVersion)
+        {
+            File.WriteAllText(OldConfigFile(configVersion), configText);
+            configView = (ConfigView)ConfigMigrationManager.Instance.Migrate(configView);
+        }
 
         // Read AquaMai.toml to load settings
         ConfigParser.Instance.Parse(config, configView);
+
+        return true;
     }
 
-    public static IDictionary<string, string> GenerateExamples()
+    public static void SaveConfig(string lang)
+    {
+        File.WriteAllText(ConfigFile, SerailizeCurrentConfig(lang));
+    }
+
+    private static string SerailizeCurrentConfig(string lang) =>
+        new ConfigSerializer(new IConfigSerializer.Options()
+        {
+            Lang = lang,
+            IncludeBanner = true,
+            OverrideLocaleValue = true
+        }).Serialize(config);
+
+    private static IDictionary<string, string> GenerateExamples()
     {
         var examples = new Dictionary<string, string>();
         foreach (var lang in (string[]) ["en", "zh"])
         {
-            var configSerializer = new ConfigSerializer(new IConfigSerializer.Options()
-            {
-                Lang = lang,
-                IncludeBanner = true
-            });
-            examples[lang] = configSerializer.Serialize(config);
+            examples[lang] = SerailizeCurrentConfig(lang);
         }
         return examples;
     }

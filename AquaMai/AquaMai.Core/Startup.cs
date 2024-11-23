@@ -88,21 +88,20 @@ public class Startup
         }
     }
 
-    private static void InitLocale()
+    private static string ResolveLocale()
     {
         var localeConfigEntry = ConfigLoader.Config.ReflectionManager.GetEntry("General.Locale");
         var localeValue = (string)ConfigLoader.Config.GetEntryState(localeConfigEntry).Value;
-        if (!string.IsNullOrEmpty(localeValue))
+        return localeValue switch
         {
-            Locale.Culture = CultureInfo.GetCultureInfo(localeValue);
-            return;
-        }
-
-        Locale.Culture = Application.systemLanguage switch
-        {
-            SystemLanguage.Chinese or SystemLanguage.ChineseSimplified or SystemLanguage.ChineseTraditional => CultureInfo.GetCultureInfo("zh"),
-            SystemLanguage.English => CultureInfo.GetCultureInfo("en"),
-            _ => CultureInfo.InvariantCulture
+            "en" => localeValue,
+            "zh" => localeValue,
+            _ => Application.systemLanguage switch
+            {
+                SystemLanguage.Chinese or SystemLanguage.ChineseSimplified or SystemLanguage.ChineseTraditional => "zh",
+                SystemLanguage.English => "en",
+                _ => "en"
+            }
         };
     }
 
@@ -111,13 +110,15 @@ public class Startup
         MelonLogger.Msg("Loading mod settings...");
 
         ConfigLoader.LoadConfig(modsAssembly);
+        var lang = ResolveLocale();
+        ConfigLoader.SaveConfig(lang); // Re-save the config as soon as possible
 
         _harmony = harmony;
 
         // Init locale with patching C# runtime
         // https://stackoverflow.com/questions/1952638/single-assembly-multi-language-windows-forms-deployment-ilmerge-and-satellite-a
         Patch(typeof(I18nSingleAssemblyHook));
-        InitLocale(); // Must be called after I18nSingleAssemblyHook patched and config loaded
+        Locale.Culture = CultureInfo.GetCultureInfo(lang); // Must be called after I18nSingleAssemblyHook patched
 
         // The patch list is ordered
         List<Type> wantedPatches = [];
