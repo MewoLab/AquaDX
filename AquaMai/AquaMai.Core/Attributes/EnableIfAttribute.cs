@@ -15,52 +15,55 @@ public enum EnableIfCondition
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
 public class EnableIfAttribute(
     Type referenceType,
-    string conditionField,
+    string referenceMember,
     EnableIfCondition condition,
     object baseValue) : Attribute
 {
     public Type ReferenceType { get; } = referenceType;
-    public string ConditionField { get; } = conditionField;
+    public string ReferenceMember { get; } = referenceMember;
     public EnableIfCondition Condition { get; } = condition;
     public object BaseValue { get; } = baseValue;
 
     // Referencing a field in another class and checking if it's true.
-    public EnableIfAttribute(Type referenceType, string conditionField)
-    : this(referenceType, conditionField, EnableIfCondition.Equal, true)
+    public EnableIfAttribute(Type referenceType, string referenceMember)
+    : this(referenceType, referenceMember, EnableIfCondition.Equal, true)
     { }
 
     // Referencing a field in the same class and comparing it with a value.
-    public EnableIfAttribute(string conditionField, EnableIfCondition condition, object value)
-    : this(null, conditionField, condition, value)
+    public EnableIfAttribute(string referenceMember, EnableIfCondition condition, object value)
+    : this(null, referenceMember, condition, value)
     { }
 
     // Referencing a field in the same class and checking if it's true.
-    public EnableIfAttribute(string conditionField)
-    : this(conditionField, EnableIfCondition.Equal, true)
+    public EnableIfAttribute(string referenceMember)
+    : this(referenceMember, EnableIfCondition.Equal, true)
     { }
 
     public bool ShouldEnable(Type selfType)
     {
         var referenceType = ReferenceType ?? selfType;
-        var conditionField = referenceType.GetField(
-            ConditionField,
+        var referenceField = referenceType.GetField(
+            ReferenceMember,
             System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
-        if (conditionField == null)
+        var referenceProperty = referenceType.GetProperty(
+            ReferenceMember,
+            System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
+        if (referenceField == null && referenceProperty == null)
         {
-            throw new ArgumentException($"Field {ConditionField} not found in {referenceType.FullName}");
+            throw new ArgumentException($"Field or property {ReferenceMember} not found in {referenceType.FullName}");
         }
-        var conditionFieldValue = conditionField.GetValue(null);
+        var referenceMemberValue = referenceField != null ? referenceField.GetValue(null) : referenceProperty.GetValue(null);
         switch (Condition)
         {
             case EnableIfCondition.Equal:
-                return conditionFieldValue.Equals(BaseValue);
+                return referenceMemberValue.Equals(BaseValue);
             case EnableIfCondition.NotEqual:
-                return !conditionFieldValue.Equals(BaseValue);
+                return !referenceMemberValue.Equals(BaseValue);
             case EnableIfCondition.GreaterThan:
             case EnableIfCondition.LessThan:
             case EnableIfCondition.GreaterThanOrEqual:
             case EnableIfCondition.LessThanOrEqual:
-                var comparison = (IComparable)conditionFieldValue;
+                var comparison = (IComparable)referenceMemberValue;
                 return Condition switch
                 {
                     EnableIfCondition.GreaterThan => comparison.CompareTo(BaseValue) > 0,
