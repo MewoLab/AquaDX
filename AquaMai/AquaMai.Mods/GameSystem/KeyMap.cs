@@ -2,7 +2,6 @@ using System.Reflection;
 using AquaMai.Config.Attributes;
 using AquaMai.Config.Types;
 using HarmonyLib;
-using MelonLoader;
 
 namespace AquaMai.Mods.GameSystem;
 
