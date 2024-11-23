@@ -10,8 +10,14 @@ namespace AquaMai.Mods;
 public class General
 {
     [ConfigEntry(
-        en: "Language for mod UI (en and zh supported)",
-        zh: "Mod 界面的语言，支持 en 和 zh")]
+        en: """
+            Language for mod UI (en and zh supported)
+            If empty, the system language will be used
+            """,
+        zh: """
+            Mod 界面的语言，支持 en 和 zh
+            如果为空，将使用系统语言
+            """)]
     public static readonly string Locale = "";
 }
 

@@ -39,7 +39,7 @@ public class HeadlessConfigInterface
     {
         return loadedConfigAssembly
             .GetType("AquaMai.Config.ConfigParser")
-            .GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
+            .GetField("Instance", BindingFlags.Public | BindingFlags.Static)
             .GetValue(null) as IConfigParser;
     }
 
@@ -53,7 +53,7 @@ public class HeadlessConfigInterface
     {
         return loadedConfigAssembly
             .GetType("AquaMai.Config.Migration.ConfigMigrationManager")
-            .GetProperty("Instance", BindingFlags.Public | BindingFlags.Static)
+            .GetField("Instance", BindingFlags.Public | BindingFlags.Static)
             .GetValue(null) as IConfigMigrationManager;
     }
 }

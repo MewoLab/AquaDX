@@ -2,14 +2,22 @@ using System;
 using Tomlet.Models;
 using AquaMai.Config.Interfaces;
 using AquaMai.Config.Reflection;
-using AquaMail.Config;
 using AquaMai.Config.Migration;
+using System.Linq;
 
 namespace AquaMai.Config;
 
 public class ConfigParser : IConfigParser
 {
     public readonly static ConfigParser Instance = new();
+
+    private readonly static string[] supressUnrecognizedConfigPaths = ["Version"];
+    private readonly static string[] supressUnrecognizedConfigPathSuffixes = [
+        ".Disable", // For section enable state.
+        ".Disabled", // For section enable state, but the wrong key, warn later.
+        ".Enable", // For section enable state, but the wrong key, warn later.
+        ".Enabled", // For section enable state, but the wrong key, warn later.
+    ];
 
     private ConfigParser()
     {}
@@ -39,17 +47,30 @@ public class ConfigParser : IConfigParser
 
         if (value is TomlTable table)
         {
+            bool isLeaf = true;
             foreach (var subKey in table.Keys)
             {
                 var subValue = table.GetValue(subKey);
                 var subPath = path == "" ? subKey : $"{path}.{subKey}";
+                if (subValue is TomlTable)
+                {
+                    isLeaf = false;
+                }
                 Hydrate(config, subValue, subPath);
+            }
+            // A leaf dictionary, which has no child dictionaries, must be a section.
+            if (isLeaf && section == null)
+            {
+                Utility.Log($"Unrecognized config section: {path}");
             }
         }
         else
         {
             // It's an config entry value (or a primitive type for enabling a section).
-            if (!config.ReflectionManager.ContainsSection(path) && !config.ReflectionManager.ContainsEntry(path))
+            if (!config.ReflectionManager.ContainsSection(path) &&
+                !config.ReflectionManager.ContainsEntry(path) &&
+                !supressUnrecognizedConfigPaths.Any(s => path.Equals(s, StringComparison.OrdinalIgnoreCase)) &&
+                !supressUnrecognizedConfigPathSuffixes.Any(suffix => path.EndsWith(suffix, StringComparison.OrdinalIgnoreCase)))
             {
                 Utility.Log($"Unrecognized config entry: {path}");
                 return;
@@ -90,6 +111,10 @@ public class ConfigParser : IConfigParser
             {
                 var disabled = Utility.IsTruty(disableValue, path + ".Disable");
                 config.SetSectionEnabled(section, !disabled);
+            }
+            else
+            {
+                config.SetSectionEnabled(section, true);
             }
         }
         else

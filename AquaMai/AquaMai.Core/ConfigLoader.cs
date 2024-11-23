@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using MelonLoader;
 using AquaMai.Config;
 using AquaMai.Config.Interfaces;
 using AquaMai.Config.Migration;
-using AquaMail.Config;
-using MelonLoader;
 
 namespace AquaMai;
 

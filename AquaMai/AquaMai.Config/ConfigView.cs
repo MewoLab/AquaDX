@@ -1,11 +1,10 @@
 using System;
 using System.Linq;
-using AquaMai.Config;
 using AquaMai.Config.Interfaces;
 using Tomlet;
 using Tomlet.Models;
 
-namespace AquaMail.Config;
+namespace AquaMai.Config;
 
 public class ConfigView : IConfigView
 {

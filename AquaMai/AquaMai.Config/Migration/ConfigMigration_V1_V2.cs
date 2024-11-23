@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using AquaMai.Config.Interfaces;
 using AquaMai.Config.Types;
-using AquaMail.Config;
 
 namespace AquaMai.Config.Migration;
 
@@ -18,7 +17,7 @@ public class ConfigMigration_V1_V2 : IConfigMigration
         dst.SetValue("Version", "2");
 
         // UX.*
-        MapValueToEntryValueIfNonNull<string>(src, dst, "UX.Locale", "General.Locale");
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.Locale", "General.Locale", "");
         MapBooleanTrueToSectionEnable(src, dst, "UX.SinglePlayer", "GameSystem.SinglePlayer");
         MapBooleanTrueToSectionEnable(src, dst, "UX.HideMask", "Fancy.HideMask");
         MapBooleanTrueToSectionEnable(src, dst, "UX.LoadAssetsPng", "GameAssets.LoadLocalImages");
@@ -28,41 +27,48 @@ public class ConfigMigration_V1_V2 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "UX.ExtendTimer", "GameSystem.DisableTimeout");
         MapBooleanTrueToSectionEnable(src, dst, "UX.ImmediateSave", "UX.ImmediateSave");
         MapBooleanTrueToSectionEnable(src, dst, "UX.LoadLocalBga", "GameAssets.UseJacketAsDummyMovie");
-        if (src.GetValueOrDefault<bool>("UX.CustomFont") &&
-            !src.GetValueOrDefault<bool>("Font.FontFix"))
+        if (src.GetValueOrDefault<bool>("UX.CustomFont"))
         {
             dst.SetValue("GameSystem.Fonts.Paths", "LocalAssets/font.ttf");
             dst.SetValue("GameSystem.Fonts.AddAsFallback", false);
         }
-        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadLocalBga", "GameAssets.UseJacketAsDummyMovie");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.TouchToButtonInput", "GameSystem.TouchToButtonInput");
         MapBooleanTrueToSectionEnable(src, dst, "UX.HideHanabi", "Fancy.GamePlay.HideHanabi");
         MapBooleanTrueToSectionEnable(src, dst, "UX.SlideFadeInTweak", "Fancy.GamePlay.SlideFadeInTweak");
         MapBooleanTrueToSectionEnable(src, dst, "UX.JudgeAccuracyInfo", "UX.JudgeAccuracyInfo");
-        MapValueToEntryValueIfNonNull<string>(src, dst, "UX.CustomVersionString", "Fancy.CustomVersionString.VersionString");
-        MapValueToEntryValueIfNonNull<string>(src, dst, "UX.CustomPlaceName", "Fancy.CustomPlaceName.PlaceName");
-        MapValueToEntryValueIfNonNull<string>(src, dst, "UX.ExecOnIdle", "Fancy.Triggers.ExecOnIdle");
-        MapValueToEntryValueIfNonNull<string>(src, dst, "UX.ExecOnEntry", "Fancy.Triggers.ExecOnEntry");
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.CustomVersionString", "Fancy.CustomVersionString.VersionString", "");
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.CustomPlaceName", "Fancy.CustomPlaceName.PlaceName", "");
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.ExecOnIdle", "Fancy.Triggers.ExecOnIdle", "");
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.ExecOnEntry", "Fancy.Triggers.ExecOnEntry", "");
 
         // Cheat.*
-        MapValueToEntryValueIfNonNull<bool>(src, dst, "Cheat.TicketUnlock", "GameSystem.Unlock.Tickets");
-        MapValueToEntryValueIfNonNull<bool>(src, dst, "Cheat.MapUnlock", "GameSystem.Unlock.Maps");
-        MapValueToEntryValueIfNonNull<bool>(src, dst, "Cheat.UnlockUtage", "GameSystem.Unlock.Utage");
+        var unlockTickets = src.GetValueOrDefault<bool>("Cheat.TicketUnlock");
+        var unlockMaps = src.GetValueOrDefault<bool>("Cheat.MapUnlock");
+        var unlockUtage = src.GetValueOrDefault<bool>("Cheat.UnlockUtage");
+        if (unlockTickets ||
+            unlockMaps ||
+            unlockUtage)
+        {
+            dst.SetValue("GameSystem.Unlock.Tickets", unlockTickets);
+            dst.SetValue("GameSystem.Unlock.Maps", unlockMaps);
+            dst.SetValue("GameSystem.Unlock.Utage", unlockUtage);
+        }
 
         // Fix.*
         MapBooleanTrueToSectionEnable(src, dst, "Fix.SkipVersionCheck", "GameSystem.SkipUserVersionCheck");
         if (!src.GetValueOrDefault<bool>("Fix.RemoveEncryption"))
         {
-            dst.SetValue("GameSystem.RemoveEncryption.Disabled", true); // Enabled by default in V2
+            dst.SetValue("GameSystem.RemoveEncryption.Disable", true); // Enabled by default in V2
         }
-        MapBooleanTrueToSectionEnable(src, dst, "Fix.ForceAsServer", "GameSystem.ForceAsServer");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.ForceAsServer", "GameSettings.ForceAsServer");
         if (src.GetValueOrDefault<bool>("Fix.ForceFreePlay"))
         {
-            dst.SetValue("GameSystem.CreditConfig.IsFreePlay", true);
+            dst.SetValue("GameSettings.CreditConfig.IsFreePlay", true);
         }
         if (src.GetValueOrDefault<bool>("Fix.ForcePaidPlay"))
         {
-            dst.SetValue("GameSystem.CreditConfig.IsFreePlay", false);
-            dst.SetValue("GameSystem.CreditConfig.LockCredits", 24);
+            dst.SetValue("GameSettings.CreditConfig.IsFreePlay", false);
+            dst.SetValue("GameSettings.CreditConfig.LockCredits", 24);
         }
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "Fix.ExtendNotesPool", "Fancy.GamePlay.ExtendNotesPool", 0);
         MapBooleanTrueToSectionEnable(src, dst, "Fix.FrameRateLock", "GameSystem.LockFrameRate");
@@ -89,11 +95,12 @@ public class ConfigMigration_V1_V2 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "Utils.LogUserId", "Utils.LogUserId");
         MapValueToEntryValueIfNonNullOrDefault<double>(src, dst, "Utils.JudgeAdjustA", "GameSettings.JudgeAdjust.A", 0);
         MapValueToEntryValueIfNonNullOrDefault<double>(src, dst, "Utils.JudgeAdjustB", "GameSettings.JudgeAdjust.B", 0);
-        MapValueToEntryValueIfNonNullOrDefault<int>(src, dst, "Utils.TouchDelay", "GameSettings.JudgeAdjust.TouchDelay", 0);
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "Utils.TouchDelay", "GameSettings.JudgeAdjust.TouchDelay", 0);
         MapBooleanTrueToSectionEnable(src, dst, "Utils.SelectionDetail", "UX.SelectionDetail");
         MapBooleanTrueToSectionEnable(src, dst, "Utils.ShowNetErrorDetail", "Utils.ShowNetErrorDetail");
+        MapBooleanTrueToSectionEnable(src, dst, "Utils.ShowErrorLog", "Utils.ShowErrorLog");
         MapBooleanTrueToSectionEnable(src, dst, "Utils.FrameRateDisplay", "Utils.DisplayFrameRate");
-        MapValueToEntryValueIfNonNullOrDefault<int>(src, dst, "Utils.TouchPanelBaudRate", "GameSystem.TouchPanelBaudRate.BaudRate", 0);
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "Utils.TouchPanelBaudRate", "GameSystem.TouchPanelBaudRate.BaudRate", 0);
 
         // TimeSaving.*
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipWarningScreen", "SkipProcesses.SkipWarningScreen");
@@ -150,11 +157,11 @@ public class ConfigMigration_V1_V2 : IConfigMigration
         }
         if (keyHideSelfMadeCharts != "None")
         {
-            dst.SetValue("HideSelfMadeCharts.Key", keyHideSelfMadeCharts);
-            MapValueToEntryValueIfNonNull<bool>(src, dst, "ModKeyMap.HideSelfMadeChartsLongPress", "HideSelfMadeCharts.LongPress");
+            dst.SetValue("UX.HideSelfMadeCharts.Key", keyHideSelfMadeCharts);
+            MapValueToEntryValueIfNonNull<bool>(src, dst, "ModKeyMap.HideSelfMadeChartsLongPress", "UX.HideSelfMadeCharts.LongPress");
         }
         MapBooleanTrueToSectionEnable(src, dst, "ModKeyMap.EnableNativeQuickRetry", "GameSystem.QuickRetry");
-        MapBooleanTrueToSectionEnable(src, dst, "ModKeyMap.TestModeLongPress", "GameSystem.KeyMap.TestProof");
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "ModKeyMap.TestModeLongPress", "GameSystem.KeyMap.TestProof", false);
 
         // WindowState.*
         if (src.GetValueOrDefault<bool>("WindowState.Enable"))
