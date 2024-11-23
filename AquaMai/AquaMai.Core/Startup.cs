@@ -59,7 +59,7 @@ public class Startup
 
     private static void CollectWantedPatches(List<Type> wantedPatches, Type type)
     {
-        if (!EnableConditionHelper.ShouldSkipClass(type))
+        if (EnableConditionHelper.ShouldSkipClass(type))
         {
             return;
         }
