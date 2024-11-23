@@ -130,6 +130,7 @@ public class Startup
         CollectWantedPatches(wantedPatches, typeof(MusicDirHelper));
         CollectWantedPatches(wantedPatches, typeof(SharedInstances));
         CollectWantedPatches(wantedPatches, typeof(GuiSizes));
+        CollectWantedPatches(wantedPatches, typeof(KeyListener));
 
         // Collect patches based on the config
         var config = ConfigLoader.Config;

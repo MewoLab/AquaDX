@@ -89,7 +89,7 @@ public static class KeyListener
 # if DEBUG
         if (ret)
         {
-            MelonLogger.Msg($"Key {key} is pressed");
+            MelonLogger.Msg($"Key {key} is pressed, long press: {isLongPress}");
             MelonLogger.Msg(new StackTrace());
         }
 # endif
