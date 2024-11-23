@@ -69,13 +69,13 @@ public class ImmediateSave
             PacketHelper.StartPacket(Shim.CreatePacketUploadUserPlaylog(i, userData, (int)GameManager.MusicTrackNumber - 1,
                 delegate
                 {
-                    MelonLogger.Msg("Playlog saved");
+                    MelonLogger.Msg("[ImmediateSave] Playlog saved");
                     CheckSaveDone();
                 },
                 delegate(PacketStatus err)
                 {
                     SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, i);
-                    MelonLogger.Error("Playlog save error");
+                    MelonLogger.Error("[ImmediateSave] Playlog save error");
                     MelonLogger.Error(err);
                     MessageHelper.ShowMessage("Playlog save error");
                     CheckSaveDone();
@@ -84,13 +84,13 @@ public class ImmediateSave
             {
                 if (code == 1)
                 {
-                    MelonLogger.Msg("UserAll saved");
+                    MelonLogger.Msg("[ImmediateSave] UserAll saved");
                     CheckSaveDone();
                 }
                 else
                 {
                     SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, i);
-                    MelonLogger.Error("UserAll upsert error");
+                    MelonLogger.Error("[ImmediateSave] UserAll upsert error");
                     MelonLogger.Error(code);
                     MessageHelper.ShowMessage("UserAll upsert error");
                     CheckSaveDone();
@@ -98,7 +98,7 @@ public class ImmediateSave
             }, delegate(PacketStatus err)
             {
                 SoundManager.PlaySE(Mai2.Mai2Cue.Cue.SE_ENTRY_AIME_ERROR, i);
-                MelonLogger.Error("UserAll upsert error");
+                MelonLogger.Error("[ImmediateSave] UserAll upsert error");
                 MelonLogger.Error(err);
                 MessageHelper.ShowMessage("UserAll upsert error");
                 CheckSaveDone();

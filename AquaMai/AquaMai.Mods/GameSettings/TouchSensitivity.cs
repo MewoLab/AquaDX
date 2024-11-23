@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using AquaMai.Config.Attributes;
 using HarmonyLib;
 using IO;
@@ -144,7 +145,7 @@ public class TouchSensitivity
         for (var i = 0; i < 34; i++)
         {
             var area = (InputManager.TouchPanelArea)i;
-            var field = configType.GetField(area.ToString());
+            var field = configType.GetField(area.ToString(), BindingFlags.NonPublic | BindingFlags.Static);
             var value = (byte)field.GetValue(null);
             sensitivity[i] = value;
         }
