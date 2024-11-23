@@ -6,7 +6,7 @@ using Manager;
 namespace AquaMai.Mods.Fix.Legacy;
 
 [ConfigSection(exampleHidden: true, defaultOn: true)]
-[EnableGameVersion(23000, 23499)]
+[EnableGameVersion(23000, 23499, true)]
 public class FixQuickRetry130
 {
     // Fix for the game not resetting Fast and Late counts when quick retrying
