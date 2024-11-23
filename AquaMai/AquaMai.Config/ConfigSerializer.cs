@@ -15,10 +15,10 @@ public class ConfigSerializer(IConfigSerializer.Options Options) : IConfigSerial
 
         - 井号 # 开头的行为注释，被注释掉的内容不会生效
             - 为方便使用 VSCode 等编辑器进行编辑，被注释掉的配置内容使用一个井号 #，而注释文本使用两个井号 ##
-        - 方括号 [] 为一个栏目
+        - 以方括号包裹的行，如 [OptionalCategory.Section]，为一个栏目
             - 将默认被注释（即默认禁用）的栏目取消注释即可启用
-            - 若要禁用一个默认启用的栏目，请在栏目下添加 "Disable = true" 配置项，删除它/注释它不会有效
-        - 形如 "键 = 值" 为一个配置项
+            - 若要禁用一个默认启用的栏目，请在栏目下添加「Disable = true」配置项，删除它/注释它不会有效
+        - 形如「键 = 值」为一个配置项
             - 配置项应用到其上方最近的栏目，请不要在一个栏目被注释掉的情况下开启其配置项（会加到上一个栏目，无效）
             - 当对应栏目启用时，配置项生效，无论是否将其取消注释
             - 注释掉的配置项保留其注释中的默认值，默认值可能会随版本更新而变化
@@ -34,7 +34,7 @@ public class ConfigSerializer(IConfigSerializer.Options Options) : IConfigSerial
 
         - Lines starting with a hash # are comments. Commented content will not take effect.
             - For easily editing with editors (e.g. VSCode), commented configuration content uses a single hash #, while comment text uses two hashes ##.
-        - Square brackets [] are a section.
+        - Lines with square brackets like [OptionalCategory.Section] are sections.
             - Uncomment a section that is commented out by default (i.e. disabled by default) to enable it.
             - To disable a section that is enabled by default, add a "Disable = true" entry under the section. Removing/commenting it will not work.
         - Lines like "Key = Value" is a configuration entry.
