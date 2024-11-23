@@ -16,7 +16,75 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
 
         dst.SetValue("Version", ToVersion);
 
-        // UX.*
+        // UX (legacy)
+        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.TestProof", "GameSystem.KeyMap.TestProof", false);
+        if (src.GetValueOrDefault<bool>("UX.QuickSkip"))
+        {
+            // NOTE: UX.QuickSkip was a 4-in-1 large patch in earlier V1, then split since ModKeyMap was introduced.
+            dst.SetValue("UX.OneKeyEntryEnd.Key", "Service");
+            dst.SetValue("UX.OneKeyEntryEnd.LongPress", true);
+            dst.SetValue("UX.OneKeyRetrySkip.RetryKey", "Service");
+            dst.SetValue("UX.OneKeyRetrySkip.RetryLongPress", false);
+            dst.SetValue("UX.OneKeyRetrySkip.SkipKey", "Select1P");
+            dst.SetValue("UX.OneKeyRetrySkip.SkipLongPress", false);
+            dst.EnsureDictionary("GameSystem.QuickRetry");
+        }
+        if (src.GetValueOrDefault<bool>("UX.HideSelfMadeCharts"))
+        {
+            dst.SetValue("UX.HideSelfMadeCharts.Key", "Service");
+            dst.SetValue("UX.HideSelfMadeCharts.LongPress", false);
+        }
+        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadJacketPng", "GameAssets.LoadLocalImages");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipWarningScreen", "SkipProcesses.SkipWarningScreen");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipToMusicSelection", "SkipProcesses.SkipToMusicSelection");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipEventInfo", "SkipProcesses.SkipEventInfo");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SelectionDetail", "UX.SelectionDetail");
+        if (src.GetValueOrDefault<bool>("UX.CustomNoteSkin") ||
+            src.GetValueOrDefault<bool>("UX.CustomSkins"))
+        {
+            dst.SetValue("Fancy.CustomSkins.SkinsDir", "LocalAssets/Skins");
+        }
+        MapBooleanTrueToSectionEnable(src, dst, "UX.JudgeDisplay4B", "Fancy.GamePlay.JudgeDisplay4B");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.CustomTrackStartDiff", "Fancy.CustomTrackStartDiff");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.TrackStartProcessTweak", "Fancy.GamePlay.TrackStartProcessTweak");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.DisableTrackStartTabs", "Fancy.DisableTrackStartTabs");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.RealisticRandomJudge", "Fancy.GamePlay.RealisticRandomJudge");
+
+        // Utils (legacy)
+        if (src.GetValueOrDefault<bool>("Utils.Windowed") ||
+            src.GetValueOrDefault<int>("Utils.Width") != 0 ||
+            src.GetValueOrDefault<int>("Utils.Height") != 0)
+        {
+            // NOTE: the default "false, 0, 0" was effective earlier in V1, but won't be migrated as enabled in V2.
+            MapValueOrDefaultToEntryValue(src, dst, "Utils.Windowed", "GameSystem.Window.Windowed", false);
+            MapValueOrDefaultToEntryValue(src, dst, "Utils.Width", "GameSystem.Window.Width", 0);
+            MapValueOrDefaultToEntryValue(src, dst, "Utils.Height", "GameSystem.Window.Height", 0);
+        }
+        if (src.GetValueOrDefault<bool>("Utils.PracticeMode") || src.GetValueOrDefault<bool>("Utils.PractiseMode")) // Typo of typo is the correct word
+        {
+            dst.SetValue("PracticeMode.Key", "Test");
+            dst.SetValue("PracticeMode.LongPress", false);
+        }
+
+        // Fix (legacy)
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.SlideJudgeTweak", "Fancy.GamePlay.BreakSlideJudgeBlink");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.BreakSlideJudgeBlink", "Fancy.GamePlay.BreakSlideJudgeBlink");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.SlideJudgeTweak", "Fancy.GamePlay.FanJudgeFlip");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.FanJudgeFlip", "Fancy.GamePlay.FanJudgeFlip");
+        // NOTE: This (FixCircleSlideJudge) was enabled by default in V1, but non-default in V2 since it has visual changes
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.SlideJudgeTweak", "Fancy.GamePlay.AlignCircleSlideJudgeDisplay");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.FixCircleSlideJudge", "Fancy.GamePlay.AlignCircleSlideJudgeDisplay");
+
+        // Performance (legacy)
+        MapBooleanTrueToSectionEnable(src, dst, "Performance.ImproveLoadSpeed", "GameSystem.RemoveStartupDelay");
+
+        // TimeSaving (legacy)
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowNetErrorDetail", "Utils.ShowNetErrorDetail");
+
+        // MaimaiDX2077 (legacy) (WTF is the name?)
+        // NOTE: MaimaiDX2077.CustomNoteTypePatch was enabled by default in V1, but non-default in V2 since it's a large patch and not widely used
+
+        // UX
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.Locale", "General.Locale", "");
         MapBooleanTrueToSectionEnable(src, dst, "UX.SinglePlayer", "GameSystem.SinglePlayer");
         MapBooleanTrueToSectionEnable(src, dst, "UX.HideMask", "Fancy.HideMask");
@@ -41,7 +109,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.ExecOnIdle", "Fancy.Triggers.ExecOnIdle", "");
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.ExecOnEntry", "Fancy.Triggers.ExecOnEntry", "");
 
-        // Cheat.*
+        // Cheat
         var unlockTickets = src.GetValueOrDefault<bool>("Cheat.TicketUnlock");
         var unlockMaps = src.GetValueOrDefault<bool>("Cheat.MapUnlock");
         var unlockUtage = src.GetValueOrDefault<bool>("Cheat.UnlockUtage");
@@ -54,7 +122,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             dst.SetValue("GameSystem.Unlock.Utage", unlockUtage);
         }
 
-        // Fix.*
+        // Fix
         MapBooleanTrueToSectionEnable(src, dst, "Fix.SkipVersionCheck", "GameSystem.SkipUserVersionCheck");
         if (!src.GetValueOrDefault<bool>("Fix.RemoveEncryption"))
         {
@@ -79,19 +147,18 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             dst.SetValue("GameSystem.Fonts.AddAsFallback", true);
         }
         MapBooleanTrueToSectionEnable(src, dst, "Fix.RealisticRandomJudge", "Fancy.GamePlay.RealisticRandomJudge");
-        if (src.GetValueOrDefault<bool>("Fix.HanabiFix"))
+        if (src.GetValueOrDefault<bool>("UX.SinglePlayer"))
         {
-            dst.SetValue("GameSystem.SinglePlayer.FixHanabi", true);
-        }
-        if (!src.GetValueOrDefault<bool>("Fix.HanabiFix") &&
-            src.GetValueOrDefault<bool>("UX.SinglePlayer"))
-        {
-            dst.SetValue("GameSystem.SinglePlayer.FixHanabi", false); // `true` by default in V2
+            if (src.TryGetValue("Fix.HanabiFix", out bool hanabiFix))
+            {
+                // If it's enabled or disabled explicitly, use the value, otherwise left empty use the default V2 value (enabled).
+                dst.SetValue("GameSystem.SinglePlayer.FixHanabi", hanabiFix);
+            }
         }
         MapBooleanTrueToSectionEnable(src, dst, "Fix.IgnoreAimeServerError", "Fix.Stability.IgnoreAimeServerError");
         MapBooleanTrueToSectionEnable(src, dst, "Fix.TouchResetAfterTrack", "Fix.Stability.ResetTouchAfterTrack");
 
-        // Utils.*
+        // Utils
         MapBooleanTrueToSectionEnable(src, dst, "Utils.LogUserId", "Utils.LogUserId");
         MapValueToEntryValueIfNonNullOrDefault<double>(src, dst, "Utils.JudgeAdjustA", "GameSettings.JudgeAdjust.A", 0);
         MapValueToEntryValueIfNonNullOrDefault<double>(src, dst, "Utils.JudgeAdjustB", "GameSettings.JudgeAdjust.B", 0);
@@ -102,7 +169,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "Utils.FrameRateDisplay", "Utils.DisplayFrameRate");
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "Utils.TouchPanelBaudRate", "GameSystem.TouchPanelBaudRate.BaudRate", 0);
 
-        // TimeSaving.*
+        // TimeSaving
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipWarningScreen", "SkipProcesses.SkipWarningScreen");
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ImproveLoadSpeed", "GameSystem.RemoveStartupDelay");
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipToMusicSelection", "SkipProcesses.SkipToMusicSelection");
@@ -112,7 +179,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipTrackStart", "SkipProcesses.SkipTrackStart");
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowQuickEndPlay", "UX.QuickEndPlay");
 
-        // Visual.*
+        // Visual
         if (src.GetValueOrDefault<bool>("Visual.CustomSkins"))
         {
             dst.SetValue("Fancy.CustomSkins.SkinsDir", "LocalAssets/Skins");
@@ -126,7 +193,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "Visual.SlideArrowAnimation", "Fancy.GamePlay.SlideArrowAnimation");
         MapBooleanTrueToSectionEnable(src, dst, "Visual.SlideLayerReverse", "Fancy.GamePlay.SlideLayerReverse");
 
-        // ModKeyMap.*
+        // ModKeyMap
         var keyQuickSkip = src.GetValueOrDefault("ModKeyMap.QuickSkip", "None");
         var keyInGameRetry = src.GetValueOrDefault("ModKeyMap.InGameRetry", "None");
         var keyInGameSkip = src.GetValueOrDefault("ModKeyMap.InGameSkip", "None");
@@ -169,7 +236,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         }
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "ModKeyMap.TestModeLongPress", "GameSystem.KeyMap.TestProof", false);
 
-        // WindowState.*
+        // WindowState
         if (src.GetValueOrDefault<bool>("WindowState.Enable"))
         {
             MapValueOrDefaultToEntryValue(src, dst, "WindowState.Windowed", "GameSystem.Window.Windowed", false);
@@ -177,7 +244,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             MapValueOrDefaultToEntryValue(src, dst, "WindowState.Height", "GameSystem.Window.Height", 0);
         }
 
-        // CustomCameraId.*
+        // CustomCameraId
         if (src.GetValueOrDefault<bool>("CustomCameraId.Enable"))
         {
             dst.EnsureDictionary("GameSystem.CustomCameraId");
@@ -188,7 +255,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             MapValueToEntryValueIfNonNullOrDefault(src, dst, "CustomCameraId.ChimeCamera", "GameSystem.CustomCameraId.ChimeCamera", 0);
         }
 
-        // TouchSensitivity.*
+        // TouchSensitivity
         if (src.GetValueOrDefault<bool>("TouchSensitivity.Enable"))
         {
             dst.EnsureDictionary("GameSettings.TouchSensitivity");
@@ -206,7 +273,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             }
         }
 
-        // CustomKeyMap.*
+        // CustomKeyMap
         if (src.GetValueOrDefault<bool>("CustomKeyMap.Enable"))
         {
             dst.EnsureDictionary("GameSystem.KeyMap");
@@ -227,6 +294,9 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
                 }
             }
         }
+
+        // Default enabled in V2
+        dst.EnsureDictionary("GameSystem.RemoveEncryption");
 
         return dst;
     }
