@@ -129,9 +129,12 @@ public class Startup
     {
         MelonLogger.Msg("Loading mod settings...");
 
-        ConfigLoader.LoadConfig(modsAssembly);
+        var configLoaded = ConfigLoader.LoadConfig(modsAssembly);
         var lang = ResolveLocale();
-        ConfigLoader.SaveConfig(lang); // Re-save the config as soon as possible
+        if (configLoaded)
+        {
+            ConfigLoader.SaveConfig(lang); // Re-save the config as soon as possible
+        }
 
         _harmony = harmony;
 
