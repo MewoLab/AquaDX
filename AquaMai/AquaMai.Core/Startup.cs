@@ -144,7 +144,10 @@ public class Startup
         {
             InvokeLifecycleMethod(type, ModLifecycleMethod.OnBeforeAllPatch);
         }
-
+        foreach (var type in wantedPatches)
+        {
+            Patch(type);
+        }
         foreach (var type in wantedPatches)
         {
             InvokeLifecycleMethod(type, ModLifecycleMethod.OnAfterAllPatch);
