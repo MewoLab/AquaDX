@@ -13,7 +13,7 @@ namespace AquaMai.Mods.UX;
 [ConfigSection(
     en: "Show a \"skip\" button like AstroDX after the notes end",
     zh: "音符结束之后显示像 AstroDX 一样的「跳过」按钮")]
-public class ShowQuickEndPlay
+public class QuickEndPlay
 {
     private static int _timer;
 

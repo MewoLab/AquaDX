@@ -110,7 +110,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.IWontTapOrSlideVigorously", "SkipProcesses.SkipDontTapOrSlideVigorously");
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipGameOverScreen", "SkipProcesses.SkipGameOverScreen");
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipTrackStart", "SkipProcesses.SkipTrackStart");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowQuickEndPlay", "UX.ShowQuickEndPlay");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowQuickEndPlay", "UX.QuickEndPlay");
 
         // Visual.*
         if (src.GetValueOrDefault<bool>("Visual.CustomSkins"))
