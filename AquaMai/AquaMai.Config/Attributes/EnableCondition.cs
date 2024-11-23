@@ -1,6 +1,6 @@
 using System;
 
-namespace AquaMai.Core.Attributes;
+namespace AquaMai.Config.Attributes;
 
 public enum EnableConditionOperator
 {
@@ -12,8 +12,7 @@ public enum EnableConditionOperator
     LessThanOrEqual
 }
 
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-public class EnableIfAttribute(
+public class EnableCondition(
     Type referenceType,
     string referenceMember,
     EnableConditionOperator @operator,
@@ -25,21 +24,21 @@ public class EnableIfAttribute(
     public object RightSideValue { get; } = rightSideValue;
 
     // Referencing a field in another class and checking if it's true.
-    public EnableIfAttribute(Type referenceType, string referenceMember)
+    public EnableCondition(Type referenceType, string referenceMember)
     : this(referenceType, referenceMember, EnableConditionOperator.Equal, true)
     { }
 
     // Referencing a field in the same class and comparing it with a value.
-    public EnableIfAttribute(string referenceMember, EnableConditionOperator condition, object value)
+    public EnableCondition(string referenceMember, EnableConditionOperator condition, object value)
     : this(null, referenceMember, condition, value)
     { }
 
     // Referencing a field in the same class and checking if it's true.
-    public EnableIfAttribute(string referenceMember)
+    public EnableCondition(string referenceMember)
     : this(referenceMember, EnableConditionOperator.Equal, true)
     { }
 
-    public bool ShouldEnable(Type selfType)
+    public bool Evaluate(Type selfType)
     {
         var referenceType = ReferenceType ?? selfType;
         var referenceField = referenceType.GetField(

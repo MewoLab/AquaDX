@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using AquaMai.Core.Attributes;
 using AquaMai.Core.Helpers;
 using AquaMai.Core.Resources;
 using MelonLoader;
@@ -31,6 +32,25 @@ public class Startup
         // Lifecycle methods' excpetions not included
         // Subclasses' error not included
         OnPatchError
+    }
+
+    private static bool ShouldEnableImplicitly(Type type)
+    {
+        var implicitEnableAttribute = type.GetCustomAttribute<EnableImplicitlyIf>();
+        if (implicitEnableAttribute == null) return false;
+        var referenceField = type.GetField(implicitEnableAttribute.MemberName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+        var referenceProperty = type.GetProperty(implicitEnableAttribute.MemberName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+        if (referenceField == null && referenceProperty == null)
+        {
+            throw new ArgumentException($"Field or property {implicitEnableAttribute.MemberName} not found in {type.FullName}");
+        }
+        var referenceMemberValue = referenceField != null ? referenceField.GetValue(null) : referenceProperty.GetValue(null);
+        if ((bool)referenceMemberValue)
+        {
+            MelonLogger.Msg($"Enabled {type.FullName} implicitly");
+            return true;
+        }
+        return false;
     }
 
     private static void InvokeLifecycleMethod(Type type, ModLifecycleMethod methodName)
@@ -135,9 +155,10 @@ public class Startup
         var config = ConfigLoader.Config;
         foreach (var section in config.ReflectionManager.Sections)
         {
-            if (!config.GetSectionState(section).Enabled) continue;
             var reflectionType = (Config.Reflection.SystemReflectionProvider.ReflectionType)section.Type;
-            CollectWantedPatches(wantedPatches, reflectionType.UnderlyingType);
+            var type = reflectionType.UnderlyingType;
+            if (!config.GetSectionState(section).Enabled && !ShouldEnableImplicitly(type)) continue;
+            CollectWantedPatches(wantedPatches, type);
         }
 
         foreach (var type in wantedPatches)

@@ -17,7 +17,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         dst.SetValue("Version", ToVersion);
 
         // UX (legacy)
-        MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.TestProof", "GameSystem.KeyMap.TestProof", false);
+        MapBooleanTrueToSectionEnable(src, dst, "UX.TestProof", "GameSystem.TestProof");
         if (src.GetValueOrDefault<bool>("UX.QuickSkip"))
         {
             // NOTE: UX.QuickSkip was a 4-in-1 large patch in earlier V1, then split since ModKeyMap was introduced.
@@ -231,7 +231,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         {
             dst.SetValue("DeprecationWarning.v1_0_ModKeyMap_TestMode", true);
         }
-        MapValueToEntryValueIfNonNullOrDefault(src, dst, "ModKeyMap.TestModeLongPress", "GameSystem.KeyMap.TestProof", false);
+        MapBooleanTrueToSectionEnable(src, dst, "ModKeyMap.TestModeLongPress", "GameSystem.TestProof");
 
         // WindowState
         if (src.GetValueOrDefault<bool>("WindowState.Enable"))
