@@ -6,7 +6,7 @@ namespace AquaMai.Config;
 
 public static class Utility
 {
-    public static Action<string> LogFunction = System.Console.WriteLine;
+    public static Action<string> LogFunction = Console.WriteLine;
 
     public static bool IsTruty(TomlValue value, string path = null)
     {
