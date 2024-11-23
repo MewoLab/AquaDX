@@ -81,9 +81,6 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         // TimeSaving (legacy)
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowNetErrorDetail", "Utils.ShowNetErrorDetail");
 
-        // MaimaiDX2077 (legacy) (WTF is the name?)
-        // NOTE: MaimaiDX2077.CustomNoteTypePatch was enabled by default in V1, but non-default in V2 since it's a large patch and not widely used
-
         // UX
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.Locale", "General.Locale", "");
         MapBooleanTrueToSectionEnable(src, dst, "UX.SinglePlayer", "GameSystem.SinglePlayer");
@@ -294,6 +291,9 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
                 }
             }
         }
+
+        // MaimaiDX2077 (WTF is the name?)
+        MapBooleanTrueToSectionEnable(src, dst, "MaimaiDX2077.CustomNoteTypePatch", "Fancy.GamePlay.CustomNoteTypes");
 
         // Default enabled in V2
         dst.EnsureDictionary("GameSystem.RemoveEncryption");
