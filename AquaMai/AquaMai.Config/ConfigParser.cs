@@ -101,13 +101,13 @@ public class ConfigParser : IConfigParser
         {
             foreach (var unexpectedKey in (string[]) ["Enable", "Enabled", "Disable"])
             {
-                if (table.ContainsKey(unexpectedKey))
+                if (Utility.TomlContainsKeyCaseInsensitive(table, unexpectedKey))
                 {
                     Utility.Log($"Unexpected key \"{unexpectedKey}\" for enable status under \"{path}\". Only \"Disabled\" is parsed.");
                 }
             }
 
-            if (table.TryGetValue("Disabled", out var disableValue) && !section.Attribute.AlwaysEnabled)
+            if (Utility.TomlTryGetValueCaseInsensitive(table, "Disabled", out var disableValue) && !section.Attribute.AlwaysEnabled)
             {
                 var disabled = Utility.IsTruty(disableValue, path + ".Disabled");
                 config.SetSectionEnabled(section, !disabled);

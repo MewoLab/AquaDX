@@ -127,6 +127,44 @@ public static class Utility
         }
     }
 
+    public static bool TomlTryGetValueCaseInsensitive(TomlTable table, string key, out TomlValue value)
+    {
+        // Prefer exact match
+        if (table.TryGetValue(key, out value))
+        {
+            return true;
+        }
+        // Fallback to case-insensitive match
+        foreach (var kvp in table)
+        {
+            if (string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase))
+            {
+                value = kvp.Value;
+                return true;
+            }
+        }
+        value = null;
+        return false;
+    }
+
+    public static bool TomlContainsKeyCaseInsensitive(TomlTable table, string key)
+    {
+        // Prefer exact match
+        if (table.ContainsKey(key))
+        {
+            return true;
+        }
+        // Fallback to case-insensitive match
+        foreach (var kvp in table)
+        {
+            if (string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static string ToPascalCase(string str)
     {
         return str.Length switch

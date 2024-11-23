@@ -73,14 +73,14 @@ public class ConfigView : IConfigView
         var current = root;
         foreach (var component in pathComponents.Take(pathComponents.Length - 1))
         {
-            if (!TomlTryGetValueCaseInsensitive(current, component, out var next) || next is not TomlTable nextTable)
+            if (!Utility.TomlTryGetValueCaseInsensitive(current, component, out var next) || next is not TomlTable nextTable)
             {
                 resultValue = default;
                 return false;
             }
             current = nextTable;
         }
-        if (!TomlTryGetValueCaseInsensitive(current, pathComponents.Last(), out var value))
+        if (!Utility.TomlTryGetValueCaseInsensitive(current, pathComponents.Last(), out var value))
         {
             resultValue = default;
             return false;
@@ -96,26 +96,6 @@ public class ConfigView : IConfigView
             resultValue = default;
             return false;
         }
-    }
-
-    private bool TomlTryGetValueCaseInsensitive(TomlTable table, string key, out TomlValue value)
-    {
-        // Prefer exact match
-        if (table.TryGetValue(key, out value))
-        {
-            return true;
-        }
-        // Fallback to case-insensitive match
-        foreach (var kvp in table)
-        {
-            if (string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase))
-            {
-                value = kvp.Value;
-                return true;
-            }
-        }
-        value = null;
-        return false;
     }
 
     public string ToToml()
