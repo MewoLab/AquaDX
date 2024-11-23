@@ -8,8 +8,8 @@ using Manager;
 namespace AquaMai.Mods.Fix.Legacy;
 
 [ConfigSection(exampleHidden: true, defaultOn: true)]
-[EnableGameVersion(23000, 23499)]
-public class FixConnSlide130
+[EnableGameVersion(23000)]
+public class FixConnSlide
 {
     /* 这个 Patch 用于修复以下 bug:
      *     非 ConnSlide 被错误解析为 ConnSlide (Fes 首日刹那旅程爆机 bug)
