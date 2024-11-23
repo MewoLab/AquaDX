@@ -96,7 +96,7 @@ public class SinglePlayer
         }
     }
 
-    public static void OnBeforePatch(HarmonyLib.Harmony _)
+    public static void OnBeforePatch()
     {
         if (ConfigLoader.Config.GetSectionState(typeof(HideHanabi)).Enabled)
         {
@@ -104,7 +104,7 @@ public class SinglePlayer
         }
     }
 
-    public static void OnAfterPatch(HarmonyLib.Harmony _)
+    public static void OnAfterPatch()
     {
         Core.Helpers.GuiSizes.SinglePlayer = true;
     }

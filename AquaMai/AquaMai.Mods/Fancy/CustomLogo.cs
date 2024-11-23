@@ -28,7 +28,7 @@ public class CustomLogo
     private readonly static List<Sprite> segaLogo = [];
     private readonly static List<Sprite> allNetLogo = [];
 
-    public static void OnBeforePatch(HarmonyLib.Harmony h)
+    public static void OnBeforePatch()
     {
         EnumSprite(segaLogo, FileSystem.ResolvePath(segaLogoDir));
         EnumSprite(allNetLogo, FileSystem.ResolvePath(allNetLogoDir));

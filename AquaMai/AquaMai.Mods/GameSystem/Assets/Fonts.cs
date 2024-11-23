@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.TextCore.LowLevel;
 
-namespace AquaMai.Mods.GameSystem;
+namespace AquaMai.Mods.GameSystem.Assets;
 
 [ConfigSection(
     en: "Use custom font(s) as fallback or fully replace the original game font",
@@ -39,7 +39,7 @@ public class Fonts
     private static TMP_FontAsset replacementFontAsset;
     private static List<TMP_FontAsset> fallbackFontAssets = [];
 
-    public static void OnBeforePatch(HarmonyLib.Harmony h)
+    public static void OnBeforePatch()
     {
         var paths = Fonts.paths
             .Split(';')

@@ -34,10 +34,10 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             dst.SetValue("UX.HideSelfMadeCharts.Key", "Service");
             dst.SetValue("UX.HideSelfMadeCharts.LongPress", false);
         }
-        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadJacketPng", "GameAssets.LoadLocalImages");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipWarningScreen", "SkipProcesses.SkipWarningScreen");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipToMusicSelection", "SkipProcesses.SkipToMusicSelection");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipEventInfo", "SkipProcesses.SkipEventInfo");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadJacketPng", "GameSystem.Assets.LoadLocalImages");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipWarningScreen", "Tweaks.TimeSaving.SkipStartupWarning");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipToMusicSelection", "Tweaks.TimeSaving.EntryToMusicSelection");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.SkipEventInfo", "Tweaks.TimeSaving.SkipEventInfo");
         MapBooleanTrueToSectionEnable(src, dst, "UX.SelectionDetail", "UX.SelectionDetail");
         if (src.GetValueOrDefault<bool>("UX.CustomNoteSkin") ||
             src.GetValueOrDefault<bool>("UX.CustomSkins"))
@@ -47,7 +47,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "UX.JudgeDisplay4B", "Fancy.GamePlay.JudgeDisplay4B");
         MapBooleanTrueToSectionEnable(src, dst, "UX.CustomTrackStartDiff", "Fancy.CustomTrackStartDiff");
         MapBooleanTrueToSectionEnable(src, dst, "UX.TrackStartProcessTweak", "Fancy.GamePlay.TrackStartProcessTweak");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.DisableTrackStartTabs", "Fancy.DisableTrackStartTabs");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.DisableTrackStartTabs", "Fancy.GamePlay.DisableTrackStartTabs");
         MapBooleanTrueToSectionEnable(src, dst, "UX.RealisticRandomJudge", "Fancy.GamePlay.RealisticRandomJudge");
 
         // Utils (legacy)
@@ -62,8 +62,8 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         }
         if (src.GetValueOrDefault<bool>("Utils.PracticeMode") || src.GetValueOrDefault<bool>("Utils.PractiseMode")) // Typo of typo is the correct word
         {
-            dst.SetValue("PracticeMode.Key", "Test");
-            dst.SetValue("PracticeMode.LongPress", false);
+            dst.SetValue("UX.PracticeMode.Key", "Test");
+            dst.SetValue("UX.PracticeMode.LongPress", false);
         }
 
         // Fix (legacy)
@@ -76,7 +76,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "Fix.FixCircleSlideJudge", "Fancy.GamePlay.AlignCircleSlideJudgeDisplay");
 
         // Performance (legacy)
-        MapBooleanTrueToSectionEnable(src, dst, "Performance.ImproveLoadSpeed", "GameSystem.RemoveStartupDelay");
+        MapBooleanTrueToSectionEnable(src, dst, "Performance.ImproveLoadSpeed", "Tweaks.TimeSaving.SkipStartupDelays");
 
         // TimeSaving (legacy)
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowNetErrorDetail", "Utils.ShowNetErrorDetail");
@@ -88,17 +88,17 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "UX.Locale", "General.Locale", "");
         MapBooleanTrueToSectionEnable(src, dst, "UX.SinglePlayer", "GameSystem.SinglePlayer");
         MapBooleanTrueToSectionEnable(src, dst, "UX.HideMask", "Fancy.HideMask");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadAssetsPng", "GameAssets.LoadLocalImages");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadAssetBundleWithoutManifest", "GameAssets.LoadAssetBundleWithoutManifest");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadAssetsPng", "GameSystem.Assets.LoadLocalImages");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadAssetBundleWithoutManifest", "GameSystem.Assets.LoadAssetBundleWithoutManifest");
         MapBooleanTrueToSectionEnable(src, dst, "UX.RandomBgm", "Fancy.RandomBgm");
         MapBooleanTrueToSectionEnable(src, dst, "UX.DemoMaster", "Fancy.DemoMaster");
         MapBooleanTrueToSectionEnable(src, dst, "UX.ExtendTimer", "GameSystem.DisableTimeout");
         MapBooleanTrueToSectionEnable(src, dst, "UX.ImmediateSave", "UX.ImmediateSave");
-        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadLocalBga", "GameAssets.UseJacketAsDummyMovie");
+        MapBooleanTrueToSectionEnable(src, dst, "UX.LoadLocalBga", "GameSystem.Assets.UseJacketAsDummyMovie");
         if (src.GetValueOrDefault<bool>("UX.CustomFont"))
         {
-            dst.SetValue("GameSystem.Fonts.Paths", "LocalAssets/font.ttf");
-            dst.SetValue("GameSystem.Fonts.AddAsFallback", false);
+            dst.SetValue("GameSystem.Assets.Fonts.Paths", "LocalAssets/font.ttf");
+            dst.SetValue("GameSystem.Assets.Fonts.AddAsFallback", false);
         }
         MapBooleanTrueToSectionEnable(src, dst, "UX.TouchToButtonInput", "GameSystem.TouchToButtonInput");
         MapBooleanTrueToSectionEnable(src, dst, "UX.HideHanabi", "Fancy.GamePlay.HideHanabi");
@@ -123,7 +123,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         }
 
         // Fix
-        MapBooleanTrueToSectionEnable(src, dst, "Fix.SkipVersionCheck", "GameSystem.SkipUserVersionCheck");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.SkipVersionCheck", "Tweaks.SkipUserVersionCheck");
         if (!src.GetValueOrDefault<bool>("Fix.RemoveEncryption"))
         {
             dst.SetValue("GameSystem.RemoveEncryption.Disabled", true); // Enabled by default in V2
@@ -139,12 +139,12 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
             dst.SetValue("GameSettings.CreditConfig.LockCredits", 24);
         }
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "Fix.ExtendNotesPool", "Fancy.GamePlay.ExtendNotesPool.Count", 0);
-        MapBooleanTrueToSectionEnable(src, dst, "Fix.FrameRateLock", "GameSystem.LockFrameRate");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.FrameRateLock", "Tweaks.LockFrameRate");
         if (src.GetValueOrDefault<bool>("Font.FontFix") &&
             !src.GetValueOrDefault<bool>("UX.CustomFont"))
         {
-            dst.SetValue("GameSystem.Fonts.Paths", "%SYSTEMROOT%/Fonts/msyhbd.ttc");
-            dst.SetValue("GameSystem.Fonts.AddAsFallback", true);
+            dst.SetValue("GameSystem.Assets.Fonts.Paths", "%SYSTEMROOT%/Fonts/msyhbd.ttc");
+            dst.SetValue("GameSystem.Assets.Fonts.AddAsFallback", true);
         }
         MapBooleanTrueToSectionEnable(src, dst, "Fix.RealisticRandomJudge", "Fancy.GamePlay.RealisticRandomJudge");
         if (src.GetValueOrDefault<bool>("UX.SinglePlayer"))
@@ -155,8 +155,8 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
                 dst.SetValue("GameSystem.SinglePlayer.FixHanabi", hanabiFix);
             }
         }
-        MapBooleanTrueToSectionEnable(src, dst, "Fix.IgnoreAimeServerError", "Fix.Stability.IgnoreAimeServerError");
-        MapBooleanTrueToSectionEnable(src, dst, "Fix.TouchResetAfterTrack", "Fix.Stability.ResetTouchAfterTrack");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.IgnoreAimeServerError", "Tweaks.IgnoreAimeServerError");
+        MapBooleanTrueToSectionEnable(src, dst, "Fix.TouchResetAfterTrack", "Tweaks.ResetTouchAfterTrack");
 
         // Utils
         MapBooleanTrueToSectionEnable(src, dst, "Utils.LogUserId", "Utils.LogUserId");
@@ -170,13 +170,13 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapValueToEntryValueIfNonNullOrDefault(src, dst, "Utils.TouchPanelBaudRate", "GameSystem.TouchPanelBaudRate.BaudRate", 0);
 
         // TimeSaving
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipWarningScreen", "SkipProcesses.SkipWarningScreen");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ImproveLoadSpeed", "GameSystem.RemoveStartupDelay");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipToMusicSelection", "SkipProcesses.SkipToMusicSelection");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipEventInfo", "SkipProcesses.SkipEventInfo");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.IWontTapOrSlideVigorously", "SkipProcesses.SkipDontTapOrSlideVigorously");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipGameOverScreen", "SkipProcesses.SkipGameOverScreen");
-        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipTrackStart", "SkipProcesses.SkipTrackStart");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipWarningScreen", "Tweaks.TimeSaving.SkipStartupWarning");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ImproveLoadSpeed", "Tweaks.TimeSaving.SkipStartupDelays");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipToMusicSelection", "Tweaks.TimeSaving.EntryToMusicSelection");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipEventInfo", "Tweaks.TimeSaving.SkipEventInfo");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.IWontTapOrSlideVigorously", "Tweaks.TimeSaving.IWontTapOrSlideVigorously");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipGameOverScreen", "Tweaks.TimeSaving.SkipGoodbyeScreen");
+        MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.SkipTrackStart", "Tweaks.TimeSaving.SkipTrackStart");
         MapBooleanTrueToSectionEnable(src, dst, "TimeSaving.ShowQuickEndPlay", "UX.QuickEndPlay");
 
         // Visual
@@ -187,7 +187,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         MapBooleanTrueToSectionEnable(src, dst, "Visual.JudgeDisplay4B", "Fancy.GamePlay.JudgeDisplay4B");
         MapBooleanTrueToSectionEnable(src, dst, "Visual.CustomTrackStartDiff", "Fancy.CustomTrackStartDiff");
         MapBooleanTrueToSectionEnable(src, dst, "Visual.TrackStartProcessTweak", "Fancy.GamePlay.TrackStartProcessTweak");
-        MapBooleanTrueToSectionEnable(src, dst, "Visual.DisableTrackStartTabs", "Fancy.DisableTrackStartTabs");
+        MapBooleanTrueToSectionEnable(src, dst, "Visual.DisableTrackStartTabs", "Fancy.GamePlay.DisableTrackStartTabs");
         MapBooleanTrueToSectionEnable(src, dst, "Visual.FanJudgeFlip", "Fancy.GamePlay.FanJudgeFlip");
         MapBooleanTrueToSectionEnable(src, dst, "Visual.BreakSlideJudgeBlink", "Fancy.GamePlay.BreakSlideJudgeBlink");
         MapBooleanTrueToSectionEnable(src, dst, "Visual.SlideArrowAnimation", "Fancy.GamePlay.SlideArrowAnimation");
@@ -219,8 +219,8 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         }
         if (keyPractiseMode != "None")
         {
-            dst.SetValue("PracticeMode.Key", keyPractiseMode);
-            MapValueToEntryValueIfNonNull<bool>(src, dst, "ModKeyMap.PractiseModeLongPress", "PracticeMode.LongPress");
+            dst.SetValue("UX.PracticeMode.Key", keyPractiseMode);
+            MapValueToEntryValueIfNonNull<bool>(src, dst, "ModKeyMap.PractiseModeLongPress", "UX.PracticeMode.LongPress");
         }
         if (keyHideSelfMadeCharts != "None")
         {

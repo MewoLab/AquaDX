@@ -2,7 +2,7 @@
 using HarmonyLib;
 using Manager;
 
-namespace AquaMai.Mods.Fix.Stability;
+namespace AquaMai.Mods.Tweaks;
 
 [ConfigSection(
     en: "Prevent gray network caused by mistakenly thinking it's an AimeDB server issue",

@@ -2,7 +2,7 @@ using AquaMai.Config.Attributes;
 using HarmonyLib;
 using Process.Entry.State;
 
-namespace AquaMai.Mods.GameSystem;
+namespace AquaMai.Mods.Tweaks;
 
 [ConfigSection(
     en: "Allow login with higher data version",

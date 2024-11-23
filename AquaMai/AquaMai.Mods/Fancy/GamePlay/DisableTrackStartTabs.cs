@@ -5,7 +5,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-namespace AquaMai.Mods.Fancy;
+namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """

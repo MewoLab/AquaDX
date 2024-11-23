@@ -12,7 +12,7 @@ using Monitor;
 using AquaMai.Config.Attributes;
 using AquaMai.Core.Helpers;
 
-namespace AquaMai.Mods.GameAssets;
+namespace AquaMai.Mods.GameSystem.Assets;
 
 [ConfigSection(
     en: "Load asset images from the configured directory (for self-made charts)",

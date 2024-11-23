@@ -4,7 +4,7 @@ using HarmonyLib;
 using Process;
 using Process.Information;
 
-namespace AquaMai.Mods.SkipProcesses;
+namespace AquaMai.Mods.Tweaks.TimeSaving;
 
 [ConfigSection(
     en: "Skip possible prompts like \"New area discovered\", \"New songs added\", \"There are events\" during game login/registration",

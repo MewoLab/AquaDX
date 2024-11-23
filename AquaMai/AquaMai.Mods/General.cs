@@ -31,12 +31,12 @@ public enum SetionNameOrder
     DeprecationWarning,
     General,
     Fix,
-    SkipProcesses,
+    GameSystem_Assets,
     GameSystem,
-    GameAssets,
     GameSettings,
+    Tweaks,
+    Tweaks_TimeSaving,
     UX,
-    PracticeMode,
     Utils,
     Fancy
 }

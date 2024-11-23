@@ -5,6 +5,7 @@ using AquaMai.Config.Types;
 using AquaMai.Core.Attributes;
 using AquaMai.Core.Helpers;
 using AquaMai.Mods.UX;
+using AquaMai.Mods.UX.PracticeMode;
 using HarmonyLib;
 using Manager;
 using MelonLoader;
@@ -97,7 +98,7 @@ public class KeyMap
             OneKeyRetrySkip.retryKey,
             OneKeyRetrySkip.skipKey,
             HideSelfMadeCharts.key,
-            PracticeMode.PracticeMode.key
+            PracticeMode.key
         ];
         testProofImplied = featureKeys.Any(it => it == KeyCodeOrName.Test || it.ToString() == Test.ToString());
         if (testProofImplied && !testProof)

@@ -7,7 +7,7 @@ using MelonLoader;
 using Monitor.Game;
 using UnityEngine;
 
-namespace AquaMai.Mods.GameAssets;
+namespace AquaMai.Mods.GameSystem.Assets;
 
 [ConfigSection(
     en: """

@@ -2,7 +2,7 @@
 using HarmonyLib;
 using Monitor;
 
-namespace AquaMai.Mods.SkipProcesses;
+namespace AquaMai.Mods.Tweaks.TimeSaving;
 
 [ConfigSection(
     en: "Skip TrackStart screen",

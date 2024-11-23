@@ -6,7 +6,7 @@ using Manager;
 using Util;
 using AquaMai.Config.Attributes;
 
-namespace AquaMai.Mods.GameAssets;
+namespace AquaMai.Mods.GameSystem.Assets;
 
 [ConfigSection(
     en: "Load all existing \".ab\" image resources regardless of the AssetBundleImages manifest",

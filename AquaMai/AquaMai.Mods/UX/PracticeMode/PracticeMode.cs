@@ -7,7 +7,7 @@ using System.Reflection;
 using AquaMai.Mods.Fix;
 using AquaMai.Core.Helpers;
 using AquaMai.Core.Resources;
-using AquaMai.Mods.PracticeMode.Libs;
+using AquaMai.Mods.UX.PracticeMode.Libs;
 using HarmonyLib;
 using Manager;
 using Monitor;
@@ -17,7 +17,7 @@ using UnityEngine;
 using AquaMai.Config.Attributes;
 using AquaMai.Config.Types;
 
-namespace AquaMai.Mods.PracticeMode;
+namespace AquaMai.Mods.UX.PracticeMode;
 
 [ConfigCollapseNamespace]
 [ConfigSection(

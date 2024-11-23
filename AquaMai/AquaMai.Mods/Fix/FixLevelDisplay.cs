@@ -7,12 +7,15 @@ using Monitor;
 using Monitor.MusicSelect.ChainList;
 using UnityEngine;
 
-namespace AquaMai.Mods.Fix.Legacy;
+namespace AquaMai.Mods.Fix;
 
 [EnableGameVersion(24000)]
 [ConfigSection(exampleHidden: true, defaultOn: true)]
-public class FixLevelDisplay140
+public class FixLevelDisplay
 {
+    // Fix wrong position of level number's display for music levels with non-consistant display level and rate level (difficuly constant)
+    // Stock game charts have no such inconsistency, but custom charts may have (e.g. 10+ but unrated)
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(MusicChainCardObejct), "SetLevel")]
     private static void FixLevelShiftMusicChainCardObejct(MusicLevelID levelID, SpriteCounter ____digitLevel, SpriteCounter ____doubleDigitLevel, bool utage, GameObject ____difficultyUtageQuesionMarkSingleDigit, GameObject ____difficultyUtageQuesionMarkDoubleDigit)

@@ -7,12 +7,12 @@ using Monitor;
 using Process;
 using Process.Information;
 
-namespace AquaMai.Mods.SkipProcesses;
+namespace AquaMai.Mods.Tweaks.TimeSaving;
 
 [ConfigSection(
     en: "Directly enter the song selection screen after login",
     zh: "登录完成后直接进入选歌界面")]
-public class SkipToMusicSelection
+public class EntryToMusicSelection
 {
     /*
      * Highly experimental, may well break some stuff
@@ -45,7 +45,7 @@ public class SkipToMusicSelection
     public static void MapResultMonitorPreInitialize(int monIndex)
     {
         var userData = Singleton<UserDataManager>.Instance.GetUserData(monIndex);
-        var index = userData.MapList.FindIndex((UserMapData m) => m.ID == userData.Detail.SelectMapID);
+        var index = userData.MapList.FindIndex((m) => m.ID == userData.Detail.SelectMapID);
         if (index >= 0) return;
         userData.MapList.Clear();
     }

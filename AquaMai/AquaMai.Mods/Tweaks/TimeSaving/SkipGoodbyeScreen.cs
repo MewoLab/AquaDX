@@ -3,12 +3,12 @@ using HarmonyLib;
 using Monitor;
 using Process;
 
-namespace AquaMai.Mods.SkipProcesses;
+namespace AquaMai.Mods.Tweaks.TimeSaving;
 
 [ConfigSection(
     en: "Skip the \"Goodbye\" screen at the end of the game",
     zh: "跳过游戏结束的「再见」界面")]
-public class SkipGameOverScreen
+public class SkipGoodbyeScreen
 {
     [HarmonyPrefix]
     [HarmonyPatch(typeof(GameOverMonitor), "IsPlayEnd")]
