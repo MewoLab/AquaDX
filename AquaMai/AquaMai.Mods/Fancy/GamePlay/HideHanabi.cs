@@ -7,7 +7,7 @@ using UnityEngine;
 namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
-    en: "Hide hanabi completely",
+    en: "Hide hanabi completely.",
     zh: "完全隐藏烟花")]
 public class HideHanabi
 {

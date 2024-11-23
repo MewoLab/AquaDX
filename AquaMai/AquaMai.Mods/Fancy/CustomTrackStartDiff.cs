@@ -10,9 +10,9 @@ namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
     en: """
-        Custom track start difficulty image (not really custom difficulty)
-        Requires CustomSkins to be enabled
-        Will load four image resources through custom skins: musicBase, musicTab, musicLvBase, musicLvText
+        Custom track start difficulty image (not really custom difficulty).
+        Requires CustomSkins to be enabled.
+        Will load four image resources through custom skins: musicBase, musicTab, musicLvBase, musicLvText.
         """,
     zh: """
         自定义在歌曲开始界面上显示的难度贴图 (并不是真的自定义难度)

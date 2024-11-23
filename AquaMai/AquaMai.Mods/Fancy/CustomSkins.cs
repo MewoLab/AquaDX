@@ -14,8 +14,8 @@ namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
     en: """
-        Provide the ability to use custom skins (advanced feature)
-        Load skin textures from custom paths
+        Provide the ability to use custom skins (advanced feature).
+        Load skin textures from custom paths.
         """,
     zh: """
         提供自定义皮肤的能力（高级功能）

@@ -10,8 +10,8 @@ namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
     en: """
-        Disable timers (hidden and set to 65535 seconds)
-        Not recommand to enable when SinglePlayer is off
+        Disable timers (hidden and set to 65535 seconds).
+        Not recommand to enable when SinglePlayer is off.
         """,
     zh: """
         去除游戏中的倒计时（隐藏并设为 65535 秒）

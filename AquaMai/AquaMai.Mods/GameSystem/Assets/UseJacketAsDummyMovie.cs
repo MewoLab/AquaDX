@@ -11,8 +11,8 @@ namespace AquaMai.Mods.GameSystem.Assets;
 
 [ConfigSection(
     en: """
-        Use the png jacket above as MV if no .dat found in the movie folder
-        Use together with `LoadLocalImages`
+        Use the png jacket above as MV if no .dat found in the movie folder.
+        Use together with `LoadLocalImages`.
         """,
     zh: """
         如果 movie 文件夹中没有 dat 格式的 MV 的话，就用歌曲的封面做背景，而不是显示迪拉熊的笑脸

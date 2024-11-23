@@ -7,22 +7,22 @@ using Manager.UserDatas;
 namespace AquaMai.Mods.GameSettings;
 
 [ConfigSection(
-    en: "Globally adjust A/B judgment (unit same as in-game options) or increase touch delay",
+    en: "Globally adjust A/B judgment (unit same as in-game options) or increase touch delay.",
     zh: "全局调整 A/B 判（单位和游戏里一样）或增加触摸延迟")]
 public class JudgeAdjust
 {
     [ConfigEntry(
-        en: "Adjust A judgment",
+        en: "Adjust A judgment.",
         zh: "调整 A 判")]
     private static readonly double a = 0;
 
     [ConfigEntry(
-        en: "Adjust B judgment",
+        en: "Adjust B judgment.",
         zh: "调整 B 判")]
     private static readonly double b = 0;
 
     [ConfigEntry(
-        en: "Increase touch delay",
+        en: "Increase touch delay.",
         zh: "增加触摸延迟")]
     private static readonly int touchDelay = 0;
 

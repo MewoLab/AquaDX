@@ -20,7 +20,7 @@ namespace AquaMai.Mods.GameSystem;
 // Hides the 2p (right hand side) UI.
 // Note: this is not my original work. I simply interpreted the code and rewrote it as a mod.
 [ConfigSection(
-    en: "Single player: Show 1P only, at the center of the screen",
+    en: "Single player: Show 1P only, at the center of the screen.",
     zh: "单人模式，不显示 2P")]
 public class SinglePlayer
 {
@@ -77,7 +77,7 @@ public class SinglePlayer
     }
 
     [ConfigEntry(
-        en: "Fix hanabi effect under single-player mode (disabled automatically if HideHanabi is enabled)",
+        en: "Fix hanabi effect under single-player mode (disabled automatically if HideHanabi is enabled).",
         zh: "修复单人模式下的烟花效果（如果启用了 HideHanabi，则会自动禁用）")]
     public static bool fixHanabi = true;
 

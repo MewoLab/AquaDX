@@ -13,7 +13,7 @@ using MelonLoader;
 namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
-    en: "These settings will work regardless of whether you have enabled segatools' io4 emulation",
+    en: "These settings will work regardless of whether you have enabled segatools' io4 emulation.",
     zh: "这里的设置无论你是否启用了 segatools 的 io4 模拟都会工作")]
 public class KeyMap
 {
@@ -79,8 +79,8 @@ public class KeyMap
 
     [ConfigEntry(
         en: """
-            When enabled, test button must be long pressed to enter game test mode
-            When test button is bound to other features, this option is enabled automatically
+            When enabled, test button must be long pressed to enter game test mode.
+            When test button is bound to other features, this option is enabled automatically.
             """,
         zh: """
             启用后，测试键必须长按才能进入游戏测试模式

@@ -4,8 +4,8 @@ namespace AquaMai.Mods;
 
 [ConfigSection(
     en: """
-        These options have been deprecated and no longer work in the current version
-        Remove them to get rid of the warning message at startup
+        These options have been deprecated and no longer work in the current version.
+        Remove them to get rid of the warning message at startup.
         """,
     zh: """
         这些配置项已经被废弃，在当前版本不再生效

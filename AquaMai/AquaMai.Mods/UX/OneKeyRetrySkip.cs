@@ -9,7 +9,7 @@ using Process;
 namespace AquaMai.Mods.UX;
 
 [ConfigSection(
-    en: "One key to retry (1.30+) or skip current chart in gameplay",
+    en: "One key to retry (1.30+) or skip current chart in gameplay.",
     zh: "在游戏中途一键重试（1.30+）或跳过当前谱面")]
 public class OneKeyRetrySkip
 {

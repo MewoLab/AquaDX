@@ -8,8 +8,8 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        Invert the Slide hierarchy, so that the new Slide appears on top like Maimai classic
-        Enable to support color changing effects achieved by overlaying multiple stars
+        Invert the Slide hierarchy, so that the new Slide appears on top like Maimai classic.
+        Enable to support color changing effects achieved by overlaying multiple stars.
         """,
     zh: """
         反转 Slide 层级, 使新出现的 Slide 像旧框一样显示在上层

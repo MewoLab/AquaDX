@@ -7,8 +7,8 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        More detailed judgment display
-        Requires CustomSkins to be enabled and the resource file to be downloaded
+        More detailed judgment display.
+        Requires CustomSkins to be enabled and the resource file to be downloaded.
         https://github.com/hykilpikonna/AquaDX/releases/download/nightly/JudgeDisplay4B.7z
         """,
     zh: """

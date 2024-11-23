@@ -9,8 +9,8 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        Disable the TRACK X text, DX/Standard display box, and the derakkuma at the bottom of the screen in the song start screen
-        For recording chart confirmation
+        Disable the TRACK X text, DX/Standard display box, and the derakkuma at the bottom of the screen in the song start screen.
+        For recording chart confirmation.
         """,
     zh: """
         在歌曲开始界面, 把 TRACK X 字样, DX/标准谱面的显示框, 以及画面下方的滴蜡熊隐藏掉

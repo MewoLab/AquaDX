@@ -11,7 +11,7 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     zh: "让星星在启动拍等待期间从 50% 透明度渐入为 100%，取代原本在击打星星头时就完成渐入",
-    en: "Slides will fade in instead of instantly appearing")]
+    en: "Slides will fade in instead of instantly appearing.")]
 public class SlideFadeInTweak
 {
     [HarmonyPrefix]

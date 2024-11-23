@@ -16,12 +16,12 @@ using Util;
 namespace AquaMai.Mods.UX;
 
 [ConfigSection(
-    en: "One key to hide all self-made charts in the music select process. Or hide for some users",
+    en: "One key to hide all self-made charts in the music select process. Or hide for some users.",
     zh: "在选曲界面一键隐藏所有自制谱，或对一部分用户进行隐藏")]
 public class HideSelfMadeCharts
 {
     [ConfigEntry(
-        en: "Key to toggle self-made charts",
+        en: "Key to toggle self-made charts.",
         zh: "切换自制谱显示的按键")]
     public static readonly KeyCodeOrName key = KeyCodeOrName.Test;
 
@@ -29,12 +29,12 @@ public class HideSelfMadeCharts
     public static readonly bool longPress = false;
 
     [ConfigEntry(
-        en: "One user ID per line in the file. Hide self-made charts when these users login",
+        en: "One user ID per line in the file. Hide self-made charts when these users login.",
         zh: "该文件中每行一个用户 ID，当这些用户登录时隐藏自制谱")]
     private static readonly string selfMadeChartsDenyUsersFile = "LocalAssets/SelfMadeChartsDenyUsers.txt";
 
     [ConfigEntry(
-        en: "One user ID per line in the file. Only show self-made charts when these users login",
+        en: "One user ID per line in the file. Only show self-made charts when these users login.",
         zh: "该文件中每行一个用户 ID，只有这些用户登录时才显示自制谱")]
     private static readonly string selfMadeChartsWhiteListUsersFile = "LocalAssets/SelfMadeChartsWhiteListUsers.txt";
 

@@ -12,37 +12,37 @@ namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
     en: """
-        Enable custom CameraId
-        If enabled, you can customize the game to use the specified camera
+        Use custom CameraId rather than the default ones.
+        If enabled, you can customize the game to use the specified camera.
         """,
     zh: """
-        是否启用自定义摄像头ID
+        使用自定义的摄像头 ID 而不是默认的
         启用后可以指定游戏使用的摄像头
         """)]
 public class CustomCameraId
 {
     [ConfigEntry(
-        en: "Print the camera list to the log when starting, can be used as a basis for modification",
+        en: "Print the camera list to the log when starting, can be used as a basis for modification.",
         zh: "启动时打印摄像头列表到日志中，可以作为修改的依据")]
     public static bool printCameraList;
 
     [ConfigEntry(
-        en: "DX Pass 1P",
+        en: "DX Pass 1P.",
         zh: "DX Pass 1P")]
     public static int leftQrCamera;
 
     [ConfigEntry(
-        en: "DX Pass 2P",
+        en: "DX Pass 2P.",
         zh: "DX Pass 2P")]
     public static int rightQrCamera;
 
     [ConfigEntry(
-        en: "Player Camera",
+        en: "Player Camera.",
         zh: "玩家摄像头")]
     public static int photoCamera;
 
     [ConfigEntry(
-        en: "WeChat QRCode Camera",
+        en: "WeChat QRCode Camera.",
         zh: "二维码扫描摄像头")]
     public static int chimeCamera;
   

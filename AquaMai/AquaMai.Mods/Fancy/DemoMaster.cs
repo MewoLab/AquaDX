@@ -8,7 +8,7 @@ using Process;
 namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
-    en: "Play \"Master\" difficulty on Demo screen",
+    en: "Play \"Master\" difficulty on Demo screen.",
     zh: "在闲置时的演示画面上播放紫谱而不是绿谱")]
 public class DemoMaster
 {

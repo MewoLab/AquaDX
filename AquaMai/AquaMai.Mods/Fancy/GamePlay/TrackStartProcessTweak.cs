@@ -7,8 +7,8 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        Delayed the animation of the song start screen
-        For recording chart confirmation
+        Delayed the animation of the song start screen.
+        For recording chart confirmation.
         """,
     zh: """
         推迟了歌曲开始界面的动画

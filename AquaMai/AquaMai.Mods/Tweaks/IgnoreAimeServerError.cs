@@ -5,7 +5,7 @@ using Manager;
 namespace AquaMai.Mods.Tweaks;
 
 [ConfigSection(
-    en: "Prevent gray network caused by mistakenly thinking it's an AimeDB server issue",
+    en: "Prevent gray network caused by mistakenly thinking it's an AimeDB server issue.",
     zh: "防止因错误认为 AimeDB 服务器问题引起的灰网，建议开启")]
 public class IgnoreAimeServerError
 {

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace AquaMai.Mods.Utils;
 
 [ConfigSection(
-    en: "Display framerate",
+    en: "Display framerate.",
     zh: "显示帧率")]
 public class DisplayFrameRate
 {

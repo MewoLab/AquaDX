@@ -9,9 +9,9 @@ namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
     en: """
-        If you are using an unmodified client, requests to the server will be encrypted by default, but requests to the private server should not be encrypted
-        With this option enabled, the connection will not be encrypted, and the suffix added by different versions of the client to the API names are also removed
-        Please keep this option enabled normally
+        If you are using an unmodified client, requests to the server will be encrypted by default, but requests to the private server should not be encrypted.
+        With this option enabled, the connection will not be encrypted, and the suffix added by different versions of the client to the API names are also removed.
+        Please keep this option enabled normally.
         """,
     zh: """
         如果你在用未经修改的客户端，会默认加密到服务器的连接，而连接私服的时候不应该加密

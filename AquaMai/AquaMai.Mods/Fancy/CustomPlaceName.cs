@@ -6,8 +6,8 @@ namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
     en: """
-        Custom shop name in photo
-        Also enable shop name display in SDGA
+        Custom shop name in photo.
+        Also enable shop name display in SDGA.
         """,
     zh: """
         自定义拍照的店铺名称

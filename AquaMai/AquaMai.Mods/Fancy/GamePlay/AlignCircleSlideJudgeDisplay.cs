@@ -9,8 +9,8 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        Make the judgment display of circular Slides align precisely with the judgment line (originally a bit off)
-        Just like in majdata
+        Make the judgment display of circular Slides align precisely with the judgment line (originally a bit off).
+        Just like in majdata.
         """,
     zh: """
         让圆弧形的 Slide 的判定显示与判定线精确对齐 (原本会有一点歪)

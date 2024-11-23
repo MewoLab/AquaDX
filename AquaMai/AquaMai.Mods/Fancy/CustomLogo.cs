@@ -11,17 +11,17 @@ using UnityEngine.UI;
 namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
-    en: "Replace the \"SEGA\" and \"ALL.Net\" logos with custom ones",
+    en: "Replace the \"SEGA\" and \"ALL.Net\" logos with custom ones.",
     zh: "用自定义的图片替换「SEGA」和「ALL.Net」的标志")]
 public class CustomLogo
 {
     [ConfigEntry(
-        en: "Replace the \"SEGA\" logo with a random PNG image from this directory",
+        en: "Replace the \"SEGA\" logo with a random PNG image from this directory.",
         zh: "从此目录中随机选择一张 PNG 图片用于「SEGA」标志")]
     private static readonly string segaLogoDir = "LocalAssets/SegaLogo";
 
     [ConfigEntry(
-        en: "Replace the \"ALL.Net\" logo with a random PNG image from this directory",
+        en: "Replace the \"ALL.Net\" logo with a random PNG image from this directory.",
         zh: "从此目录中随机选择一张 PNG 图片用于「ALL.Net」标志")]
     private static readonly string allNetLogoDir = "LocalAssets/AllNetLogo";
 

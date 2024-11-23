@@ -7,12 +7,12 @@ using Process;
 namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
-    en: "Triggers for executing commands at certain events",
+    en: "Triggers for executing commands at certain events.",
     zh: "在一定时机执行命令的触发器")]
 public class Triggers
 {
     [ConfigEntry(
-        en: "Execute some command on game idle",
+        en: "Execute some command on game idle.",
         zh: """
             在游戏闲置的时候执行指定的命令脚本
             比如说可以在游戏闲置是降低显示器的亮度
@@ -20,7 +20,7 @@ public class Triggers
     private static readonly string execOnIdle = "";
 
     [ConfigEntry(
-        en: "Execute some command on game start",
+        en: "Execute some command on game start.",
         zh: "在玩家登录的时候执行指定的命令脚本")]
     private static readonly string execOnEntry = "";
 

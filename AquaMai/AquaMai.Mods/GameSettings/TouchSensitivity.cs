@@ -9,16 +9,16 @@ namespace AquaMai.Mods.GameSettings;
 
 [ConfigSection(
     en: """
-        Use custom touch sensitivity
-        When enabled, the settings in Test mode will not take effect
-        When disabled, the settings in Test mode is used
+        Use custom touch sensitivity.
+        When enabled, the settings in Test mode will not take effect.
+        When disabled, the settings in Test mode is used.
 
-        Sensitivity adjustments in Test mode are not linear
-        Default sensitivity in area A: 90, 80, 70, 60, 50, 40, 30, 26, 23, 20, 10
-        Default sensitivity in other areas: 70, 60, 50, 40, 30, 20, 15, 10, 5, 1, 1
-        A setting of 0 in Test mode corresponds to 40, 20 here, -5 corresponds to 90, 70, +5 corresponds to 10, 1
-        The higher the number in Test mode, the lower the number here, resulting in higher sensitivity for official machines
-        For ADX, the sensitivity is reversed, so the higher the number here, the higher the sensitivity
+        Sensitivity adjustments in Test mode are not linear.
+        Default sensitivity in area A: 90, 80, 70, 60, 50, 40, 30, 26, 23, 20, 10.
+        Default sensitivity in other areas: 70, 60, 50, 40, 30, 20, 15, 10, 5, 1, 1.
+        A setting of 0 in Test mode corresponds to 40, 20 here, -5 corresponds to 90, 70, +5 corresponds to 10, 1.
+        The higher the number in Test mode, the lower the number here, resulting in higher sensitivity for official machines.
+        For ADX, the sensitivity is reversed, so the higher the number here, the higher the sensitivity.
         """,
     zh: """
         使用自定义触摸灵敏度

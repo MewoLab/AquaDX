@@ -6,10 +6,10 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        Make the AutoPlay random judgment mode really randomize all judgments (down to sub-judgments)
-        The original random judgment will only produce all 15 judgment results from Miss(TooFast) ~ Critical ~ Miss(TooLate)
-        Here, it is changed to a triangular distribution to produce all 15 judgment results from Miss(TooFast) ~ Critical ~ Miss(TooLate)
-        Of course, it will not consider whether the original Note really has a corresponding judgment (such as Slide should not have non-Critical Prefect)
+        Make the AutoPlay random judgment mode really randomize all judgments (down to sub-judgments).
+        The original random judgment will only produce all 15 judgment results from Miss(TooFast) ~ Critical ~ Miss(TooLate).
+        Here, it is changed to a triangular distribution to produce all 15 judgment results from Miss(TooFast) ~ Critical ~ Miss(TooLate).
+        Of course, it will not consider whether the original Note really has a corresponding judgment (such as Slide should not have non-Critical Prefect).
         """,
     zh: """
         让 AutoPlay 的随机判定模式真的会随机产生所有的判定 (精确到子判定)

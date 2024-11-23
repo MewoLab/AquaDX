@@ -12,7 +12,7 @@ using UnityEngine;
 namespace AquaMai.Mods.Utils;
 
 [ConfigSection(
-    en: "Show Network error detail in the game when gray network icon appears",
+    en: "Show Network error detail in the game when gray network icon appears.",
     zh: "出现灰网时显示原因")]
 public class ShowNetErrorDetail
 {

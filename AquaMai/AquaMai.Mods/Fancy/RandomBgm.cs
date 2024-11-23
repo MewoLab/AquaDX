@@ -13,9 +13,9 @@ namespace AquaMai.Mods.Fancy;
 
 [ConfigSection(
     en: """
-        Random BGM
-        Put Mai2Cue.{acb,awb} of old version of the game in the configured directory and rename them
-        Won't work with 2P mode
+        Random BGM.
+        Put Mai2Cue.{acb,awb} of old version of the game in the configured directory and rename them.
+        Won't work with 2P mode.
         """,
     zh: """
         在配置的目录下放置了旧版游戏的 Mai2Cue.{acb,awb} 并重命名的话，可以在播放游戏 BGM 的时候随机播放这里面的旧版游戏 BGM

@@ -16,7 +16,7 @@ namespace AquaMai.Mods.GameSystem;
 public class TouchPanelBaudRate
 {
     [ConfigEntry(
-        en: "Baud rate",
+        en: "Baud rate.",
         zh: "波特率")]
     private static readonly int baudRate = 9600;
 

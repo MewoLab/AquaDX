@@ -12,7 +12,7 @@ using Process;
 namespace AquaMai.Mods.UX;
 
 [ConfigSection(
-    en: "One key to proceed to music select (during entry) or end current PC (during music select)",
+    en: "One key to proceed to music select (during entry) or end current PC (during music select).",
     zh: "一键跳过登录过程直接进入选歌界面，或在选歌界面直接结束本局游戏")]
 public class OneKeyEntryEnd
 {

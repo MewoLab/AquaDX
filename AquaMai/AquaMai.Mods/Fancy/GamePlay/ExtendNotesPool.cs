@@ -11,13 +11,13 @@ using UnityEngine;
 namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
-    en: "Add notes sprite to the pool to prevent use up",
+    en: "Add notes sprite to the pool to prevent use up.",
     zh: "增加更多待命的音符贴图，防止奇怪的自制谱用完音符贴图池")]
 [EnableGameVersion(23000)]
 public class ExtendNotesPool
 {
     [ConfigEntry(
-        en: "Number of objects to add",
+        en: "Number of objects to add.",
         zh: "要增加的对象数量")]
     private readonly static int count = 128;
 

@@ -8,12 +8,12 @@ using HarmonyLib;
 namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
-    en: "Unlock normally locked (including normally non-unlockable) game content",
+    en: "Unlock normally locked (including normally non-unlockable) game content.",
     zh: "解锁原本锁定（包括正常途径无法解锁）的游戏内容")]
 public class Unlock
 {
     [ConfigEntry(
-        en: "Unlock maps that are not in this version",
+        en: "Unlock maps that are not in this version.",
         zh: "解锁游戏里所有的区域，包括非当前版本的（并不会帮你跑完）")]
     private static readonly bool maps = true;
 
@@ -37,7 +37,7 @@ public class Unlock
     }
 
     [ConfigEntry(
-        en: "Unlock normally event-only tickets",
+        en: "Unlock normally event-only tickets.",
         zh: "解锁游戏里所有可能的跑图券")]
     private static readonly bool tickets = true;
 
@@ -73,7 +73,7 @@ public class Unlock
     }
 
     [ConfigEntry(
-        en: "Unlock Utage without the need of DXRating 10000",
+        en: "Unlock Utage without the need of DXRating 10000.",
         zh: "不需要万分也可以进宴会场")]
     private static readonly bool utage = true;
 

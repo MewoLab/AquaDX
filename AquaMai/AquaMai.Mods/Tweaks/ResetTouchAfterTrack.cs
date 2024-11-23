@@ -7,7 +7,7 @@ using Process;
 namespace AquaMai.Mods.Tweaks;
 
 [ConfigSection(
-    en: "Reset touch panel after playing track",
+    en: "Reset touch panel after playing track.",
     zh: "在游玩一首曲目后重置触摸面板")]
 public class ResetTouchAfterTrack
 {

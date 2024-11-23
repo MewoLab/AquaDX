@@ -10,7 +10,7 @@ using Process.Information;
 namespace AquaMai.Mods.Tweaks.TimeSaving;
 
 [ConfigSection(
-    en: "Directly enter the song selection screen after login",
+    en: "Directly enter the song selection screen after login.",
     zh: "登录完成后直接进入选歌界面")]
 public class EntryToMusicSelection
 {

@@ -13,7 +13,7 @@ using UnityEngine;
 namespace AquaMai.Mods.Utils;
 
 [ConfigSection(
-    en: "Show error log in the game",
+    en: "Show error log in the game.",
     zh: "在游戏中显示错误日志窗口而不是关闭游戏进程")]
 public class ShowErrorLog
 {

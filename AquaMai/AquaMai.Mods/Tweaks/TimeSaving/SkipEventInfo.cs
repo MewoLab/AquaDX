@@ -7,7 +7,7 @@ using Process.Information;
 namespace AquaMai.Mods.Tweaks.TimeSaving;
 
 [ConfigSection(
-    en: "Skip possible prompts like \"New area discovered\", \"New songs added\", \"There are events\" during game login/registration",
+    en: "Skip possible prompts like \"New area discovered\", \"New songs added\", \"There are events\" during game login/registration.",
     zh: "跳过登录 / 注册游戏时候可能的 “发现了新的区域哟” “乐曲增加” “有活动哟” 之类的提示")]
 public class SkipEventInfo
 {

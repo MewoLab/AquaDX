@@ -7,8 +7,8 @@ namespace AquaMai.Mods.Fancy.GamePlay;
 
 [ConfigSection(
     en: """
-        This Patch makes the Critical judgment of BreakSlide also flicker like BreakTap
-        Recommended to use with custom skins (otherwise the visual effect may not be good)
+        This Patch makes the Critical judgment of BreakSlide also flicker like BreakTap.
+        Recommended to use with custom skins (otherwise the visual effect may not be good).
         """,
     zh: """
         这个 Patch 让 BreakSlide 的 Critical 判定也可以像 BreakTap 一样闪烁

@@ -7,19 +7,19 @@ using UnityEngine;
 namespace AquaMai.Mods.GameSystem;
 
 [ConfigSection(
-    en: "Windowed Mode / Window Settings",
+    en: "Windowed Mode / Window Settings.",
     zh: "窗口化/窗口设置")]
 public class Window
 {
     [ConfigEntry(
-        en: "Window the game",
+        en: "Window the game.",
         zh: "窗口化游戏")]
     private static readonly bool windowed = false;
 
     [ConfigEntry(
         en: """
-            Window width (and height) for windowed mode, rendering resolution for fullscreen mode
-            If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution
+            Window width (and height) for windowed mode, rendering resolution for fullscreen mode.
+            If set to 0, windowed mode will remember the user-set size, fullscreen mode will use the current display resolution.
             """,
         zh: """
             宽度（和高度）窗口化时为游戏窗口大小，全屏时为渲染分辨率
@@ -28,7 +28,7 @@ public class Window
     private static readonly int width = 0;
 
     [ConfigEntry(
-        en: "Height, as above",
+        en: "Height, as above.",
         zh: "高度，同上")]
     private static readonly int height = 0;
 
