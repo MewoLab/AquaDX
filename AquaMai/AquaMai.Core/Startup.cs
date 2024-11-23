@@ -71,9 +71,9 @@ public class Startup
         }
     }
 
-    private static void Patch(Type type)
+    private static void ApplyPatch(Type type)
     {
-        MelonLogger.Msg($"> Patching {type}");
+        MelonLogger.Msg($"> Applying {type}");
         try
         {
             InvokeLifecycleMethod(type, ModLifecycleMethod.OnBeforePatch);
@@ -117,7 +117,7 @@ public class Startup
 
         // Init locale with patching C# runtime
         // https://stackoverflow.com/questions/1952638/single-assembly-multi-language-windows-forms-deployment-ilmerge-and-satellite-a
-        Patch(typeof(I18nSingleAssemblyHook));
+        ApplyPatch(typeof(I18nSingleAssemblyHook));
         Locale.Culture = CultureInfo.GetCultureInfo(lang); // Must be called after I18nSingleAssemblyHook patched
 
         // The patch list is ordered
@@ -146,7 +146,7 @@ public class Startup
         }
         foreach (var type in wantedPatches)
         {
-            Patch(type);
+            ApplyPatch(type);
         }
         foreach (var type in wantedPatches)
         {
