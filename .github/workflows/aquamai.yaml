@@ -4,11 +4,13 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - .github
       - AquaMai/**
     branches:
       - v1-dev
   pull_request:
     paths:
+      - .github
       - AquaMai/**
     branches:
       - v1-dev
