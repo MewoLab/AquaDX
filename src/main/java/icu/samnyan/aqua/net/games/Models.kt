@@ -1,13 +1,13 @@
 package icu.samnyan.aqua.net.games
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import ext.JACKSON
 import ext.JavaSerializable
 import icu.samnyan.aqua.sega.general.model.Card
-import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
-import jakarta.persistence.*
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
 import kotlinx.serialization.Serializable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -51,7 +51,7 @@ data class GenericGameSummary(
 )
 
 data class GenericRankingPlayer(
-    val rank: Int,
+    var rank: Int,
     val name: String,
     val username: String?,
     val accuracy: Double,
@@ -95,6 +95,7 @@ interface IUserData {
 }
 
 interface IGenericGamePlaylog {
+    val user: IUserData
     val musicId: Int
     val level: Int
     val userPlayDate: Any
@@ -116,21 +117,15 @@ open class BaseEntity(
     override fun toString() = JACKSON.writeValueAsString(this)
 }
 
-@MappedSuperclass
-open class UserDataEntity : BaseEntity() {
-    @JsonSerialize(using = AccessCodeSerializer::class)
-    @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
-    @OneToOne
-    @JoinColumn(name = "aime_card_id", unique = true)
-    var card: Card? = null
-}
-
 @NoRepositoryBean
 interface GenericUserDataRepo<T : IUserData> : JpaRepository<T, Long> {
     fun findByCard(card: Card): T?
     fun findByCard_ExtId(extId: Long): Optional<T>
     @Query("select count(*) from #{#entityName} e where e.playerRating > :rating and e.card.rankingBanned = false")
     fun getRanking(rating: Int): Long
+
+    @Query("select e from #{#entityName} e where e.card.rankingBanned = false")
+    fun findAllNonBanned(): List<T>
 }
 
 @NoRepositoryBean

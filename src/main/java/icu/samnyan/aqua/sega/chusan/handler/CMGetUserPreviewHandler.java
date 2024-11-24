@@ -34,7 +34,7 @@ public class CMGetUserPreviewHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         String segaIdAuthKey = String.valueOf(request.get("segaIdAuthKey"));
 

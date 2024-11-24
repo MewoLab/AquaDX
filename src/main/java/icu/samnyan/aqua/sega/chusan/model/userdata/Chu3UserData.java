@@ -10,11 +10,8 @@ import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney;
 import icu.samnyan.aqua.sega.general.model.Card;
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,9 +21,9 @@ import java.util.List;
  */
 @Entity(name = "ChusanUserData")
 @Table(name = "chusan_user_data")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @JsonPropertyOrder({
         "accessCode",
         "userName",
@@ -127,9 +124,6 @@ import java.util.List;
         "isNetBattleHost",
         "netBattleEndState" })
 public class Chu3UserData implements Serializable, IUserData {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -137,10 +131,9 @@ public class Chu3UserData implements Serializable, IUserData {
 
     @JsonSerialize(using = AccessCodeSerializer.class)
     @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "card_id", unique = true)
     private Card card;
-    // Access code in card
 
     private String userName;
 

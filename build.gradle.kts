@@ -4,16 +4,19 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 plugins {
-    val ktVer = "2.0.0-Beta5"
+    val ktVer = "2.0.21"
 
     java
     kotlin("plugin.lombok") version ktVer
     kotlin("jvm") version ktVer
     kotlin("plugin.spring") version ktVer
+    kotlin("plugin.jpa") version ktVer
     kotlin("plugin.serialization") version ktVer
+    kotlin("plugin.allopen") version ktVer
     id("io.freefair.lombok") version "8.6"
     id("org.springframework.boot") version "3.2.3"
     id("com.github.ben-manes.versions") version "0.51.0"
+    id("org.hibernate.orm") version "6.4.4.Final"
     application
 }
 
@@ -105,6 +108,20 @@ kotlin {
 
 springBoot {
     mainClass.set("icu.samnyan.aqua.EntryKt")
+}
+
+hibernate {
+    enhancement {
+        enableLazyInitialization = true
+        enableAssociationManagement = false
+        enableExtendedEnhancement = false
+    }
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
 }
 
 val buildTime: String by extra(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z").withZone(ZoneId.of("UTC")).format(Instant.now()))

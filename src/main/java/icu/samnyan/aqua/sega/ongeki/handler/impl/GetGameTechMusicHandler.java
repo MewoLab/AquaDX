@@ -29,7 +29,7 @@ public class GetGameTechMusicHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         List<Object> techMusicList = new ArrayList<>();
 
         // This endpoint seems related to "techchallengeevent" in game data, TBD

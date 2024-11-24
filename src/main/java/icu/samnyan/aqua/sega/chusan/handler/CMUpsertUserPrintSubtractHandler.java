@@ -38,7 +38,7 @@ public class CMUpsertUserPrintSubtractHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         UserCardPrintState userCardPrintState = mapper.convert(request.get("userCardPrintState"), UserCardPrintState.class);
         List<UserItem> userItemList = mapper.convert(request.get("userItemList"), new TypeReference<List<UserItem>>() {});

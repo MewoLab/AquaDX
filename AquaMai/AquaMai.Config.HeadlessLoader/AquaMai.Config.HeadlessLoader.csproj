@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AquaMai.Config.HeadlessLoader</RootNamespace>
+    <AssemblyName>AquaMai.Config.HeadlessLoader</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>12</LangVersion>
+    <NoWarn>414;NU1702</NoWarn>
+    <LibsPath>$(ProjectDir)../Libs/</LibsPath>
+    <OutputPath>$(ProjectDir)../Output/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config.Interfaces/AquaMai.Config.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Cecil">
+      <HintPath>$(LibsPath)Mono.Cecil.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

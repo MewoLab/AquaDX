@@ -27,7 +27,7 @@ public class GetUserTeamHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
         String playDate = (String) request.get("playDate");
 

@@ -38,7 +38,7 @@ public class GetGameSettingHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         PropertyEntry start = propertyEntryRepository.findByPropertyKey("reboot_start_time")
                 .orElseGet(() -> new PropertyEntry("reboot_start_time", "2020-01-01 23:59:00.0"));

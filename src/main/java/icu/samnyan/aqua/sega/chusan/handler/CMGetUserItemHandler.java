@@ -35,7 +35,7 @@ public class CMGetUserItemHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         Long nextIndexVal = ((Number) request.get("nextIndex")).longValue();
         int maxCount = ((Number) request.get("maxCount")).intValue();

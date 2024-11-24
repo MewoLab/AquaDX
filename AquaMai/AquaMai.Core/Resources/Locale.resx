@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="SeekBackward" xml:space="preserve">
+        <value>Seek &lt;&lt;</value>
+    </data>
+    <data name="SeekForward" xml:space="preserve">
+        <value>Seek &gt;&gt;</value>
+    </data>
+    <data name="Pause" xml:space="preserve">
+        <value>Pause</value>
+    </data>
+    <data name="MarkRepeatStart" xml:space="preserve">
+        <value>Start</value>
+    </data>
+    <data name="MarkRepeatEnd" xml:space="preserve">
+        <value>End</value>
+    </data>
+    <data name="RepeatReset" xml:space="preserve">
+        <value>Reset</value>
+    </data>
+    <data name="RepeatNotSet" xml:space="preserve">
+        <value>Loop Not Set</value>
+    </data>
+    <data name="RepeatStartSet" xml:space="preserve">
+        <value>Loop Start Set</value>
+    </data>
+    <data name="RepeatStartEndSet" xml:space="preserve">
+        <value>Loop Set</value>
+    </data>
+    <data name="SpeedDown" xml:space="preserve">
+        <value>Speed -</value>
+    </data>
+    <data name="SpeedUp" xml:space="preserve">
+        <value>Speed +</value>
+    </data>
+    <data name="Speed" xml:space="preserve">
+        <value>Speed</value>
+    </data>
+    <data name="SpeedReset" xml:space="preserve">
+        <value>Speed Reset</value>
+    </data>
+    <data name="LoadError" xml:space="preserve">
+        <value>Errors detected while loading!
+- Are you using a modified Assembly-CSharp.dll, which will cause inconsistent functions and cannot find the functions that need to be modified
+- Check for conflicting mods, or enabled incompatible options</value>
+    </data>
+    <data name="SavingDontExit" xml:space="preserve">
+        <value>Saving... Do not exit the game</value>
+    </data>
+    <data name="Loaded" xml:space="preserve">
+        <value>Loaded!</value>
+    </data>
+    <data name="NetErrIsAliveServer" xml:space="preserve">
+        <value>Server communication error</value>
+    </data>
+    <data name="NetErrIsAliveAimeReader" xml:space="preserve">
+        <value>Aime reader error</value>
+    </data>
+    <data name="NetErrIsAliveAimeServer" xml:space="preserve">
+        <value>Aime server error</value>
+    </data>
+    <data name="NetErrWasDownloadSuccessOnce" xml:space="preserve">
+        <value>Data download not success</value>
+    </data>
+    <data name="RatingUpWhenSSSp" xml:space="preserve">
+        <value>SSS+ =&gt; DXRating += {0}</value>
+    </data>
+    <data name="Skip" xml:space="preserve">
+        <value>Skip</value>
+    </data>
+    <data name="SkipIncompatiblePatch" xml:space="preserve">
+        <value>&gt; Skipping incompatible patch: {0}</value>
+    </data>
+    <data name="RepeatStartTimeNotSet" xml:space="preserve">
+        <value>Please set repeat start time first</value>
+    </data>
+    <data name="RepeatEndTimeLessThenStartTime" xml:space="preserve">
+        <value>Repeat end time cannot be less than repeat start time</value>
+    </data>
+    <data name="CiBuildAlertTitle" xml:space="preserve">
+        <value>Important Notice: Test Version</value>
+    </data>
+    <data name="CiBuildAlertContent" xml:space="preserve">
+        <value>You are using AquaMai CI build version. This version is built from the latest mainline code and may contain undocumented configuration changes or potential issues.</value>
+    </data>
+    <data name="PlayCount" xml:space="preserve">
+        <value>游玩次数：{0}</value>
+    </data>
+</root>

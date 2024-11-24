@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.stereotype.Service
 import java.io.File
 import java.net.InetAddress
-import java.net.URL
+import java.net.URI
 import java.nio.file.Files
 
 
@@ -38,7 +38,7 @@ class GeoIP(
             // Download from GitHub
             try {
                 log.info("Downloading GeoLite2 database to ${props.geoLitePath}")
-                URL("https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb").openStream()
+                URI("https://github.com/P3TERX/GeoLite.mmdb/raw/download/GeoLite2-Country.mmdb").toURL().openStream()
                     .use { Files.copy(it, File(props.geoLitePath).toPath()) }
             } catch (e: Exception) {
                 log.error("Failed to download GeoLite2 database", e)

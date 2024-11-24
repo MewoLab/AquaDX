@@ -5,6 +5,7 @@ import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.cardmaker.model.response.GetGameSettingResp;
 import icu.samnyan.aqua.sega.cardmaker.model.response.data.GameSetting;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class GetGameSettingHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(@NotNull Map<String, ?> request) throws JsonProcessingException {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
         LocalDateTime rebootStartTime = LocalDateTime.now().minusHours(3);
@@ -60,7 +61,7 @@ public class GetGameSettingHandler implements BaseHandler {
 
         String json = mapper.write(resp);
 
-        logger.info("Response: " + json);
+        logger.info("Response: {}", json);
         return json;
     }
 }

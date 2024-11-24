@@ -3,7 +3,40 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai", "AquaMai.csproj", "{788BC472-59F7-46F6-B760-65C18BA74389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Config.Interfaces", "AquaMai.Config.Interfaces/AquaMai.Config.Interfaces.csproj", "{50C59E41-2939-407E-9CB7-B186F33DDCF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Config", "AquaMai.Config/AquaMai.Config.csproj", "{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50C59E41-2939-407E-9CB7-B186F33DDCF9} = {50C59E41-2939-407E-9CB7-B186F33DDCF9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Config.HeadlessLoader", "AquaMai.Config.HeadlessLoader/AquaMai.Config.HeadlessLoader.csproj", "{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}"
+	ProjectSection(ProjectDependencies) = postProject
+		{50C59E41-2939-407E-9CB7-B186F33DDCF9} = {50C59E41-2939-407E-9CB7-B186F33DDCF9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Build", "AquaMai.Build/AquaMai.Build.csproj", "{4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66} = {6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Core", "AquaMai.Core/AquaMai.Core.csproj", "{33C0D4ED-6A84-4659-9A05-12D43D75D0B3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A} = {B9CA039A-A0F1-4C87-A33E-3F959974BB3A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai.Mods", "AquaMai.Mods/AquaMai.Mods.csproj", "{8731C0E0-53BE-4B1B-9828-193E738C6865}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A} = {B9CA039A-A0F1-4C87-A33E-3F959974BB3A}
+		{33C0D4ED-6A84-4659-9A05-12D43D75D0B3} = {33C0D4ED-6A84-4659-9A05-12D43D75D0B3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaMai", "AquaMai/AquaMai.csproj", "{788BC472-59F7-46F6-B760-65C18BA74389}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5} = {4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5}
+		{33C0D4ED-6A84-4659-9A05-12D43D75D0B3} = {33C0D4ED-6A84-4659-9A05-12D43D75D0B3}
+		{8731C0E0-53BE-4B1B-9828-193E738C6865} = {8731C0E0-53BE-4B1B-9828-193E738C6865}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +44,30 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50C59E41-2939-407E-9CB7-B186F33DDCF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C59E41-2939-407E-9CB7-B186F33DDCF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C59E41-2939-407E-9CB7-B186F33DDCF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C59E41-2939-407E-9CB7-B186F33DDCF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9CA039A-A0F1-4C87-A33E-3F959974BB3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5E1F3E-D012-4CFB-A2FA-26A6CE06BE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C0C68C3-8B2E-4CA8-A26D-AE87CF2A38A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C0D4ED-6A84-4659-9A05-12D43D75D0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C0D4ED-6A84-4659-9A05-12D43D75D0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C0D4ED-6A84-4659-9A05-12D43D75D0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C0D4ED-6A84-4659-9A05-12D43D75D0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8731C0E0-53BE-4B1B-9828-193E738C6865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8731C0E0-53BE-4B1B-9828-193E738C6865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8731C0E0-53BE-4B1B-9828-193E738C6865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8731C0E0-53BE-4B1B-9828-193E738C6865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{788BC472-59F7-46F6-B760-65C18BA74389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{788BC472-59F7-46F6-B760-65C18BA74389}.Release|Any CPU.Build.0 = Release|Any CPU
 		{788BC472-59F7-46F6-B760-65C18BA74389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

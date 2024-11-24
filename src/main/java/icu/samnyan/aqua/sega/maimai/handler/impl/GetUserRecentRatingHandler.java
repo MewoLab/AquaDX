@@ -33,7 +33,7 @@ public class GetUserRecentRatingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
 
         UserGeneralData data = userGeneralDataRepository.findByUser_Card_ExtIdAndPropertyKey(userId, "user_recent_rating")

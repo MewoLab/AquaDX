@@ -36,7 +36,7 @@ public class GetUserRivalDataHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         var userRivalId = ((Number) request.get("userId")).longValue();
         var userRivalList = ((Collection<HashMap<String,Object>>) request.get("userRivalList"))
                 .stream()

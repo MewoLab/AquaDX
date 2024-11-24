@@ -30,7 +30,7 @@ val JACKSON = jacksonObjectMapper().apply {
     registerModule(JSON_FUZZY_BOOLEAN)
     registerModule(JSON_DATETIME)
     configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
+    propertyNamingStrategy = PropertyNamingStrategies.LOWER_CAMEL_CASE;
 }
 inline fun <reified T> ObjectMapper.parse(str: Str) = readValue(str, T::class.java)
 inline fun <reified T> ObjectMapper.parse(map: Map<*, *>) = convertValue(map, T::class.java)

@@ -1,2 +1,0 @@
-﻿INSERT INTO ongeki_game_music (id, artist_name, boss_card_id, boss_level, genre, level0, level1, level2, level3, level4, name, sort_name) VALUES (8158, 'xi', 100088, 1, 'オンゲキ', '0,0', '0,0', '0,0', '0,0', '0,0', 'Titania', 'TITANIA');
-INSERT INTO ongeki_game_music (id, artist_name, boss_card_id, boss_level, genre, level0, level1, level2, level3, level4, name, sort_name) VALUES (8160, '黒沢ダイスケ VS 穴山大輔', 100682, 1, 'オンゲキ', '0,0', '0,0', '0,0', '0,0', '0,0', '脳天直撃', 'ノウテンチヨクケキ');

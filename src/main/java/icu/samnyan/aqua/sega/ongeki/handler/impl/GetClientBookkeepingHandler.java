@@ -30,7 +30,7 @@ public class GetClientBookkeepingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long placeId = ((Number) request.get("placeId")).longValue();
 
         Map<String, Object> resultMap = new LinkedHashMap<>();

@@ -34,7 +34,7 @@ public class GetGamePointHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         // This value is always false
         Boolean isAllGP = (Boolean) request.get("isAllGP");
 

@@ -165,7 +165,7 @@ class Mai2UserExtend : Mai2UserEntity() {
     @Convert(converter = IntegerListConverter::class)
     var selectedCardList: List<Int> = ArrayList()
 
-    @OneToMany(mappedBy = "userExtend")
+    @OneToMany(mappedBy = "userExtend", targetEntity = Mai2MapEncountNpc::class)
     var encountMapNpcList: List<Mai2MapEncountNpc> = ArrayList()
 }
 

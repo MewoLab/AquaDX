@@ -1,0 +1,127 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8731C0E0-53BE-4B1B-9828-193E738C6865}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AquaMai.Mods</RootNamespace>
+    <AssemblyName>AquaMai.Mods</AssemblyName>
+    <TargetFramework>net472</TargetFramework>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>12</LangVersion>
+    <NoWarn>414</NoWarn>
+    <AssemblySearchPaths>$(ProjectDir)../Libs/;$(AssemblySearchPaths)</AssemblySearchPaths>
+    <OutputPath>$(ProjectDir)../Output/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
+    <ProjectReference Include="../AquaMai.Core/AquaMai.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="0Harmony" />
+    <Reference Include="AMDaemon.NET" />
+    <Reference Include="Assembly-CSharp" />
+    <Reference Include="Assembly-CSharp-firstpass" />
+    <Reference Include="MelonLoader" />
+    <Reference Include="Mono.Cecil" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="Mono.Security" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Analytics.DataPrivacy" />
+    <Reference Include="Unity.TextMeshPro" />
+    <Reference Include="UnityEngine" />
+    <Reference Include="UnityEngine.AccessibilityModule" />
+    <Reference Include="UnityEngine.AIModule" />
+    <Reference Include="UnityEngine.AnimationModule" />
+    <Reference Include="UnityEngine.ARModule" />
+    <Reference Include="UnityEngine.AssetBundleModule" />
+    <Reference Include="UnityEngine.AudioModule" />
+    <Reference Include="UnityEngine.BaselibModule" />
+    <Reference Include="UnityEngine.ClothModule" />
+    <Reference Include="UnityEngine.ClusterInputModule" />
+    <Reference Include="UnityEngine.ClusterRendererModule" />
+    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnityEngine.CrashReportingModule" />
+    <Reference Include="UnityEngine.DirectorModule" />
+    <Reference Include="UnityEngine.FileSystemHttpModule" />
+    <Reference Include="UnityEngine.GameCenterModule" />
+    <Reference Include="UnityEngine.GridModule" />
+    <Reference Include="UnityEngine.HotReloadModule" />
+    <Reference Include="UnityEngine.ImageConversionModule" />
+    <Reference Include="UnityEngine.IMGUIModule" />
+    <Reference Include="UnityEngine.InputModule" />
+    <Reference Include="UnityEngine.JSONSerializeModule" />
+    <Reference Include="UnityEngine.LocalizationModule" />
+    <Reference Include="UnityEngine.Networking" />
+    <Reference Include="UnityEngine.ParticleSystemModule" />
+    <Reference Include="UnityEngine.PerformanceReportingModule" />
+    <Reference Include="UnityEngine.Physics2DModule" />
+    <Reference Include="UnityEngine.PhysicsModule" />
+    <Reference Include="UnityEngine.ProfilerModule" />
+    <Reference Include="UnityEngine.ScreenCaptureModule" />
+    <Reference Include="UnityEngine.SharedInternalsModule" />
+    <Reference Include="UnityEngine.SpatialTracking" />
+    <Reference Include="UnityEngine.SpriteMaskModule" />
+    <Reference Include="UnityEngine.SpriteShapeModule" />
+    <Reference Include="UnityEngine.StreamingModule" />
+    <Reference Include="UnityEngine.StyleSheetsModule" />
+    <Reference Include="UnityEngine.SubstanceModule" />
+    <Reference Include="UnityEngine.TerrainModule" />
+    <Reference Include="UnityEngine.TerrainPhysicsModule" />
+    <Reference Include="UnityEngine.TextCoreModule" />
+    <Reference Include="UnityEngine.TextRenderingModule" />
+    <Reference Include="UnityEngine.TilemapModule" />
+    <Reference Include="UnityEngine.Timeline" />
+    <Reference Include="UnityEngine.TimelineModule" />
+    <Reference Include="UnityEngine.TLSModule" />
+    <Reference Include="UnityEngine.UI" />
+    <Reference Include="UnityEngine.UIElementsModule" />
+    <Reference Include="UnityEngine.UIModule" />
+    <Reference Include="UnityEngine.UmbraModule" />
+    <Reference Include="UnityEngine.UNETModule" />
+    <Reference Include="UnityEngine.UnityAnalyticsModule" />
+    <Reference Include="UnityEngine.UnityConnectModule" />
+    <Reference Include="UnityEngine.UnityTestProtocolModule" />
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule" />
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule" />
+    <Reference Include="UnityEngine.UnityWebRequestModule" />
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule" />
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule" />
+    <Reference Include="UnityEngine.VehiclesModule" />
+    <Reference Include="UnityEngine.VFXModule" />
+    <Reference Include="UnityEngine.VideoModule" />
+    <Reference Include="UnityEngine.VRModule" />
+    <Reference Include="UnityEngine.WindModule" />
+    <Reference Include="UnityEngine.XRModule" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Numerics" Private="true" />
+  </ItemGroup>
+
+</Project>

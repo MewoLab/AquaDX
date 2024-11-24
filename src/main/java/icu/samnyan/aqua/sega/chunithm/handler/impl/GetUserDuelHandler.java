@@ -34,7 +34,7 @@ public class GetUserDuelHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
         String duelId = (String) request.get("duelId");
         String isAllDuel = (String) request.get("isAllDuel");

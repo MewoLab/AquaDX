@@ -13,6 +13,7 @@ import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
+import jakarta.persistence.EntityManager
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
@@ -178,7 +179,8 @@ class CardGameService(
     val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
     val safety: AquaNetSafetyService,
-    val cardRepo: CardRepository
+    val cardRepo: CardRepository,
+    val em: EntityManager
 ) {
     companion object {
         val log = logger()
@@ -220,16 +222,20 @@ class CardGameService(
     @Scheduled(fixedDelay = 3600000)
     suspend fun autoBan() {
         log.info("Running auto-ban")
+        val time = millis()
 
         // Ban any players with unacceptable names
         for (repo in listOf(maimai2, chusan, wacca, ongeki)) {
-            repo.findAll().filter { it.card != null && !it.card!!.rankingBanned }.forEach { data ->
-                if (!safety.isSafe(data.userName)) {
-                    log.info("Banning user ${data.userName} ${data.card!!.id}")
-                    data.card!!.rankingBanned = true
-                    async { cardRepo.save(data.card!!) }
-                }
+            val all = async { repo.findAllNonBanned() }
+            val isSafe = safety.isSafeBatch(all.map { it.userName })
+            val toSave = all.filterIndexed { i, _ -> !isSafe[i] }.mapNotNull { it.card }
+            if (toSave.isNotEmpty()) {
+                log.info("Banning users ${toSave.joinToString(", ")}")
+                toSave.forEach { it.rankingBanned = true }
+                async { cardRepo.saveAll(toSave) }
             }
         }
+
+        log.info("Auto-ban completed in ${millis() - time}ms")
     }
 }

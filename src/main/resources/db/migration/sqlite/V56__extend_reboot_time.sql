@@ -1,1 +1,0 @@
-UPDATE `property` SET `property_value` = '2099-01-01 23:59:00.0' WHERE `property_key` LIKE 'reboot_%_time';

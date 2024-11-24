@@ -18,7 +18,7 @@ import java.util.*
 @Component
 class CompressionFilter : OncePerRequestFilter() {
     companion object {
-        val logger = logger()
+        val log = logger()
         val b64d = Base64.getMimeDecoder()
         val b64e = Base64.getMimeEncoder()
     }
@@ -51,13 +51,11 @@ class CompressionFilter : OncePerRequestFilter() {
         try {
             resp.outputStream.use { it.write(result); it.flush() }
         } catch (e: EofException) {
-            logger.warn("- EOF: Client closed connection when writing result")
+            log.warn("- EOF: Client closed connection when writing result")
         }
     }
 
-    /**
-     * Filter games that are not diva
-     */
+    /** Only games (other than WACCA) require response compression */
     override fun shouldNotFilter(req: HttpServletRequest) =
         !(req.servletPath.startsWith("/g/") && !req.servletPath.startsWith("/g/wacca"))
 }

@@ -34,7 +34,7 @@ public class GetGameRankingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         // 1 is current, 2 is old
         // See ADT_Ranking.cs
         Integer type = (Integer) request.get("type");

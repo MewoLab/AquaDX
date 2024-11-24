@@ -34,7 +34,7 @@ public class CMGetUserDataHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = String.valueOf(request.get("userId"));
         Optional<Chu3UserData> userDataOptional = userDataService.getUserByExtId(userId);
 

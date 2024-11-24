@@ -1,7 +1,0 @@
--- chusan_game_charge
-DELETE FROM chusan_game_charge;
-INSERT INTO chusan_game_charge (start_date, sale_start_date, sale_price, sale_end_date, price, order_id, end_date, charge_id) VALUES ('2019-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, '2029-01-01 00:00:00.000000', 1, 0, '2029-01-01 00:00:00.000000', 2020);
-INSERT INTO chusan_game_charge (start_date, sale_start_date, sale_price, sale_end_date, price, order_id, end_date, charge_id) VALUES ('2019-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, '2029-01-01 00:00:00.000000', 1, 1, '2029-01-01 00:00:00.000000', 2040);
-INSERT INTO chusan_game_charge (start_date, sale_start_date, sale_price, sale_end_date, price, order_id, end_date, charge_id) VALUES ('2019-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, '2029-01-01 00:00:00.000000', 1, 2, '2029-01-01 00:00:00.000000', 2060);
-INSERT INTO chusan_game_charge (start_date, sale_start_date, sale_price, sale_end_date, price, order_id, end_date, charge_id) VALUES ('2019-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, '2029-01-01 00:00:00.000000', 1, 3, '2029-01-01 00:00:00.000000', 2070);
-INSERT INTO chusan_game_charge (start_date, sale_start_date, sale_price, sale_end_date, price, order_id, end_date, charge_id) VALUES ('2019-01-01 00:00:00.000000', '2019-01-01 00:00:00.000000', 1, '2029-01-01 00:00:00.000000', 1, 4, '2029-01-01 00:00:00.000000', 2080);

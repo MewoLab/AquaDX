@@ -35,7 +35,7 @@ public class GetUserCardHandler implements BaseHandler {
 
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         long userId = ((Number) request.get("userId")).longValue();
         Integer maxCount = (Integer) request.get("maxCount");
         Integer nextIndex = (Integer) request.get("nextIndex");

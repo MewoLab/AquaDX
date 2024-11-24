@@ -1,0 +1,100 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="SeekBackward" xml:space="preserve">
+        <value>倒退 &lt;&lt;</value>
+    </data>
+    <data name="SeekForward" xml:space="preserve">
+        <value>快进 &gt;&gt;</value>
+    </data>
+    <data name="Pause" xml:space="preserve">
+        <value>暂停</value>
+    </data>
+    <data name="MarkRepeatEnd" xml:space="preserve">
+        <value>标记结尾</value>
+    </data>
+    <data name="MarkRepeatStart" xml:space="preserve">
+        <value>标记开头</value>
+    </data>
+    <data name="RepeatNotSet" xml:space="preserve">
+        <value>循环未设定</value>
+    </data>
+    <data name="RepeatReset" xml:space="preserve">
+        <value>循环解除</value>
+    </data>
+    <data name="RepeatStartEndSet" xml:space="preserve">
+        <value>循环已设定</value>
+    </data>
+    <data name="RepeatStartSet" xml:space="preserve">
+        <value>循环开头已设定</value>
+    </data>
+    <data name="Speed" xml:space="preserve">
+        <value>速度</value>
+    </data>
+    <data name="SpeedDown" xml:space="preserve">
+        <value>速度 -</value>
+    </data>
+    <data name="SpeedReset" xml:space="preserve">
+        <value>速度重置</value>
+    </data>
+    <data name="SpeedUp" xml:space="preserve">
+        <value>速度 +</value>
+    </data>
+    <data name="LoadError" xml:space="preserve">
+        <value>加载过程中检测到错误！
+- 你是否正在使用魔改的 Assembly-CSharp.dll，这会导致函数不一致而无法找到需要修改的函数
+- 请检查是否有冲突的 Mod，或者开启了不兼容的选项</value>
+    </data>
+    <data name="SavingDontExit" xml:space="preserve">
+        <value>正在保存… 请不要关闭游戏</value>
+    </data>
+    <data name="Loaded" xml:space="preserve">
+        <value>加载完成！</value>
+    </data>
+    <data name="NetErrIsAliveServer" xml:space="preserve">
+        <value>主服务器通信错误</value>
+    </data>
+    <data name="NetErrIsAliveAimeReader" xml:space="preserve">
+        <value>Aime 读卡器错误</value>
+    </data>
+    <data name="NetErrIsAliveAimeServer" xml:space="preserve">
+        <value>AimeDB 通信错误</value>
+    </data>
+    <data name="NetErrWasDownloadSuccessOnce" xml:space="preserve">
+        <value>数据下载不成功</value>
+    </data>
+    <data name="RatingUpWhenSSSp" xml:space="preserve">
+        <value>推到鸟加可上 {0} 分</value>
+    </data>
+    <data name="Skip" xml:space="preserve">
+        <value>跳过</value>
+    </data>
+    <data name="SkipIncompatiblePatch" xml:space="preserve">
+        <value>&gt; 已跳过加载不兼容的功能: {0}</value>
+    </data>
+    <data name="RepeatEndTimeLessThenStartTime" xml:space="preserve">
+        <value>循环结束时间不能早于开始时间</value>
+    </data>
+    <data name="RepeatStartTimeNotSet" xml:space="preserve">
+        <value>请先设置循环开始时间</value>
+    </data>
+    <data name="CiBuildAlertTitle" xml:space="preserve">
+        <value>重要提示：测试版本</value>
+    </data>
+    <data name="CiBuildAlertContent" xml:space="preserve">
+        <value>您正在使用的是 AquaMai CI 构建版本。由于该版本基于最新的主线代码构建，可能包含未通知的配置文件变更或潜在问题。</value>
+    </data>
+    <data name="PlayCount" xml:space="preserve">
+        <value>Play Count: {0}</value>
+    </data>
+</root>

@@ -31,7 +31,7 @@ public class RollGachaHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         int gachaId = ((Number) request.get("gachaId")).intValue();
         int times = ((Number) request.get("times")).intValue();
 

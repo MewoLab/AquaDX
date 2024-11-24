@@ -29,7 +29,7 @@ public class GetMatchingStateHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String roomId = (String) request.get("roomId");
         MatchingMemberInfo matchingMemberInfo = mapper.convert(request.get("matchingMemberInfo"), MatchingMemberInfo.class);
 

@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{788BC472-59F7-46F6-B760-65C18BA74389}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>AquaMai</RootNamespace>
+    <AssemblyName>AquaMai</AssemblyName>
+    <TargetFramework>net472</TargetFramework>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <LangVersion>12</LangVersion>
+    <NoWarn>414</NoWarn>
+    <AssemblySearchPaths>$(ProjectDir)../Libs/;$(AssemblySearchPaths)</AssemblySearchPaths>
+    <OutputPath>$(ProjectDir)../Output/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>true</Optimize>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../AquaMai.Config.Interfaces/AquaMai.Config.Interfaces.csproj" />
+    <ProjectReference Include="../AquaMai.Config/AquaMai.Config.csproj" />
+    <ProjectReference Include="../AquaMai.Core/AquaMai.Core.csproj" />
+    <ProjectReference Include="../AquaMai.Mods/AquaMai.Mods.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="0Harmony" />
+    <Reference Include="MelonLoader" />
+  </ItemGroup>
+
+  <UsingTask TaskName="PostBuildPatch" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
+  <Target Name="PostBuildPatch" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
+    <PostBuildPatch DllPath="$(OutputPath)$(AssemblyName).dll" />
+  </Target>
+
+  <UsingTask TaskName="GenerateExampleConfig" AssemblyFile="$(OutputPath)AquaMai.Build.dll" />
+  <Target Name="GenerateExampleConfig" AfterTargets="AfterBuild">
+    <GenerateExampleConfig DllPath="$(OutputPath)$(AssemblyName).dll" OutputPath="$(OutputPath)" />
+  </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Config.Interfaces.dll">
+      <LogicalName>AquaMai.Config.Interfaces.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Config.dll">
+      <LogicalName>AquaMai.Config.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Core.dll">
+      <LogicalName>AquaMai.Core.dll</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(OutputPath)AquaMai.Mods.dll">
+      <LogicalName>AquaMai.Mods.dll</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

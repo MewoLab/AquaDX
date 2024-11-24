@@ -31,7 +31,7 @@ public class GetGameGachaHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         List<GameGacha> gameGachaList = gameGachaRepository.findAll();
 

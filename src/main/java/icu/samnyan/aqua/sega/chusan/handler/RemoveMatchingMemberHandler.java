@@ -27,7 +27,7 @@ public class RemoveMatchingMemberHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
 
         Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("returnCode", 1);

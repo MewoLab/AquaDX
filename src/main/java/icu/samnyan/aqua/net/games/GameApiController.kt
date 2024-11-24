@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory
 import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KClass
 
-abstract class GameApiController<T : IUserData>(name: String, userDataClass: KClass<T>) {
+abstract class GameApiController<T : IUserData>(val name: String, userDataClass: KClass<T>) {
     val musicMapping = resJson<Map<String, GenericMusicMeta>>("/meta/$name/music.json")
         ?.mapKeys { it.key.toInt() } ?: emptyMap()
     val logger = LoggerFactory.getLogger(javaClass)
@@ -31,41 +31,61 @@ abstract class GameApiController<T : IUserData>(name: String, userDataClass: KCl
         playlogRepo.findByUserCardExtId(card.extId)
     }
 
-    private var rankingCache: MutableMap<Long, Pair<Long, List<GenericRankingPlayer>>> = mutableMapOf()
+    // Pair<time, List<Pair<should_hide, player>>>
+    private var rankingCache: Pair<Long, List<Pair<Bool, GenericRankingPlayer>>> = 0L to emptyList()
     private val rankingCacheDuration = 240_000
     @API("ranking")
     fun ranking(@RP token: String?): List<GenericRankingPlayer> {
-        val reqUser = token?.let { us.jwt.auth(it) { u ->
+        val time = millis()
+        val tableName = when (name) { "mai2" -> "maimai2"; "chu3" -> "chusan"; else -> name }
+
+        // Check if ranking cache needs to be updated
+        // TODO: pagination
+        if (time - rankingCache.first > rankingCacheDuration) {
+            rankingCache = time to us.em.createNativeQuery(
+                """
+                SELECT
+                    c.id,
+                    u.user_name,
+                    u.player_rating,
+                    u.last_play_date,
+                    AVG(p.achievement) / 10000.0 AS acc,
+                    SUM(p.is_full_combo) AS fc,
+                    SUM(p.is_all_perfect) AS ap,
+                    c.ranking_banned or a.opt_out_of_leaderboard AS hide,
+                    a.username
+                FROM ${tableName}_user_playlog_view p
+                     JOIN ${tableName}_user_data_view u ON p.user_id = u.id
+                     JOIN sega_card c ON u.aime_card_id = c.id
+                     LEFT JOIN aqua_net_user a ON c.net_user_id = a.au_id
+                GROUP BY p.user_id, u.player_rating
+                ORDER BY u.player_rating DESC;
+            """
+            ).exec.mapIndexed { i, it ->
+                it[7].truthy to GenericRankingPlayer(
+                    rank = i + 1,
+                    name = it[1].toString(),
+                    rating = it[2]!!.int,
+                    lastSeen = it[3].toString(),
+                    accuracy = it[4]!!.double,
+                    fullCombo = it[5]!!.int,
+                    allPerfect = it[6]!!.int,
+                    username = it[8]?.toString() ?: "user${it[0]}"
+                )
+            }
+        }
+
+        val reqUser = token?.let { us.jwt.auth(it) }?.let { u ->
             // Optimization: If the user is not banned, we don't need to process user information
             if (!u.ghostCard.rankingBanned && !u.cards.any { it.rankingBanned }) null
             else u
-        } }
-        val cacheKey = reqUser?.auId ?: -1
-
-        // Read from cache if we just computed it less than duration ago
-        rankingCache[cacheKey]?.let { (t, r) ->
-            if (millis() - t < rankingCacheDuration) return r
         }
 
-        // TODO: pagination
+        // Read from cache if we just computed it less than duration ago
         // Shadow-ban: Do not show banned cards in the ranking except for the user who owns the card
-        val players = userDataRepo.findAll().sortedByDescending { it.playerRating }
-            .filter { (it.card?.rankingBanned != true && it.card?.aquaUser?.optOutOfLeaderboard != true) || it.card?.aquaUser?.let { it == reqUser } ?: false }
-        return players.filter { it.card != null }.mapIndexed { i, user ->
-            val card = user.card!!
-            val plays = playlogRepo.findByUserCardExtId(card.extId)
-
-            GenericRankingPlayer(
-                rank = i + 1,
-                name = user.userName,
-                accuracy = plays.acc(),
-                rating = user.playerRating,
-                allPerfect = plays.count { it.isAllPerfect },
-                fullCombo = plays.count { it.isFullCombo },
-                lastSeen = user.lastPlayDate.toString(),
-                username = (if (card.isGhost) user.card!!.aquaUser?.username else null) ?: "user${user.card!!.id}"
-            )
-        }.also { rankingCache[cacheKey] = millis() to it } // Update cache
+        return rankingCache.r.filter { !it.l || it.r.username == reqUser?.username }
+            .mapIndexed { i, it -> it.r.apply { rank = i + 1 } }
+            .also { logger.info("Ranking computed in ${millis() - time}ms") }
     }
 
     @API("playlog")

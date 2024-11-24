@@ -40,7 +40,7 @@ public class GetUserRecentRatingHandler implements BaseHandler {
     }
 
     @Override
-    public String handle(Map<String, Object> request) throws JsonProcessingException {
+    public String handle(Map<String, ?> request) throws JsonProcessingException {
         String userId = (String) request.get("userId");
 
         Optional<UserGeneralData> recentOptional = userGeneralDataService.getByUserIdAndKey(userId, "recent_rating_list");
