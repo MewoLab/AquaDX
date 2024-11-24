@@ -23,7 +23,7 @@ namespace AquaMai.Fix
             if (string.IsNullOrWhiteSpace(s))
             {
                 __result = DateTime.MinValue; // DateTime.Now will crash the game
-                MelonLogger.Msg($"[FixDateParsingCrash] Empty date string, defaulting to {__result.ToString("yyyy/MM/dd HH:mm:ss", JapaneseCulture)}");
+                MelonLogger.Msg($"[FixEmptyDateCrash] Empty date string, defaulting to {__result.ToString("yyyy/MM/dd HH:mm:ss", JapaneseCulture)}");
                 return false;
             }
 
