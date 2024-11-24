@@ -14,7 +14,7 @@ namespace AquaMai.Fix
         private static readonly CultureInfo JapaneseCulture = new CultureInfo("ja-JP");
 
         /**
-         * Switch the return value to DateTime.MinValue if the input string is empty or null.
+         * Replace the return value to DateTime.MinValue if the input string is empty or null.
          */
         [HarmonyPrefix]
         [HarmonyPatch(typeof(DateTime), "Parse", new Type[] { typeof(string) })]
