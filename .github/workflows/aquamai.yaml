@@ -17,6 +17,11 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+      - name: Fix Git line encoding bug
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
       - uses: actions/checkout@v4
 
       - name: Checkout Assets
