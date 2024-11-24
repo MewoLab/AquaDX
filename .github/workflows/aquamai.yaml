@@ -50,7 +50,7 @@ jobs:
           path: AquaMai\Output\Upload
 
       - name: Send to Telegram
-        if: github.event_name != 'pull_request'
+        if: github.ref_name == 'v1-dev'
         run: |
           $Uri = "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMediaGroup"
           $Form = @{
