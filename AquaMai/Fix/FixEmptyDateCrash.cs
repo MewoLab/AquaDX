@@ -17,7 +17,7 @@ namespace AquaMai.Fix
          * Replace the return value to DateTime.MinValue if the input string is empty or null.
          */
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(DateTime), "Parse", new Type[] { typeof(string) })]
+        [HarmonyPatch(typeof(DateTime), "Parse", typeof(string))]
         public static bool FixEmptyDate(ref DateTime __result, string s)
         {
             if (string.IsNullOrWhiteSpace(s))
