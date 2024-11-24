@@ -2,6 +2,7 @@
 using System.Globalization;
 using HarmonyLib;
 using MelonLoader;
+using Manager;
 
 namespace AquaMai.Fix
 {
@@ -22,7 +23,7 @@ namespace AquaMai.Fix
         {
             if (string.IsNullOrWhiteSpace(s))
             {
-                __result = DateTime.MinValue; // DateTime.Now will crash the game
+                __result = TimeManager.GetNowTime();
                 MelonLogger.Msg($"[FixEmptyDateCrash] Empty date string, defaulting to {__result.ToString("yyyy/MM/dd HH:mm:ss", JapaneseCulture)}");
                 return false;
             }
