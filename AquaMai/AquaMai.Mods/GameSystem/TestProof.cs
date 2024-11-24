@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using AquaMai.Config.Attributes;
@@ -28,23 +27,23 @@ public class TestProof
     {
         get
         {
-            Dictionary<System.Type, KeyCodeOrName> featureKeys = new()
-            {
-                [typeof(OneKeyEntryEnd)] = OneKeyEntryEnd.key,
-                [typeof(OneKeyRetrySkip)] = OneKeyRetrySkip.retryKey,
-                [typeof(OneKeyRetrySkip)] = OneKeyRetrySkip.skipKey,
-                [typeof(HideSelfMadeCharts)] = HideSelfMadeCharts.key,
-                [typeof(PracticeMode)] = PracticeMode.key,
-            };
+            (System.Type section, KeyCodeOrName key)[] featureKeys =
+            [
+                (typeof(OneKeyEntryEnd), OneKeyEntryEnd.key),
+                (typeof(OneKeyRetrySkip), OneKeyRetrySkip.retryKey),
+                (typeof(OneKeyRetrySkip), OneKeyRetrySkip.skipKey),
+                (typeof(HideSelfMadeCharts), HideSelfMadeCharts.key),
+                (typeof(PracticeMode), PracticeMode.key),
+            ];
             var keyMapEnabled = ConfigLoader.Config.GetSectionState(typeof(KeyMap)).Enabled;
             return featureKeys.Any(it =>
                 // The feature is enabled and...
-                ConfigLoader.Config.GetSectionState(it.Key).Enabled &&
+                ConfigLoader.Config.GetSectionState(it.section).Enabled &&
                 (
                     // and the key is test, or...
-                    it.Value == KeyCodeOrName.Test ||
+                    it.key == KeyCodeOrName.Test ||
                     // or the key have been mapped to the same key as test.
-                    (keyMapEnabled && it.Value.ToString() == KeyMap.Test.ToString())));
+                    (keyMapEnabled && it.key.ToString() == KeyMap.Test.ToString())));
         }
     }
 
