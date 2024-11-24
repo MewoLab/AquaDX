@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using AquaMai.Config.Interfaces;
 using AquaMai.Config.HeadlessLoader;
 using Microsoft.Build.Framework;
@@ -28,7 +29,7 @@ public class GenerateExampleConfig : Task
                     OverrideLocaleValue = true
                 });
                 var example = configSerializer.Serialize(config);
-                File.WriteAllText(Path.Combine(OutputPath, $"AquaMai.{lang}.toml"), example);
+                File.WriteAllBytes(Path.Combine(OutputPath, $"AquaMai.{lang}.toml"), Encoding.UTF8.GetBytes(example));
             }
 
             return true;

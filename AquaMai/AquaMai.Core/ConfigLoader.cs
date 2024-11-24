@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using MelonLoader;
 using AquaMai.Config;
 using AquaMai.Config.Interfaces;
@@ -32,7 +33,7 @@ public static class ConfigLoader
             foreach (var (lang, example) in examples)
             {
                 var filename = ConfigExampleFile(lang);
-                File.WriteAllText(filename, example);
+                File.WriteAllBytes(filename, Encoding.UTF8.GetBytes(example));
             }
             MelonLogger.Error("======================================!!!");
             MelonLogger.Error("AquaMai.toml not found! Please create it.");
@@ -48,7 +49,7 @@ public static class ConfigLoader
         var configVersion = ConfigMigrationManager.Instance.GetVersion(configView);
         if (configVersion != ConfigMigrationManager.Instance.latestVersion)
         {
-            File.WriteAllText(OldConfigFile(configVersion), configText);
+            File.WriteAllBytes(OldConfigFile(configVersion), Encoding.UTF8.GetBytes(configText));
             configView = (ConfigView)ConfigMigrationManager.Instance.Migrate(configView);
         }
 
@@ -60,7 +61,7 @@ public static class ConfigLoader
 
     public static void SaveConfig(string lang)
     {
-        File.WriteAllText(ConfigFile, SerailizeCurrentConfig(lang));
+        File.WriteAllBytes(ConfigFile, Encoding.UTF8.GetBytes(SerailizeCurrentConfig(lang)));
     }
 
     private static string SerailizeCurrentConfig(string lang) =>
