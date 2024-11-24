@@ -7,6 +7,11 @@ on:
       - AquaMai/**
     branches:
       - v1-dev
+  pull_request:
+    paths:
+      - AquaMai/**
+    branches:
+      - v1-dev
 
 jobs:
   build:
@@ -30,13 +35,6 @@ jobs:
           copy /y build-assets\SDEZ\* AquaMai\Libs
           cd AquaMai
           dotnet build -c Release /p:DefineConstants="CI"
-
-      - name: Make example config
-        shell: cmd
-        run: |
-          cd AquaMai\Output
-          dotnet tool install -g dotnet-script
-          dotnet script genConfig.csx
 
       - name: Prepare artifact
         shell: cmd
