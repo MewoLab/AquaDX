@@ -1,4 +1,4 @@
-name: Build AquaMai
+name: AquaMai Build
 
 on:
   workflow_dispatch:
