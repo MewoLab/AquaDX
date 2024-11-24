@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
+using AquaMai.Core;
 using AquaMai.Core.Attributes;
 using AquaMai.Config.Attributes;
 using AquaMai.Mods.Fancy.GamePlay;

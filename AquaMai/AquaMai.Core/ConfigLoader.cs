@@ -6,7 +6,7 @@ using AquaMai.Config;
 using AquaMai.Config.Interfaces;
 using AquaMai.Config.Migration;
 
-namespace AquaMai;
+namespace AquaMai.Core;
 
 public static class ConfigLoader
 {
