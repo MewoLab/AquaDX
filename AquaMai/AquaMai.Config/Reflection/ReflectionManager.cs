@@ -101,7 +101,7 @@ public class ReflectionManager : IReflectionManager
                 Utility.Log($"Section {x.Key} has no order defined, defaulting to int.MaxValue");
                 return int.MaxValue;
             })
-            .ToDictionary(x => x.Key, x => x.Value);
+            .ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
     }
 
     public IEnumerable<Section> SectionValues => sections.Values;
@@ -135,7 +135,7 @@ public class ReflectionManager : IReflectionManager
 
     public IReflectionManager.ISection GetSection(string path)
     {
-        if (!sections.TryGetValue(path, out var section))
+        if (!TryGetSection(path, out var section))
         {
             throw new KeyNotFoundException($"Section {path} not found");
         }
@@ -169,7 +169,7 @@ public class ReflectionManager : IReflectionManager
 
     public IReflectionManager.IEntry GetEntry(string path)
     {
-        if (!entries.TryGetValue(path, out var entry))
+        if (!TryGetEntry(path, out var entry))
         {
             throw new KeyNotFoundException($"Entry {path} not found");
         }
