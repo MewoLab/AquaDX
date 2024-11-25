@@ -18,7 +18,7 @@ namespace AquaMai.Mods.Utils;
 [ConfigSection(
     en: "Log network requests to the MelonLoader console.",
     zh: "将网络请求输出到 MelonLoader 控制台")]
-public class LogNetQueries
+public class LogNetworkRequests
 {
     [ConfigEntry]
     private static readonly bool url = true;
@@ -49,7 +49,7 @@ public class LogNetQueries
 
         if (responseErrorOnly && !response)
         {
-            MelonLogger.Warning("[LogNetQueries] `responseErrorOnly` is enabled but `response` is disabled. Will not print any response.");
+            MelonLogger.Warning("[LogNetworkRequests] `responseErrorOnly` is enabled but `response` is disabled. Will not print any response.");
         }
     }
 
@@ -63,7 +63,7 @@ public class LogNetQueries
     [HarmonyPatch(typeof(Packet), "Create")]
     public static void PostCreate(Packet __instance)
     {
-        MelonLogger.Msg($"[LogNetQueries] {GetApiName(__instance.Query)} URL: {MaybeGetNetPacketUrl(__instance)}");
+        MelonLogger.Msg($"[LogNetworkRequests] {GetApiName(__instance.Query)} URL: {MaybeGetNetPacketUrl(__instance)}");
     }
 
     private static string MaybeGetNetPacketUrl(Packet __instance)
@@ -99,7 +99,7 @@ public class LogNetQueries
             var netQuery = __instance.Query;
             var api = GetApiName(netQuery);
             var displayRequest = InspectRequest(api, netQuery.GetRequest());
-            MelonLogger.Msg($"[LogNetQueries] {api} Request: {displayRequest}");
+            MelonLogger.Msg($"[LogNetworkRequests] {api} Request: {displayRequest}");
         }
         else if (
             response &&
@@ -111,12 +111,12 @@ public class LogNetQueries
                 var netQuery = __instance.Query;
                 var api = GetApiName(netQuery);
                 var displayResponse = InspectResponse(api, client.GetResponse().ToArray());
-                MelonLogger.Msg($"[LogNetQueries] {api} Response: {displayResponse}");
+                MelonLogger.Msg($"[LogNetworkRequests] {api} Response: {displayResponse}");
             }
             else if (client.State == NetHttpClient.StateError)
             {
                 var displayError = InspectError(client);
-                MelonLogger.Warning($"[LogNetQueries] {GetApiName(__instance.Query)} Error: {displayError}");
+                MelonLogger.Warning($"[LogNetworkRequests] {GetApiName(__instance.Query)} Error: {displayError}");
             }
         }
     }
@@ -159,7 +159,8 @@ public class LogNetQueries
         }
     }
 
-    private static string InspectError(NetHttpClient client) => "<" +
+    private static string InspectError(NetHttpClient client) =>
+        "<" +
         $"WebExceptionStatus.{client.WebException}: " +
         $"HttpStatus = {client.HttpStatus}, " +
         $"Error = {JSON.Dump(client.Error)}, " +
