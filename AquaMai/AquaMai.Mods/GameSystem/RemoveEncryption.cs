@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using AquaMai.Config.Attributes;
+using AquaMai.Core.Helpers;
 using HarmonyLib;
 using Net.Packet;
 
@@ -25,7 +26,7 @@ public class RemoveEncryption
     [HarmonyPatch(typeof(Packet), "Obfuscator", typeof(string))]
     public static bool PreObfuscator(string srcStr, ref string __result)
     {
-        __result = srcStr.Replace("MaimaiExp", "").Replace("MaimaiChn", "");
+        __result = Shim.RemoveApiSuffix(srcStr);
         return false;
     }
 
