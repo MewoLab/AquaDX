@@ -12,6 +12,8 @@ public class HeadlessConfigInterface
     public IReflectionProvider ReflectionProvider { get; init; }
     public IReflectionManager ReflectionManager { get; init; }
 
+    public string ApiVersion { get; init; }
+
     public HeadlessConfigInterface(Assembly loadedConfigAssembly, AssemblyDefinition modsAssembly)
     {
         this.loadedConfigAssembly = loadedConfigAssembly;
@@ -20,6 +22,10 @@ public class HeadlessConfigInterface
             loadedConfigAssembly.GetType("AquaMai.Config.Reflection.MonoCecilReflectionProvider"), [modsAssembly]) as IReflectionProvider;
         ReflectionManager = Activator.CreateInstance(
             loadedConfigAssembly.GetType("AquaMai.Config.Reflection.ReflectionManager"), [ReflectionProvider]) as IReflectionManager;
+        ApiVersion = loadedConfigAssembly
+            .GetType("AquaMai.Config.ApiVersion")
+            .GetField("Version", BindingFlags.Public | BindingFlags.Static)
+            .GetRawConstantValue() as string;
     }
 
     public IConfigView CreateConfigView(string tomlString = null)
