@@ -84,7 +84,7 @@ public class ReflectionManager : IReflectionManager
             sectionsByFullName.Add(type.FullName, section);
         }
 
-        var order = reflectionProvider.GetEnum("AquaMai.Mods.SetionNameOrder");
+        var order = reflectionProvider.GetEnum("AquaMai.Mods.SectionNameOrder");
         sections = sections
             .OrderBy(x => x.Key)
             .OrderBy(x =>

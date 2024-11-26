@@ -25,8 +25,8 @@ public class General
     public static readonly string locale = "";
 }
 
-// Please add/remove corresponding entries in SetionNameOrder enum when adding/removing sections.
-public enum SetionNameOrder
+// Please add/remove corresponding entries in SectionNameOrder enum when adding/removing sections.
+public enum SectionNameOrder
 {
     DeprecationWarning,
     General,
