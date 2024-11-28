@@ -125,7 +125,10 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         {
             dst.SetValue("GameSystem.RemoveEncryption.Disabled", true); // Enabled by default in V2
         }
-        MapBooleanTrueToSectionEnable(src, dst, "Fix.ForceAsServer", "GameSettings.ForceAsServer");
+        if (!src.GetValueOrDefault<bool>("Fix.ForceAsServer"))
+        {
+            dst.SetValue("GameSettings.ForceAsServer.Disabled", true); // Enabled by default in V2
+        }
         if (src.GetValueOrDefault<bool>("Fix.ForceFreePlay"))
         {
             dst.SetValue("GameSettings.CreditConfig.IsFreePlay", true);
@@ -297,6 +300,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
 
         // Default enabled in V2
         dst.EnsureDictionary("GameSystem.RemoveEncryption");
+        dst.EnsureDictionary("GameSettings.ForceAsServer");
 
         return dst;
     }
