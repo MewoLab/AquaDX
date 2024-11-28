@@ -109,4 +109,7 @@
     <data name="PlaylogSaveError" xml:space="preserve">
         <value>保存 Playlog 失败</value>
     </data>
+    <data name="TouchPanelReset" xml:space="preserve">
+        <value>触摸面板已重置</value>
+    </data>
 </root>

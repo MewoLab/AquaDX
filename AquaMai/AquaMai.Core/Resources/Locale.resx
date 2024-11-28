@@ -116,4 +116,7 @@
     <data name="PlaylogSaveError" xml:space="preserve">
         <value>Playlog save error</value>
     </data>
+    <data name="TouchPanelReset" xml:space="preserve">
+        <value>Touch panel reset</value>
+    </data>
 </root>

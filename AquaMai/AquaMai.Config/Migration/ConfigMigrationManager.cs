@@ -12,7 +12,8 @@ public class ConfigMigrationManager : IConfigMigrationManager
     private readonly Dictionary<string, IConfigMigration> migrationMap =
         new List<IConfigMigration>
         {
-            new ConfigMigration_V1_0_V2_0()
+            new ConfigMigration_V1_0_V2_0(),
+            new ConfigMigration_V2_0_V2_1()
         }.ToDictionary(m => m.FromVersion);
 
     public string LatestVersion { get; }
@@ -39,10 +40,12 @@ public class ConfigMigrationManager : IConfigMigrationManager
             config = migration.Migrate(config);
             currentVersion = migration.ToVersion;
         }
+
         if (currentVersion != LatestVersion)
         {
             throw new ArgumentException($"Could not migrate the config from v{currentVersion} to v{LatestVersion}");
         }
+
         return config;
     }
 
@@ -52,6 +55,7 @@ public class ConfigMigrationManager : IConfigMigrationManager
         {
             return version;
         }
+
         // Assume v1.0 if not found
         return "1.0";
     }

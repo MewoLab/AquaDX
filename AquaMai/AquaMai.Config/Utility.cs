@@ -14,6 +14,7 @@ public static class Utility
         {
             TomlBoolean boolean => boolean.Value,
             TomlLong @long => @long.Value != 0,
+            TomlTable => true,
             _ => throw new ArgumentException(
                 path == null
                     ? $"Non-boolish TOML type {value.GetType().Name} value: {value}"

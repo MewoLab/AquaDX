@@ -341,6 +341,15 @@ namespace AquaMai.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Touch panel reset.
+        /// </summary>
+        public static string TouchPanelReset {
+            get {
+                return ResourceManager.GetString("TouchPanelReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UserAll Upsert Error.
         /// </summary>
         public static string UserAllUpsertError {
