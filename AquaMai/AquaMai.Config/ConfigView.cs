@@ -125,7 +125,7 @@ public class ConfigView : IConfigView
         var keysCaseSensitive = current.Keys.Where(k => string.Equals(k, keyToRemove, StringComparison.OrdinalIgnoreCase));
         foreach (var key in keysCaseSensitive)
         {
-            current.Keys.Remove(key);
+            current.Entries.Remove(key);
         }
         return keysCaseSensitive.Any();
     }
