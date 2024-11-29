@@ -91,6 +91,11 @@ public class ConfigView : IConfigView
             resultValue = default;
             return false;
         }
+        if (typeof(T) == typeof(object))
+        {
+            resultValue = (T)(object)value;
+            return true;
+        }
         try
         {
             resultValue = Utility.ParseTomlValue<T>(value);
@@ -104,8 +109,34 @@ public class ConfigView : IConfigView
         }
     }
 
+    public bool Remove(string path)
+    {
+        var pathComponents = path.Split('.');
+        var current = root;
+        foreach (var component in pathComponents.Take(pathComponents.Length - 1))
+        {
+            if (!Utility.TomlTryGetValueCaseInsensitive(current, component, out var next) || next is not TomlTable nextTable)
+            {
+                return false;
+            }
+            current = (TomlTable)next;
+        }
+        var keyToRemove = pathComponents.Last();
+        var keysCaseSensitive = current.Keys.Where(k => string.Equals(k, keyToRemove, StringComparison.OrdinalIgnoreCase));
+        foreach (var key in keysCaseSensitive)
+        {
+            current.Keys.Remove(key);
+        }
+        return keysCaseSensitive.Any();
+    }
+
     public string ToToml()
     {
         return root.SerializedValue;
+    }
+
+    public IConfigView Clone()
+    {
+        return new ConfigView(ToToml());
     }
 }

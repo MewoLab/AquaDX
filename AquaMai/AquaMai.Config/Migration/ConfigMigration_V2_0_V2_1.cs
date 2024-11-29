@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using AquaMai.Config.Interfaces;
-using AquaMai.Config.Types;
 using Tomlet.Models;
 
 namespace AquaMai.Config.Migration;
@@ -13,14 +10,35 @@ public class ConfigMigration_V2_0_V2_1 : IConfigMigration
 
     public IConfigView Migrate(IConfigView src)
     {
-        src.SetValue("Version", ToVersion);
+        var dst = src.Clone();
+        dst.SetValue("Version", ToVersion);
 
-        if (src.GetValueOrDefault<bool>("Tweaks.ResetTouchAfterTrack"))
+        if (IsSectionEnabled(src, "Tweaks.ResetTouchAfterTrack"))
         {
-            src.SetValue("Tweaks.ResetTouch.AfterTrack", true);
-            src.SetValue("Tweaks.ResetTouchAfterTrack", null);
+            dst.Remove("Tweaks.ResetTouchAfterTrack");
+            dst.SetValue("Tweaks.ResetTouch.AfterTrack", true);
         }
 
-        return src;
+        return dst;
+    }
+
+    public bool IsSectionEnabled(IConfigView src, string path)
+    {
+        if (src.TryGetValue(path, out object section))
+        {
+            if (section is bool enabled)
+            {
+                return enabled;
+            }
+            else if (section is TomlTable table)
+            {
+                if (Utility.TomlTryGetValueCaseInsensitive(table, "Disabled", out var disabled))
+                {
+                    return !Utility.IsTrutyOrDefault(disabled);
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }
