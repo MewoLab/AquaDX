@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text;
 using AquaMai.Config.Attributes;
 using AquaMai.Config.Interfaces;
+using AquaMai.Config.Migration;
 using Tomlet.Models;
 
 namespace AquaMai.Config;
@@ -60,7 +61,7 @@ public class ConfigSerializer(IConfigSerializer.Options Options) : IConfigSerial
         }
 
         // Version
-        AppendEntry(sb, null, "Version", "2.0");
+        AppendEntry(sb, null, "Version", ConfigMigrationManager.Instance.LatestVersion);
 
         foreach (var section in ((Config)config).reflectionManager.SectionValues)
         {

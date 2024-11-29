@@ -13,16 +13,14 @@ public class ConfigMigration_V2_0_V2_1 : IConfigMigration
 
     public IConfigView Migrate(IConfigView src)
     {
-        var dst = src;
-
-        dst.SetValue("Version", ToVersion);
+        src.SetValue("Version", ToVersion);
 
         if (src.GetValueOrDefault<bool>("Tweaks.ResetTouchAfterTrack"))
         {
-            dst.SetValue("Tweaks.ResetTouch.AfterTrack", true);
-            dst.SetValue("Tweaks.ResetTouchAfterTrack", null);
+            src.SetValue("Tweaks.ResetTouch.AfterTrack", true);
+            src.SetValue("Tweaks.ResetTouchAfterTrack", null);
         }
 
-        return dst;
+        return src;
     }
 }

@@ -59,6 +59,12 @@ public class ConfigView : IConfigView
             }
             current = (TomlTable)next;
         }
+
+        if (value == null)
+        {
+            current.Keys.Remove(pathComponents.Last());
+            return;
+        }
         current.Put(pathComponents.Last(), value);
     }
 
