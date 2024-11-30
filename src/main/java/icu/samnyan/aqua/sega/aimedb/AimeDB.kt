@@ -114,7 +114,7 @@ class AimeDB(
      */
     fun doFelicaLookupV2(msg: ByteBuf): ByteBuf {
         val idm = msg.slice(0x30, 0x38 - 0x30).getLong(0)
-        val pmm = msg.slice(0x38, 0x40 - 0x38).getLong(0)
+        val dfc = msg.slice(0x38, 0x40 - 0x38).getLong(0)
         logger.info("> Felica Lookup v2 (idm $idm, pmm $pmm)")
 
         // Get the decimal represent of the hex value, same from minime
