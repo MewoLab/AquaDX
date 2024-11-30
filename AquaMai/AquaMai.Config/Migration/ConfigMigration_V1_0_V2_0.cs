@@ -125,7 +125,7 @@ public class ConfigMigration_V1_0_V2_0 : IConfigMigration
         {
             dst.SetValue("GameSystem.RemoveEncryption.Disabled", true); // Enabled by default in V2
         }
-        if (!src.GetValueOrDefault<bool>("Fix.ForceAsServer"))
+        if (!src.GetValueOrDefault<bool>("Fix.ForceAsServer", true))
         {
             dst.SetValue("GameSettings.ForceAsServer.Disabled", true); // Enabled by default in V2
         }
