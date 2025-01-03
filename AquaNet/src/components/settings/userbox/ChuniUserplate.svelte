@@ -19,10 +19,10 @@
             <img class="chuni-character" src={characterThumbnailURL} alt="Character">
         {/await}
         {#await DDSreader?.getFileFromSheet("surfboard:CHU_UI_title_rank_00_v10.dds", 5, 5 + (75 * 2), 595, 64) then trophyURL}
-            <div class="chuni-trophy">
+            <div class="chuni-trophy" title={chuniTrophyName}>
                 {chuniTrophyName}
             </div>
-            <img src={trophyURL} class="chuni-trophy-bg" alt="Trophy">
+            <img src={trophyURL} class="chuni-trophy-bg" alt="Trophy" title={chuniTrophyName}>
         {/await}
         <div class="chuni-user-info">
             <div class="chuni-user-name">
