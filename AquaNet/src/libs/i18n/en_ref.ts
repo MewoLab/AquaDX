@@ -189,6 +189,8 @@ export const EN_REF_USERBOX = {
   'userbox.new.activate_update': 'Update AquaBox (game files required)',
   'userbox.new.activate': 'Use AquaBox',
   'userbox.new.activate_desc': 'Enable displaying UserBoxes with their nameplate & avatar',
+  'userbox.new.activate_profile': 'Use AquaBox on profiles',
+  'userbox.new.activate_profile_desc': 'Enable displaying UserBoxes with their nameplate & avatar on profile pages',
   'userbox.new.error.invalidFolder': 'The folder you selected is invalid. Ensure that your game\'s version is Lumi or newer and that the "A001" option pack is present.'
 }
 

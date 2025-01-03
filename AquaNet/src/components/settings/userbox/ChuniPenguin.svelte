@@ -29,10 +29,10 @@
         {/await}
         
         <!-- Arms (surfboard) -->
-        {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 0, 0, 85, 160, 0.75) then imageURL}
+        {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 80, 0, 110, 100, 0.75) then imageURL}
             <img class="chuni-penguin-arm-left chuni-penguin-arm" src={imageURL} alt="Left Arm">
         {/await}
-        {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 0, 0, 85, 160, 0.75) then imageURL}
+        {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 80, 0, 110, 100, 0.75) then imageURL}
             <img class="chuni-penguin-arm-right chuni-penguin-arm" src={imageURL} alt="Right Arm">
         {/await}
 
@@ -77,8 +77,11 @@
     </div>
     <div class="chuni-penguin-feet">
         <!-- Feet -->
-        {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniSkin.toString().padStart(8, "0")}`, 0, 410, 167, 80, 0.75) then imageURL}
-            <img src={imageURL} alt="Feet">
+        {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniSkin.toString().padStart(8, "0")}`, 0, 410, 85, 80, 0.75) then imageURL}
+            <img src={imageURL} alt="Foot">
+        {/await}
+        {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniSkin.toString().padStart(8, "0")}`, 85, 410, 85, 80, 0.75) then imageURL}
+            <img src={imageURL} alt="Foot">
         {/await}
     </div>
 </div>
@@ -88,7 +91,7 @@
         0%
             transform: translate(-50%, 0%) translate(0%, -50%)
         50%
-            transform: translate(-50%, 10px) translate(0%, -50%)
+            transform: translate(-50%, 5px) translate(0%, -50%)
         100%
             transform: translate(-50%, 0%) translate(0%, -50%)
     @keyframes chuniPenguinArmLeft
@@ -108,11 +111,19 @@
 
     img
         -webkit-user-drag: none
+        user-select: none
 
     .chuni-penguin
         height: 512px
         aspect-ratio: 1/2
         position: relative
+        pointer-events: none
+
+        &.chuni-penguin-float
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
 
         .chuni-penguin-body, .chuni-penguin-feet
             transform: translate(-50%, -50%)
@@ -122,21 +133,31 @@
         .chuni-penguin-body
             top: 50%
             z-index: 1
-            animation: chuniPenguinBodyBob 2s infinite cubic-bezier(0.45, 0, 0.55, 1)
+            animation: chuniPenguinBodyBob 1s infinite cubic-bezier(0.45, 0, 0.55, 1)
         .chuni-penguin-feet
-            top: 82.5%
+            top: 80%
             z-index: 0
+            width: 175px
+            display: flex
+            justify-content: center
+
+            img
+                margin-left: auto
+                margin-right: auto
 
         .chuni-penguin-arm
-            transform-origin: 95% 10%
+            transform-origin: 40% 10%
             position: absolute
             top: 40%
+            z-index: 2
         .chuni-penguin-arm-left
-            left: 0%
-            animation: chuniPenguinArmLeft 1.5s infinite cubic-bezier(0.45, 0, 0.55, 1)
+            left: 15%
+            transform: translate(-50%, 0) 
+            animation: chuniPenguinArmLeft 1s infinite cubic-bezier(0.45, 0, 0.55, 1) 0.5s
         .chuni-penguin-arm-right
-            left: 70%
-            animation: chuniPenguinArmRight 1.5s infinite cubic-bezier(0.45, 0, 0.55, 1)
+            left: 95%
+            transform: translate(-50%, 0) scaleX(-1)
+            animation: chuniPenguinArmRight 1s infinite cubic-bezier(0.45, 0, 0.55, 1) 0.5s
 
         .chuni-penguin-accessory
             transform: translate(-50%, -50%)
@@ -149,7 +170,7 @@
         .chuni-penguin-beak
             top: 29.5%
         .chuni-penguin-wear
-            top: 57.5%
+            top: 60%
         .chuni-penguin-head
             top: 7.5%
             z-index: 10

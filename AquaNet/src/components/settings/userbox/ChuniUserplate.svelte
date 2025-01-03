@@ -4,25 +4,25 @@
 
     const DDSreader = new DDS(ddsDB);
 
-    export var chuniLevel: number = 1
+    export var chuniLevel: string = "╳"
     export var chuniName: string = "AquaDX"
     export var chuniRating: number = 1.23
     export var chuniNameplate: number = 1
     export var chuniCharacter: number = 0
     export var chuniTrophyName: string = "NEWCOMER"
 </script>
-{#await DDSreader?.getFile(`nameplate:${chuniNameplate.toString().padStart(8, "0")}`) then nameplateURL}
+{#await DDSreader?.getFile(`nameplate:${chuniNameplate.toString().padStart(8, "0")}`, `nameplate:00000001`) then nameplateURL}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div on:click class="chuni-nameplate" style:background={`url(${nameplateURL})`}>
-        {#await DDSreader?.getFile(`characterThumbnail:${chuniCharacter.toString().padStart(6, "0")}`) then characterThumbnailURL}
+        {#await DDSreader?.getFile(`characterThumbnail:${chuniCharacter.toString().padStart(6, "0")}`, `characterThumbnail:000000`) then characterThumbnailURL}
             <img class="chuni-character" src={characterThumbnailURL} alt="Character">
         {/await}
         {#await DDSreader?.getFileFromSheet("surfboard:CHU_UI_title_rank_00_v10.dds", 5, 5 + (75 * 2), 595, 64) then trophyURL}
             <div class="chuni-trophy">
                 {chuniTrophyName}
-                <img src={trophyURL} class="chuni-trophy-bg" alt="Trophy">
             </div>
+            <img src={trophyURL} class="chuni-trophy-bg" alt="Trophy">
         {/await}
         <div class="chuni-user-info">
             <div class="chuni-user-name">
@@ -57,7 +57,7 @@
     cursor: pointer
 
     .chuni-trophy
-        width: 410px
+        width: 390px
         height: 45px
         background-position: center
         background-size: cover
@@ -74,14 +74,21 @@
         font-family: sans-serif
         font-weight: bold
 
+        overflow-x: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+
         z-index: 1
         text-shadow: 0 1px white
+        margin: 0 10px
 
-        img
-            width: 100%
-            height: 100%
-            position: absolute
-            z-index: -1
+    img.chuni-trophy-bg
+        width: 410px
+        height: 45px
+        position: absolute
+        top: 40px
+        right: 25px
+        z-index: -1
 
     .chuni-character
         position: absolute
@@ -115,9 +122,11 @@
         .chuni-user-name
             flex: 1 0 65%
             box-shadow: 0 1px 0 #ccc
+            white-space: nowrap
+            text-overflow: ellipsis
 
             .chuni-user-level
-                font-size: 2em
+                font-size: 1.5em
                 margin-left: 10px
 
             .chuni-user-name-text

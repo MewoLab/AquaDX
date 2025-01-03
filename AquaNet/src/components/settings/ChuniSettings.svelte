@@ -99,6 +99,7 @@
   let USERBOX_SETUP_TEXT = t("userbox.new.setup");
 
   let USERBOX_ENABLED = useLocalStorage("userboxNew", false);
+  let USERBOX_PROFILE_ENABLED = useLocalStorage("userboxNewProfile", false);
   let USERBOX_INSTALLED = false;
   let USERBOX_SUPPORT = "webkitGetAsEntry" in DataTransferItem.prototype;
 
@@ -155,9 +156,9 @@
     </div>
   {:else}
     <div class="chuni-userbox-container">
-      <ChuniUserplateComponent on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level} chuniRating={userbox.playerRating / 100} 
+      <ChuniUserplateComponent on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level.toString()} chuniRating={userbox.playerRating / 100} 
         chuniNameplate={userbox.nameplateId} chuniName={userbox.userName} chuniTrophyName={allItems.trophy[userbox.trophyId].name}></ChuniUserplateComponent>
-      <ChuniPenguinComponent classPassthrough="chuni-penguin-float" chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack} 
+      <ChuniPenguinComponent chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack} 
         chuniFront={userbox.avatarFront} chuniFace={userbox.avatarFace} chuniItem={userbox.avatarItem} 
         chuniSkin={userbox.avatarSkin}></ChuniPenguinComponent>
     </div>
@@ -217,6 +218,13 @@
         <label for="newUserbox">
           <span class="name">{t("userbox.new.activate")}</span>
           <span class="desc">{t(`userbox.new.activate_desc`)}</span>
+        </label>
+      </div>
+      <div class="field boolean" style:margin-top="1em">
+        <input type="checkbox" bind:checked={USERBOX_PROFILE_ENABLED.value} id="newUserboxProfile">
+        <label for="newUserboxProfile">
+          <span class="name">{t("userbox.new.activate_profile")}</span>
+          <span class="desc">{t(`userbox.new.activate_profile_desc`)}</span>
         </label>
       </div>
     {/if}

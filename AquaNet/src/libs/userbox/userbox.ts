@@ -174,6 +174,7 @@ export async function userboxFileProcess(folder: FileSystemEntry, progressUpdate
     if (dataFolder)
         await scanOptionFolder(dataFolder, progressUpdate);
     useLocalStorage("userboxNew", false).value = true;
+    useLocalStorage("userboxNewProfile", false).value = true;
     location.reload();
 
     return null
