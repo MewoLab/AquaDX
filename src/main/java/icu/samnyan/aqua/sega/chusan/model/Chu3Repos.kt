@@ -132,17 +132,11 @@ interface Chu3MatchingMemberRepo : JpaRepository<Chu3MatchingMember, Long> {
     fun existsByUserIdAndUserName(userId: Long, userName: String): Boolean
 }
 
-interface Chu3GameAvatarAccRepo : JpaRepository<AvatarAcc, Long>
-
-interface Chu3GameCharacterRepo : JpaRepository<Character, Long>
-
 interface Chu3GameChargeRepo : JpaRepository<GameCharge, Long>
 
 interface Chu3GameEventRepo : JpaRepository<GameEvent, Int> {
     fun findByEnable(enable: Boolean): List<GameEvent>
 }
-
-interface Chu3GameFrameRepo : JpaRepository<Frame, Long>
 
 interface Chu3GameGachaCardRepo : JpaRepository<GameGachaCard, Long> {
     fun findAllByGachaId(gachaId: Int): List<GameGachaCard>
@@ -172,18 +166,6 @@ interface Chu3GameLoginBonusRepo : JpaRepository<GameLoginBonus, Int> {
     fun findByRequiredDays(version: Int, presetId: Int, requiredDays: Int): Optional<GameLoginBonus>
 }
 
-interface Chu3GameMapIconRepo : JpaRepository<MapIcon, Long>
-
-interface Chu3GameMusicRepo : JpaRepository<Music, Long> {
-    fun findByMusicId(musicId: Int): Optional<Music>
-}
-
-interface Chu3GameNamePlateRepo : JpaRepository<NamePlate, Long>
-
-interface Chu3GameSystemVoiceRepo : JpaRepository<SystemVoice, Long>
-
-interface Chu3GameTrophyRepo : JpaRepository<Trophy, Long>
-
 @Component
 class Chu3Repos(
     val userLoginBonus: Chu3UserLoginBonusRepo,
@@ -204,18 +186,10 @@ class Chu3Repos(
     val userCMission: Chu3UserCMissionRepo,
     val userCMissionProgress: Chu3UserCMissionProgressRepo,
     val matchingMember: Chu3MatchingMemberRepo,
-    val gameAvatarAcc: Chu3GameAvatarAccRepo,
-    val gameCharacter: Chu3GameCharacterRepo,
     val gameCharge: Chu3GameChargeRepo,
     val gameEvent: Chu3GameEventRepo,
-    val gameFrame: Chu3GameFrameRepo,
     val gameGachaCard: Chu3GameGachaCardRepo,
     val gameGacha: Chu3GameGachaRepo,
     val gameLoginBonusPresets: Chu3GameLoginBonusPresetsRepo,
-    val gameLoginBonus: Chu3GameLoginBonusRepo,
-    val gameMapIcon: Chu3GameMapIconRepo,
-    val gameMusic: Chu3GameMusicRepo,
-    val gameNamePlate: Chu3GameNamePlateRepo,
-    val gameSystemVoice: Chu3GameSystemVoiceRepo,
-    val gameTrophy: Chu3GameTrophyRepo
+    val gameLoginBonus: Chu3GameLoginBonusRepo
 )
