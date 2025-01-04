@@ -187,52 +187,12 @@ public class ApiChuniV2PlayerDataController {
         return false;
     }
 
-    @PutMapping("song/{id}/favorite")
-    public void updateSongFavorite(@RequestParam String aimeId, @PathVariable String id) {
-        Chu3UserData profile = userDataService.getUserByExtId(aimeId).orElseThrow();
-        UserGeneralData userGeneralData = userGeneralDataService.getByUserAndKey(profile, "favorite_music")
-                    .orElseGet(() -> new UserGeneralData(profile, "favorite_music"));
-        List<String> favoriteSongs = new LinkedList<String>(Arrays.asList(userGeneralData.getPropertyValue().split(",")));
-
-        if(!favoriteSongs.remove(id))
-        {
-            favoriteSongs.add(id);
-        }
-
-        StringBuilder sb = new StringBuilder();
-        favoriteSongs.forEach(favSong -> {
-            if(!favSong.isEmpty()) sb.append(favSong).append(",");
-        });
-
-        userGeneralData.setPropertyValue(sb.toString());
-        userGeneralDataService.save(userGeneralData);
-    }
-
     @GetMapping("character")
     public ReducedPageResponse<UserCharacter> getCharacter(@RequestParam String aimeId,
                                         @RequestParam(required = false, defaultValue = "0") int page,
                                         @RequestParam(required = false, defaultValue = "10") int size) {
         Page<UserCharacter> characters = userCharacterService.getByUserId(aimeId, page, size);
         return new ReducedPageResponse<>(characters.getContent(), characters.getPageable().getPageNumber(), characters.getTotalPages(), characters.getTotalElements());
-    }
-
-    @PostMapping("character")
-    public ResponseEntity<Object> updateCharacter(@RequestBody Map<String, Object> request) {
-        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
-        Integer characterId = (Integer) request.get("characterId");
-        Optional<UserCharacter> characterOptional = userCharacterService.getByUserAndCharacterId(profile, characterId);
-        UserCharacter character;
-        if(characterOptional.isPresent()) {
-            character = characterOptional.get();
-        } else {
-            character = new UserCharacter(profile);
-            character.setCharacterId(characterId);
-        }
-        if(request.containsKey("level")) {
-            character.setLevel((Integer) request.get("level"));
-        }
-
-        return ResponseEntity.ok(userCharacterService.save(character));
     }
 
     @GetMapping("course")
@@ -256,26 +216,6 @@ public class ApiChuniV2PlayerDataController {
     @GetMapping("item/{itemKind}")
     public List<UserItem> getItemByKind(@RequestParam String aimeId, @PathVariable int itemKind) {
         return userItemService.getByUserAndItemKind(aimeId, itemKind);
-    }
-
-    @PostMapping("item")
-    public ResponseEntity<Object> updateItem(@RequestBody Map<String, Object> request) {
-        Chu3UserData profile = userDataService.getUserByExtId((String) request.get("aimeId")).orElseThrow();
-        Integer itemId = (Integer) request.get("itemId");
-        Integer itemKind = (Integer) request.get("itemKind");
-        Optional<UserItem> itemOptional = userItemService.getByUserAndItemIdAndKind(profile, itemId,itemKind);
-        UserItem item;
-        if(itemOptional.isPresent()) {
-            item = itemOptional.get();
-        } else {
-            item = new UserItem(profile);
-            item.setItemId(itemId);
-            item.setItemKind(itemKind);
-        }
-        if(request.containsKey("stock")) {
-            item.setStock((Integer) request.get("stock"));
-        }
-        return ResponseEntity.ok(userItemService.save(item));
     }
 
     @GetMapping("general")

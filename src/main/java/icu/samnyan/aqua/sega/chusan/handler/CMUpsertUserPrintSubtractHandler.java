@@ -54,7 +54,7 @@ public class CMUpsertUserPrintSubtractHandler implements BaseHandler {
             int itemKind = newUserItem.getItemKind();
 
             Optional<UserItem> userItemOptional = userItemService.getByUserAndItemIdAndKind(userData, itemId, itemKind);
-            UserItem userItem = userItemOptional.orElseGet(() -> new UserItem(userData));
+            UserItem userItem = userItemOptional.orElseGet(() -> new UserItem());
 
             newUserItem.setId(userItem.getId());
             newUserItem.setUser(userItem.getUser());

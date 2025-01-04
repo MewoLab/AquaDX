@@ -8,9 +8,9 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.MappedSuperclass
 
 @MappedSuperclass
-open class Chu3UserEntity : BaseEntity(), IUserEntity<Chu3UserData> {
+class Chu3UserEntity : BaseEntity(), IUserEntity<Chu3UserData> {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    public override var user: Chu3UserData = Chu3UserData()
+    override var user: Chu3UserData = Chu3UserData()
 }

@@ -55,12 +55,7 @@ class GameLoginHandler(
                         else finished = true
                     }
                     db.gameLoginBonus.findByRequiredDays(1, preset.id, bCount)()?.let {
-                        db.userItem.save(UserItem(u).apply {
-                            itemId = it.presentId
-                            itemKind = 6
-                            stock = it.itemNum
-                            isValid = true
-                        })
+                        db.userItem.save(UserItem(6, it.presentId, it.itemNum).apply { user = u })
                     }
                     val toSave = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)()
                         ?: UserLoginBonus().apply { user = uid.int; presetId = preset.id; version = 1 }
