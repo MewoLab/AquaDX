@@ -8,7 +8,7 @@
   } from "../../libs/generalTypes";
   import { DATA, USER, USERBOX } from "../../libs/sdk";
   import { t, ts } from "../../libs/i18n";
-  import { DATA_HOST, FADE_IN, FADE_OUT, HAS_USERBOX_ASSETS } from "../../libs/config";
+  import { DATA_HOST, FADE_IN, FADE_OUT, USERBOX_DEFAULT_URL } from "../../libs/config";
   import { fade, slide } from "svelte/transition";
   import StatusOverlays from "../StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
@@ -118,19 +118,26 @@
     }) ?? "";
   }
 
+  let USERBOX_URL_STATE = useLocalStorage("userboxURL", USERBOX_DEFAULT_URL);
   function userboxHandleInput(e: KeyboardEvent) {
     if (e.key != "Enter")
       return;
     let baseURL = (e.target as HTMLInputElement).value;
-    try {
-      // validate url
-      new URL(baseURL);
-    } catch(err) {
-      return error = t("userbox.new.error.invalidUrl")
-    }
-    useLocalStorage("userboxURL", "").value = baseURL;
+    if (baseURL != "")
+      try {
+        // validate url
+        new URL(baseURL);
+      } catch(err) {
+        return error = t("userbox.new.error.invalidUrl")
+      }
+    USERBOX_URL_STATE.value = baseURL;
+    USERBOX_ENABLED.value = true;
+    USERBOX_PROFILE_ENABLED.value = true;
     location.reload();
   }
+
+  if (USERBOX_DEFAULT_URL)
+    USERBOX_URL_STATE.value = USERBOX_DEFAULT_URL;
 
   indexedDB.databases().then(async (dbi) => {
     let databaseExists = dbi.some(db => db.name == "userboxChusanDDS");
@@ -138,7 +145,8 @@
       await initializeDb();
       DDSreader = new DDS(ddsDB);
       USERBOX_INSTALLED = databaseExists;
-    }
+    } else if (USERBOX_URL_STATE.value)
+      USERBOX_INSTALLED = true;
   })
 
 </script>
@@ -225,45 +233,43 @@
       {/each}
     </div>
   {/if}
-  {#if HAS_USERBOX_ASSETS}
-    {#if USERBOX_INSTALLED}
-      <!-- god this is a mess but idgaf atp -->
-      <div class="field boolean" style:margin-top="1em">
-        <input type="checkbox" bind:checked={USERBOX_ENABLED.value} id="newUserbox">
-        <label for="newUserbox">
-          <span class="name">{t("userbox.new.activate")}</span>
-          <span class="desc">{t(`userbox.new.activate_desc`)}</span>
-        </label>
-      </div>
-      <div class="field boolean" style:margin-top="1em">
-        <input type="checkbox" bind:checked={USERBOX_PROFILE_ENABLED.value} id="newUserboxProfile">
-        <label for="newUserboxProfile">
-          <span class="name">{t("userbox.new.activate_profile")}</span>
-          <span class="desc">{t(`userbox.new.activate_profile_desc`)}</span>
-        </label>
+  {#if USERBOX_INSTALLED}
+    <!-- god this is a mess but idgaf atp -->
+    <div class="field boolean" style:margin-top="1em">
+      <input type="checkbox" bind:checked={USERBOX_ENABLED.value} id="newUserbox">
+      <label for="newUserbox">
+        <span class="name">{t("userbox.new.activate")}</span>
+        <span class="desc">{t(`userbox.new.activate_desc`)}</span>
+      </label>
+    </div>
+    <div class="field boolean" style:margin-top="1em">
+      <input type="checkbox" bind:checked={USERBOX_PROFILE_ENABLED.value} id="newUserboxProfile">
+      <label for="newUserboxProfile">
+        <span class="name">{t("userbox.new.activate_profile")}</span>
+        <span class="desc">{t(`userbox.new.activate_profile_desc`)}</span>
+      </label>
+    </div>
+  {/if}
+  {#if USERBOX_SUPPORT}
+    <p>
+      <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
+    </p>
+  {/if} 
+  <!--{#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
+    <h2>{t("userbox.header.preview")}</h2>
+    <p class="notice">{t("userbox.preview.notice")}</p>
+    <input bind:value={preview} placeholder={t("userbox.preview.url")}/>
+    {#if preview}
+      <div class="preview">
+        {#each userItems.filter(v => v.iKey != 'trophy' && v.iKey != 'systemVoice') as { iKey, ubKey, items }, i}
+          <div>
+            <span>{ts(`userbox.${ubKey}`)}</span>
+            <img src={`${preview}/${iKey}/${userbox[ubKey].toString().padStart(8, '0')}.png`} alt="" on:error={coverNotFound} />
+          </div>
+        {/each}
       </div>
     {/if}
-    {#if USERBOX_SUPPORT}
-      <p>
-        <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
-      </p>
-    {/if} 
-    <!--{#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
-      <h2>{t("userbox.header.preview")}</h2>
-      <p class="notice">{t("userbox.preview.notice")}</p>
-      <input bind:value={preview} placeholder={t("userbox.preview.url")}/>
-      {#if preview}
-        <div class="preview">
-          {#each userItems.filter(v => v.iKey != 'trophy' && v.iKey != 'systemVoice') as { iKey, ubKey, items }, i}
-            <div>
-              <span>{ts(`userbox.${ubKey}`)}</span>
-              <img src={`${preview}/${iKey}/${userbox[ubKey].toString().padStart(8, '0')}.png`} alt="" on:error={coverNotFound} />
-            </div>
-          {/each}
-        </div>
-      {/if}
-    {/if}-->
-  {/if}
+  {/if}-->
 </div>
 {/if}
  
@@ -271,11 +277,14 @@
   <div class="overlay" transition:fade>
     <div>
       <h2>{t('userbox.new.name')}</h2>
-      <span>{USERBOX_SETUP_MODE ? t('userbox.preview.notice') + " " + t('userbox.new.url_warning') : USERBOX_SETUP_TEXT}</span>
+      <span>{USERBOX_SETUP_MODE ? t('userbox.new.url_warning') : USERBOX_SETUP_TEXT}</span>
       <div class="actions">
         {#if USERBOX_SETUP_MODE}
-          <input type="text" on:keyup={userboxHandleInput} class="base-url-text" placeholder="Base URL">
+          <input type="text" on:keyup={userboxHandleInput} class="add-margin" placeholder="Base URL">
         {:else}
+          <p class="notice add-margin">
+            {t('userbox.new.setup.notice')}
+          </p>
           {#if USERBOX_PROGRESS != 0}
             <div class="progress">
               <div class="progress-bar" style="width: {USERBOX_PROGRESS}%"></div>
@@ -326,7 +335,7 @@ p.notice
     border-radius: 25px
 
 
-.base-url-text, .drop-btn
+.add-margin, .drop-btn
   margin-bottom: 1em
 
 .drop-btn

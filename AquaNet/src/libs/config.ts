@@ -16,4 +16,5 @@ export const FADE_IN = { delay: 400 }
 export const DEFAULT_PFP = '/assets/imgs/no_profile.png'
 
 // USERBOX_ASSETS
-export const HAS_USERBOX_ASSETS = true
+// Please note that if this is set, it must be manually unset by users in Chuni Settings -> Update Userbox -> Switch to URL mode -> (empty value) -> Enter key
+export const USERBOX_DEFAULT_URL = ""

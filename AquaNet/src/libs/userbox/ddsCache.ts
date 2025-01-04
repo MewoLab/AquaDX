@@ -1,4 +1,5 @@
 import useLocalStorage from "../hooks/useLocalStorage.svelte";
+import { USERBOX_DEFAULT_URL } from "../config";
 
 export default class DDSCache {
     constructor(db: IDBDatabase | undefined) {
@@ -69,5 +70,5 @@ export default class DDSCache {
 
     private urlCache: {scale: number, path: string, url: string}[] = [];
     private db: IDBDatabase | undefined;
-    private userboxURL = useLocalStorage("userboxURL", "");
+    userboxURL = useLocalStorage("userboxURL", USERBOX_DEFAULT_URL);
 }
