@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.chusan
 import ext.*
 import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.chusan.model.request.UserCMissionResp
-import icu.samnyan.aqua.sega.chusan.model.response.data.UserEmoney
+import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail

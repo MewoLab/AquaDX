@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.chusan.model.response.data
+package icu.samnyan.aqua.sega.chusan.model.request
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3MatchingMemberReq

@@ -10,7 +10,7 @@ import jakarta.persistence.UniqueConstraint
 class UserItem(
     var itemKind: Int = 0,
     var itemId: Int = 0,
-    val stock: Int = 1,
+    var stock: Int = 1,
     @JsonProperty("isValid")
-    val isValid: Boolean = true
+    var isValid: Boolean = true
 ) : Chu3UserEntity()
