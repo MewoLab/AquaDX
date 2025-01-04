@@ -92,7 +92,7 @@ export const EN_REF_HOME = {
   'home.linkcard.account-card': 'Account Card',
   'home.linkcard.registered': 'Registered',
   'home.linkcard.lastused': 'Last used',
-  'home.linkcard.enter-info': 'Please enter the following information',
+  'home.linkcard.enter-info': 'Please enter the following information, or drag and drop your aime.txt / felica.txt file here',
   'home.linkcard.access-code': 'The 20-digit access code on the back of your card. (If it doesn\'t work, please try scanning your card in game and enter the access code shown on screen)',
   'home.linkcard.enter-sn1': 'Download the NFC Tools app on your phone',
   'home.linkcard.enter-sn2': 'and scan your card. Then, enter the Serial Number.',
@@ -180,18 +180,30 @@ export const EN_REF_USERBOX = {
   'userbox.preview.url': 'Image URL',
   'userbox.error.nodata': 'Chuni data not found',
 
+  'userbox.matching.select': 'Select Matching Server',
+  'userbox.matching.select.sub': 'Choose the matching server you want to use.',
+  'userbox.matching.option.ui': 'Rooms',
+  'userbox.matching.option.guide': 'Guide',
+  'userbox.matching.option.collab': 'Collaborators',
+  'userbox.matching.custom.name': 'Custom',
+  'userbox.matching.custom.sub': 'Enter your own URL',
+
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': 'Drag and drop your Chuni game folder (Lumi or newer) into the box below to display UserBoxes with their nameplate & avatar. All files are handled in-browser.',
   'userbox.new.setup.processing_file': 'Processing',
   'userbox.new.setup.finalizing': 'Saving to internal storage',
   'userbox.new.drop': 'Drop game folder here',
+  'userbox.new.switch.to_url': 'Switch to URL mode',
+  'userbox.new.switch.to_drop': 'Switch to drop mode',
+  'userbox.new.url_warning': 'You are responsible for the results in this state. Please read the documentation.',
   'userbox.new.activate_first': 'Enable AquaBox (game files required)',
   'userbox.new.activate_update': 'Update AquaBox (game files required)',
   'userbox.new.activate': 'Use AquaBox',
   'userbox.new.activate_desc': 'Enable displaying UserBoxes with their nameplate & avatar',
   'userbox.new.activate_profile': 'Use AquaBox on profiles',
   'userbox.new.activate_profile_desc': 'Enable displaying UserBoxes with their nameplate & avatar on profile pages',
-  'userbox.new.error.invalidFolder': 'The folder you selected is invalid. Ensure that your game\'s version is Lumi or newer and that the "A001" option pack is present.'
+  'userbox.new.error.invalidFolder': 'The folder you selected is invalid. Ensure that your game\'s version is Lumi or newer and that the "A000" option pack is present.',
+  'userbox.new.error.invalidUrl': 'The URL you inputted is invalid.'
 }
 
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,

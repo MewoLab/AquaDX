@@ -96,6 +96,7 @@
 
   let USERBOX_PROGRESS = 0;
   let USERBOX_SETUP_RUN = false;
+  let USERBOX_SETUP_MODE = false;
   let USERBOX_SETUP_TEXT = t("userbox.new.setup");
 
   let USERBOX_ENABLED = useLocalStorage("userboxNew", false);
@@ -115,6 +116,20 @@
       USERBOX_SETUP_TEXT = progressString;
       USERBOX_PROGRESS = progress;
     }) ?? "";
+  }
+
+  function userboxHandleInput(e: KeyboardEvent) {
+    if (e.key != "Enter")
+      return;
+    let baseURL = (e.target as HTMLInputElement).value;
+    try {
+      // validate url
+      new URL(baseURL);
+    } catch(err) {
+      return error = t("userbox.new.error.invalidUrl")
+    }
+    useLocalStorage("userboxURL", "").value = baseURL;
+    location.reload();
   }
 
   indexedDB.databases().then(async (dbi) => {
@@ -233,7 +248,7 @@
         <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
       </p>
     {/if} 
-    {#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
+    <!--{#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
       <h2>{t("userbox.header.preview")}</h2>
       <p class="notice">{t("userbox.preview.notice")}</p>
       <input bind:value={preview} placeholder={t("userbox.preview.url")}/>
@@ -247,7 +262,7 @@
           {/each}
         </div>
       {/if}
-    {/if}
+    {/if}-->
   {/if}
 </div>
 {/if}
@@ -256,21 +271,28 @@
   <div class="overlay" transition:fade>
     <div>
       <h2>{t('userbox.new.name')}</h2>
-      <span>{USERBOX_SETUP_TEXT}</span>
+      <span>{USERBOX_SETUP_MODE ? t('userbox.preview.notice') + " " + t('userbox.new.url_warning') : USERBOX_SETUP_TEXT}</span>
       <div class="actions">
-        {#if USERBOX_PROGRESS != 0}
-          <div class="progress">
-            <div class="progress-bar" style="width: {USERBOX_PROGRESS}%"></div>
-          </div>
+        {#if USERBOX_SETUP_MODE}
+          <input type="text" on:keyup={userboxHandleInput} class="base-url-text" placeholder="Base URL">
         {:else}
-        <button class="drop-btn">
-          <input type="file" on:input={userboxSafeDrop} on:click={e => e.preventDefault()}>
-          {t('userbox.new.drop')}
-        </button>
+          {#if USERBOX_PROGRESS != 0}
+            <div class="progress">
+              <div class="progress-bar" style="width: {USERBOX_PROGRESS}%"></div>
+            </div>
+          {:else}
+          <button class="drop-btn">
+            <input type="file" on:input={userboxSafeDrop} on:click={e => e.preventDefault()}>
+            {t('userbox.new.drop')}
+          </button>
+          {/if}
+        {/if}
         <button on:click={() => USERBOX_SETUP_RUN = false}>
           {t('back')}
         </button>
-        {/if}
+        <button on:click={() => USERBOX_SETUP_MODE = !USERBOX_SETUP_MODE}>
+          {t(USERBOX_SETUP_MODE ? 'userbox.new.switch.to_drop' : 'userbox.new.switch.to_url')}
+        </button>
       </div>
     </div>
   </div>
@@ -304,13 +326,15 @@ p.notice
     border-radius: 25px
 
 
+.base-url-text, .drop-btn
+  margin-bottom: 1em
+
 .drop-btn
   position: relative
   width: 100%
   aspect-ratio: 3
   background: transparent
   box-shadow: 0 0 1px 1px vars.$ov-lighter
-  margin-bottom: 1em
 
   > input
     position: absolute
