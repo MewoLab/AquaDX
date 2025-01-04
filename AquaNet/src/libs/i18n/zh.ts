@@ -102,7 +102,7 @@ const zhHome: typeof EN_REF_HOME = {
   'home.linkcard.account-card': "账户卡",
   'home.linkcard.registered': "注册于",
   'home.linkcard.lastused': "上次使用",
-  'home.linkcard.enter-info': "请输入以下信息",
+  'home.linkcard.enter-info': "请输入以下信息，或将 aime.txt / felica.txt 文件拖放到此区域",
   'home.linkcard.access-code': "卡背面的20位卡号 (如果没有, 请尝试在游戏中扫描您的卡, 并输入屏幕上显示的卡号)",
   'home.linkcard.enter-sn1': "在您的手机",
   'home.linkcard.enter-sn2': "上下载 NFC Tools 并扫描您的卡。然后输入显示的 SN 号。",
