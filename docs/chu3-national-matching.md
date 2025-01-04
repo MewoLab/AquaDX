@@ -33,7 +33,7 @@ Below is a simple command to add firewall rules for Chunithm.
 
 ```shell
 @echo off
-set /p gamedircectory = Make sure this is run as admin and enter game path (e.g. C:\SegaGames\Chunithm\bin\chusanApp.exe)\n
+set /p gamedirectory = Make sure this is run as admin and enter game path (e.g. C:\SegaGames\Chunithm\bin\chusanApp.exe)\n
 netsh advfirewall firewall add rule name="Chunithm National Matching Inbound" dir=in action=allow profile=any program="%gamedirectory%" enable=yes
 netsh advfirewall firewall add rule name="Chunithm National Matching Outbound" dir=out action=allow profile=any program="%gamedirectory%" enable=yes
 ```
