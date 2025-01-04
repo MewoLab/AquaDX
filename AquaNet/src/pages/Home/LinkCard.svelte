@@ -165,9 +165,7 @@
     e = e as InputEvent
     // Add spaces to the input
     const old = inputAC
-    if (e.inputType === "insertText" && inputAC.length % 5 === 4 && inputAC.length < 24)
-      inputAC += " "
-    inputAC = inputAC.slice(0, 24)
+    inputAC = inputAC.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').replace(/ $/, '')
     if (inputAC !== old) errorAC = ""
   }
 
@@ -180,9 +178,7 @@
     e = e as InputEvent
     // Add colons to the input
     const old = inputSN
-    if (e.inputType === "insertText" && inputSN.length % 3 === 2 && inputSN.length < 23)
-      inputSN += ":"
-    inputSN = inputSN.toUpperCase().slice(0, 23)
+    inputSN = inputSN.toUpperCase().replace(/[^0-9A-F]/g, '').replace(/(.{2})/g, '$1:').replace(/:$/, '')
     if (inputSN !== old) errorSN = ""
   }
 
