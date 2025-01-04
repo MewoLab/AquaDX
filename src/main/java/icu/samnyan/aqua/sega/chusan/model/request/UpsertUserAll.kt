@@ -5,7 +5,6 @@ import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 
 class UserCMissionResp {
-    var userId: Long? = 0
     var missionId = 0
     var point = 0
     var userCMissionProgressList: List<UserCMissionProgress>? = null

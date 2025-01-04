@@ -58,7 +58,6 @@ fun ChusanController.chusanInit() {
 
     "GetUserCMission" {
         parsing { UserCMissionResp().apply {
-            userId = uid
             missionId = parsing { data["missionId"]!!.int }
         } }.apply {
             db.userCMission.findByUser_Card_ExtIdAndMissionId(uid, missionId)()?.let {
