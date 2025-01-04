@@ -16,6 +16,28 @@ class FavNewMusic(
     var orderId: Int = 0,
 )
 
+class UpsertTeamPoint(
+    // userId exists here, but it should not be used
+    // So I will not include it in the data class
+    var teamId: Long = 0,
+    var orderId: Int = 0,
+    var teamPoint: Int = 0,
+    var aggrDate: String = "",
+)
+
+data class UpsertNetBattleData(
+    val recentNBSelectMusicList: List<UpsertNBSelectMusic> = emptyList(),
+    val isRankUpChallengeFailed: Boolean = false,
+    val highestBattleRankId: Int = 0,
+    val battleIconId: Int = 0,
+    val battleIconNum: Int = 0,
+    val avatarEffectPoint: Int = 0,
+)
+
+data class UpsertNBSelectMusic(
+    val musicId: Int = 0,
+)
+
 class UpsertUserAll(
     var userData: List<Chu3UserData>? = null,
     var userGameOption: List<UserGameOption>? = null,
@@ -28,16 +50,17 @@ class UpsertUserAll(
     var userChargeList: List<UserCharge>? = null,
     var userCourseList: List<UserCourse>? = null,
     var userDuelList: List<UserDuel>? = null,
-    var userTeamPoint: List<JDict>? = null,
+    // TODO: Actually implement team
+    var userTeamPoint: List<UpsertTeamPoint>? = null,
     var userRatingBaseHotList: List<UserRecentRating>? = null,
     var userRatingBaseList: List<UserRecentRating>? = null,
     var userRatingBaseNextList: List<UserRecentRating>? = null,
     var userLoginBonusList: List<JDict>? = null,
     var userMapAreaList: List<UserMap>? = null,
     var userOverPowerList: List<JDict>? = null,
-    var userNetBattlelogList: List<JDict>? = null,
+    var userNetBattlelogList: List<Chu3NetBattleLog>? = null,
     var userEmoneyList: List<JDict>? = null,
-    var userNetBattleData: List<JDict>? = null,
+    var userNetBattleData: List<UpsertNetBattleData>? = null,
     var userCMissionList: List<UserCMissionResp>? = null,
     var userFavoriteMusicList: List<FavNewMusic>? = null,
 )
