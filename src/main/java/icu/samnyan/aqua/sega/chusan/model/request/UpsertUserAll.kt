@@ -20,17 +20,17 @@ class UpsertTeamPoint(
     // So I will not include it in the data class
     var teamId: Long = 0,
     var orderId: Int = 0,
-    var teamPoint: Int = 0,
+    var teamPoint: Long = 0,
     var aggrDate: String = "",
 )
 
 data class UpsertNetBattleData(
     val recentNBSelectMusicList: List<UpsertNBSelectMusic> = emptyList(),
     val isRankUpChallengeFailed: Boolean = false,
-    val highestBattleRankId: Int = 0,
-    val battleIconId: Int = 0,
-    val battleIconNum: Int = 0,
-    val avatarEffectPoint: Int = 0,
+    val highestBattleRankId: Long = 0,
+    val battleIconId: Long = 0,
+    val battleIconNum: Long = 0,
+    val avatarEffectPoint: Long = 0,
 )
 
 data class UpsertNBSelectMusic(
