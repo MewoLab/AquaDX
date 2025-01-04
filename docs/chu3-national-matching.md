@@ -9,12 +9,15 @@ This is tested on Chusan 2.27.
 ## Pre-requisites
 
 - Play the normal game at least once so that you have a profile on the server.
+- NAT Type must not be Symmetric ([Check here](https://www.checkmynat.com/))
+- Your firewall must be turned off (or [add a rule that allows chusanApp](#firewall-rules))
 
 ## Setting Up
 
 ![](chu3-matching.png)
 
-1. Go to the AquaNet website and set your matching server to "Yukiotoko"
+1. Go to the AquaNet website and set your matching server to "Yukiotoko"  
+   (To go to the settings page, click on the gear icon in the top right corner of your profile, switch to chuni tab, scroll down, click "Select Matching Server")
 2. Make sure you use [Dniel97's open-source segatools](https://gitea.tendokyu.moe/Dniel97/SEGAguide/wiki/SDHD)  
    If you're using fufubot segatools, please override it with Dniel97's version (don't forget to update `segatools.ini`).
 3. Patch your `chusanApp.exe` using [Two-Torial's open-source patcher](https://patcher.two-torial.xyz/)  
@@ -23,6 +26,17 @@ This is tested on Chusan 2.27.
    (Remove things like A999, AOMN, etc.)
 5. Pet your cat 🐈
 6. Launch!
+
+### Firewall Rules
+
+Below is a simple command to add firewall rules for Chunithm.
+
+```shell
+@echo off
+set /p gamedircectory = Make sure this is run as admin and enter game path (e.g. C:\SegaGames\Chunithm\bin\chusanApp.exe)\n
+netsh advfirewall firewall add rule name="Chunithm National Matching Inbound" dir=in action=allow profile=any program="%gamedirectory%" enable=yes
+netsh advfirewall firewall add rule name="Chunithm National Matching Outbound" dir=out action=allow profile=any program="%gamedirectory%" enable=yes
+```
 
 ## How to Play
 
