@@ -62,15 +62,4 @@ class Chusan(
         val u = userDataRepo.findByCard(it.ghostCard) ?: (404 - "Game data not found")
         mapOf("user" to u, "items" to rp.userItem.findAllByUser(u))
     }
-
-    @API("user-box-all-items")
-    fun userBoxAllItems() = allItems
-    val allItems by lazy { mapOf(
-        "nameplate" to rp.gameNamePlate.findAll(),
-        "frame" to rp.gameFrame.findAll(),
-        "trophy" to rp.gameTrophy.findAll(),
-        "mapicon" to rp.gameMapIcon.findAll(),
-        "sysvoice" to rp.gameSystemVoice.findAll(),
-        "avatar" to rp.gameAvatarAcc.findAll(),
-    ) }
 }
