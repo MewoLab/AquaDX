@@ -161,8 +161,7 @@
   let inputAC = ""
   let errorAC = ""
 
-  function inputACChange(e: any) {
-    e = e as InputEvent
+  function inputACChange() {
     // Add spaces to the input
     const old = inputAC
     inputAC = inputAC.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').replace(/ $/, '')
@@ -174,8 +173,7 @@
   let inputSN = ""
   let errorSN = ""
 
-  function inputSNChange(e: any) {
-    e = e as InputEvent
+  function inputSNChange() {
     // Add colons to the input
     const old = inputSN
     inputSN = inputSN.toUpperCase().replace(/[^0-9A-F]/g, '').replace(/(.{2})/g, '$1:').replace(/:$/, '')
@@ -205,9 +203,29 @@
   function isInput(e: KeyboardEvent) {
     return e.key.length === 1 && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
   }
+  
+  async function dropFile(e: DragEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    const file = e.dataTransfer?.files[0]
+    if (!file) return
+    switch (file.name.toLowerCase()) {
+      case "aime.txt":
+        inputSN = ""
+        inputAC = await file.text()
+        inputACChange()
+        break
+      case "felica.txt":
+        inputAC = ""
+        inputSN = await file.text()
+        inputSNChange()
+        break
+    }
+  }
 </script>
 
-<div class="link-card">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div class="link-card" on:drop={dropFile} on:dragover={(e) => e.preventDefault()}>
   <h2>{t('home.linkcard.cards')}</h2>
   <p>{t('home.linkcard.description')}:</p>
 

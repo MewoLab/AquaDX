@@ -92,7 +92,7 @@ export const EN_REF_HOME = {
   'home.linkcard.account-card': 'Account Card',
   'home.linkcard.registered': 'Registered',
   'home.linkcard.lastused': 'Last used',
-  'home.linkcard.enter-info': 'Please enter the following information',
+  'home.linkcard.enter-info': 'Please enter the following information, or drag and drop your aime.txt / felica.txt file here',
   'home.linkcard.access-code': 'The 20-digit access code on the back of your card. (If it doesn\'t work, please try scanning your card in game and enter the access code shown on screen)',
   'home.linkcard.enter-sn1': 'Download the NFC Tools app on your phone',
   'home.linkcard.enter-sn2': 'and scan your card. Then, enter the Serial Number.',
