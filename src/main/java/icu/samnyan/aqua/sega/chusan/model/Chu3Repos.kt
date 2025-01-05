@@ -127,7 +127,9 @@ interface Chu3UserCMissionProgressRepo : Chu3UserLinked<UserCMissionProgress> {
     fun findByUser_Card_ExtIdAndMissionIdAndOrder(extId: Long, missionId: Int, order: Int): Optional<UserCMissionProgress>
 }
 
-interface Chu3NetBattleLogRepo : Chu3UserLinked<Chu3NetBattleLog>
+interface Chu3NetBattleLogRepo : Chu3UserLinked<Chu3NetBattleLog> {
+    fun findTop20ByUserOrderByIdDesc(user: Chu3UserData): List<Chu3NetBattleLog>
+}
 
 interface Chu3UserMiscRepo : Chu3UserLinked<Chu3UserMisc>
 

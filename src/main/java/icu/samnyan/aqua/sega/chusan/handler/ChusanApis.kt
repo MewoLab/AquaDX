@@ -30,11 +30,13 @@ fun ChusanController.chusanInit() {
     "GetUserSymbolChatSetting" { """{"userId":"${data["userId"]}","length":"0","symbolChatInfoList":[]}""" }
 
     // Net battle data
-    "GetUserNetBattleData" {
-        val misc = db.userMisc.findSingleByUser_Card_ExtId(uid)()
+    "GetUserNetBattleData" api@ {
+        val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
+        val misc = db.userMisc.findSingleByUser(u)()
+        val recent = db.netBattleLog.findTop20ByUserOrderByIdDesc(u)
         mapOf("userId" to uid, "userNetBattleData" to mapOf(
             "recentNBSelectMusicList" to (misc?.recentNbSelect ?: empty),
-            "recentNBMusicList" to (misc?.recentNbMusic ?: empty),
+            "recentNBMusicList" to recent.map { it.toDict() },
         ))
     }
     "GetUserNetBattleRankingInfo" { """{"userId":"${data["userId"]}","length":"0","userNetBattleRankingInfoList":{}}""" }
