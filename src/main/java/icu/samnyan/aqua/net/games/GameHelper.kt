@@ -2,6 +2,7 @@ package icu.samnyan.aqua.net.games
 
 import ext.isoDate
 import ext.minus
+import ext.mut
 import java.time.LocalDate
 
 const val LETTERS = "ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ" +
@@ -60,7 +61,7 @@ fun findTrend(log: List<TrendLog>): List<TrendOut> {
     val trend = d.distinctBy { it.date }
         .map { TrendOut(it.date, maxRating[it.date] ?: 0,
             playCounts[it.date] ?: 0) }
-        .sortedBy { it.date }.toMutableList()
+        .sortedBy { it.date }.mut
 
     // Fill in the missing dates (min date and current date)
     trend[0].let { if (it.date > minDate) trend.add(0, TrendOut(minDate, 0, 0)) }

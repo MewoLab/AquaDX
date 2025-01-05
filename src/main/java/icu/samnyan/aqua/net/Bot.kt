@@ -57,11 +57,11 @@ class BotController(
             us.cardRepo.findByExtId(cardId.long)(),
             us.cardRepo.findByLuid(cardId)(),
             us.cardRepo.findById(cardId.long)(),
-        ).toMutableList()
+        ).mut
         cards += cards.flatMap {
             (it.aquaUser?.cards ?: emptyList()) + listOfNotNull(it.aquaUser?.ghostCard)
         }
-        cards = cards.distinctBy { it.id }.toMutableList()
+        cards = cards.distinctBy { it.id }.mut
 
         return cards.map { card ->
             // Find all games played by this card

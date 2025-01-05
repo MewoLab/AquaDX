@@ -101,7 +101,7 @@ class WcUserScore : WaccaUserEntity() {
     var clears: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0) // Played, Clear, Full Combo, Missless, All Marv
 
     @Convert(converter = IntegerListConverter::class)
-    var grades: MutableList<Int> = (1..13).map { 0 }.toMutableList() // From D to SSS+
+    var grades: MutableList<Int> = (1..13).map { 0 }.mut // From D to SSS+
     var bestCombo = 0
     var lowestMissCt = Int.MAX_VALUE
     var rating = 0

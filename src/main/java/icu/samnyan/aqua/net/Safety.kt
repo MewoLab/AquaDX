@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net
 
 import ext.HTTP
+import ext.mut
 import ext.toJson
 import icu.samnyan.aqua.net.games.BaseEntity
 import io.ktor.client.call.*
@@ -54,8 +55,8 @@ class AquaNetSafetyService(
      */
     suspend fun isSafeBatch(rawContents: List<String>): List<Boolean> {
         val contents = rawContents.map { Normalizer.normalize(it, Normalizer.Form.NFKC) }
-        val origMap = safety.findAll().associateBy { it.content }.toMutableMap()
-        val map = safety.findAll().associateBy { it.content.lowercase().trim() }.toMutableMap()
+        val origMap = safety.findAll().associateBy { it.content }.mut
+        val map = safety.findAll().associateBy { it.content.lowercase().trim() }.mut
 
         // Process unseen content with OpenAI
         val news = contents.filter { it.lowercase().trim() !in map && it !in contents }.map { inp ->

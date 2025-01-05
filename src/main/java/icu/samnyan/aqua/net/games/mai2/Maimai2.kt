@@ -127,7 +127,7 @@ class Maimai2(
                     user = repos.userData.findByCardExtId(myCard.extId).orElse(null) ?: (404 - "User not found")
                     propertyKey = "favorite_rival"
                 }
-            val myRivalList = myRival.propertyValue.split(',').filter { it.isNotEmpty() }.toMutableSet()
+            val myRivalList = myRival.propertyValue.split(',').filter { it.isNotEmpty() }.mut
 
             if (isAdd && myRivalList.size >= 4) {
                 (400 - "Rival list is full")

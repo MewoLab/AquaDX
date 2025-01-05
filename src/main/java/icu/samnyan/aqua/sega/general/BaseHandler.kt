@@ -62,7 +62,7 @@ abstract class MeowApi(val serialize: (String, Any?) -> String) {
         }
         else pageCache[cacheKey] = millis() to list
 
-        (mapOf("userId" to uid, "length" to lst.size, "nextIndex" to iAfter, key to lst) + add).toMutableMap()
+        (mapOf("userId" to uid, "length" to lst.size, "nextIndex" to iAfter, key to lst) + add).mut
             .also { p.post?.invoke(it) }
     }
     fun String.paged(key: String, fn: PagedHandler) = pagedWithKind(key) { PagedProcessor(null, fn) }

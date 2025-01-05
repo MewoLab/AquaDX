@@ -146,13 +146,13 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
         plays.forEach { play ->
             val lvl = musicMapping[play.musicId]?.notes?.getOrNull(if (play.level == 10) 0 else play.level)?.lv ?: return@forEach
             shownRanks.find { (s, _) -> play.achievement > s }?.let { (_, v) ->
-                val ranks = detailedRanks.getOrPut(lvl.toInt()) { rankMap.toMutableMap() }
+                val ranks = detailedRanks.getOrPut(lvl.toInt()) { rankMap.mut }
                 ranks[v] = ranks[v]!! + 1
             }
         }
 
         // Collapse detailed ranks to get non-detailed ranks map<rank, count>
-        val ranks = shownRanks.associate { (_, v) -> v to 0 }.toMutableMap().also { ranks ->
+        val ranks = shownRanks.associate { (_, v) -> v to 0 }.mut.also { ranks ->
             plays.forEach { play ->
                 shownRanks.find { (s, _) -> play.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
             }

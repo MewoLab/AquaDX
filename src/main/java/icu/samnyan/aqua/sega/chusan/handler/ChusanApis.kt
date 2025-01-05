@@ -91,7 +91,7 @@ fun ChusanController.chusanInit() {
         data["nextIndex"] = rawIndex % 10000000000L
         mapOf("itemKind" to kind) grabs {
             // TODO: All unlock
-            val items = db.userItem.findAllByUser_Card_ExtIdAndItemKind(uid, kind).toMutableList()
+            val items = db.userItem.findAllByUser_Card_ExtIdAndItemKind(uid, kind).mut
 
             // Check game options
             db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.let {
@@ -146,7 +146,7 @@ fun ChusanController.chusanInit() {
         // Compatibility: Older chusan uses boolean for isSuccess
         fun checkAncient(d: List<UserMusicDetail>) =
             data["version"]?.double?.let { if (it >= 2.15) d else d.map {
-                d.toJson().jsonMap().toMutableMap().apply { this["isSuccess"] = this["isSuccess"].truthy }
+                d.toJson().jsonMap().mut.apply { this["isSuccess"] = this["isSuccess"].truthy }
             } } ?: d
 
         db.userMusicDetail.findByUser_Card_ExtId(uid).groupBy { it.musicId }

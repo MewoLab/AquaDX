@@ -319,17 +319,17 @@ class Maimai2ServletController(
         "GetUserScoreRankingApi", "UpsertClientBookkeepingApi", "UpsertClientSettingApi",
         "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi", "CMLoginApi", "CMLogoutApi",
         "CMUpsertBuyCardApi", "GetGameSettingApi", "GetGameKaleidxScopeApi", "GetGameMusicScoreApi",
-        "GetUserKaleidxScopeApi", "GetUserNewItemApi", "GetUserNewItemListApi").toMutableList()
+        "GetUserKaleidxScopeApi", "GetUserNewItemApi", "GetUserNewItemListApi").mut
 
-    val noopEndpoint = endpointList.popAll("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
+    val noopEndpoint = setOf("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
         "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi",
-        "UpsertUserChargelogApi")
+        "UpsertUserChargelogApi").also { endpointList.removeAll(it) }
 
     val staticEndpoint = mapOf(
         "CreateTokenApi" to """{"Bearer":"meow"}""",
         "CMUpsertUserPrintlogApi" to """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678"}""",
-    ).also { endpointList.popAll(it.keys.toList()) }
+    ).also { endpointList.removeAll(it.keys.toSet()) }
 
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, BaseHandler> = endpointList.associateWith { api ->
