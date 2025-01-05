@@ -5,6 +5,7 @@
   import { ts } from "../../libs/i18n";
   import StatusOverlays from "../StatusOverlays.svelte";
   import InputWithButton from "../ui/InputWithButton.svelte";
+  import InputField from "../ui/InputField.svelte";
 
   export let game: string;
   let gameFields: GameOption[] = []
@@ -26,23 +27,7 @@
 
 <div class="fields">
   {#each gameFields as field}
-    <div class="field {field.type.toLowerCase()}">
-      {#if field.type === "Boolean"}
-        <input id={field.key} type="checkbox" bind:checked={field.value}
-                on:change={() => submitGameOption(field.key, field.value)}/>
-        <label for={field.key}>
-          <span class="name">{ts(`settings.fields.${field.key}.name`)}</span>
-          <span class="desc">{ts(`settings.fields.${field.key}.desc`)}</span>
-        </label>
-      {/if}
-      {#if field.type === "String"}
-        <label for={field.key}>
-          <span class="name">{ts(`settings.fields.${field.key}.name`)}</span>
-          <span class="desc">{ts(`settings.fields.${field.key}.desc`)}</span>
-        </label>
-        <InputWithButton bind:field={field} callback={() => submitGameOption(field.key, field.value)}/>
-      {/if}
-    </div>
+    <InputField field={field} callback={() => submitGameOption(field.key, field.value)}/>
   {/each}
 </div>
 
@@ -53,24 +38,4 @@
     display: flex
     flex-direction: column
     gap: 12px
-
-  .field.string
-    flex-direction: column
-    align-items: flex-start
-    gap: 0.5rem
-
-  .field.boolean
-    align-items: center
-    gap: 1rem
-
-  .field
-    display: flex
-
-    label
-      display: flex
-      flex-direction: column
-      max-width: max-content
-
-      .desc
-        opacity: 0.6
 </style>
