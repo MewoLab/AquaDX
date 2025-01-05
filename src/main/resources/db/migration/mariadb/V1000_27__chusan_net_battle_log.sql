@@ -50,6 +50,3 @@ CREATE TABLE chusan_net_battle_log
 
 ALTER TABLE chusan_net_battle_log
     ADD CONSTRAINT FK_CHUSAN_NET_BATTLE_LOG_ON_USER FOREIGN KEY (user_id) REFERENCES chusan_user_data (id);
-
-ALTER TABLE chusan_net_battle_log
-    ADD CONSTRAINT FK_CHUSAN_NET_BATTLE_LOG_ON_USER FOREIGN KEY (user_id) REFERENCES chusan_user_data (id);
