@@ -3,10 +3,16 @@ package icu.samnyan.aqua.sega.chusan.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import icu.samnyan.aqua.net.games.BaseEntity
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import java.time.LocalDateTime
+
+
+// BaseEntity does not expose id to json, but IdExposedEntity does
+@MappedSuperclass
+class IdExposedEntity {
+    @Id
+    var id: Long = 0
+}
 
 @Entity(name = "ChusanGameCharge")
 @Table(name = "chusan_game_charge")
@@ -25,7 +31,7 @@ class GameCharge: BaseEntity() {
 
 @Entity(name = "ChusanGameEvent")
 @Table(name = "chusan_game_event")
-class GameEvent: BaseEntity() {
+class GameEvent: IdExposedEntity() {
     val type = 0
     val startDate: LocalDateTime? = null
     val endDate: LocalDateTime? = null
@@ -36,7 +42,7 @@ class GameEvent: BaseEntity() {
 
 @Entity(name = "ChusanGameGacha")
 @Table(name = "chusan_game_gacha")
-class GameGacha : BaseEntity() {
+class GameGacha : IdExposedEntity() {
     var gachaId = 0
     var gachaName: String? = null
     var type = 0
@@ -55,7 +61,7 @@ class GameGacha : BaseEntity() {
 
 @Entity(name = "ChusanGameGachaCard")
 @Table(name = "chusan_game_gacha_card")
-class GameGachaCard : BaseEntity() {
+class GameGachaCard : IdExposedEntity() {
     var gachaId = 0
     var cardId = 0
     var rarity = 0
@@ -67,7 +73,7 @@ class GameGachaCard : BaseEntity() {
 
 @Entity(name = "ChusanGameLoginBonus")
 @Table(name = "chusan_game_login_bonus")
-class GameLoginBonus : BaseEntity() {
+class GameLoginBonus : IdExposedEntity() {
     var version = 0
     var presetId = 0
     var loginBonusId = 0
@@ -81,7 +87,7 @@ class GameLoginBonus : BaseEntity() {
 
 @Entity(name = "ChusanGameLoginBonusPreset")
 @Table(name = "chusan_game_login_bonus_preset")
-class GameLoginBonusPreset : BaseEntity() {
+class GameLoginBonusPreset : IdExposedEntity() {
     var version = 0
     var presetName: String? = null
     var isEnabled = false
