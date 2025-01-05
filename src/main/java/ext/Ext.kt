@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity.BodyBuilder
 import org.springframework.web.bind.annotation.*
 import java.lang.reflect.Field
+import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.security.MessageDigest
 import java.time.LocalDate
@@ -211,6 +212,7 @@ fun Str.center(width: Int, padChar: Char = ' ') = padStart((length + width) / 2,
 fun Str.splitLines() = replace("\r\n", "\n").split('\n')
 @OptIn(ExperimentalStdlibApi::class)
 fun Str.md5() = MD5.digest(toByteArray(Charsets.UTF_8)).toHexString()
+fun Str.fromChusanUsername() = String(this.toByteArray(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }

@@ -8,7 +8,6 @@ import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMissionProgress
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGeneralData
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
-import java.nio.charset.StandardCharsets
 
 @Suppress("UNCHECKED_CAST")
 fun ChusanController.upsertApiInit() {
@@ -29,7 +28,7 @@ fun ChusanController.upsertApiInit() {
             val u = (userData?.get(0) ?: return@api null).apply {
                 id = oldUser?.id ?: 0
                 card = oldUser?.card ?: us.cardRepo.findByExtId(uid).expect("Card not found")
-                userName = String(userName.toByteArray(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
+                userName = userName.fromChusanUsername()
                 userNameEx = ""
             }.also { db.userData.saveAndFlush(it) }
 
@@ -63,7 +62,12 @@ fun ChusanController.upsertApiInit() {
 
             // Playlog
             userPlaylogList?.let { db.userPlaylog.saveAll(it) }
-            userNetBattlelogList?.let { db.netBattleLog.saveAll(it) }
+            userNetBattlelogList?.let { db.netBattleLog.saveAll(it.mapApply {
+                selectUserName = selectUserName.fromChusanUsername()
+                opponentUserName1 = opponentUserName1.fromChusanUsername()
+                opponentUserName2 = opponentUserName2.fromChusanUsername()
+                opponentUserName3 = opponentUserName3.fromChusanUsername()
+            }) }
 
             // List data
             userGameOption?.get(0)?.let { obj ->
