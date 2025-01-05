@@ -1,17 +1,30 @@
 package icu.samnyan.aqua.sega.chusan.handler
 
 import com.fasterxml.jackson.core.type.TypeReference
-import ext.int
-import ext.invoke
-import ext.mapApply
-import ext.parsing
+import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserGacha
+import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem
 import java.time.LocalDateTime
 
 fun ChusanController.cmApiInit() {
+    "CMUpsertUserPrint" { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678","apiName":"CMUpsertUserPrintApi"}""" }
+    "CMUpsertUserPrintlog" { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678","apiName":"CMUpsertUserPrintlogApi"}""" }
+
+    // CardMaker (TODO: Somebody test this, I don't have a card maker)
+    "CMGetUserData" {
+        val user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
+        user.userEmoney = UserEmoney()
+        mapOf("userId" to uid, "userData" to user, "userEmoney" to user.userEmoney)
+    }
+
+    "CMGetUserPreview" {
+        val user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
+        mapOf("userName" to user.userName, "level" to user.level, "medal" to user.medal, "lastDataVersion" to user.lastDataVersion, "isLogin" to false)
+    }
+
     "CMUpsertUserGacha" api@ {
         val (gachaId, placeId) = parsing { data["gachaId"]!!.int to data["placeId"]!!.int }
 

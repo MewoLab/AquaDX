@@ -5,17 +5,19 @@ import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.ChusanData
 import icu.samnyan.aqua.sega.chusan.model.request.UserCMissionResp
-import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserLoginBonus
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 @Suppress("UNCHECKED_CAST")
 fun ChusanController.chusanInit() {
     matchingApiInit()
     cmApiInit()
+    upsertApiInit()
 
     // Stub handlers
     "GetGameRanking" { """{"type":"${data["type"]}","length":"0","gameRankingList":[]}""" }
@@ -31,9 +33,6 @@ fun ChusanController.chusanInit() {
     "GetUserSymbolChatSetting" { """{"userId":"${data["userId"]}","length":"0","symbolChatInfoList":[]}""" }
     "GetUserNetBattleData" { """{"userId":"${data["userId"]}","userNetBattleData":{"recentNBSelectMusicList":[],"recentNBMusicList":[]}}""" }
     "GetUserNetBattleRankingInfo" { """{"userId":"${data["userId"]}","length":"0","userNetBattleRankingInfoList":{}}""" }
-
-    "CMUpsertUserPrint" { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678","apiName":"CMUpsertUserPrintApi"}""" }
-    "CMUpsertUserPrintlog" { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678","apiName":"CMUpsertUserPrintlogApi"}""" }
 
     // User handlers
     "GetUserData" {
@@ -233,29 +232,60 @@ fun ChusanController.chusanInit() {
         )
     }
 
-    // Upserts
-    "UpsertUserChargelog" {
-        val charge = parsing { mapper.convert<UserCharge>(data["userCharge"] as JDict) }
-        charge.user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
-        charge.id = db.userCharge.findByUser_Card_ExtIdAndChargeId(uid, charge.chargeId)?.id ?: 0
-        db.userCharge.save(charge)
-        """{"returnCode":"1"}"""
-    }
-
     // Static
     "GetGameEvent" static { db.gameEvent.findByEnable(true).let { mapOf("type" to 1, "length" to it.size, "gameEventList" to it) } }
     "GetGameCharge" static { db.gameCharge.findAll().let { mapOf("length" to it.size, "gameChargeList" to it) } }
     "GetGameGacha" static { db.gameGacha.findAll().let { mapOf("length" to it.size, "gameGachaList" to it, "registIdList" to empty) } }
     "GetGameMapAreaCondition" static { ChusanData.mapAreaCondition }
 
-    // CardMaker (TODO: Somebody test this, I don't have a card maker)
-    "CMGetUserData" {
-        val user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
-        user.userEmoney = UserEmoney()
-        mapOf("userId" to uid, "userData" to user, "userEmoney" to user.userEmoney)
-    }
-    "CMGetUserPreview" {
-        val user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
-        mapOf("userName" to user.userName, "level" to user.level, "medal" to user.medal, "lastDataVersion" to user.lastDataVersion, "isLogin" to false)
+    // TODO: Test login bonus
+    "GameLogin" {
+        fun process() {
+            val u = db.userData.findByCard_ExtId(uid)() ?: return
+            db.userData.save(u.apply { lastLoginDate = LocalDateTime.now() })
+
+            if (!props.loginBonusEnable) return
+            val bonusList = db.gameLoginBonusPresets.findLoginBonusPresets(1, 1)
+
+            bonusList.forEach { preset ->
+                // Check if a user already has some progress and if not, add the login bonus entry
+                val bonus = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)()
+                    ?: UserLoginBonus(1, uid.int, preset.id).let { db.userLoginBonus.save(it) }
+                if (bonus.isFinished) return@forEach
+
+                // last login is 24 hours+ ago
+                if (bonus.lastUpdateDate.toEpochSecond(ZoneOffset.ofHours(0)) <
+                    (LocalDateTime.now().minusHours(24).toEpochSecond(ZoneOffset.ofHours(0)))
+                ) {
+                    var bCount = bonus.bonusCount + 1
+                    val lastUpdate = LocalDateTime.now()
+                    val allLoginBonus = db.gameLoginBonus.findGameLoginBonus(1, preset.id)
+                        .ifEmpty { return@forEach }
+                    val maxNeededDays = allLoginBonus[0].needLoginDayCount
+
+                    // if all items are redeemed, then don't show the login bonuses.
+                    var finished = false
+                    if (bCount > maxNeededDays) {
+                        if (preset.id < 3000) bCount = 1
+                        else finished = true
+                    }
+                    db.gameLoginBonus.findByRequiredDays(1, preset.id, bCount)()?.let {
+                        db.userItem.save(UserItem(6, it.presentId, it.itemNum).apply { user = u })
+                    }
+                    val toSave = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)()
+                        ?: UserLoginBonus().apply { user = uid.int; presetId = preset.id; version = 1 }
+
+                    db.userLoginBonus.save(toSave.apply {
+                        bonusCount = bCount
+                        lastUpdateDate = lastUpdate
+                        isWatched = false
+                        isFinished = finished
+                    })
+                }
+            }
+        }
+        process()
+
+        """{"returnCode":"1"}"""
     }
 }
