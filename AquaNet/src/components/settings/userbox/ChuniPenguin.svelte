@@ -174,18 +174,19 @@
             &.chuni-penguin-arm-type-2
                 transform-origin: 40% 10%
                 z-index: 2
-        .chuni-penguin-arm-left
-            left: 0%
-            transform: translate(-50%, 0) 
-            animation: chuniPenguinArmLeft 1s infinite cubic-bezier(0.45, 0, 0.55, 1)
-            &.chuni-penguin-arm-type-2
-                left: 15%
-        .chuni-penguin-arm-right
-            left: 72.5%
-            transform: translate(-50%, 0) scaleX(-1)
-            animation: chuniPenguinArmRight 1s infinite cubic-bezier(0.45, 0, 0.55, 1)
-            &.chuni-penguin-arm-type-2
-                left: 95%
+                
+            &.chuni-penguin-arm-left
+                left: 0%
+                transform: translate(-50%, 0) 
+                animation: chuniPenguinArmLeft 1s infinite cubic-bezier(0.45, 0, 0.55, 1)
+                &.chuni-penguin-arm-type-2
+                    left: 15%
+            &.chuni-penguin-arm-right
+                left: 72.5%
+                transform: translate(-50%, 0) scaleX(-1)
+                animation: chuniPenguinArmRight 1s infinite cubic-bezier(0.45, 0, 0.55, 1)
+                &.chuni-penguin-arm-type-2
+                    left: 95%
 
         .chuni-penguin-accessory
             transform: translate(-50%, -50%)
