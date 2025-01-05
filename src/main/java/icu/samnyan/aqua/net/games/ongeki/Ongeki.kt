@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.*
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserGeneralDataRepository
+import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserMusicDetailRepository
 import icu.samnyan.aqua.sega.ongeki.dao.userdata.UserPlaylogRepository
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData
 import org.springframework.web.bind.annotation.RestController
@@ -16,6 +17,7 @@ class Ongeki(
     override val us: AquaUserServices,
     override val playlogRepo: UserPlaylogRepository,
     override val userDataRepo: UserDataRepository,
+    override val userMusicRepo: UserMusicDetailRepository,
     val userGeneralDataRepository: UserGeneralDataRepository
 ): GameApiController<UserData>("ongeki", UserData::class) {
     override suspend fun trend(username: String) = us.cardByName(username) { card ->

@@ -22,6 +22,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     abstract val us: AquaUserServices
     abstract val userDataRepo: GenericUserDataRepo<T>
     abstract val playlogRepo: GenericPlaylogRepo<*>
+    abstract val userMusicRepo: GenericUserMusicRepo<*>
     abstract val shownRanks: List<Pair<Int, String>>
     abstract val settableFields: Map<String, (T, String) -> Unit>
     open val gettableFields: Set<String> = setOf()
@@ -131,6 +132,11 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             async { userDataRepo.save(user) }
             SUCCESS
         }
+    }
+
+    @API("user-music-from-list")
+    suspend fun userMusicFromList(@RP username: Str, @RB musicList: List<Int>) = us.cardByName(username) { card ->
+        userMusicRepo.findByUser_Card_ExtIdAndMusicIdIn(card.extId, musicList)
     }
 
     fun genericUserSummary(card: Card, ratingComp: Map<String, String>, rival: Boolean? = null): GenericGameSummary {

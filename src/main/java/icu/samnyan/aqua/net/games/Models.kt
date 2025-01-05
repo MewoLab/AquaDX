@@ -107,6 +107,10 @@ interface IGenericGamePlaylog {
     val isAllPerfect: Boolean
 }
 
+interface IGenericUserMusic {
+    val musicId: Int
+}
+
 @MappedSuperclass
 open class BaseEntity(
     @Id
@@ -130,6 +134,12 @@ interface GenericUserDataRepo<T : IUserData> : JpaRepository<T, Long> {
 interface GenericPlaylogRepo<T: IGenericGamePlaylog> : JpaRepository<T, Long> {
     fun findByUserCardExtId(extId: Long): List<T>
     fun findByUserCardExtId(extId: Long, page: Pageable): Page<T>
+}
+
+@NoRepositoryBean
+interface GenericUserMusicRepo<T: IGenericUserMusic> : JpaRepository<T, Long> {
+    fun findByUserCardExtId(extId: Long): List<T>
+    fun findByUser_Card_ExtIdAndMusicIdIn(userId: Long, musicId: List<Int>): List<T>
 }
 
 data class ImportResult(val errors: List<String>, val warnings: List<String>, val json: String)

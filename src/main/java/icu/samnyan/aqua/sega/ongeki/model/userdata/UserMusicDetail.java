@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.ongeki.model.userdata;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import icu.samnyan.aqua.net.games.IGenericUserMusic;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserMusicDetail implements Serializable {
+public class UserMusicDetail implements Serializable, IGenericUserMusic {
 
     private static final long serialVersionUID = 1L;
 

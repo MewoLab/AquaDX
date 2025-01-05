@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericGamePlaylog
+import icu.samnyan.aqua.net.games.IGenericUserMusic
 import icu.samnyan.aqua.net.games.IUserEntity
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import jakarta.persistence.*
@@ -294,9 +295,9 @@ class Mai2UserMap : Mai2UserEntity() {
 
 @Table(name = "maimai2_user_music_detail")
 @Data @Entity
-class Mai2UserMusicDetail : Mai2UserEntity() {
+class Mai2UserMusicDetail : Mai2UserEntity(), IGenericUserMusic {
 
-    var musicId = 0
+    override var musicId = 0
     var level = 0
     var playCount = 0
     var achievement = 0

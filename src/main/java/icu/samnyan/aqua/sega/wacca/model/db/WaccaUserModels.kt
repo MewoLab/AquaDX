@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.*
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericGamePlaylog
+import icu.samnyan.aqua.net.games.IGenericUserMusic
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
@@ -92,8 +93,8 @@ class WcUserItem(
 }
 
 @Entity @Table(name = "wacca_user_score", uniqueConstraints = [UC("", ["user_id", "music_id", "level"])])
-class WcUserScore : WaccaUserEntity() {
-    var musicId = 0
+class WcUserScore : WaccaUserEntity(), IGenericUserMusic {
+    override var musicId = 0
     var level = 0 // aka difficulty
     var achievement = 0
 

@@ -4,8 +4,10 @@ package icu.samnyan.aqua.sega.chusan.model
 
 import icu.samnyan.aqua.net.games.GenericPlaylogRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
+import icu.samnyan.aqua.net.games.GenericUserMusicRepo
 import icu.samnyan.aqua.net.games.IUserRepo
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
@@ -104,7 +106,7 @@ interface Chu3UserMapRepo : Chu3UserLinked<UserMap> {
     fun findAllByUserCardExtIdAndMapAreaIdIn(user: Long, mapAreaIds: List<Int>): List<UserMap>
 }
 
-interface Chu3UserMusicDetailRepo : Chu3UserLinked<UserMusicDetail> {
+interface Chu3UserMusicDetailRepo : Chu3UserLinked<UserMusicDetail>, GenericUserMusicRepo<UserMusicDetail> {
     fun findTopByUserAndMusicIdAndLevelOrderByIdDesc(user: Chu3UserData, musicId: Int, level: Int): Optional<UserMusicDetail>
     fun findByUserAndMusicIdAndLevel(user: Chu3UserData, musicId: Int, level: Int): UserMusicDetail?
 
