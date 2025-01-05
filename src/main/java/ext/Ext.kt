@@ -6,6 +6,8 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import jakarta.persistence.Query
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.apache.tika.Tika
@@ -16,6 +18,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity.BodyBuilder
 import org.springframework.web.bind.annotation.*
 import java.lang.reflect.Field
+import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.security.MessageDigest
 import java.time.LocalDate
@@ -43,6 +46,19 @@ typealias JavaSerializable = java.io.Serializable
 
 typealias JDict = Map<String, Any?>
 typealias MutJDict = MutableMap<String, Any?>
+
+fun HttpServletRequest.details() = mapOf(
+    "method" to method,
+    "uri" to requestURI,
+    "query" to queryString,
+    "remote" to remoteAddr,
+    "headers" to headerNames.asSequence().associateWith { getHeader(it) }
+)
+
+fun HttpServletResponse.details() = mapOf(
+    "status" to status,
+    "headers" to headerNames.asSequence().associateWith { getHeader(it) },
+)
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY, AnnotationTarget.PROPERTY_GETTER)
 @Retention(AnnotationRetention.RUNTIME)
@@ -120,6 +136,7 @@ fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 fun String.isoDateTime() = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 val URL_SAFE_DT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
 fun LocalDateTime.urlSafeStr() = format(URL_SAFE_DT)
+val DATE_2018 = LocalDateTime.parse("2018-01-01T00:00:00")
 
 val ALT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 fun Str.asDateTime() = try { LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
@@ -173,16 +190,21 @@ val Any?.truthy get() = when (this) {
 fun <T> ls(vararg args: T) = args.toList()
 inline fun <reified T> arr(vararg args: T) = arrayOf(*args)
 operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
-    (if (this is MutableMap) this else toMutableMap()).apply { putAll(map) }
+    (if (this is MutableMap) this else mut).apply { putAll(map) }
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
 fun <K, V: Any> Map<K, V?>.vNotNull(): Map<K, V> = filterValues { it != null }.mapValues { it.value!! }
 fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
 fun <T> MutableList<T>.popAll(vararg items: T) = popAll(items.toList())
 inline fun <T> Iterable<T>.mapApply(block: T.() -> Unit) = map { it.apply(block) }
+inline fun <T> Iterable<T>.mapApplyI(block: T.(Int) -> Unit) = mapIndexed { i, e -> e.apply { block(i) } }
 @Suppress("UNCHECKED_CAST")
 fun <K, V: Any> Map<K, V?>.recursiveNotNull(): Map<K, V> = mapNotNull { (k, v) ->
     k to if (v is Map<*, *>) (v as Map<Any?, Any?>).recursiveNotNull() else v
 }.toMap() as Map<K, V>
+
+val <T> List<T>.mut get() = toMutableList()
+val <K, V> Map<K, V>.mut get() = toMutableMap()
+val <T> Set<T>.mut get() = toMutableSet()
 
 // Optionals
 operator fun <T> Optional<T>.invoke(): T? = orElse(null)
@@ -195,6 +217,7 @@ fun Str.center(width: Int, padChar: Char = ' ') = padStart((length + width) / 2,
 fun Str.splitLines() = replace("\r\n", "\n").split('\n')
 @OptIn(ExperimentalStdlibApi::class)
 fun Str.md5() = MD5.digest(toByteArray(Charsets.UTF_8)).toHexString()
+fun Str.fromChusanUsername() = String(this.toByteArray(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }

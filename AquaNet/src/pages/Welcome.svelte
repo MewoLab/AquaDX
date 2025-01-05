@@ -21,6 +21,10 @@
   let error = ""
   let verifyMsg = ""
 
+  if (USER.isLoggedIn()) {
+    window.location.href = "/home"
+  }
+
   if (params.get('confirm-email')) {
     state = 'verify'
     verifyMsg = t("welcome.verifying")

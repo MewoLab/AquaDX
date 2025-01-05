@@ -1,6 +1,9 @@
 package icu.samnyan.aqua.sega.general.filter
 
+import ext.details
 import ext.logger
+import ext.toJson
+import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.util.ZLib
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -35,9 +38,22 @@ class CompressionFilter : OncePerRequestFilter() {
         }
 
         // Handle request
-        val result = ContentCachingResponseWrapper(resp).run {
-            chain.doFilter(CompressRequestWrapper(req, reqSrc), this)
-            ZLib.compress(contentAsByteArray).let { if (isDfi) b64e.encode(it) else it }
+        val respW = ContentCachingResponseWrapper(resp)
+        val result = try {
+            chain.doFilter(CompressRequestWrapper(req, reqSrc), respW)
+            ZLib.compress(respW.contentAsByteArray).let { if (isDfi) b64e.encode(it) else it }
+        } finally {
+            if (respW.status != 200) {
+                val details = mapOf(
+                    "req" to req.details(),
+                    "resp" to respW.details(),
+                    "body" to reqSrc.toString(Charsets.UTF_8),
+                    "result" to respW.contentAsByteArray.toString(Charsets.UTF_8),
+                    "token" to TokenChecker.getCurrentSession()?.token
+                ).toJson()
+
+                log.error("HTTP ${respW.status}: $details")
+            }
         }
 
         // Write response

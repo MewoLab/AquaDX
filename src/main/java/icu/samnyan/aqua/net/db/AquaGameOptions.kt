@@ -37,6 +37,12 @@ class AquaGameOptions(
 
     @SettingField("chu3")
     var chusanInfinitePenguins: Boolean = false,
+
+    @SettingField("chu3-matching")
+    var chusanMatchingServer: String = "",
+
+    @SettingField("chu3-matching")
+    var chusanMatchingReflector: String = "",
 )
 
 interface AquaGameOptionsRepo : JpaRepository<AquaGameOptions, Long>

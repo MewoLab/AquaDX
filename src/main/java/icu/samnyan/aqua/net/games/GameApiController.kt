@@ -24,6 +24,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     abstract val playlogRepo: GenericPlaylogRepo<*>
     abstract val shownRanks: List<Pair<Int, String>>
     abstract val settableFields: Map<String, (T, String) -> Unit>
+    open val gettableFields: Set<String> = setOf()
 
     @API("trend")
     abstract suspend fun trend(@RP username: String): List<TrendOut>
@@ -110,7 +111,8 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     fun playlog(@RP id: Long): IGenericGamePlaylog = playlogRepo.findById(id).getOrNull() ?: (404 - "Playlog not found")
 
     val userDetailFields by lazy { userDataClass.gettersMap().let { vm ->
-        settableFields.map { (k, _) -> k to (vm[k] ?: error("Field $k not found")) }.toMap()
+        (settableFields.keys.toSet() + gettableFields)
+            .associateWith { k -> (vm[k] ?: error("Field $k not found")) }
     } }
 
     @API("user-detail")
@@ -144,13 +146,13 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
         plays.forEach { play ->
             val lvl = musicMapping[play.musicId]?.notes?.getOrNull(if (play.level == 10) 0 else play.level)?.lv ?: return@forEach
             shownRanks.find { (s, _) -> play.achievement > s }?.let { (_, v) ->
-                val ranks = detailedRanks.getOrPut(lvl.toInt()) { rankMap.toMutableMap() }
+                val ranks = detailedRanks.getOrPut(lvl.toInt()) { rankMap.mut }
                 ranks[v] = ranks[v]!! + 1
             }
         }
 
         // Collapse detailed ranks to get non-detailed ranks map<rank, count>
-        val ranks = shownRanks.associate { (_, v) -> v to 0 }.toMutableMap().also { ranks ->
+        val ranks = shownRanks.associate { (_, v) -> v to 0 }.mut.also { ranks ->
             plays.forEach { play ->
                 shownRanks.find { (s, _) -> play.achievement > s }?.let { (_, v) -> ranks[v] = ranks[v]!! + 1 }
             }

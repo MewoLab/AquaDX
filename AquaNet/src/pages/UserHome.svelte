@@ -195,7 +195,7 @@
 
             <div class="rank">
               <span>{t('UserHome.ServerRank')}</span>
-              <span>#{+d.user.serverRank.toLocaleString() + 1}</span>
+              <span>#{(d.user.serverRank + 1).toLocaleString()}</span>
             </div>
           </div>
 

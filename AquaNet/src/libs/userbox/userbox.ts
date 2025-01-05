@@ -25,7 +25,7 @@ const validateDirectories = async (base: FileSystemDirectoryEntry, path: string)
         let newDirectory = await getDirectory(directory, part).catch(_ => null);
         if (newDirectory && isDirectory(newDirectory)) {
             directory = newDirectory;
-        } else 
+        } else
             return false;
     };
     return true
@@ -38,7 +38,7 @@ const getDirectoryFromPath = async (base: FileSystemDirectoryEntry, path: string
         let newDirectory = await getDirectory(directory, part).catch(_ => null);
         if (newDirectory && isDirectory(newDirectory)) {
             directory = newDirectory;
-        } else 
+        } else
             return null;
     };
     return directory;
@@ -81,7 +81,7 @@ const DIRECTORY_PATHS = ([
         processName: "Surfboard Textures",
         useFileName: true,
         path: "surfboard",
-        filter: (name: string) => 
+        filter: (name: string) =>
             ([
                 "CHU_UI_Common_Avatar_body_00.dds",
                 "CHU_UI_Common_Avatar_face_00.dds",
@@ -134,7 +134,7 @@ export const scanOptionFolder = async (optionFolder: FileSystemDirectoryEntry, p
     let objectStore = transaction.objectStore('dds');
     for (let object of data)
         objectStore.put(object)
-    
+
     // await transaction completion
     await new Promise(r => transaction.addEventListener("complete", r, {once: true}))
 };
@@ -163,7 +163,7 @@ export function initializeDb() : Promise<void> {
 export async function userboxFileProcess(folder: FileSystemEntry, progressUpdate: (progress: number, progressString: string) => void): Promise<string | null> {
     if (!isDirectory(folder))
         return t("userbox.new.error.invalidFolder")
-    if (!(await validateDirectories(folder, "bin/option")) || !(await validateDirectories(folder, "data/A000")))
+    if (!(await validateDirectories(folder, "bin/option")) && !(await validateDirectories(folder, "data/A000")))
         return t("userbox.new.error.invalidFolder");
 
     initializeDb();

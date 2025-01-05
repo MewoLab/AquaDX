@@ -139,7 +139,7 @@ class AllNet(
         val ver = reqMap["ver"] ?: "1.0"
 
         val formatVer = reqMap["format_ver"] ?: ""
-        val resp = props.map.toMutableMap() + mapOf(
+        val resp = props.map.mut + mapOf(
             "uri" to switchUri(localAddr, localPort, gameId, ver, session),
             "host" to props.host.ifBlank { localAddr },
         )

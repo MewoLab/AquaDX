@@ -2,9 +2,9 @@ package icu.samnyan.aqua.sega.aimedb
 
 import ext.toHex
 import icu.samnyan.aqua.net.db.AquaUserServices
+import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
-import icu.samnyan.aqua.sega.allnet.AllNetProps
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
 import io.netty.buffer.Unpooled
@@ -67,7 +67,8 @@ class AimeDB(
             logger.info("AimeDB /${handler.name} : (game ${base.gameId}, keychip ${base.keychipId})")
 
             // Check keychip
-            if (!us.validKeychip(base.keychipId)) {
+            // We do not check for type 0x13 because of a bug in duolinguo.dll
+            if (!us.validKeychip(base.keychipId) && type != 0x13) {
                 if (allNetProps.keychipPermissiveForTesting) {
                     logger.warn("> Accepted invalid keychip ${base.keychipId} in permissive mode")
                 } else {

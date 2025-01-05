@@ -1,0 +1,9 @@
+DROP TABLE chusan_avatar;
+DROP TABLE chusan_frame;
+DROP TABLE chusan_mapicon;
+DROP TABLE chusan_nameplate;
+DROP TABLE chusan_voice;
+DROP TABLE chusan_trophy;
+DROP TABLE chusan_music;
+DROP TABLE chusan_music_level;
+DROP TABLE chusan_game_character;

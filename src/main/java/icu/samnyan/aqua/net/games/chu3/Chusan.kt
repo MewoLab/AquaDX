@@ -38,6 +38,7 @@ class Chusan(
         "avatarFront" to { u, v -> u.avatarFront = v.int },
         "avatarBack" to { u, v -> u.avatarBack = v.int },
     ) }
+    override val gettableFields: Set<String> = setOf("level", "playerRating", "characterId")
 
     override suspend fun userSummary(@RP username: Str, @RP token: String?) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking
@@ -61,15 +62,4 @@ class Chusan(
         val u = userDataRepo.findByCard(it.ghostCard) ?: (404 - "Game data not found")
         mapOf("user" to u, "items" to rp.userItem.findAllByUser(u))
     }
-
-    @API("user-box-all-items")
-    fun userBoxAllItems() = allItems
-    val allItems by lazy { mapOf(
-        "nameplate" to rp.gameNamePlate.findAll(),
-        "frame" to rp.gameFrame.findAll(),
-        "trophy" to rp.gameTrophy.findAll(),
-        "mapicon" to rp.gameMapIcon.findAll(),
-        "sysvoice" to rp.gameSystemVoice.findAll(),
-        "avatar" to rp.gameAvatarAcc.findAll(),
-    ) }
 }

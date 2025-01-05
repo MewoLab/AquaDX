@@ -196,7 +196,7 @@ fun WaccaServer.init() {
     "user/status/GetDetail" api@ { _, (uid) ->
         val u = user(uid) ?: return@api "[]"
         val o = options(u)
-        val items = rp.item.findByUser(u).groupBy { it.type }.toMutableMap()
+        val items = rp.item.findByUser(u).groupBy { it.type }.mut
         val scores = rp.bestScore.findByUser(u)
         val scoreMap = scores.associateBy { it.musicId to it.level }
         val gates = rp.gate.findByUser(u)
@@ -343,7 +343,7 @@ fun WaccaServer.init() {
             ?: WcUserScore().apply { user = u; musicId = pl.musicId; level = pl.level }).apply {
 
             grades[WaccaGrades.valueMap[pl.grade]?.ordinal ?: (400 - "Grade ${pl.grade} invalid")]++
-            clears = clears.zip(pl.clears()) { a, b -> a + b }.toMutableList()
+            clears = clears.zip(pl.clears()) { a, b -> a + b }.mut
             achievement = max(achievement, pl.achievement)
             bestCombo = max(bestCombo, pl.maxCombo)
             lowestMissCt = min(lowestMissCt, pl.judgements[3])
@@ -425,7 +425,7 @@ fun WaccaServer.init() {
 
     "user/status/update" empty { req, (uid, playType, items, isContinue, isFirstPlayFree, itemsUsed, lastSong) ->
         val u = user(uid) ?: (404 - "User not found")
-        u.lastSongInfo = (lastSong as List<Int>).toMutableList()
+        u.lastSongInfo = (lastSong as List<Int>).mut
         afterPlay(u, items as List<List<Int>>, playType.int(), req.appVersion)
     }
 
@@ -462,7 +462,7 @@ fun WaccaServer.init() {
             clearStatus = clearType.int() // 0..3: Fail, Blue, Silver, Gold
             clearSongCt = clearCt.int()
             playCt++
-            if (scores.sum() > s.songScores.sum()) songScores = scores.toMutableList()
+            if (scores.sum() > s.songScores.sum()) songScores = scores.mut
         })
 
         if (dan.int() > u.danLevel || (dan.int() == u.danLevel && clearType.int() > u.danType)) {

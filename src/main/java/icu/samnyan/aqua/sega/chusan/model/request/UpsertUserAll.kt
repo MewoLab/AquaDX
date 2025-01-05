@@ -5,7 +5,6 @@ import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 
 class UserCMissionResp {
-    var userId: Long? = 0
     var missionId = 0
     var point = 0
     var userCMissionProgressList: List<UserCMissionProgress>? = null
@@ -14,6 +13,28 @@ class UserCMissionResp {
 class FavNewMusic(
     var musicId: Int = 0,
     var orderId: Int = 0,
+)
+
+class UpsertTeamPoint(
+    // userId exists here, but it should not be used
+    // So I will not include it in the data class
+    var teamId: Long = 0,
+    var orderId: Int = 0,
+    var teamPoint: Long = 0,
+    var aggrDate: String = "",
+)
+
+data class UpsertNetBattleData(
+    val recentNBSelectMusicList: List<MusicIdWrapper> = emptyList(),
+    val isRankUpChallengeFailed: Boolean = false,
+    val highestBattleRankId: Long = 0,
+    val battleIconId: Long = 0,
+    val battleIconNum: Long = 0,
+    val avatarEffectPoint: Long = 0,
+)
+
+data class MusicIdWrapper(
+    val musicId: Int = 0,
 )
 
 class UpsertUserAll(
@@ -28,16 +49,17 @@ class UpsertUserAll(
     var userChargeList: List<UserCharge>? = null,
     var userCourseList: List<UserCourse>? = null,
     var userDuelList: List<UserDuel>? = null,
-    var userTeamPoint: List<JDict>? = null,
+    // TODO: Actually implement team
+    var userTeamPoint: List<UpsertTeamPoint>? = null,
     var userRatingBaseHotList: List<UserRecentRating>? = null,
     var userRatingBaseList: List<UserRecentRating>? = null,
     var userRatingBaseNextList: List<UserRecentRating>? = null,
     var userLoginBonusList: List<JDict>? = null,
     var userMapAreaList: List<UserMap>? = null,
     var userOverPowerList: List<JDict>? = null,
-    var userNetBattlelogList: List<JDict>? = null,
+    var userNetBattlelogList: List<Chu3NetBattleLog>? = null,
     var userEmoneyList: List<JDict>? = null,
-    var userNetBattleData: List<JDict>? = null,
+    var userNetBattleData: List<UpsertNetBattleData>? = null,
     var userCMissionList: List<UserCMissionResp>? = null,
     var userFavoriteMusicList: List<FavNewMusic>? = null,
 )

@@ -13,8 +13,8 @@ plugins {
     kotlin("plugin.jpa") version ktVer
     kotlin("plugin.serialization") version ktVer
     kotlin("plugin.allopen") version ktVer
-    id("io.freefair.lombok") version "8.11"
-    id("org.springframework.boot") version "3.4.1"
+    id("io.freefair.lombok") version "8.6"
+    id("org.springframework.boot") version "3.2.3"
     id("com.github.ben-manes.versions") version "0.51.0"
     id("org.hibernate.orm") version "6.4.4.Final"
     application
@@ -38,13 +38,13 @@ dependencies {
     implementation("io.netty:netty-all")
     implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation("org.apache.httpcomponents.client5:httpclient5")
-    implementation("org.flywaydb:flyway-core:11.1.0")
-    implementation("org.flywaydb:flyway-mysql:11.1.0")
+    implementation("org.flywaydb:flyway-core:10.10.0")
+    implementation("org.flywaydb:flyway-mysql:10.10.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.springframework.security:spring-security-test")
-    implementation("net.logstash.logback:logstash-logback-encoder:8.0")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.4")
 
     // Metrics
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -64,11 +64,11 @@ dependencies {
     // =============================
 
     // Network
-    implementation("io.ktor:ktor-client-core:2.3.13")
-    implementation("io.ktor:ktor-client-cio:2.3.13")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.13")
-    implementation("io.ktor:ktor-client-encoding:2.3.13")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
+    implementation("io.ktor:ktor-client-core:2.3.8")
+    implementation("io.ktor:ktor-client-cio:2.3.8")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
+    implementation("io.ktor:ktor-client-encoding:2.3.8")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // Somehow these are needed for ktor even though they're not in the documentation
@@ -76,16 +76,16 @@ dependencies {
     runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.8.0")
 
     // Email
-    implementation("org.simplejavamail:simple-java-mail:8.12.4")
-    implementation("org.simplejavamail:spring-module:8.12.4")
+    implementation("org.simplejavamail:simple-java-mail:8.6.3")
+    implementation("org.simplejavamail:spring-module:8.6.3")
 
     // GeoIP
-    implementation("com.maxmind.geoip2:geoip2:4.2.1")
+    implementation("com.maxmind.geoip2:geoip2:4.2.0")
 
     // JWT Authentication
-    implementation("io.jsonwebtoken:jjwt-api:0.12.6")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
+    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
 
     // Content validation
     implementation("org.apache.tika:tika-core:2.9.1")
@@ -94,8 +94,7 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
 
     // Serialization
-    // DO NOT UPDATE THIS TO >2.18.0: https://github.com/FasterXML/jackson-module-kotlin/issues/874
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // Testing
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.1")

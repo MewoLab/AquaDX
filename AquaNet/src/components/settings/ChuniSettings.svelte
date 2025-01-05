@@ -92,7 +92,7 @@
     user = u
     return fetchData()
   }).catch((e) => { loading = false; error = e.message });
-  
+
   let DDSreader: DDS | undefined;
 
   let USERBOX_PROGRESS = 0;
@@ -150,7 +150,7 @@
     if (databaseExists || USERBOX_URL_STATE.value) {
       DDSreader = new DDS(ddsDB);
       USERBOX_INSTALLED = databaseExists || USERBOX_URL_STATE.value != "";
-    } 
+    }
   })
 
 </script>
@@ -183,10 +183,10 @@
     </div>
   {:else}
     <div class="chuni-userbox-container">
-      <ChuniUserplateComponent chuniIsUserbox={true} on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level.toString()} chuniRating={userbox.playerRating / 100} 
+      <ChuniUserplateComponent chuniIsUserbox={true} on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level.toString()} chuniRating={userbox.playerRating / 100}
         chuniNameplate={userbox.nameplateId} chuniName={userbox.userName} chuniTrophyName={allItems.trophy[userbox.trophyId].name}></ChuniUserplateComponent>
-      <ChuniPenguinComponent chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack} 
-        chuniFront={userbox.avatarFront} chuniFace={userbox.avatarFace} chuniItem={userbox.avatarItem} 
+      <ChuniPenguinComponent chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack}
+        chuniFront={userbox.avatarFront} chuniFace={userbox.avatarFace} chuniItem={userbox.avatarItem}
         chuniSkin={userbox.avatarSkin}></ChuniPenguinComponent>
     </div>
     <div class="chuni-userbox-row">
@@ -258,26 +258,11 @@
     <p>
       <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
     </p>
-  {/if} 
+  {/if}
   <ChuniMatchingSettings/>
-  <!--{#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
-    <h2>{t("userbox.header.preview")}</h2>
-    <p class="notice">{t("userbox.preview.notice")}</p>
-    <input bind:value={preview} placeholder={t("userbox.preview.url")}/>
-    {#if preview}
-      <div class="preview">
-        {#each userItems.filter(v => v.iKey != 'trophy' && v.iKey != 'systemVoice') as { iKey, ubKey, items }, i}
-          <div>
-            <span>{ts(`userbox.${ubKey}`)}</span>
-            <img src={`${preview}/${iKey}/${userbox[ubKey].toString().padStart(8, '0')}.png`} alt="" on:error={coverNotFound} />
-          </div>
-        {/each}
-      </div>
-    {/if}
-  {/if}-->
 </div>
 {/if}
- 
+
 {#if USERBOX_SETUP_RUN && !error}
   <div class="overlay" transition:fade>
     <div>
@@ -328,7 +313,7 @@ p.notice
   opacity: 0.6
   margin-top: 0
 
-.progress 
+.progress
   width: 100%
   height: 10px
   box-shadow: 0 0 1px 1px vars.$ov-lighter
@@ -463,10 +448,10 @@ p.notice
       &.focused
         filter: brightness(75%)
 
-.chuni-userbox 
+.chuni-userbox
   width: calc(100% - 20px)
   height: 350px
-  
+
   display: flex
   flex-direction: row
   flex-wrap: wrap
