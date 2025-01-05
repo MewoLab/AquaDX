@@ -49,7 +49,7 @@ export default class DDSCache {
         return new Promise(async (resolve, reject) => {
             if (this.userboxURL.value) {
                 let targetPath = path.replaceAll(":", "/");
-                let response = await fetch(`${this.userboxURL.value}/${targetPath}.dds`).then(b => b.blob()).catch(reject);
+                let response = await fetch(`${this.userboxURL.value}/${targetPath}.chu`).then(b => b.blob()).catch(reject);
                 if (response)
                     return resolve(response);
             };

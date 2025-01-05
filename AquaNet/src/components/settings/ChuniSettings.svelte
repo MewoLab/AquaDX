@@ -120,15 +120,14 @@
   }
 
   let USERBOX_URL_STATE = useLocalStorage("userboxURL", USERBOX_DEFAULT_URL);
-  function userboxHandleInput(e: KeyboardEvent) {
-    if (e.key != "Enter")
-      return;
-    let baseURL = (e.target as HTMLInputElement).value;
+  function userboxHandleInput(baseURL: string, isSetByServer: boolean = false) {
     if (baseURL != "")
       try {
         // validate url
-        new URL(baseURL);
+        new URL(baseURL, location.href);
       } catch(err) {
+        if (isSetByServer)
+          return;
         return error = t("userbox.new.error.invalidUrl")
       }
     USERBOX_URL_STATE.value = baseURL;
@@ -137,17 +136,17 @@
     location.reload();
   }
 
-  if (USERBOX_DEFAULT_URL)
-    USERBOX_URL_STATE.value = USERBOX_DEFAULT_URL;
+  if (USERBOX_DEFAULT_URL && !USERBOX_URL_STATE.value)
+    userboxHandleInput(USERBOX_DEFAULT_URL, true);
 
   indexedDB.databases().then(async (dbi) => {
     let databaseExists = dbi.some(db => db.name == "userboxChusanDDS");
-    if (databaseExists) {
+    if (databaseExists)
       await initializeDb();
+    if (databaseExists || USERBOX_URL_STATE.value) {
       DDSreader = new DDS(ddsDB);
-      USERBOX_INSTALLED = databaseExists;
-    } else if (USERBOX_URL_STATE.value)
-      USERBOX_INSTALLED = true;
+      USERBOX_INSTALLED = databaseExists || USERBOX_URL_STATE.value != "";
+    } 
   })
 
 </script>
@@ -251,7 +250,7 @@
       </label>
     </div>
   {/if}
-  {#if USERBOX_SUPPORT}
+  {#if USERBOX_SUPPORT && !USERBOX_DEFAULT_URL}
     <p>
       <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
     </p>
@@ -282,7 +281,7 @@
       <span>{USERBOX_SETUP_MODE ? t('userbox.new.url_warning') : USERBOX_SETUP_TEXT}</span>
       <div class="actions">
         {#if USERBOX_SETUP_MODE}
-          <input type="text" on:keyup={userboxHandleInput} class="add-margin" placeholder="Base URL">
+          <input type="text" on:keyup={e => {if (e.key == "Enter") userboxHandleInput((e.target as HTMLInputElement).value)}} class="add-margin" placeholder="Base URL">
         {:else}
           <p class="notice add-margin">
             {t('userbox.new.setup.notice')}
