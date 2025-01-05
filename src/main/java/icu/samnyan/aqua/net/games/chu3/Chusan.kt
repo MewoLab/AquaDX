@@ -57,6 +57,31 @@ class Chusan(
         genericUserSummary(card, ratingComposition)
     }
 
+    @API("user-rating")
+    suspend fun userRating(@RP username: Str) = us.cardByName(username) { card ->
+        val extra = rp.userGeneralData.findByUser_Card_ExtId(card.extId)
+            .associate { it.propertyKey to it.propertyValue }
+        val best30Str = extra["rating_base_list"] ?: (400 - "No rating found")
+        val recent10Str = extra["recent_rating_list"] ?: (400 - "No rating found")
+
+        val best30 = best30Str.split(',').filterNot { it.isBlank() }.map { it.split(':') }
+        val recent10 = recent10Str.split(',').filterNot { it.isBlank() }.map { it.split(':') }
+
+        val musicIdList = listOf(
+            best30.map { it[0].toInt() },
+            recent10.map { it[0].toInt() },
+        ).flatten()
+
+        val userMusicList = rp.userMusicDetail.findByUser_Card_ExtIdAndMusicIdIn(card.extId, musicIdList)
+
+        // Dont leak extId
+        mapOf(
+            "best30" to best30,
+            "recent10" to recent10,
+            "musicList" to userMusicList,
+        )
+    }
+
     // UserBox related APIs
     @API("user-box")
     fun userBox(@RP token: String) = us.jwt.auth(token) {
