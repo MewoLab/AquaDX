@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 @Table(name = "chusan_user_login_bonus")
 class UserLoginBonus(
     var version: Int = 0,
+    // TODO: Fix this (should be User linked)
     var user: Int = 0,
     var presetId: Int = 0,
     var bonusCount: Int = 0,

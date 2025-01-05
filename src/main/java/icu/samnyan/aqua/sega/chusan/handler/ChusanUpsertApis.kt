@@ -3,10 +3,12 @@ package icu.samnyan.aqua.sega.chusan.handler
 import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserAll
-import icu.samnyan.aqua.sega.chusan.model.userdata.*
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMission
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMissionProgress
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserGeneralData
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 import java.nio.charset.StandardCharsets
-import java.time.LocalDateTime
 
 @Suppress("UNCHECKED_CAST")
 fun ChusanController.upsertApiInit() {
@@ -99,17 +101,17 @@ fun ChusanController.upsertApiInit() {
                     id = db.userDuel.findByUserAndDuelId(u, duelId)?.id ?: 0 }) }
 
             // Need testing
-            userLoginBonusList?.let { list ->
-                db.userLoginBonus.saveAll(list.distinctBy { it["presetId"] as String }.map {
-                    val id = it["presetId"]!!.int
-                    (db.userLoginBonus.findLoginBonus(uid.int, 1, id)() ?: UserLoginBonus()).apply {
-                        user = u.id.toInt()
-                        presetId = id
-                        lastUpdateDate = LocalDateTime.now()
-                        isWatched = true
-                    }
-                })
-            }
+//            userLoginBonusList?.let { list ->
+//                db.userLoginBonus.saveAll(list.distinctBy { it["presetId"] as String }.map {
+//                    val id = it["presetId"]!!.int
+//                    (db.userLoginBonus.findLoginBonus(uid.int, 1, id)() ?: UserLoginBonus()).apply {
+//                        user = u.id.toInt()
+//                        presetId = id
+//                        lastUpdateDate = LocalDateTime.now()
+//                        isWatched = true
+//                    }
+//                })
+//            }
 
             req.userCMissionList?.forEach { d ->
                 (db.userCMission.findByUser_Card_ExtIdAndMissionId(uid, d.missionId)()

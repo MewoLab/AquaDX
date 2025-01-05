@@ -5,7 +5,6 @@ package icu.samnyan.aqua.sega.chusan.model
 import icu.samnyan.aqua.net.games.GenericPlaylogRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.IUserRepo
-import icu.samnyan.aqua.sega.chusan.model.gamedata.*
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -37,7 +36,7 @@ interface Chu3UserLoginBonusRepo : JpaRepository<UserLoginBonus, Long> {
         value = "select * from chusan_user_login_bonus where user = ?1 and version = ?2 and preset_id = ?3 limit 1",
         nativeQuery = true
     )
-    fun findLoginBonus(userId: Int, version: Int, presetId: Int): Optional<UserLoginBonus>
+    fun findLoginBonus(userId: Int, version: Int, presetId: Long): Optional<UserLoginBonus>
 }
 
 interface Chu3UserActivityRepo : Chu3UserLinked<UserActivity> {
@@ -144,7 +143,7 @@ interface Chu3GameGachaCardRepo : JpaRepository<GameGachaCard, Long> {
 
 interface Chu3GameGachaRepo : JpaRepository<GameGacha, Long>
 
-interface Chu3GameLoginBonusPresetsRepo : JpaRepository<GameLoginBonusPreset, Int> {
+interface Chu3GameLoginBonusPresetsRepo : JpaRepository<GameLoginBonusPreset, Long> {
     @Query(
         value = "select * from chusan_game_login_bonus_preset where version = ?1 and is_enabled = ?2",
         nativeQuery = true
