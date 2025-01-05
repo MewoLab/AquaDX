@@ -1,11 +1,12 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package icu.samnyan.aqua.sega.chusan
+package icu.samnyan.aqua.sega.chusan.handler
 
 import ext.JDict
 import ext.int
 import ext.millis
 import ext.parsing
+import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.MatchingWaitState
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3MatchingMemberReq
 import kotlin.collections.MutableList

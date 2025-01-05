@@ -6,10 +6,11 @@ import java.time.LocalDateTime
 
 @Entity(name = "ChusanUserCardPrintState")
 @Table(name = "chusan_user_print_state")
-class UserCardPrintState : Chu3UserEntity() {
-    var hasCompleted = false
-    var limitDate: LocalDateTime = LocalDateTime.now()
-    var placeId = 0
-    var cardId = 0
-    var gachaId = 0
-}
+class UserCardPrintState(
+    var hasCompleted: Boolean = false,
+    var limitDate: LocalDateTime = LocalDateTime.now(),
+    var placeId: Int = 0,
+    var cardId: Int = 0,
+    var gachaId: Int = 0
+) : Chu3UserEntity()
+

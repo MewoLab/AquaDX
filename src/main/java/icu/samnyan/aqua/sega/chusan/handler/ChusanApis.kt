@@ -1,7 +1,9 @@
-package icu.samnyan.aqua.sega.chusan
+package icu.samnyan.aqua.sega.chusan.handler
 
 import ext.*
 import icu.samnyan.aqua.sega.allnet.TokenChecker
+import icu.samnyan.aqua.sega.chusan.ChusanController
+import icu.samnyan.aqua.sega.chusan.ChusanData
 import icu.samnyan.aqua.sega.chusan.model.request.UserCMissionResp
 import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
@@ -13,6 +15,7 @@ import java.time.format.DateTimeFormatter
 @Suppress("UNCHECKED_CAST")
 fun ChusanController.chusanInit() {
     matchingApiInit()
+    cmApiInit()
 
     // Stub handlers
     "GetGameRanking" { """{"type":"${data["type"]}","length":"0","gameRankingList":[]}""" }

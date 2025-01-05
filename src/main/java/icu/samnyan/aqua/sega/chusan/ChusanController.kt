@@ -4,7 +4,9 @@ import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.simpleDescribe
 import icu.samnyan.aqua.sega.allnet.TokenChecker
-import icu.samnyan.aqua.sega.chusan.handler.*
+import icu.samnyan.aqua.sega.chusan.handler.GameLoginHandler
+import icu.samnyan.aqua.sega.chusan.handler.UpsertUserAllHandler
+import icu.samnyan.aqua.sega.chusan.handler.chusanInit
 import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
 import icu.samnyan.aqua.sega.general.*
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
@@ -25,9 +27,6 @@ import kotlin.reflect.full.declaredMemberProperties
 class ChusanController(
     val gameLogin: GameLoginHandler,
     val upsertUserAll: UpsertUserAllHandler,
-    val cmUpsertUserGacha: CMUpsertUserGachaHandler,
-    val cmUpsertUserPrintSubtract: CMUpsertUserPrintSubtractHandler,
-    val cmUpsertUserPrintCancel: CMUpsertUserPrintCancelHandler,
 
     val mapper: StringMapper,
     val cmMapper: BasicMapper,
@@ -42,8 +41,7 @@ class ChusanController(
     val log = LoggerFactory.getLogger(ChusanController::class.java)
 
     // Below are code related to handling the handlers
-    val externalHandlers = mutableListOf("GameLoginApi", "UpsertUserAllApi",
-        "CMUpsertUserGachaApi", "CMUpsertUserPrintCancelApi", "CMUpsertUserPrintSubtractApi")
+    val externalHandlers = mutableListOf("GameLoginApi", "UpsertUserAllApi")
 
     val noopEndpoint = setOf("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
