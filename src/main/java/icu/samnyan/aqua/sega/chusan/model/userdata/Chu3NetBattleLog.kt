@@ -53,3 +53,24 @@ class Chu3NetBattleLog(
     var monthPoLong: Int = 0,
     var eventPoLong: Int = 0
 ) : Chu3UserEntity() {
+
+    // musicId, difficultyId, userName, score, memberName{1-3}, memberScore{1-3}, selectedMemberNum
+    fun toDict() = mapOf(
+        "musicId" to musicId,
+        "difficultyId" to difficultyId,
+        "score" to score,
+        "userName" to selectUserName,
+        "memberName1" to opponentUserName1,
+        "memberScore1" to opponentScore1,
+        "memberName2" to opponentUserName2,
+        "memberScore2" to opponentScore2,
+        "memberName3" to opponentUserName3,
+        "memberScore3" to opponentScore3,
+        "selectedMemberNum" to listOf(
+            true,
+            selectUserId == opponentUserId1,
+            selectUserId == opponentUserId2,
+            selectUserId == opponentUserId3
+        ).lastIndexOf(true)
+    )
+}
