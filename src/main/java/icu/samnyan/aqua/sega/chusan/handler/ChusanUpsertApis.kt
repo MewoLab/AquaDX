@@ -3,10 +3,7 @@ package icu.samnyan.aqua.sega.chusan.handler
 import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserAll
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMission
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMissionProgress
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserGeneralData
+import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 
 @Suppress("UNCHECKED_CAST")
@@ -53,12 +50,24 @@ fun ChusanController.upsertApiInit() {
                 db.userGeneralData.save(d.apply { propertyValue = list!!.str() })
             }
 
-            userFavoriteMusicList?.filter { it.musicId != -1 }?.let { list ->
-                val d = db.userGeneralData.findByUserAndPropertyKey(u, "favorite_music")()
-                    ?: UserGeneralData().apply { user = u; propertyKey = "favorite_music" }
-                db.userGeneralData.save(d.apply {
-                    propertyValue = list.distinct().joinToString(",") { it.musicId.toString() } })
+            val misc = db.userMisc.findSingleByUser(u)() ?: Chu3UserMisc().apply { user = u }
+
+            // Favorites
+            userFavoriteMusicList?.filter { it.musicId != -1 }?.ifEmpty { null }?.let { list ->
+                misc.favMusic = list.map { it.musicId }.mut
             }
+
+            // Net battle data
+            userNetBattleData?.getOrNull(0)?.let {
+                misc.recentNbSelect = it.recentNBSelectMusicList.map { it.musicId }.mut
+            }
+
+            // Add the battle log songs to misc
+            if (userNetBattlelogList != null) {
+                val music = userMusicDetailList?.map { it.musicId } ?: emptyList()
+                misc.recentNbMusic = (misc.recentNbMusic + music).distinct().takeLast(10).mut
+            }
+            db.userMisc.save(misc)
 
             // Playlog
             userPlaylogList?.let { db.userPlaylog.saveAll(it) }
