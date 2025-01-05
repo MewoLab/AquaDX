@@ -22,10 +22,11 @@ This is tested on Chusan 2.27.
    If you're using fufubot segatools, please override it with Dniel97's version (don't forget to update `segatools.ini`).
 3. Patch your `chusanApp.exe` using [Two-Torial's open-source patcher](https://patcher.two-torial.xyz/)  
    (Make sure you disable "Set all timer to 999", enable "No encryption", "No TLS", "Patch for head-to-head play")
-4. Make sure you only have official options.  
+4. Make sure you only have official options, but add the option [ARRR](https://pixeldrain.com/u/D2jjN3of).  
    (Remove things like A999, AOMN, etc.)
 5. Pet your cat 🐈
 6. Launch!
+
 
 ### Firewall Rules
 
