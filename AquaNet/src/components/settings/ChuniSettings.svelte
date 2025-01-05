@@ -179,7 +179,7 @@
     </div>
   {:else}
     <div class="chuni-userbox-container">
-      <ChuniUserplateComponent on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level.toString()} chuniRating={userbox.playerRating / 100} 
+      <ChuniUserplateComponent chuniIsUserbox={true} on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level.toString()} chuniRating={userbox.playerRating / 100} 
         chuniNameplate={userbox.nameplateId} chuniName={userbox.userName} chuniTrophyName={allItems.trophy[userbox.trophyId].name}></ChuniUserplateComponent>
       <ChuniPenguinComponent chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack} 
         chuniFront={userbox.avatarFront} chuniFace={userbox.avatarFace} chuniItem={userbox.avatarItem} 

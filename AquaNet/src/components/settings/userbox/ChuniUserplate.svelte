@@ -10,11 +10,12 @@
     export var chuniNameplate: number = 1
     export var chuniCharacter: number = 0
     export var chuniTrophyName: string = "NEWCOMER"
+    export var chuniIsUserbox: boolean = false;
 </script>
 {#await DDSreader?.getFile(`nameplate:${chuniNameplate.toString().padStart(8, "0")}`, `nameplate:00000001`) then nameplateURL}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div on:click class="chuni-nameplate" style:background={`url(${nameplateURL})`}>
+    <div on:click class="chuni-nameplate" class:chuni-nameplate-clickable={chuniIsUserbox} style:background={`url(${nameplateURL})`}>
         {#await DDSreader?.getFile(`characterThumbnail:${chuniCharacter.toString().padStart(6, "0")}`, `characterThumbnail:000000`) then characterThumbnailURL}
             <img class="chuni-character" src={characterThumbnailURL} alt="Character">
         {/await}
@@ -54,7 +55,9 @@
     font-size: 16px
     /* Overlap penguin avatar when put side to side */
     z-index: 1 
-    cursor: pointer
+    
+    &.chuni-nameplate-clickable
+        cursor: pointer
 
     .chuni-trophy
         width: 390px
