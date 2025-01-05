@@ -310,4 +310,6 @@ export const SETTING = {
     post('/api/v2/settings/get', {}),
   set: (key: string, value: any) =>
     post('/api/v2/settings/set', { key, value: `${value}` }),
+  detailSet: (game: string, field: string, value: any) =>
+    post(`/api/v2/game/${game}/user-detail-set`, { field, value }),
 }

@@ -21,7 +21,7 @@ fun usernameCheck(chars: String): (IUserData, String) -> Unit = { u, v ->
     u.userName = v
     if (v.isBlank()) { 400 - "Username cannot be blank" }
     if (v.length > 8) { 400 - "Username too long" }
-    v.find { it !in chars }?.let { 400 - "Invalid character '$it' in username" }
+//    v.find { it !in chars }?.let { 400 - "Invalid character '$it' in username" }
 }
 
 fun toFullWidth(input: String): String {
