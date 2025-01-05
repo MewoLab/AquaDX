@@ -55,11 +55,11 @@ class Chu3NetBattleLog(
 ) : Chu3UserEntity() {
 
     // musicId, difficultyId, userName, score, memberName{1-3}, memberScore{1-3}, selectedMemberNum
-    fun toDict() = mapOf(
+    fun toDict(username: String) = mapOf(
         "musicId" to musicId,
         "difficultyId" to difficultyId,
         "score" to score,
-        "userName" to selectUserName,
+        "userName" to username,
         "memberName1" to opponentUserName1,
         "memberScore1" to opponentScore1,
         "memberName2" to opponentUserName2,

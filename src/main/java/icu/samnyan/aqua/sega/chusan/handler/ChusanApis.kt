@@ -36,7 +36,7 @@ fun ChusanController.chusanInit() {
         val recent = db.netBattleLog.findTop20ByUserOrderByIdDesc(u)
         mapOf("userId" to uid, "userNetBattleData" to mapOf(
             "recentNBSelectMusicList" to (misc?.recentNbSelect ?: empty),
-            "recentNBMusicList" to recent.map { it.toDict() },
+            "recentNBMusicList" to recent.map { it.toDict(u.userName) },
         ))
     }
     "GetUserNetBattleRankingInfo" { """{"userId":"${data["userId"]}","length":"0","userNetBattleRankingInfoList":{}}""" }
