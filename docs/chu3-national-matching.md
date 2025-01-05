@@ -14,7 +14,7 @@ This is tested on Chusan 2.27.
 
 ## Setting Up
 
-![](chu3-matching.png)
+![](img/chu3-matching.png)
 
 1. Go to the AquaNet website and set your matching server to "Yukiotoko"  
    (To go to the settings page, click on the gear icon in the top right corner of your profile, switch to chuni tab, scroll down, click "Select Matching Server")
@@ -37,6 +37,28 @@ set /p gamedirectory = Make sure this is run as admin and enter game path (e.g. 
 netsh advfirewall firewall add rule name="Chunithm National Matching Inbound" dir=in action=allow profile=any program="%gamedirectory%" enable=yes
 netsh advfirewall firewall add rule name="Chunithm National Matching Outbound" dir=out action=allow profile=any program="%gamedirectory%" enable=yes
 ```
+
+## Troubleshooting
+
+**Q: Game crashes when entering match mode**
+
+Make sure you are using Dniel97's segatools.
+
+**Q: After matching, timer shows 999 seconds and nobody can start**
+
+Make sure you have patched your `chusanApp.exe` correctly.
+
+**Q: Online battle icon gray / "Unable to select after the event time"**
+
+Make sure your time zone is set to JST (UTC+9).
+
+**Q: This window show up when joining.**
+
+![](img/chu3-matching-error.png)
+
+If there is only one player, then yea it's because there are not enough players.
+Otherwise, it's because one of the players has a bad network environment (e.g. Symmetric NAT).
+Try again with someone who played this mode before, if it still doesn't work, then it's probably you.
 
 ## How to Play
 
