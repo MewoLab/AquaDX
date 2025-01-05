@@ -53,7 +53,7 @@
     position: relative
     font-size: 16px
     /* Overlap penguin avatar when put side to side */
-    z-index: 2 
+    z-index: 1 
     cursor: pointer
 
     .chuni-trophy
