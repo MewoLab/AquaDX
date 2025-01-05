@@ -1,8 +1,8 @@
 # AquaDX
 
-Multipurpose game server powered by Spring Boot, for ALL.Net-based games
+Multipurpose game server for ALL.Net games.
 
-This is an attempt to rebuild the [original Aqua server](https://dev.s-ul.net/NeumPhis/aqua)
+Public server hosted at https://aquadx.net
 
 ## Related Projects
 
