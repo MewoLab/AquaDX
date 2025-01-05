@@ -14,6 +14,7 @@ class Chusan(
     override val us: AquaUserServices,
     override val playlogRepo: Chu3UserPlaylogRepo,
     override val userDataRepo: Chu3UserDataRepo,
+    override val userMusicRepo: Chu3UserMusicDetailRepo,
     val rp: Chu3Repos
 ): GameApiController<Chu3UserData>("chu3", Chu3UserData::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->

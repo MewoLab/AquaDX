@@ -4,6 +4,7 @@ package icu.samnyan.aqua.sega.maimai2.model
 
 import icu.samnyan.aqua.net.games.GenericPlaylogRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
+import icu.samnyan.aqua.net.games.GenericUserMusicRepo
 import icu.samnyan.aqua.net.games.IUserRepo
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
@@ -90,12 +91,10 @@ interface Mai2UserMapRepo : Mai2UserLinked<Mai2UserMap> {
     fun findByUserAndMapId(user: Mai2UserDetail, mapId: Int): Optional<Mai2UserMap>
 }
 
-interface Mai2UserMusicDetailRepo : Mai2UserLinked<Mai2UserMusicDetail> {
+interface Mai2UserMusicDetailRepo : Mai2UserLinked<Mai2UserMusicDetail>, GenericUserMusicRepo<Mai2UserMusicDetail> {
     fun findByUser_Card_ExtIdAndMusicId(userId: Long, id: Int): List<Mai2UserMusicDetail>
 
     fun findByUserAndMusicIdAndLevel(user: Mai2UserDetail, musicId: Int, level: Int): Optional<Mai2UserMusicDetail>
-
-    fun findByUser_Card_ExtIdAndMusicIdIn(userId: Long, musicId: List<Int>): List<Mai2UserMusicDetail>
 
     fun findByUserId(userId: Long): List<Mai2UserMusicDetail>
 }

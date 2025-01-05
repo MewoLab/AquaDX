@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.wacca.model.db
 
 import icu.samnyan.aqua.net.games.GenericPlaylogRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
+import icu.samnyan.aqua.net.games.GenericUserMusicRepo
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -32,7 +33,7 @@ interface WcUserItemRepo : IWaccaUserLinked<WcUserItem> {
     fun findByUserAndType(user: WaccaUser, type: Int): List<WcUserItem>
     fun findByUserAndItemIdAndType(user: WaccaUser, itemId: Int, type: Int): WcUserItem?
 }
-interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore> {
+interface WcUserBestScoreRepo : IWaccaUserLinked<WcUserScore>, GenericUserMusicRepo<WcUserScore> {
     fun findByUserAndMusicIdAndLevel(user: WaccaUser, songId: Int, level: Int): WcUserScore?
     @Query("SELECT SUM(achievement) FROM WcUserScore WHERE user = :user")
     fun sumScoreByUser(user: WaccaUser): Long

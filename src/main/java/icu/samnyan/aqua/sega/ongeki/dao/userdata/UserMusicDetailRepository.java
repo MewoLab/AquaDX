@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.ongeki.dao.userdata;
 
+import icu.samnyan.aqua.net.games.GenericUserMusicRepo;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserData;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.UserMusicDetail;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ import java.util.Optional;
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Repository("OngekiUserMusicDetailRepository")
-public interface UserMusicDetailRepository extends JpaRepository<UserMusicDetail, Long> {
+public interface UserMusicDetailRepository extends JpaRepository<UserMusicDetail, Long>, GenericUserMusicRepo<UserMusicDetail> {
 
     List<UserMusicDetail> findByUser_Card_ExtId(long userId);
 

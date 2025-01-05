@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.chusan.model.userdata
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import icu.samnyan.aqua.net.games.IGenericUserMusic
 import icu.samnyan.aqua.sega.util.jackson.BooleanToIntegerDeserializer
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
@@ -15,8 +16,8 @@ import jakarta.persistence.UniqueConstraint
     name = "chusan_user_music_detail",
     uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "music_id", "level"])]
 )
-class UserMusicDetail : Chu3UserEntity() {
-    var musicId = 0
+class UserMusicDetail : Chu3UserEntity(), IGenericUserMusic {
+    override var musicId = 0
     var level = 0
     var playCount = 0
     var scoreMax = 0

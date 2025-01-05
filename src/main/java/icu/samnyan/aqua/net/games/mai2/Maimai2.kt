@@ -16,6 +16,7 @@ class Maimai2(
     override val us: AquaUserServices,
     override val playlogRepo: Mai2UserPlaylogRepo,
     override val userDataRepo: Mai2UserDataRepo,
+    override val userMusicRepo: Mai2UserMusicDetailRepo,
     val repos: Mai2Repos,
 ) : GameApiController<Mai2UserDetail>("mai2", Mai2UserDetail::class) {
     override suspend fun trend(@RP username: Str): List<TrendOut> = us.cardByName(username) { card ->
@@ -97,11 +98,6 @@ class Maimai2(
     @API("user-favorite")
     suspend fun userFavorite(@RP username: Str) = us.cardByName(username) { card ->
         repos.userFavorite.findByUser_Card_ExtId(card.extId)
-    }
-
-    @API("user-music-from-list")
-    suspend fun userMusicFromList(@RP username: Str, @RB musicList: List<Int>) = us.cardByName(username) { card ->
-        repos.userMusicDetail.findByUser_Card_ExtIdAndMusicIdIn(card.extId, musicList)
     }
 
     @PostMapping("change-name")
