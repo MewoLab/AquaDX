@@ -148,6 +148,8 @@ export const EN_REF_SETTINGS = {
   'settings.fields.chusanMatchingServer.desc': 'URL of the national matching server.',
   'settings.fields.rounding.name': 'Score Rounding',
   'settings.fields.rounding.desc': 'Round the score to one decimal place',
+  'settings.fields.gameUsername.name': 'In-Game Username',
+  'settings.fields.gameUsername.desc': 'Your name shown in game',
   'settings.fields.optOutOfLeaderboard.name': 'Opt Out of Leaderboard',
   'settings.fields.optOutOfLeaderboard.desc': 'You will still be able to see yourself on the leaderboard after logging in',
   'settings.mai2.name': 'Player Name',

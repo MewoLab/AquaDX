@@ -158,6 +158,8 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.fields.chusanMatchingServer.desc': '全国对战服务器的 URL',
   'settings.fields.rounding.name': '分数舍入',
   'settings.fields.rounding.desc': '把分数四舍五入到一位小数',
+  'settings.fields.gameUsername.name': '游戏用户名',
+  'settings.fields.gameUsername.desc': '在游戏中显示的用户名',
   'settings.fields.optOutOfLeaderboard.name': '不参与排行榜',
   'settings.fields.optOutOfLeaderboard.desc': '登录之后还是可以在排行榜上看到自己',
   'settings.mai2.name': '玩家名字',
@@ -192,7 +194,6 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.avatarItem': '企鹅物品',
   'userbox.avatarFront': '企鹅前景',
   'userbox.avatarBack': '企鹅背景',
-  'userbox.preview.notice': '「生存战略」：为了尊重版权，我们不会提供游戏内物品的图片。但是如果你认识其他愿意提供图床的人，在这里输入 URL 就可以显示出预览。',
   'userbox.preview.url': '图床 URL',
   'userbox.error.nodata': '未找到中二数据',
 
@@ -206,15 +207,23 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': '将 Chuni（Lumi 或更高版本）的游戏文件夹拖放到下方区域，以显示带有名牌和头像的 UserBox。所有文件都在浏览器中处理。',
+  'userbox.new.setup.notice': '我们支持的目录结构是把 opt 放进 "bin/option" 并且把 "A000" 放在 "data" 里面。',
   'userbox.new.setup.processing_file': '正在处理文件',
   'userbox.new.setup.finalizing': '正在保存到内部存储',
   'userbox.new.drop': '将游戏文件夹拖到此处',
+  'userbox.new.switch.to_url': '切换到 URL 模式',
+  'userbox.new.switch.to_drop': '切换到游戏目录模式',
+  'userbox.new.url_warning': '请输入访问 UserBox 资源的 URL（请参阅文档）',
   'userbox.new.activate_first': '启用 AquaBox（需要游戏文件）',
   'userbox.new.activate_update': '更新 AquaBox（需要游戏文件）',
   'userbox.new.activate': '使用 AquaBox',
   'userbox.new.activate_desc': '启用后可显示带有名牌和头像的 UserBox',
-  'userbox.new.error.invalidFolder': '所选文件夹无效。请确认游戏版本为 Lumi 或更新，并且包含 “A001” 选项包。'
+  'userbox.new.activate_profile': '在用户页面启用 AquaBox',
+  'userbox.new.activate_profile_desc': '启用后可在个人页面显示带有名牌和头像的 UserBox',
+  'userbox.new.error.invalidFolder': '所选文件夹无效。请确认游戏版本为 Lumi 或更新，并且包含 “A000” 选项包。',
+  'userbox.new.error.invalidUrl': '输入的 URL 无效。'
 };
+
 
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
   ...zhLeaderboard, ...zhHome, ...zhSettings, ...zhUserbox }
