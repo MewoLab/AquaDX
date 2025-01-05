@@ -22,8 +22,8 @@ This is tested on Chusan 2.27.
    If you're using fufubot segatools, please override it with Dniel97's version (don't forget to update `segatools.ini`).
 3. Patch your `chusanApp.exe` using [Two-Torial's open-source patcher](https://patcher.two-torial.xyz/)  
    (Make sure you disable "Set all timer to 999", enable "No encryption", "No TLS", "Patch for head-to-head play")
-4. Make sure you only have official options, but add the option [ARRR](https://pixeldrain.com/u/D2jjN3of).  
-   (Remove things like A999, AOMN, etc.)
+4. Add the option [ARRR](https://pixeldrain.com/u/D2jjN3of).  
+   If you're playing with friends, make sure they have the same options as you.
 5. Pet your cat 🐈
 6. Launch!
 
@@ -60,6 +60,12 @@ Make sure your time zone is set to JST (UTC+9).
 If there is only one player, then yea it's because there are not enough players.
 Otherwise, it's because one of the players has a bad network environment (e.g. Symmetric NAT).
 Try again with someone who played this mode before, if it still doesn't work, then it's probably you.
+
+**Q: Why did I play two of the same songs in a row?**
+
+When other people picked a song that you don't have, the game will play the same song as the previous one.
+Make sure you have up-to-date options in your game. 
+(Or they might have selected a custom chart, in that case there's not much you can do)
 
 ## How to Play
 
