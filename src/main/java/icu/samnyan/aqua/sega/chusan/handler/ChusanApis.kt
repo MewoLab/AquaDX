@@ -28,7 +28,15 @@ fun ChusanController.chusanInit() {
     "GetUserRegion" { """{"userId":"${data["userId"]}","length":"0","userRegionList":[]}""" }
     "GetUserPrintedCard" { """{"userId":"${data["userId"]}","length":0,"nextIndex":-1,"userPrintedCardList":[]}""" }
     "GetUserSymbolChatSetting" { """{"userId":"${data["userId"]}","length":"0","symbolChatInfoList":[]}""" }
-    "GetUserNetBattleData" { """{"userId":"${data["userId"]}","userNetBattleData":{"recentNBSelectMusicList":[],"recentNBMusicList":[]}}""" }
+
+    // Net battle data
+    "GetUserNetBattleData" {
+        val misc = db.userMisc.findSingleByUser_Card_ExtId(uid)()
+        mapOf("userId" to uid, "userNetBattleData" to mapOf(
+            "recentNBSelectMusicList" to (misc?.recentNbSelect ?: empty),
+            "recentNBMusicList" to (misc?.recentNbMusic ?: empty),
+        ))
+    }
     "GetUserNetBattleRankingInfo" { """{"userId":"${data["userId"]}","length":"0","userNetBattleRankingInfoList":{}}""" }
 
     // User handlers
@@ -111,14 +119,12 @@ fun ChusanController.chusanInit() {
     "GetUserFavoriteItem".pagedWithKind("userFavoriteItemList") {
         val kind = parsing { data["kind"]!!.int }
         mapOf("kind" to kind) grabs {
-            // TODO: Actually store this info at UpsertUserAll
-            val fav = when (kind) {
-                1 -> "favorite_music"
-                3 -> "favorite_chara"
-                else -> null
-            }?.let { db.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(uid, it)() }?.propertyValue
-
-            fav?.ifBlank { null }?.split(",")?.map { it.int } ?: emptyList()
+            val misc = db.userMisc.findSingleByUser_Card_ExtId(uid)()
+            when (kind) {
+                1 -> misc?.favMusic ?: empty
+                3 -> empty  // TODO: Favorite character
+                else -> empty
+            }
         }
     }
 
