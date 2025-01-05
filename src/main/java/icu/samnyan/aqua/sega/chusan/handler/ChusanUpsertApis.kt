@@ -39,6 +39,7 @@ fun ChusanController.upsertApiInit() {
             listOfNotNull(
                 userPlaylogList, userGameOption, userMapAreaList, userCharacterList, userItemList,
                 userMusicDetailList, userActivityList, userChargeList, userCourseList, userDuelList,
+                userNetBattlelogList
             ).flatten().forEach { it.user = u }
 
             // Ratings
@@ -62,6 +63,7 @@ fun ChusanController.upsertApiInit() {
 
             // Playlog
             userPlaylogList?.let { db.userPlaylog.saveAll(it) }
+            userNetBattlelogList?.let { db.netBattleLog.saveAll(it) }
 
             // List data
             userGameOption?.get(0)?.let { obj ->

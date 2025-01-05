@@ -127,6 +127,8 @@ interface Chu3UserCMissionProgressRepo : Chu3UserLinked<UserCMissionProgress> {
     fun findByUser_Card_ExtIdAndMissionIdAndOrder(extId: Long, missionId: Int, order: Int): Optional<UserCMissionProgress>
 }
 
+interface Chu3NetBattleLogRepo : Chu3UserLinked<Chu3NetBattleLog>
+
 interface Chu3MatchingMemberRepo : JpaRepository<Chu3MatchingMember, Long> {
     fun existsByUserIdAndUserName(userId: Long, userName: String): Boolean
 }
@@ -184,6 +186,7 @@ class Chu3Repos(
     val userPlaylog: Chu3UserPlaylogRepo,
     val userCMission: Chu3UserCMissionRepo,
     val userCMissionProgress: Chu3UserCMissionProgressRepo,
+    val netBattleLog: Chu3NetBattleLogRepo,
     val matchingMember: Chu3MatchingMemberRepo,
     val gameCharge: Chu3GameChargeRepo,
     val gameEvent: Chu3GameEventRepo,
