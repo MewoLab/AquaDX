@@ -11,6 +11,10 @@
     export var chuniCharacter: number = 0
     export var chuniTrophyName: string = "NEWCOMER"
     export var chuniIsUserbox: boolean = false;
+
+    let ratingToString = (rating: number) => {
+        return rating.toFixed(2)
+    }
 </script>
 {#await DDSreader?.getFile(`nameplate:${chuniNameplate.toString().padStart(8, "0")}`, `nameplate:00000001`) then nameplateURL}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -40,7 +44,7 @@
             <div class="chuni-user-rating">
                 RATING
                 <span class="chuni-user-rating-number">
-                    {chuniRating}
+                    {ratingToString(chuniRating)}
                 </span>
             </div>
         </div>

@@ -141,8 +141,12 @@
 
   indexedDB.databases().then(async (dbi) => {
     let databaseExists = dbi.some(db => db.name == "userboxChusanDDS");
-    if (databaseExists)
+    if (USERBOX_URL_STATE.value && databaseExists) {
+      indexedDB.deleteDatabase("userboxChusanDDS")
+    }
+    if (databaseExists) {
       await initializeDb();
+    }
     if (databaseExists || USERBOX_URL_STATE.value) {
       DDSreader = new DDS(ddsDB);
       USERBOX_INSTALLED = databaseExists || USERBOX_URL_STATE.value != "";
@@ -283,26 +287,28 @@
         {#if USERBOX_SETUP_MODE}
           <input type="text" on:keyup={e => {if (e.key == "Enter") userboxHandleInput((e.target as HTMLInputElement).value)}} class="add-margin" placeholder="Base URL">
         {:else}
-          <p class="notice add-margin">
-            {t('userbox.new.setup.notice')}
-          </p>
           {#if USERBOX_PROGRESS != 0}
             <div class="progress">
               <div class="progress-bar" style="width: {USERBOX_PROGRESS}%"></div>
             </div>
           {:else}
+          <p class="notice add-margin">
+            {t('userbox.new.setup.notice')}
+          </p>
           <button class="drop-btn">
             <input type="file" on:input={userboxSafeDrop} on:click={e => e.preventDefault()}>
             {t('userbox.new.drop')}
           </button>
           {/if}
         {/if}
-        <button on:click={() => USERBOX_SETUP_RUN = false}>
-          {t('back')}
-        </button>
-        <button on:click={() => USERBOX_SETUP_MODE = !USERBOX_SETUP_MODE}>
-          {t(USERBOX_SETUP_MODE ? 'userbox.new.switch.to_drop' : 'userbox.new.switch.to_url')}
-        </button>
+        {#if USERBOX_PROGRESS == 0}
+          <button on:click={() => USERBOX_SETUP_RUN = false}>
+            {t('back')}
+          </button>
+          <button on:click={() => USERBOX_SETUP_MODE = !USERBOX_SETUP_MODE}>
+            {t(USERBOX_SETUP_MODE ? 'userbox.new.switch.to_drop' : 'userbox.new.switch.to_url')}
+          </button>
+        {/if}
       </div>
     </div>
   </div>
