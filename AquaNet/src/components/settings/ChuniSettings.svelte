@@ -24,6 +24,8 @@
   import useLocalStorage from "../../libs/hooks/useLocalStorage.svelte";
   import { DDS } from "../../libs/userbox/dds";
   import ChuniMatchingSettings from "./ChuniMatchingSettings.svelte";
+  import InputWithButton from "../ui/InputWithButton.svelte";
+  import InputField from "../ui/InputField.svelte";
 
   let user: AquaNetUser
   let [loading, error, submitting, preview] = [true, "", "", ""]
@@ -38,6 +40,7 @@
   let avatarKinds = ['Wear', 'Head', 'Face', 'Skin', 'Item', 'Front', 'Back'] as const
   // iKey should match allItems keys, and ubKey should match userbox keys
   let userItems: { iKey: string, ubKey: keyof UserBox, items: UserItem[] }[] = []
+  let userNameField: any
 
   // Submit changes
   function submit(field: keyof UserBox) {
@@ -59,6 +62,7 @@
     })
     if (!profile) return
     userbox = profile.user
+    userNameField = {key: "gameUsername", value: userbox.userName, type: "String"}
     userItems = Object.entries(iKinds).flatMap(([iKey, iKind]) => {
       if (iKey != 'avatarAccessory') {
         let ubKey = `${iKey}Id`
@@ -159,7 +163,12 @@
 {#if !loading && !error}
 <div out:fade={FADE_OUT} in:fade={FADE_IN}>
   <h2>{t("userbox.header.general")}</h2>
-  <GameSettingFields game="chu3"/>
+  <div class="general-options">
+    <GameSettingFields game="chu3"/>
+
+    <InputField bind:field={userNameField}
+      callback={() => USERBOX.setUserBox({ field: "userName", value: userNameField.value })}/>
+  </div>
   <h2>{t("userbox.header.userbox")}</h2>
   {#if !USERBOX_ENABLED.value || !USERBOX_INSTALLED}
     <div class="fields">
@@ -308,6 +317,12 @@ input
 
 h2
   margin-bottom: 0.5rem
+
+.general-options
+  display: flex
+  flex-direction: column
+  flex-wrap: wrap
+  gap: 12px
 
 p.notice
   opacity: 0.6
