@@ -126,7 +126,7 @@ fun ChusanController.chusanInit() {
                 1 -> misc?.favMusic ?: empty
                 3 -> empty  // TODO: Favorite character
                 else -> empty
-            }.map { "id" to it }
+            }.map { mapOf("id" to it) }
         }
     }
 
