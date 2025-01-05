@@ -153,3 +153,12 @@ export interface UserBox {
   level: number
   playerRating: number
 }
+
+export interface ChusanMatchingOption {
+  name: string
+  ui: string
+  guide: string
+  matching: string
+  reflector: string
+  coop: string[]
+}

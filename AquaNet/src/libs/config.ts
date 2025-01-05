@@ -1,3 +1,4 @@
+import type { ChusanMatchingOption } from "./generalTypes"
 
 export const AQUA_HOST = 'https://aquadx.net/aqua'
 export const DATA_HOST = 'https://aquadx.net'
@@ -18,3 +19,27 @@ export const DEFAULT_PFP = '/assets/imgs/no_profile.png'
 // USERBOX_ASSETS
 // Please note that if this is set, it must be manually unset by users in Chuni Settings -> Update Userbox -> Switch to URL mode -> (empty value) -> Enter key
 export const USERBOX_DEFAULT_URL = ""
+
+export const HAS_USERBOX_ASSETS = true
+
+// Meow meow meow
+
+// Matching servers
+export const CHU3_MATCHINGS: ChusanMatchingOption[] = [
+  {
+    name: "林国对战",
+    ui: "https://chu3-match.sega.ink/rooms",
+    guide: "https://performai.evilleaker.com/manual/games/chunithm/national_battle/",
+    matching: "https://chu3-match.sega.ink/",
+    reflector: "http://reflector.naominet.live:18080/",
+    coop: ["RinNET", "MysteriaNET"],
+  },
+  {
+    name: "Yukiotoko",
+    ui: "https://yukiotoko.metatable.sh/",
+    guide: "https://github.com/MewoLab/AquaDX/blob/v1-dev/docs/chu3-national-matching.md",
+    matching: "http://yukiotoko.chara.lol:9004/",
+    reflector: "http://yukiotoko.chara.lol:50201/",
+    coop: ["Missless", "CozyNet", "GMG"]
+  }
+]

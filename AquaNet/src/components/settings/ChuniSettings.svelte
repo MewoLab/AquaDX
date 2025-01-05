@@ -23,6 +23,7 @@
 
   import useLocalStorage from "../../libs/hooks/useLocalStorage.svelte";
   import { DDS } from "../../libs/userbox/dds";
+  import ChuniMatchingSettings from "./ChuniMatchingSettings.svelte";
 
   let user: AquaNetUser
   let [loading, error, submitting, preview] = [true, "", "", ""]
@@ -255,6 +256,7 @@
       <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
     </p>
   {/if} 
+  <ChuniMatchingSettings/>
   <!--{#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
     <h2>{t("userbox.header.preview")}</h2>
     <p class="notice">{t("userbox.preview.notice")}</p>
