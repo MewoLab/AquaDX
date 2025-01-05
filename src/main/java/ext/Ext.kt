@@ -196,6 +196,7 @@ fun <K, V: Any> Map<K, V?>.vNotNull(): Map<K, V> = filterValues { it != null }.m
 fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
 fun <T> MutableList<T>.popAll(vararg items: T) = popAll(items.toList())
 inline fun <T> Iterable<T>.mapApply(block: T.() -> Unit) = map { it.apply(block) }
+inline fun <T> Iterable<T>.mapApplyI(block: T.(Int) -> Unit) = mapIndexed { i, e -> e.apply { block(i) } }
 @Suppress("UNCHECKED_CAST")
 fun <K, V: Any> Map<K, V?>.recursiveNotNull(): Map<K, V> = mapNotNull { (k, v) ->
     k to if (v is Map<*, *>) (v as Map<Any?, Any?>).recursiveNotNull() else v

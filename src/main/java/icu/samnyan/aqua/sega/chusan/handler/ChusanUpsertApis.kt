@@ -71,7 +71,13 @@ fun ChusanController.upsertApiInit() {
 
             // Playlog
             userPlaylogList?.let { db.userPlaylog.saveAll(it) }
-            userNetBattlelogList?.let { db.netBattleLog.saveAll(it.mapApply {
+            userNetBattlelogList?.let { db.netBattleLog.saveAll(it.mapApplyI { i ->
+                userPlaylogList?.getOrNull(i)?.let {
+                    musicId = it.musicId
+                    difficultyId = it.level
+                    score = it.score
+                }
+
                 selectUserName = selectUserName.fromChusanUsername()
                 opponentUserName1 = opponentUserName1.fromChusanUsername()
                 opponentUserName2 = opponentUserName2.fromChusanUsername()
