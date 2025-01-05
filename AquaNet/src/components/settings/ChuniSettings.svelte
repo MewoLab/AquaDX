@@ -8,7 +8,7 @@
   } from "../../libs/generalTypes";
   import { DATA, USER, USERBOX } from "../../libs/sdk";
   import { t, ts } from "../../libs/i18n";
-  import { DATA_HOST, FADE_IN, FADE_OUT, HAS_USERBOX_ASSETS } from "../../libs/config";
+  import { DATA_HOST, FADE_IN, FADE_OUT, USERBOX_DEFAULT_URL } from "../../libs/config";
   import { fade, slide } from "svelte/transition";
   import StatusOverlays from "../StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
@@ -97,9 +97,11 @@
 
   let USERBOX_PROGRESS = 0;
   let USERBOX_SETUP_RUN = false;
+  let USERBOX_SETUP_MODE = false;
   let USERBOX_SETUP_TEXT = t("userbox.new.setup");
 
   let USERBOX_ENABLED = useLocalStorage("userboxNew", false);
+  let USERBOX_PROFILE_ENABLED = useLocalStorage("userboxNewProfile", false);
   let USERBOX_INSTALLED = false;
   let USERBOX_SUPPORT = "webkitGetAsEntry" in DataTransferItem.prototype;
 
@@ -117,12 +119,37 @@
     }) ?? "";
   }
 
+  let USERBOX_URL_STATE = useLocalStorage("userboxURL", USERBOX_DEFAULT_URL);
+  function userboxHandleInput(baseURL: string, isSetByServer: boolean = false) {
+    if (baseURL != "")
+      try {
+        // validate url
+        new URL(baseURL, location.href);
+      } catch(err) {
+        if (isSetByServer)
+          return;
+        return error = t("userbox.new.error.invalidUrl")
+      }
+    USERBOX_URL_STATE.value = baseURL;
+    USERBOX_ENABLED.value = true;
+    USERBOX_PROFILE_ENABLED.value = true;
+    location.reload();
+  }
+
+  if (USERBOX_DEFAULT_URL && !USERBOX_URL_STATE.value)
+    userboxHandleInput(USERBOX_DEFAULT_URL, true);
+
   indexedDB.databases().then(async (dbi) => {
     let databaseExists = dbi.some(db => db.name == "userboxChusanDDS");
+    if (USERBOX_URL_STATE.value && databaseExists) {
+      indexedDB.deleteDatabase("userboxChusanDDS")
+    }
     if (databaseExists) {
       await initializeDb();
+    }
+    if (databaseExists || USERBOX_URL_STATE.value) {
       DDSreader = new DDS(ddsDB);
-      USERBOX_INSTALLED = databaseExists;
+      USERBOX_INSTALLED = databaseExists || USERBOX_URL_STATE.value != "";
     }
   })
 
@@ -156,9 +183,9 @@
     </div>
   {:else}
     <div class="chuni-userbox-container">
-      <ChuniUserplateComponent on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level} chuniRating={userbox.playerRating / 100}
+      <ChuniUserplateComponent chuniIsUserbox={true} on:click={() => userboxSelected = "nameplateId"} chuniCharacter={userbox.characterId} chuniLevel={userbox.level.toString()} chuniRating={userbox.playerRating / 100}
         chuniNameplate={userbox.nameplateId} chuniName={userbox.userName} chuniTrophyName={allItems.trophy[userbox.trophyId].name}></ChuniUserplateComponent>
-      <ChuniPenguinComponent classPassthrough="chuni-penguin-float" chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack}
+      <ChuniPenguinComponent chuniWear={userbox.avatarWear} chuniHead={userbox.avatarHead} chuniBack={userbox.avatarBack}
         chuniFront={userbox.avatarFront} chuniFace={userbox.avatarFace} chuniItem={userbox.avatarItem}
         chuniSkin={userbox.avatarSkin}></ChuniPenguinComponent>
     </div>
@@ -210,39 +237,28 @@
       {/each}
     </div>
   {/if}
-  {#if HAS_USERBOX_ASSETS}
-    {#if USERBOX_INSTALLED}
-      <!-- god this is a mess but idgaf atp -->
-      <div class="field boolean" style:margin-top="1em">
-        <input type="checkbox" bind:checked={USERBOX_ENABLED.value} id="newUserbox">
-        <label for="newUserbox">
-          <span class="name">{t("userbox.new.activate")}</span>
-          <span class="desc">{t(`userbox.new.activate_desc`)}</span>
-        </label>
-      </div>
-    {/if}
-    {#if USERBOX_SUPPORT}
-      <p>
-        <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
-      </p>
-    {/if}
-    {#if !USERBOX_SUPPORT || !USERBOX_INSTALLED || !USERBOX_ENABLED.value}
-      <h2>{t("userbox.header.preview")}</h2>
-      <p class="notice">{t("userbox.preview.notice")}</p>
-      <input bind:value={preview} placeholder={t("userbox.preview.url")}/>
-      {#if preview}
-        <div class="preview">
-          {#each userItems.filter(v => v.iKey != 'trophy' && v.iKey != 'systemVoice') as { iKey, ubKey, items }, i}
-            <div>
-              <span>{ts(`userbox.${ubKey}`)}</span>
-              <img src={`${preview}/${iKey}/${userbox[ubKey].toString().padStart(8, '0')}.png`} alt="" on:error={coverNotFound} />
-            </div>
-          {/each}
-        </div>
-      {/if}
-    {/if}
+  {#if USERBOX_INSTALLED}
+    <!-- god this is a mess but idgaf atp -->
+    <div class="field boolean" style:margin-top="1em">
+      <input type="checkbox" bind:checked={USERBOX_ENABLED.value} id="newUserbox">
+      <label for="newUserbox">
+        <span class="name">{t("userbox.new.activate")}</span>
+        <span class="desc">{t(`userbox.new.activate_desc`)}</span>
+      </label>
+    </div>
+    <div class="field boolean" style:margin-top="1em">
+      <input type="checkbox" bind:checked={USERBOX_PROFILE_ENABLED.value} id="newUserboxProfile">
+      <label for="newUserboxProfile">
+        <span class="name">{t("userbox.new.activate_profile")}</span>
+        <span class="desc">{t(`userbox.new.activate_profile_desc`)}</span>
+      </label>
+    </div>
   {/if}
-
+  {#if USERBOX_SUPPORT && !USERBOX_DEFAULT_URL}
+    <p>
+      <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
+    </p>
+  {/if}
   <ChuniMatchingSettings/>
 </div>
 {/if}
@@ -251,20 +267,32 @@
   <div class="overlay" transition:fade>
     <div>
       <h2>{t('userbox.new.name')}</h2>
-      <span>{USERBOX_SETUP_TEXT}</span>
+      <span>{USERBOX_SETUP_MODE ? t('userbox.new.url_warning') : USERBOX_SETUP_TEXT}</span>
       <div class="actions">
-        {#if USERBOX_PROGRESS != 0}
-          <div class="progress">
-            <div class="progress-bar" style="width: {USERBOX_PROGRESS}%"></div>
-          </div>
+        {#if USERBOX_SETUP_MODE}
+          <input type="text" on:keyup={e => {if (e.key == "Enter") userboxHandleInput((e.target as HTMLInputElement).value)}} class="add-margin" placeholder="Base URL">
         {:else}
-        <button class="drop-btn">
-          <input type="file" on:input={userboxSafeDrop} on:click={e => e.preventDefault()}>
-          {t('userbox.new.drop')}
-        </button>
-        <button on:click={() => USERBOX_SETUP_RUN = false}>
-          {t('back')}
-        </button>
+          {#if USERBOX_PROGRESS != 0}
+            <div class="progress">
+              <div class="progress-bar" style="width: {USERBOX_PROGRESS}%"></div>
+            </div>
+          {:else}
+          <p class="notice add-margin">
+            {t('userbox.new.setup.notice')}
+          </p>
+          <button class="drop-btn">
+            <input type="file" on:input={userboxSafeDrop} on:click={e => e.preventDefault()}>
+            {t('userbox.new.drop')}
+          </button>
+          {/if}
+        {/if}
+        {#if USERBOX_PROGRESS == 0}
+          <button on:click={() => USERBOX_SETUP_RUN = false}>
+            {t('back')}
+          </button>
+          <button on:click={() => USERBOX_SETUP_MODE = !USERBOX_SETUP_MODE}>
+            {t(USERBOX_SETUP_MODE ? 'userbox.new.switch.to_drop' : 'userbox.new.switch.to_url')}
+          </button>
         {/if}
       </div>
     </div>
@@ -299,13 +327,15 @@ p.notice
     border-radius: 25px
 
 
+.add-margin, .drop-btn
+  margin-bottom: 1em
+
 .drop-btn
   position: relative
   width: 100%
   aspect-ratio: 3
   background: transparent
   box-shadow: 0 0 1px 1px vars.$ov-lighter
-  margin-bottom: 1em
 
   > input
     position: absolute

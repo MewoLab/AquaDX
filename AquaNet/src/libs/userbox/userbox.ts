@@ -173,7 +173,9 @@ export async function userboxFileProcess(folder: FileSystemEntry, progressUpdate
     const dataFolder = await getDirectoryFromPath(folder, "data");
     if (dataFolder)
         await scanOptionFolder(dataFolder, progressUpdate);
+    useLocalStorage("userboxURL", "").value = "";
     useLocalStorage("userboxNew", false).value = true;
+    useLocalStorage("userboxNewProfile", false).value = true;
     location.reload();
 
     return null

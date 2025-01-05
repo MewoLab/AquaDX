@@ -266,6 +266,8 @@ export const USERBOX = {
     get('/api/v2/game/chu3/user-box', {}),
   setUserBox: (d: { field: string, value: number | string }) =>
     post(`/api/v2/game/chu3/user-detail-set`, d),
+  getUserProfile: (username: string): Promise<UserBox> =>
+    get(`/api/v2/game/chu3/user-detail`, {username})
 }
 
 export const CARD = {

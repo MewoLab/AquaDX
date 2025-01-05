@@ -16,7 +16,10 @@ export const FADE_OUT = { duration: 200 }
 export const FADE_IN = { delay: 400 }
 export const DEFAULT_PFP = '/assets/imgs/no_profile.png'
 
-// USERBOX_ASSETS
+// Documentation for Userbox mode can be found in `docs/aquabox-url-mode.md`
+// Please note that if this is set, it must be manually unset by users in Chuni Settings -> Update Userbox -> Switch to URL mode -> (empty value) -> Enter key
+export const USERBOX_DEFAULT_URL = ""
+
 export const HAS_USERBOX_ASSETS = true
 
 // Meow meow meow

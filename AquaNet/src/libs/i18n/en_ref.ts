@@ -182,7 +182,6 @@ export const EN_REF_USERBOX = {
   'userbox.avatarItem': 'Avatar Item',
   'userbox.avatarFront': 'Avatar Front',
   'userbox.avatarBack': 'Avatar Back',
-  'userbox.preview.notice': 'To honor the copyright, we cannot host the images of the userbox items. However, if someone else is willing to provide the images, you can enter their URL here and it will be displayed.',
   'userbox.preview.url': 'Image URL',
   'userbox.error.nodata': 'Chuni data not found',
 
@@ -196,14 +195,21 @@ export const EN_REF_USERBOX = {
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': 'Drag and drop your Chuni game folder (Lumi or newer) into the box below to display UserBoxes with their nameplate & avatar. All files are handled in-browser.',
+  'userbox.new.setup.notice': 'This tool assumes your files to be in "bin/option" and "data/A000".',
   'userbox.new.setup.processing_file': 'Processing',
   'userbox.new.setup.finalizing': 'Saving to internal storage',
   'userbox.new.drop': 'Drop game folder here',
+  'userbox.new.switch.to_url': 'Switch to URL mode',
+  'userbox.new.switch.to_drop': 'Switch to drop mode',
+  'userbox.new.url_warning': 'Enter in the path to access Userbox assets. You are responsible for any results in this state. Please read the documentation. Don\'t expect support for this mode.',
   'userbox.new.activate_first': 'Enable AquaBox (game files required)',
   'userbox.new.activate_update': 'Update AquaBox (game files required)',
   'userbox.new.activate': 'Use AquaBox',
   'userbox.new.activate_desc': 'Enable displaying UserBoxes with their nameplate & avatar',
-  'userbox.new.error.invalidFolder': 'The folder you selected is invalid. Ensure that your game\'s version is Lumi or newer and that the "A001" option pack is present.'
+  'userbox.new.activate_profile': 'Use AquaBox on profiles',
+  'userbox.new.activate_profile_desc': 'Enable displaying UserBoxes with their nameplate & avatar on profile pages',
+  'userbox.new.error.invalidFolder': 'The folder you selected is invalid. Ensure that your game\'s version is Lumi or newer and that the "A000" option pack is present.',
+  'userbox.new.error.invalidUrl': 'The URL you inputted is invalid.'
 }
 
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,

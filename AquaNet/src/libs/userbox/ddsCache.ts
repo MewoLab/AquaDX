@@ -1,3 +1,6 @@
+import useLocalStorage from "../hooks/useLocalStorage.svelte";
+import { USERBOX_DEFAULT_URL } from "../config";
+
 export default class DDSCache {
     constructor(db: IDBDatabase | undefined) {
         this.db = db;
@@ -43,7 +46,13 @@ export default class DDSCache {
      * @param path Image path
      */
     getFromDatabase(path: string): Promise<Blob | null> {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
+            if (this.userboxURL.value != "") {
+                let targetPath = path.replaceAll(":", "/");
+                let response = await fetch(`${this.userboxURL.value}/${targetPath}.chu`).then(b => b.blob()).catch(reject);
+                if (response)
+                    return resolve(response);
+            };
             if (!this.db)
                 return resolve(null);
             let transaction = this.db.transaction(["dds"], "readonly");
@@ -61,4 +70,5 @@ export default class DDSCache {
 
     private urlCache: {scale: number, path: string, url: string}[] = [];
     private db: IDBDatabase | undefined;
+    userboxURL = useLocalStorage("userboxURL", USERBOX_DEFAULT_URL);
 }
