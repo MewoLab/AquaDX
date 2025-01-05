@@ -3,15 +3,18 @@ CREATE TABLE chusan_net_battle_log
     id                               BIGINT AUTO_INCREMENT NOT NULL,
     user_id                          BIGINT                NULL,
     room_id                          BIGINT                NOT NULL,
-    track                            BIGINT                NOT NULL,
+    track                            INT                   NOT NULL,
+    music_id                         INT                   NOT NULL,
+    difficulty_id                    INT                   NOT NULL,
+    score                            INT                   NOT NULL,
     select_user_id                   BIGINT                NOT NULL,
-    select_user_name                 VARCHAR(255)          NULL,
+    select_user_name                 VARCHAR(64)           NULL,
     opponent_user_id1                BIGINT                NOT NULL,
     opponent_user_id2                BIGINT                NOT NULL,
     opponent_user_id3                BIGINT                NOT NULL,
-    opponent_user_name1              VARCHAR(255)          NULL,
-    opponent_user_name2              VARCHAR(255)          NULL,
-    opponent_user_name3              VARCHAR(255)          NULL,
+    opponent_user_name1              VARCHAR(64)           NULL,
+    opponent_user_name2              VARCHAR(64)           NULL,
+    opponent_user_name3              VARCHAR(64)           NULL,
     opponent_region_id1              INT                   NOT NULL,
     opponent_region_id2              INT                   NOT NULL,
     opponent_region_id3              INT                   NOT NULL,
@@ -44,6 +47,9 @@ CREATE TABLE chusan_net_battle_log
     event_po_long                    INT                   NOT NULL,
     CONSTRAINT pk_chusan_net_battle_log PRIMARY KEY (id)
 );
+
+ALTER TABLE chusan_net_battle_log
+    ADD CONSTRAINT FK_CHUSAN_NET_BATTLE_LOG_ON_USER FOREIGN KEY (user_id) REFERENCES chusan_user_data (id);
 
 ALTER TABLE chusan_net_battle_log
     ADD CONSTRAINT FK_CHUSAN_NET_BATTLE_LOG_ON_USER FOREIGN KEY (user_id) REFERENCES chusan_user_data (id);

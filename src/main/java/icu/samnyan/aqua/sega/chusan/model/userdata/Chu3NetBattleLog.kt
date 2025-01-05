@@ -7,7 +7,13 @@ import jakarta.persistence.Table
 @Table(name = "chusan_net_battle_log")
 class Chu3NetBattleLog(
     var roomId: Long = 0,
-    var track: Long = 0,
+    var track: Int = 0,
+
+    // From playlog
+    var musicId: Int = 0,
+    var difficultyId: Int = 0,
+    var score: Int = 0,
+
     var selectUserId: Long = 0,
     var selectUserName: String = "",
     var opponentUserId1: Long = 0,
@@ -46,4 +52,4 @@ class Chu3NetBattleLog(
     var battleRuleId: Int = 0,
     var monthPoLong: Int = 0,
     var eventPoLong: Int = 0
-) : Chu3UserEntity()
+) : Chu3UserEntity() {
