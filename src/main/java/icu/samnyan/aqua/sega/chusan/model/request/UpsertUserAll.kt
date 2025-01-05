@@ -25,7 +25,7 @@ class UpsertTeamPoint(
 )
 
 data class UpsertNetBattleData(
-    val recentNBSelectMusicList: List<UpsertNBSelectMusic> = emptyList(),
+    val recentNBSelectMusicList: List<MusicIdWrapper> = emptyList(),
     val isRankUpChallengeFailed: Boolean = false,
     val highestBattleRankId: Long = 0,
     val battleIconId: Long = 0,
@@ -33,7 +33,7 @@ data class UpsertNetBattleData(
     val avatarEffectPoint: Long = 0,
 )
 
-data class UpsertNBSelectMusic(
+data class MusicIdWrapper(
     val musicId: Int = 0,
 )
 

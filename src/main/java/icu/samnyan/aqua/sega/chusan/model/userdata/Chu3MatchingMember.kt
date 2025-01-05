@@ -1,13 +1,8 @@
 package icu.samnyan.aqua.sega.chusan.model.userdata
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import icu.samnyan.aqua.net.games.BaseEntity
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
 
-@Entity(name = "ChusanMatchingMember")
-@Table(name = "chusan_matching_member")
-class Chu3MatchingMember : BaseEntity() {
+open class Chu3MatchingMember {
     var userId: Long = 0
     var regionId = 0
     var placeId = 0
