@@ -47,6 +47,9 @@ Make sure you have selected "Yukiotoko" as your matching server.
 Also double check if the keychip in your segatools.ini is the same as the keychip on your account 
 (since game settings are saved by keychip, it won't apply if you start the game with the wrong keychip).
 
+Also check if you can access Yuki's [website](http://yukiotoko.chara.lol/), if you can't, 
+that's probably an internet connectivity issue that's unrelated to the game.
+
 **Q: Online battle icon gray and says "cabinet too old"**
 
 Make sure you have played the game at least once after an update or change in options.
