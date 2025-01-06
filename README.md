@@ -11,15 +11,15 @@ Multipurpose game server for ALL.Net games.
 
 Below is a list of games supported by this server. 
 
-| Game                            | Ver  | Codename            | Thanks to                                  |
-|---------------------------------|------|---------------------|--------------------------------------------|
-| SDHD: CHUNITHM (Chusan)         | 2.27 | LUMINOUS PLUS       | [@rinsama](https://github.com/mxihan)      |
-| SDEZ: MaiMai DX                 | 1.45 | BUDDiES PLUS        | [@肥宅虾哥](https://github.com/FeiZhaixiage)   |
-| SDGA: MaiMai DX (International) | 1.45 | BUDDiES PLUS        | [@Clansty](https://github.com/clansty)     |
-| SDED: Card Maker                | 1.39 |                     | [@Becods](https://github.com/Becods)       |
-| SBZV: Project DIVA Arcade       | 7.10 | Future Tone         |                                            |
-| SDDT: O.N.G.E.K.I.              | 1.45 | bright MEMORY Act.3 | [@Gamer2097](https://github.com/Gamer2097) |
-| SDFE: Wacca (*ALPHA STAGE)      | 3.07 | Reverse             |                                            |
+| Game                   | Ver  | Codename            | Thanks to                                  |
+|------------------------|------|---------------------|--------------------------------------------|
+| SDHD: CHUNITHM         | 2.27 | LUMINOUS PLUS       | [@rinsama](https://github.com/mxihan)      |
+| SDEZ: MaiMai DX        | 1.45 | BUDDiES PLUS        | [@肥宅虾哥](https://github.com/FeiZhaixiage)   |
+| SDGA: MaiMai DX (Intl) | 1.45 | BUDDiES PLUS        | [@Clansty](https://github.com/clansty)     |
+| SDED: Card Maker       | 1.39 |                     | [@Becods](https://github.com/Becods)       |
+| SDDT: O.N.G.E.K.I.     | 1.45 | bright MEMORY Act.3 | [@Gamer2097](https://github.com/Gamer2097) |
+| SBZV: Project DIVA     | 7.10 | Future Tone         |                                            |
+| SDFE: Wacca (*ALPHA)   | 3.07 | Reverse             |                                            |
 
 > **News**: AquaDX just added Wacca support on Mar 29, 2024! Feel free to test it out, but expect bugs and issues.
 
