@@ -41,17 +41,36 @@ netsh advfirewall firewall add rule name="Chunithm National Matching Outbound" d
 
 ## Troubleshooting
 
+**Q: Matching server BAD on network check**
+
+Make sure you have selected "Yukiotoko" as your matching server. 
+Also double check if the keychip in your segatools.ini is the same as the keychip on your account 
+(since game settings are saved by keychip, it won't apply if you start the game with the wrong keychip).
+
+**Q: Online battle icon gray and says "cabinet too old"**
+
+Make sure you have played the game at least once after an update or change in options.
+This is because the server-returned data version must match your game's data version for matching to work, 
+and the server will return the version code your game last played with.
+So if you haven't played or if you have updated your game,
+you last version code would not match your current game's version until you play a game.
+
+After playing a coin, restart the game and check if the option is available.
+
+**Q: Online battle icon gray and says "Unable to select after the event time"**
+
+Make sure your time zone is set to JST (UTC+9).
+
 **Q: Game crashes when entering match mode**
 
 Make sure you are using Dniel97's segatools.
 
+Also, some unofficial options might cause issues. Options that have been tested to work are `ARRR`, `AOMN`, `ATUY`, `AUBC`. 
+If you have options not in this list, maybe try removing them.
+
 **Q: After matching, timer shows 999 seconds and nobody can start**
 
-Make sure you have patched your `chusanApp.exe` correctly.
-
-**Q: Online battle icon gray / "Unable to select after the event time"**
-
-Make sure your time zone is set to JST (UTC+9).
+Make sure you have patched your `chusanApp.exe` correctly (especially the "Set all timer to 999" option should be disabled).
 
 **Q: This window show up when joining.**
 
