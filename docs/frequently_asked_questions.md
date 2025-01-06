@@ -3,7 +3,9 @@ For best viewing experience, please use a markdown viewer that supports Github o
 
 ## Server
 ### Can I host a public instance?
-Yes. There is no function limitation, but keep this in mind: you may encounter scalability or security issues which I probably won't focus on.
+You're permitted to. However, you should only consider this if you have strong programming or homelab experience or have self-hosted other services before, as we will not be answering basic questions such as how to set up things like port forwarding or domain records.
+
+If you're new to self-hosting, it's easier to just use our public server at https://aquadx.net.
 
 ### Can I use other port for endpoints?
 No. It's hardcoded inside a game and server can do nothing about it.
@@ -12,7 +14,7 @@ No. It's hardcoded inside a game and server can do nothing about it.
 Yes. There will be no major consequences even without it.
 
 ### What ports does Aqua use?
-* 80: ALL.Net, game endpoints and Aquaviewer
+* 80: ALL.Net, Game endpoints
 * 8443: Billing
 * 22345: Aime
 
@@ -47,9 +49,6 @@ No. This is due to hardened security measures which SEGA made.
 
 ### Will you add [your wanted game name] support?
 It'll be case by case basis. Open an issue if you want to suggest something.
-
-### Will you add support for intl version?
-I won't work on it myself, but merge request is welcome.
 
 ### Is the server update is mandatory with every new game content updates?
 No, games will still work. However, new content *probably* not appear in game without so-called "force unlock" and Web UI will not work as intended when displaying new content.
