@@ -47,6 +47,8 @@ Check out these docs for more information.
 * [Game specific notes](docs/game_specific_notes.md)
 * [Frequently asked questions](docs/frequently_asked_questions.md)
 
+> We do not provide game files. You need to obtain them on your own.
+
 > [!TIP]  
 > Some games may require additional patches and these will not be provided in this project and repository. You already found this, so you know where to find related resources too.
 
