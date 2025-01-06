@@ -47,15 +47,13 @@ Check out these docs for more information.
 * [Game specific notes](docs/game_specific_notes.md)
 * [Frequently asked questions](docs/frequently_asked_questions.md)
 
-> We do not provide game files. You need to obtain them on your own.
-
 > [!TIP]  
 > Some games may require additional patches and these will not be provided in this project and repository. You already found this, so you know where to find related resources too.
 
 ## Usage
 If you own a cab or controller and just want to play the game, follow the instructions below:
 
-1. Make sure you have a working game (read [game specific notes](docs/game_specific_notes.md) for more information).
+1. Make sure you have obtained game files on your own (we will not provide them).
 2. Go to [aquadx.net](https://aquadx.net) and make an account.
 3. Click on "Setup Connection" in the home page, and follow the instructions.
 4. Play a coin with your card.  
