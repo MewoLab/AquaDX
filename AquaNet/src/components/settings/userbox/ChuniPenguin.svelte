@@ -66,14 +66,15 @@
             <img class="chuni-penguin-head chuni-penguin-accessory" src={imageURL} alt="Head">
         {/await}
         {#if chuniHead == 1200001}
-            <!-- If wearing original hat, add the feather and attachment -->
-            {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 104, 153, 57, 58, 0.75) then imageURL}
-                <img class="chuni-penguin-head-2 chuni-penguin-accessory" src={imageURL} alt="Head2">
-            {/await}
+            <!-- If wearing original hat, add the feather -->
             {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 5, 160, 100, 150, 0.75) then imageURL}
                 <img class="chuni-penguin-head-3 chuni-penguin-accessory" src={imageURL} alt="Head3">
             {/await}
         {/if}
+        <!-- Oops, I realized just now that the thing on it's forehead applies to all hats. My mistake! -->
+        {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 105, 153, 56, 58, 0.75) then imageURL}
+            <img class="chuni-penguin-head-2 chuni-penguin-accessory" src={imageURL} alt="Head2">
+        {/await}
 
         <!-- Face (Accessory) -->
         {#await DDSreader.getFileScaled(`avatarAccessory:${chuniFace.toString().padStart(8, "0")}`, 0.75, `avatarAccessory:01300001`) then imageURL}
@@ -214,7 +215,7 @@
             top: 7.5%
             z-index: 10
         .chuni-penguin-head-2
-            top: 12.5%
+            top: 13.5%
         .chuni-penguin-head-3
             top: -12.5%
         .chuni-penguin-face-accessory
