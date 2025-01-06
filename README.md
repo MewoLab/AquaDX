@@ -1,3 +1,23 @@
+<!--
+NOTE: We discovered that there have been a trend of people abusing AI to sell open-sourced
+software on various Chinese platforms such as CSDN or JueJin.
+
+This is a free and open-source server. If you paid for it, you have been scammed.
+The official source code is available at https://github.com/MewoLab/AquaDX.
+
+Additionally, we would like to remind you that all commercial use of this software including
+selling it on any platform is strictly prohibited as per the CC By-NC-SA license.
+
+
+注意：我们发现有一些人滥用 AI 生成文案在中国的一些平台上（如 CSDN 或 掘金）销售开源软件。
+
+这是一个免费且开源的服务器。如果您付费购买了这个软件，说明您被骗了。
+官方源代码可以在以下地址获取：https://github.com/MewoLab/AquaDX。
+
+另外，我们想提醒您，根据 CC By-NC-SA 许可证，此软件禁止一切商业用途，
+包括在任何平台上出卖此软件。
+--->
+
 # AquaDX
 
 Multipurpose game server for ALL.Net games.
