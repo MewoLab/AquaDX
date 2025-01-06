@@ -41,13 +41,14 @@ If you own a cab or controller and just want to play the game, follow the instru
 5. Pet your cat 🐱
 6. Link your card on the website. 
 
+If you encounter any issue, please report in the [issue tracker](https://MewoLab/AquaDX/issues).
+
 > [!TIP]  
-> If you don't know your card ID, there's always a button on the login screen of the game that can read a card's access code.  
-> If you encounter any issue, please report in the [issue tracker](https://MewoLab/AquaDX/issues).
+> If you don't know your card ID, there's always a button on the login screen of the game that can read a card's access code.
 
 ## Self Hosting (Advanced)
 
-> [!WARNING]  
+> [!CAUTION]  
 > This guide assumes you have basic programming & networking knowledge.  
 > We will not be answering basic questions like how to set up port forwarding or domain records.  
 > If you're new to self-hosting, please just use our public server in the Usage section above.
