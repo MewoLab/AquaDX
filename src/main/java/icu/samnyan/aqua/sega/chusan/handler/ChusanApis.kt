@@ -65,6 +65,7 @@ fun ChusanController.chusanInit() {
         }
     }
 
+    // Introduced in LMN, removed in LMN+
     "GetUserCMission" {
         parsing { UserCMissionResp().apply {
             missionId = parsing { data["missionId"]!!.int }
@@ -74,6 +75,23 @@ fun ChusanController.chusanInit() {
                 userCMissionProgressList = db.userCMissionProgress.findByUser_Card_ExtIdAndMissionId(uid, missionId)
             }
         }
+    }
+
+    // Introduced in LMN+
+    "GetUserCMissionList" api@ {
+        val missions = parsing { (data["userCMissionList"] as List<JDict>).map { it["missionId"]!!.int } }
+        val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
+
+        // Return: userId, userCMissionList: [
+        //  {userId, missionId, point, userCMissionProgressList: [{order, stage, progress}, ...]}, ...
+        // ]
+        db.userCMission.findByUserAndMissionIdIn(u, missions).map {
+            UserCMissionResp().apply {
+                missionId = it.missionId
+                point = it.point
+                userCMissionProgressList = db.userCMissionProgress.findByUserAndMissionId(u, it.missionId)
+            }
+        }.let { mapOf("userId" to uid, "userCMissionList" to it) }
     }
 
     // Paged user list endpoints

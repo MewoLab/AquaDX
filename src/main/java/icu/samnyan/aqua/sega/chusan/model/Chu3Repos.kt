@@ -7,7 +7,6 @@ import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.GenericUserMusicRepo
 import icu.samnyan.aqua.net.games.IUserRepo
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
-import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
@@ -121,10 +120,12 @@ interface Chu3UserPlaylogRepo : GenericPlaylogRepo<UserPlaylog>, Chu3UserLinked<
 
 interface Chu3UserCMissionRepo : Chu3UserLinked<UserCMission> {
     fun findByUser_Card_ExtIdAndMissionId(extId: Long, missionId: Int): Optional<UserCMission>
+    fun findByUserAndMissionIdIn(user: Chu3UserData, missionIds: Collection<Int>): List<UserCMission>
 }
 
 interface Chu3UserCMissionProgressRepo : Chu3UserLinked<UserCMissionProgress> {
     fun findByUser_Card_ExtIdAndMissionId(extId: Long, missionId: Int): List<UserCMissionProgress>
+    fun findByUserAndMissionId(user: Chu3UserData, missionId: Int): List<UserCMissionProgress>
 
     fun findByUser_Card_ExtIdAndMissionIdAndOrder(extId: Long, missionId: Int, order: Int): Optional<UserCMissionProgress>
 }
