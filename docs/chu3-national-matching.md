@@ -31,6 +31,7 @@ This is tested on Chusan 2.27.
 ### Firewall Rules
 
 Below is a simple command to add firewall rules for Chunithm.
+(Put this into a text file and change the file extension to .bat)
 
 ```shell
 @echo off
