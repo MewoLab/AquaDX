@@ -27,6 +27,9 @@ This is tested on Chusan 2.27.
 5. Pet your cat 🐈
 6. Launch!
 
+> [!WARNING]  
+> If you have `duolinguo.dll` in your bin, please remove it. Yukiotoko is a vanilla matching server and is incompatible with `duolinguo.dll`.  
+> Please only add `duolinguo.dll` back if you want to play on the 林国对战 lobby.
 
 ### Firewall Rules
 
