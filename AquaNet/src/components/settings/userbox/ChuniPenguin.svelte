@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { removeImg } from "../../../libs/ui";
     import { DDS } from "../../../libs/userbox/dds"
     import { ddsDB } from "../../../libs/userbox/userbox"
 
@@ -17,87 +18,87 @@
     <div class="chuni-penguin-body">
         <!-- Body -->
         {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniSkin.toString().padStart(8, "0")}`, 0, 0, 256, 400, 0.75) then imageURL}
-            <img class="chuni-penguin-skin" src={imageURL} alt="Body">
+            <img class="chuni-penguin-skin" src={imageURL} alt="Body" on:error={removeImg}>
         {/await}
 
         <!-- Face -->
         {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_face_00.dds", 0, 0, 225, 150, 0.75) then imageURL}
-            <img class="chuni-penguin-eyes chuni-penguin-accessory" src={imageURL} alt="Eyes">
+            <img class="chuni-penguin-eyes chuni-penguin-accessory" src={imageURL} alt="Eyes" on:error={removeImg}>
         {/await}
         {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 86, 103, 96, 43, 0.75) then imageURL}
-            <img class="chuni-penguin-beak chuni-penguin-accessory" src={imageURL} alt="Beak">
+            <img class="chuni-penguin-beak chuni-penguin-accessory" src={imageURL} alt="Beak" on:error={removeImg}>
         {/await}
-        
+
         {#if chuniItem != 1500001}
             <!-- Arms (straight) -->
             {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 0, 0, 85, 160, 0.75) then imageURL}
-                <img class="chuni-penguin-arm-left chuni-penguin-arm" src={imageURL} alt="Left Arm">
+                <img class="chuni-penguin-arm-left chuni-penguin-arm" src={imageURL} alt="Left Arm" on:error={removeImg}/>
                 <div class="chuni-penguin-arm-left chuni-penguin-arm-type-1 chuni-penguin-arm">
                     {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniItem.toString().padStart(8, "0")}`, 0, 0, 200, 544, 0.75) then imageURL}
-                        <img class="chuni-penguin-item chuni-penguin-accessory chuni-penguin-item-left" src={imageURL} alt="Item">
+                        <img class="chuni-penguin-item chuni-penguin-accessory chuni-penguin-item-left" src={imageURL} alt="Item" on:error={removeImg}>
                     {/await}
                 </div>
             {/await}
             {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 0, 0, 85, 160, 0.75) then imageURL}
-                <img class="chuni-penguin-arm-right chuni-penguin-arm" src={imageURL} alt="Right Arm">
+                <img class="chuni-penguin-arm-right chuni-penguin-arm" src={imageURL} alt="Right Arm" on:error={removeImg}>
                 <div class="chuni-penguin-arm-right chuni-penguin-arm-type-1 chuni-penguin-arm">
                     {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniItem.toString().padStart(8, "0")}`, 200, 0, 200, 544, 0.75) then imageURL}
-                        <img class="chuni-penguin-item chuni-penguin-accessory chuni-penguin-item-right" src={imageURL} alt="Item">
+                        <img class="chuni-penguin-item chuni-penguin-accessory chuni-penguin-item-right" src={imageURL} alt="Item" on:error={removeImg}>
                     {/await}
                 </div>
             {/await}
         {:else}
             <!-- Arms (bent) -->
             {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 80, 0, 110, 100, 0.75) then imageURL}
-                <img class="chuni-penguin-arm-left chuni-penguin-arm chuni-penguin-arm-type-2" src={imageURL} alt="Left Arm">
+                <img class="chuni-penguin-arm-left chuni-penguin-arm chuni-penguin-arm-type-2" src={imageURL} alt="Left Arm" on:error={removeImg}>
             {/await}
             {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 80, 0, 110, 100, 0.75) then imageURL}
-                <img class="chuni-penguin-arm-right chuni-penguin-arm chuni-penguin-arm-type-2" src={imageURL} alt="Right Arm">
+                <img class="chuni-penguin-arm-right chuni-penguin-arm chuni-penguin-arm-type-2" src={imageURL} alt="Right Arm" on:error={removeImg}>
             {/await}
         {/if}
 
         <!-- Wear -->
         {#await DDSreader.getFileScaled(`avatarAccessory:${chuniWear.toString().padStart(8, "0")}`, 0.75, `avatarAccessory:01100001`) then imageURL}
-            <img class="chuni-penguin-wear chuni-penguin-accessory" src={imageURL} alt="Wear">
+            <img class="chuni-penguin-wear chuni-penguin-accessory" src={imageURL} alt="Wear" on:error={removeImg}>
         {/await}
 
         <!-- Head -->
         {#await DDSreader.getFileScaled(`avatarAccessory:${chuniHead.toString().padStart(8, "0")}`, 0.75, `avatarAccessory:01200001`) then imageURL}
-            <img class="chuni-penguin-head chuni-penguin-accessory" src={imageURL} alt="Head">
+            <img class="chuni-penguin-head chuni-penguin-accessory" src={imageURL} alt="Head" on:error={removeImg}>
         {/await}
         {#if chuniHead == 1200001}
             <!-- If wearing original hat, add the feather -->
             {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 5, 160, 100, 150, 0.75) then imageURL}
-                <img class="chuni-penguin-head-3 chuni-penguin-accessory" src={imageURL} alt="Head3">
+                <img class="chuni-penguin-head-3 chuni-penguin-accessory" src={imageURL} alt="Head3" on:error={removeImg}>
             {/await}
         {/if}
         <!-- Oops, I realized just now that the thing on it's forehead applies to all hats. My mistake! -->
         {#await DDSreader.getFileFromSheet("surfboard:CHU_UI_Common_Avatar_body_00.dds", 105, 153, 56, 58, 0.75) then imageURL}
-            <img class="chuni-penguin-head-2 chuni-penguin-accessory" src={imageURL} alt="Head2">
+            <img class="chuni-penguin-head-2 chuni-penguin-accessory" src={imageURL} alt="Head2" on:error={removeImg}>
         {/await}
 
         <!-- Face (Accessory) -->
         {#await DDSreader.getFileScaled(`avatarAccessory:${chuniFace.toString().padStart(8, "0")}`, 0.75, `avatarAccessory:01300001`) then imageURL}
-            <img class="chuni-penguin-face-accessory chuni-penguin-accessory" src={imageURL} alt="Face (Accessory)">
+            <img class="chuni-penguin-face-accessory chuni-penguin-accessory" src={imageURL} alt="Face (Accessory)" on:error={removeImg}>
         {/await}
 
         <!-- Front -->
         {#await DDSreader.getFileScaled(`avatarAccessory:${chuniFront.toString().padStart(8, "0")}`, 0.75) then imageURL}
-            <img class="chuni-penguin-front chuni-penguin-accessory" src={imageURL} alt="Front">
+            <img class="chuni-penguin-front chuni-penguin-accessory" src={imageURL} alt="Front" on:error={removeImg}>
         {/await}
-        
+
         <!-- Back -->
         {#await DDSreader.getFileScaled(`avatarAccessory:${chuniBack.toString().padStart(8, "0")}`, 0.75) then imageURL}
-            <img class="chuni-penguin-back chuni-penguin-accessory" src={imageURL} alt="Back">
+            <img class="chuni-penguin-back chuni-penguin-accessory" src={imageURL} alt="Back" on:error={removeImg}>
         {/await}
     </div>
     <div class="chuni-penguin-feet">
         <!-- Feet -->
         {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniSkin.toString().padStart(8, "0")}`, 0, 410, 85, 80, 0.75) then imageURL}
-            <img src={imageURL} alt="Foot">
+            <img src={imageURL} alt="Foot" on:error={removeImg}>
         {/await}
         {#await DDSreader.getFileFromSheet(`avatarAccessory:${chuniSkin.toString().padStart(8, "0")}`, 85, 410, 85, 80, 0.75) then imageURL}
-            <img src={imageURL} alt="Foot">
+            <img src={imageURL} alt="Foot" on:error={removeImg}>
         {/await}
     </div>
 </div>
@@ -147,7 +148,7 @@
             transform: translate(-50%, -50%)
             position: absolute
             left: 50%
-  
+
         .chuni-penguin-body
             top: 50%
             z-index: 1
@@ -175,10 +176,10 @@
             &.chuni-penguin-arm-type-2
                 transform-origin: 40% 10%
                 z-index: 2
-                
+
             &.chuni-penguin-arm-left
                 left: 0%
-                transform: translate(-50%, 0) 
+                transform: translate(-50%, 0)
                 animation: chuniPenguinArmLeft 1s infinite cubic-bezier(0.45, 0, 0.55, 1)
                 &.chuni-penguin-arm-type-2
                     left: 15%
@@ -222,5 +223,5 @@
             top: 27.5%
         .chuni-penguin-back
             z-index: -1
-        
+
 </style>

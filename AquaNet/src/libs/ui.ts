@@ -153,6 +153,7 @@ export const CHARTJS_OPT: ChartOptions<'line'> = {
 
 export const pfpNotFound = (e: Event) => (e.target as HTMLImageElement).src = DEFAULT_PFP
 export const coverNotFound = (e: Event) => (e.target as HTMLImageElement).src = "/assets/imgs/no_cover.jpg"
+export const removeImg = (e: Event) => (e.target as HTMLImageElement).style.display = 'none'
 
 
 /**
