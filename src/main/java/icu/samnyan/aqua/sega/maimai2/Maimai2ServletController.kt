@@ -33,6 +33,7 @@ class Maimai2ServletController(
     val getUserFavoriteItem: GetUserFavoriteItemHandler,
     val getUserRivalMusic: GetUserRivalMusicHandler,
     val getUserCharacter: GetUserCharacterHandler,
+    val getGameRanking: GetGameRankingHandler,
     val repos: Mai2Repos
 ) {
     companion object {
@@ -222,7 +223,6 @@ class Maimai2ServletController(
     val getUserIntimate = UserReqHandler { _, uid -> mapOf("userId" to uid, "length" to 0, "userIntimateList" to empty) }
     val getTransferFriend = UserReqHandler { _, uid -> mapOf("userId" to uid, "transferFriendList" to empty) }
     val getGameNgMusicId = BaseHandler { mapOf("length" to 0, "musicIdList" to empty) }
-    val getGameRanking = BaseHandler { mapOf("type" to it["type"].toString(), "gameRankingList" to empty) }
     val getGameTournamentInfo = BaseHandler { mapOf("length" to 0, "gameTournamentInfoList" to empty) }
     val getGameKaleidxScope = BaseHandler { mapOf("gameKaleidxScopeList" to empty) }
     val getUserKaleidxScope = UserReqHandler { _, uid -> mapOf("userId" to uid, "userKaleidxScopeList" to empty) }
