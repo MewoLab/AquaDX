@@ -82,6 +82,13 @@
           })
         }
 
+        // Set beforeRating in recent to the last play's afterRating
+        user.recent.forEach((it, i) => {
+          if (i < user.recent.length - 1) {
+            it.beforeRating = user.recent[i + 1].afterRating
+          }
+        })
+
         const minDate = moment().subtract(TREND_DAYS, 'days').format("YYYY-MM-DD")
         d = {user,
           trend: trend.filter(it => it.date >= minDate && it.plays != 0),
