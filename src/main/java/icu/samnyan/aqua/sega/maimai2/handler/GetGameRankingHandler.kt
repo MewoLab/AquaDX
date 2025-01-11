@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import kotlin.concurrent.Volatile
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -20,7 +21,9 @@ class GetGameRankingHandler(
     private val queryFactory: JPAQueryFactory
 ) : BaseHandler {
     private data class MusicRankingItem(val musicId: Int, val weight: Long)
-    private var musicRankingCache: Array<MusicRankingItem> = emptyArray()
+
+    @Volatile
+    private var musicRankingCache: List<MusicRankingItem> = emptyList()
 
     init {
         // To make sure the cache is initialized before the first request,
@@ -52,7 +55,7 @@ class GetGameRankingHandler(
             .limit(QUREY_LIMIT)
             .fetch()
             .map { MusicRankingItem(it.get(cMusicId)!!, it.get(cUserCount)!!) }
-            .toTypedArray()
+            .toList()
 
         logger.info("Refreshed music ranking cache: ${musicRankingCache.size} items")
     }
