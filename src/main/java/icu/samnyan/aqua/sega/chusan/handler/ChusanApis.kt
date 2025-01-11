@@ -167,10 +167,11 @@ fun ChusanController.chusanInit() {
 
     "GetUserMusic".paged("userMusicList") {
         // Compatibility: Older chusan uses boolean for isSuccess
-        fun checkAncient(d: List<UserMusicDetail>) =
-            data["version"]?.double?.let { if (it >= 2.15) d else d.map {
-                d.toJson().jsonMap().mut.apply { this["isSuccess"] = this["isSuccess"].truthy }
-            } } ?: d
+        fun checkAncient(d: List<UserMusicDetail>) = data["version"]?.double?.let { ver ->
+            if (ver >= 2.15) d else d.map { entry ->
+                entry.toJson().jsonMap().mut.also { it["isSuccess"] = it["isSuccess"].truthy }
+            }
+        } ?: d
 
         db.userMusicDetail.findByUser_Card_ExtId(uid).groupBy { it.musicId }
             .mapValues { mapOf("length" to it.value.size, "userMusicDetailList" to checkAncient(it.value)) }
