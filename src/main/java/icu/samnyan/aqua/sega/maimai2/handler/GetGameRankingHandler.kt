@@ -36,7 +36,6 @@ class GetGameRankingHandler(
         val LOOK_BACK_DAYS: Long = 7
         val QUREY_LIMIT: Long = 50
 
-
         // Get the play count of each music in the last N days
         val queryAfter = LocalDateTime.now().minusDays(LOOK_BACK_DAYS)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
