@@ -64,11 +64,11 @@ dependencies {
     // =============================
 
     // Network
-    implementation("io.ktor:ktor-client-core:2.3.8")
-    implementation("io.ktor:ktor-client-cio:2.3.8")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.8")
-    implementation("io.ktor:ktor-client-encoding:2.3.8")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.8")
+    implementation("io.ktor:ktor-client-core:3.0.3")
+    implementation("io.ktor:ktor-client-cio:3.0.3")
+    implementation("io.ktor:ktor-client-content-negotiation:3.0.3")
+    implementation("io.ktor:ktor-client-encoding:3.0.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.3")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // Somehow these are needed for ktor even though they're not in the documentation
