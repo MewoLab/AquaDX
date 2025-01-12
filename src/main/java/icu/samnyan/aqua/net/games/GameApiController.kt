@@ -1,11 +1,13 @@
 package icu.samnyan.aqua.net.games
 
 import ext.*
+import icu.samnyan.aqua.net.BotProps
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
@@ -70,9 +72,9 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     @Scheduled(fixedRate = 20, timeUnit = TimeUnit.MINUTES)
     fun rankingCacheRun() = rankingCacheLock.maybeLock { rankingCacheCompute() }
 
+    private val tableName = when (name) { "mai2" -> "maimai2"; "chu3" -> "chusan"; else -> name }
     fun rankingCacheCompute() {
         val time = millis()
-        val tableName = when (name) { "mai2" -> "maimai2"; "chu3" -> "chusan"; else -> name }
         rankingCache = us.em.createNativeQuery(
             """
                 SELECT
@@ -192,5 +194,28 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             lastPlayedHost = user.lastClientId?.let { us.userRepo.findByKeychip(it)?.username },
             rival = rival
         )
+    }
+
+    // Recommender System Integration
+    @Autowired lateinit var botProps: BotProps
+    // Map<userId, List<musicId>>
+    var recommendedMusic: Map<Long, List<Int>> = emptyMap()
+
+    @API("recommender-fetch")
+    fun recommenderFetchPlays(@RP botSecret: String) = run {
+        if (botSecret != botProps.secret) 403 - "Invalid Secret"
+
+        us.em.createNativeQuery("""
+            SELECT user_id, music_id, count(*) as count
+            FROM ${tableName}_user_playlog_view
+            GROUP BY user_id, music_id;
+        """.trimIndent()).exec.numCsv("user_id", "music_id", "count")
+    }
+
+    @API("recommender-update")
+    fun recommenderUpdate(@RP botSecret: String, @RB data: Map<Long, List<Int>>) {
+        if (botSecret != botProps.secret) 403 - "Invalid Secret"
+
+        recommendedMusic = data
     }
 }

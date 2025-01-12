@@ -185,6 +185,7 @@ val Any?.truthy get() = when (this) {
     is Map<*, *> -> isNotEmpty()
     else -> true
 }
+val Any?.str get() = toString()
 
 // Collections
 fun <T> ls(vararg args: T) = args.toList()
@@ -251,3 +252,5 @@ val <S> Pair<*, S>.r get() = component2()
 
 // Database
 val Query.exec get() = resultList.map { (it as Array<*>).toList() }
+fun List<List<Any?>>.numCsv(vararg head: Str) = head.joinToString(",") + "\n" +
+    joinToString("\n") { it.joinToString(",") }
