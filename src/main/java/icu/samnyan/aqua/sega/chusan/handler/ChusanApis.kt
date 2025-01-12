@@ -16,8 +16,17 @@ fun ChusanController.chusanInit() {
     cmApiInit()
     upsertApiInit()
 
+    // Game music popularity
+    "GetGameRanking" {
+        val type = parsing { data["type"]!!.int }
+
+        // TODO: figure out what type does
+        mapOf("type" to type, "length" to 0, "gameRankingList" to (pop.ranking["chusan"] ?: listOf()).map {
+            mapOf("id" to it.musicId, "point" to it.weight)
+        })
+    }
+
     // Stub handlers
-    "GetGameRanking" { """{"type":"${data["type"]}","length":"0","gameRankingList":[]}""" }
     "GetGameIdlist" { """{"type":"${data["type"]}","length":"0","gameIdlistList":[]}""" }
 
     "GetTeamCourseSetting" { """{"userId":"${data["userId"]}","length":"0","nextIndex":"0","teamCourseSettingList":[]}""" }

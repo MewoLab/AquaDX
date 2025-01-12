@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.utils.simpleDescribe
 import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.chusan.handler.chusanInit
 import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
+import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.MeowApi
 import icu.samnyan.aqua.sega.general.RequestContext
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
@@ -28,7 +29,8 @@ class ChusanController(
     val db: Chu3Repos,
     val us: AquaUserServices,
     val versionHelper: ChusanVersionHelper,
-    val props: ChusanProps
+    val props: ChusanProps,
+    val pop: GameMusicPopularity,
 ): MeowApi({ api, resp ->
     if (resp is String) resp
     else (if ("CM" in api) cmMapper else mapper).write(resp)
