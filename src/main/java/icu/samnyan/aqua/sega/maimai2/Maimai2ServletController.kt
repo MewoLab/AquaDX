@@ -21,7 +21,6 @@ import kotlin.reflect.full.declaredMemberProperties
 @RestController
 @RequestMapping(path = ["/g/mai2/Maimai2Servlet/", "/g/mai2/"])
 class Maimai2ServletController(
-    val userLogin: UserLoginHandler,
     val upsertUserAll: UpsertUserAllHandler,
     val getUserItem: GetUserItemHandler,
     val getUserRating: GetUserRatingHandler,
@@ -31,7 +30,6 @@ class Maimai2ServletController(
     val uploadUserPortrait: UploadUserPortraitHandler,
     val upsertUserPrint: UpsertUserPrintHandler,
     val getUserFavoriteItem: GetUserFavoriteItemHandler,
-    val getUserRivalMusic: GetUserRivalMusicHandler,
     val getUserCharacter: GetUserCharacterHandler,
     val getGameRanking: GetGameRankingHandler,
     val db: Mai2Repos
@@ -47,21 +45,17 @@ class Maimai2ServletController(
     init { initApis() }
 
     val endpointList = setOf("GetGameRankingApi","GetUserCharacterApi","GetUserItemApi","GetUserPortraitApi",
-        "GetUserRatingApi","UploadUserPhotoApi","UploadUserPlaylogApi","UploadUserPortraitApi","UserLoginApi",
-        "UserLogoutApi","UpsertUserAllApi","CMGetUserCardApi","CMGetUserCardPrintErrorApi","CMGetUserDataApi",
-        "CMGetUserItemApi","CMUpsertUserPrintApi","GetUserFavoriteItemApi","GetUserRivalMusicApi","GetUserScoreRankingApi",
-        "UpsertClientBookkeepingApi","UpsertClientSettingApi","UpsertClientTestmodeApi","UpsertClientUploadApi",
-        "Ping","RemoveTokenApi","CMLoginApi","CMLogoutApi","CMUpsertBuyCardApi").mut.also {
-            println(it.filter { it !in initH.keys }.toJson())
-    }
+        "GetUserRatingApi","UploadUserPhotoApi","UploadUserPlaylogApi","UploadUserPortraitApi","UpsertUserAllApi",
+        "CMGetUserCardApi","CMGetUserCardPrintErrorApi","CMGetUserDataApi","CMGetUserItemApi","CMUpsertUserPrintApi",
+        "GetUserFavoriteItemApi")
 
     val noopEndpoint = setOf("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
         "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi",
-        "UpsertUserChargelogApi").also { endpointList.removeAll(it) }
+        "UpsertUserChargelogApi")
 
     val members = this::class.declaredMemberProperties
-    val handlers: Map<String, SpecialHandler> = endpointList.associateWith { api ->
+    val handlers: Map<String, SpecialHandler> = initH + endpointList.associateWith { api ->
         val name = api.replace("Api", "").lowercase()
         (members.find { it.name.lowercase() == name } ?: members.find { it.name.lowercase() == name.replace("cm", "") })
             ?.let { (it.call(this) as BaseHandler).toSpecial() }

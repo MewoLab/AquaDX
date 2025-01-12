@@ -2,6 +2,9 @@ package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
 import icu.samnyan.aqua.sega.general.PagedHandler
+import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic
+import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail
+import java.util.*
 
 fun Maimai2ServletController.initApis() {
     // Used because maimai does not actually require paging implementation
@@ -72,6 +75,13 @@ fun Maimai2ServletController.initApis() {
     ) }
 
     "CreateToken" static { """{"Bearer":"meow"}""" }
+    "UserLogin" static { mapOf(
+        "returnCode" to 1, "loginCount" to 1,
+        "lastLoginDate" to "2020-01-01 00:00:00.0",
+        "consecutiveLoginCount" to 0, "loginId" to 1,
+        "Bearer" to "meow", "bearer" to "meow"
+    ) }
+
     "CMUpsertUserPrintlog" static { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678"}""" }
 
     "CMGetSellingCard" static { db.gameSellingCard.findAll().let {
@@ -136,6 +146,29 @@ fun Maimai2ServletController.initApis() {
                 "tradeCount" to 0
             ) }
         )
+    }
+
+    "GetUserRivalData" {
+        val rivalId = parsing { data["rivalId"]!!.long }
+        mapOf("userId" to uid, "userRivalData" to mapOf(
+            "rivalId" to rivalId,
+            "rivalName" to (db.userData.findByCardExtId(rivalId)()?.userName ?: "")
+        ))
+    }
+
+    "GetUserRivalMusic" {
+        val rivalId = parsing { data["rivalId"]!!.long }
+
+        val lst = db.userMusicDetail.findByUserId(rivalId)
+        val res = lst.associate { it.musicId to UserRivalMusic(it.musicId, LinkedList()) }
+
+        lst.forEach {
+            res[it.musicId]!!.userRivalMusicDetailList.add(
+                UserRivalMusicDetail(it.level, it.achievement, it.deluxscoreMax)
+            )
+        }
+
+        mapOf("userId" to uid, "rivalId" to rivalId, "nextIndex" to 0, "userRivalMusicList" to res.values)
     }
 
     // Empty List Handlers
