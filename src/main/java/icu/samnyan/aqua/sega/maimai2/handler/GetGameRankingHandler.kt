@@ -17,7 +17,7 @@ import kotlin.concurrent.Volatile
 class GetGameRankingHandler(
     private val queryFactory: JPAQueryFactory
 ) : BaseHandler {
-    private data class MusicRankingItem(val id: Int, val point: Long, val userName: String = "")
+    private data class MusicRankingItem(val musicId: Int, val weight: Long)
 
     @Volatile
     private var musicRankingCache: List<MusicRankingItem> = emptyList()
@@ -54,7 +54,7 @@ class GetGameRankingHandler(
     override fun handle(request: Map<String, Any>): Any = mapOf(
         "type" to request["type"],
         "gameRankingList" to when(request["type"]) {
-            1 -> musicRankingCache
+            1 -> musicRankingCache.map { mapOf("id" to it.musicId, "point" to it.weight, "userName" to "") }
             else -> emptyList()
         }
     )
