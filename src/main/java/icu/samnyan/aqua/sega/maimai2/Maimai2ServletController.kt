@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
+import icu.samnyan.aqua.net.games.mai2.Maimai2
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.net.utils.simpleDescribe
 import icu.samnyan.aqua.sega.general.*
@@ -32,7 +33,8 @@ class Maimai2ServletController(
     val getUserFavoriteItem: GetUserFavoriteItemHandler,
     val getUserCharacter: GetUserCharacterHandler,
     val getGameRanking: GetGameRankingHandler,
-    val db: Mai2Repos
+    val db: Mai2Repos,
+    val net: Maimai2,
 ): MeowApi(serialize = { _, resp -> if (resp is String) resp else resp.toJson() }) {
 
     companion object {

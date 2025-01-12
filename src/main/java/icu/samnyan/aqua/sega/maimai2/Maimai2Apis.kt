@@ -172,14 +172,6 @@ fun Maimai2ServletController.initApis() {
     }
 
     // Empty List Handlers
-    "GetUserRecommendRateMusic" { mapOf(
-        "userId" to uid,
-        "userRecommendRateMusicIdList" to empty
-    ) }
-    "GetUserRecommendSelectMusic" { mapOf(
-        "userId" to uid,
-        "userRecommendSelectionMusicIdList" to empty
-    ) }
     "GetUserRegion".unpaged { empty }
     "GetUserGhost".unpaged { empty }
     "GetUserFriendBonus" { mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
@@ -269,5 +261,16 @@ fun Maimai2ServletController.initApis() {
             "type" to 0,
             "scoreData" to ""
         )
+    ) }
+
+    // Recommendation
+    "GetUserRecommendRateMusic" { mapOf(
+        "userId" to uid,
+        "userRecommendRateMusicIdList" to empty // TODO
+    ) }
+
+    "GetUserRecommendSelectMusic" { mapOf(
+        "userId" to uid,
+        "userRecommendSelectionMusicIdList" to (net.recommendedMusic[uid] ?: empty)
     ) }
 }
