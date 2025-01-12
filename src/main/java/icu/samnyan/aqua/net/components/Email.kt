@@ -2,14 +2,13 @@ package icu.samnyan.aqua.net.components
 
 import ext.Bool
 import ext.Str
+import ext.logger
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.EmailConfirmation
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.springsupport.SimpleJavaMailSpringSupport
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationStartedEvent
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
@@ -40,7 +39,7 @@ class EmailService(
     val props: EmailProperties,
     val confirmationRepo: EmailConfirmationRepo,
 ) {
-    val log: Logger = LoggerFactory.getLogger(EmailService::class.java)
+    val log = logger()
     val confirmTemplate: Str = this::class.java.getResource("/email/confirm.html")?.readText()
         ?: throw Exception("Email Template Not Found")
 

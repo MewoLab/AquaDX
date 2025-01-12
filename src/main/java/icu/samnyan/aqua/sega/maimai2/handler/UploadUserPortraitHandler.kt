@@ -1,13 +1,12 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
 import ext.div
+import ext.logger
 import ext.path
 import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPortrait
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.io.IOException
@@ -70,6 +69,6 @@ class UploadUserPortraitHandler(
     }
 
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(UploadUserPortraitHandler::class.java)
+        private val logger = logger()
     }
 }

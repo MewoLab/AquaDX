@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.aimedb
 
+import ext.logger
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.ChannelOption
@@ -33,7 +34,7 @@ class AimeDbServer(
     val initializer: AimeDbServerInitializer,
     val props: AimeDbProps
 ) {
-    val logger: Logger = LoggerFactory.getLogger(AimeDbServer::class.java)
+    val logger = logger()
 
     fun start() {
         if (!props.enable) return logger.info("Aime DB is disabled.")

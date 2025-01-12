@@ -6,8 +6,6 @@ import icu.samnyan.aqua.sega.util.AllNetBillingDecoder.decodeAllNet
 import icu.samnyan.aqua.sega.util.AquaConst
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.bind.annotation.PostMapping
@@ -197,7 +195,7 @@ class AllNet(
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(AllNet::class.java)
+        val logger = logger()
     }
 }
 

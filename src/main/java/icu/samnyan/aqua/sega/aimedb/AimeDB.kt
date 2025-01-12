@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.aimedb
 
+import ext.logger
 import ext.toHex
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.allnet.AllNetProps
@@ -28,7 +29,7 @@ class AimeDB(
     val us: AquaUserServices,
     val allNetProps: AllNetProps,
 ): ChannelInboundHandlerAdapter() {
-    val logger: Logger = LoggerFactory.getLogger(AimeDB::class.java)
+    val logger = logger()
 
     data class AimeBaseInfo(val gameId: String, val keychipId: String)
 

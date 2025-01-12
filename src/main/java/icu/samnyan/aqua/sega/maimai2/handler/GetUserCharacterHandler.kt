@@ -1,12 +1,11 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
+import ext.logger
 import icu.samnyan.aqua.net.games.mai2.Maimai2
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,6 +47,6 @@ class GetUserCharacterHandler(
     }
 
     companion object {
-        val logger: Logger = LoggerFactory.getLogger(GetUserCharacterHandler::class.java)
+        val logger = logger()
     }
 }

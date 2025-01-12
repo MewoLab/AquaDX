@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.billing
 
+import ext.logger
 import ext.toUrl
 import icu.samnyan.aqua.sega.util.AllNetBillingDecoder.decodeBilling
 import jakarta.annotation.PostConstruct
@@ -8,8 +9,6 @@ import org.eclipse.jetty.http.HttpVersion
 import org.eclipse.jetty.server.*
 import org.eclipse.jetty.util.resource.URLResourceFactory
 import org.eclipse.jetty.util.ssl.SslContextFactory
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer
@@ -44,7 +43,7 @@ class Billing(
 ) {
     lateinit var billingKey: PrivateKey
 
-    val logger: Logger = LoggerFactory.getLogger(Billing::class.java)
+    val logger = logger()
 
     @PostConstruct
     fun init() {

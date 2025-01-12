@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.maimai2.handler
 
 import ext.div
 import ext.isoDateTime
+import ext.logger
 import ext.path
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPhoto
@@ -47,6 +48,6 @@ class UploadUserPhotoHandler(private val mapper: BasicMapper) :
     }
 
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(UploadUserPhotoHandler::class.java)
+        private val logger = logger()
     }
 }
