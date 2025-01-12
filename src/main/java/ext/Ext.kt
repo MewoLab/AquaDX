@@ -218,6 +218,7 @@ fun Str.splitLines() = replace("\r\n", "\n").split('\n')
 @OptIn(ExperimentalStdlibApi::class)
 fun Str.md5() = MD5.digest(toByteArray(Charsets.UTF_8)).toHexString()
 fun Str.fromChusanUsername() = String(this.toByteArray(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
+fun Str.truncate(len: Int) = if (this.length > len) this.take(len) + "..." else this
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
@@ -250,4 +251,3 @@ val <S> Pair<*, S>.r get() = component2()
 
 // Database
 val Query.exec get() = resultList.map { (it as Array<*>).toList() }
-
