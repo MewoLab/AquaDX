@@ -269,8 +269,11 @@ fun Maimai2ServletController.initApis() {
         "userRecommendRateMusicIdList" to empty // TODO
     ) }
 
-    "GetUserRecommendSelectMusic" { mapOf(
-        "userId" to uid,
-        "userRecommendSelectionMusicIdList" to (net.recommendedMusic[uid] ?: empty)
-    ) }
+    "GetUserRecommendSelectMusic" {
+        val user = db.userData.findByCard_ExtId(uid)() ?: (404 - "User not found")
+        mapOf(
+            "userId" to uid,
+            "userRecommendSelectionMusicIdList" to (net.recommendedMusic[user.id] ?: empty)
+        )
+    }
 }
