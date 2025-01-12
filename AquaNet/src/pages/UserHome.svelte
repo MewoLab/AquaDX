@@ -51,6 +51,7 @@
   let allMusics: AllMusic
   let showDetailRank = false
   let isLoading = false
+  let showMoreRecent = false
 
   function init() {
     USER.isLoggedIn() && USER.me().then(u => me = u)
@@ -276,7 +277,7 @@
     <div class="recent">
       <h2>{t('UserHome.RecentScores')}</h2>
       <div class="scores">
-        {#each d.recent as r, i}
+        {#each (showMoreRecent ? d.recent : d.recent.slice(0, 15)) as r, i}
           <div class:alt={i % 2 === 0}>
             <img src={`${DATA_HOST}/d/${game}/music/00${r.musicId.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
             <div class="info">
@@ -309,6 +310,10 @@
             </div>
           </div>
         {/each}
+
+        {#if !showMoreRecent}
+          <button class="clickable" on:click={() => showMoreRecent = true}>{t('UserHome.ShowMoreRecent')}</button>
+        {/if}
       </div>
     </div>
   {/if}
