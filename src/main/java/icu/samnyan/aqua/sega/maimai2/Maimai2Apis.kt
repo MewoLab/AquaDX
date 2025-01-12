@@ -16,12 +16,12 @@ fun Maimai2ServletController.initApis() {
     }
 
     "GetUserExtend" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userExtend" to (db.userExtend.findSingleByUser_Card_ExtId(uid)() ?: (404 - "User not found"))
     ) }
 
     "GetUserData" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userData" to (db.userData.findByCardExtId(uid)() ?: (404 - "User not found")),
         "banState" to 0
     ) }
@@ -38,7 +38,7 @@ fun Maimai2ServletController.initApis() {
     }
 
     "GetUserFavorite" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userFavorite" to db.userFavorite.findByUser_Card_ExtIdAndItemKind(uid, data["itemKind"] as Int)
     ) }
 
@@ -61,7 +61,7 @@ fun Maimai2ServletController.initApis() {
         // rivalId should store and fetch with the id column of table rather than card_ext_id
         // or user will be able to get others' ext_id by setting them as rival
         mapOf(
-            "uid" to uid,
+            "userId" to uid,
             "userRivalData" to mapOf(
                 "rivalId" to rivalId,
                 "rivalName" to (db.userData.findById(rivalId)()?.userName ?: "")
@@ -70,7 +70,7 @@ fun Maimai2ServletController.initApis() {
     }
 
     "GetUserOption" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userOption" to (db.userOption.findSingleByUser_Card_ExtId(uid)() ?: (404 - "User not found"))
     ) }
 
@@ -98,7 +98,7 @@ fun Maimai2ServletController.initApis() {
 
     "CMGetUserPreview" { db.userData.findByCardExtId(uid)()?.let {
         mapOf(
-            "uid" to uid,
+            "userId" to uid,
             "userName" to it.userName,
             "rating" to it.playerRating,
             "lastDataVersion" to it.lastDataVersion,
@@ -112,7 +112,7 @@ fun Maimai2ServletController.initApis() {
         val option = db.userOption.findSingleByUser_Card_ExtId(uid)()
 
         mapOf(
-            "uid" to uid,
+            "userId" to uid,
             "userName" to d.userName,
             "isLogin" to false,
             "lastGameId" to d.lastGameId,
@@ -140,7 +140,7 @@ fun Maimai2ServletController.initApis() {
         val shopItemIdList = data["shopItemIdList"] as List<*>
 
         mapOf(
-            "uid" to uid,
+            "userId" to uid,
             "userShopStockList" to shopItemIdList.map { mapOf(
                 "shopItemId" to it,
                 "tradeCount" to 0
@@ -173,21 +173,21 @@ fun Maimai2ServletController.initApis() {
 
     // Empty List Handlers
     "GetUserRecommendRateMusic" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userRecommendRateMusicIdList" to empty
     ) }
     "GetUserRecommendSelectMusic" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userRecommendSelectionMusicIdList" to empty
     ) }
     "GetUserRegion".unpaged { empty }
     "GetUserGhost".unpaged { empty }
-    "GetUserFriendBonus" { mapOf("uid" to uid, "returnCode" to 0, "getMiles" to 0) }
-    "GetUserIntimate" { mapOf("uid" to uid, "length" to 0, "userIntimateList" to empty) }
-    "GetTransferFriend" { mapOf("uid" to uid, "transferFriendList" to empty) }
-    "GetUserKaleidxScope" { mapOf("uid" to uid, "userKaleidxScopeList" to empty) }
-    "GetUserNewItem" { mapOf("uid" to uid, "itemKind" to 0, "itemId" to 0) }
-    "GetUserNewItemList" { mapOf("uid" to uid, "userItemList" to empty) }
+    "GetUserFriendBonus" { mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
+    "GetUserIntimate" { mapOf("userId" to uid, "length" to 0, "userIntimateList" to empty) }
+    "GetTransferFriend" { mapOf("userId" to uid, "transferFriendList" to empty) }
+    "GetUserKaleidxScope" { mapOf("userId" to uid, "userKaleidxScopeList" to empty) }
+    "GetUserNewItem" { mapOf("userId" to uid, "itemKind" to 0, "itemId" to 0) }
+    "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
 
     "GetUserCardPrintError" static { mapOf("length" to 0, "userPrintDetailList" to empty) }
     "GetUserFriendCheck" static { mapOf("returnCode" to 0) }
@@ -253,7 +253,7 @@ fun Maimai2ServletController.initApis() {
     ) }
 
     "GetUserMissionData" { mapOf(
-        "uid" to uid,
+        "userId" to uid,
         "userWeeklyData" to mapOf (
             "lastLoginWeek" to "",
             "beforeLoginWeek" to "",
