@@ -57,6 +57,10 @@ class Chusan(
         genericUserSummary(card, ratingComposition)
     }
 
+    /**
+     * Added by Clansty for Bot
+     * TODO: Reduce redundant code by combining with user-summary and user-music-from-list
+     */
     @API("user-rating")
     suspend fun userRating(@RP username: Str) = us.cardByName(username) { card ->
         val extra = rp.userGeneralData.findByUser_Card_ExtId(card.extId)
