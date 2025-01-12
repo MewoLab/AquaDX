@@ -16,14 +16,15 @@ fun ChusanController.chusanInit() {
     cmApiInit()
     upsertApiInit()
 
-    // Game music popularity
+    // Game music popularity (seems to be removed in lmn+)
     "GetGameRanking" {
         val type = parsing { data["type"]!!.int }
 
-        // TODO: figure out what type does
-        mapOf("type" to type, "length" to 0, "gameRankingList" to (pop.ranking["chusan"] ?: listOf()).map {
+        // Maybe 1 = current and 2 = old
+        val lst = if (type == 1) (pop.ranking["chusan"] ?: listOf()).map {
             mapOf("id" to it.musicId, "point" to it.weight)
-        })
+        } else empty
+        mapOf("type" to type, "length" to 0, "gameRankingList" to lst)
     }
 
     // Stub handlers
