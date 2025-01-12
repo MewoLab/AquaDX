@@ -9,7 +9,7 @@ import java.util.*
 fun Maimai2ServletController.initApis() {
     // Used because maimai does not actually require paging implementation
     fun String.unpaged(key: String? = null, fn: PagedHandler) {
-        val k = key ?: (this.replace("get", "").firstCharLower() + "List")
+        val k = key ?: (this.replace("Get", "").firstCharLower() + "List")
         this {
             fn(this).let { mapOf("userId" to uid, "nextIndex" to 0, "length" to it.size, k to it) }
         }
