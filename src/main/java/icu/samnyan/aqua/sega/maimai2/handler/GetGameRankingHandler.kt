@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.maimai2.handler
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import ext.logger
-import ext.thread
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.userdata.QMai2UserPlaylog
 import org.springframework.scheduling.annotation.Scheduled
@@ -26,7 +25,7 @@ class GetGameRankingHandler(
     init {
         // To make sure the cache is initialized before the first request,
         // not using `initialDelay = 0` in `@Scheduled`.
-        thread { refreshMusicRankingCache() }
+        refreshMusicRankingCache()
     }
 
     @Scheduled(fixedDelay = 3600_000)
