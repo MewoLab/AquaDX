@@ -2,6 +2,7 @@
 This is a music recommendation system for maimai2 using implicit ALS.
 """
 import json
+from io import StringIO
 from pathlib import Path
 
 import pandas as pd
@@ -12,7 +13,7 @@ from hypy_utils.logging_utils import setup_logger
 
 BASE_URL = "https://aquadx.net/aqua/api/v2/game"
 GAME = "mai2"
-BOT_SECRET = "meow"
+BOT_SECRET = "hunter2"
 
 log = setup_logger()
 
@@ -23,7 +24,7 @@ if __name__ == '__main__':
     # data = pd.read_csv("data.csv")
     resp = requests.get(f"{BASE_URL}/{GAME}/recommender-fetch", params={"botSecret": BOT_SECRET})
     assert resp.status_code == 200, f"Failed to fetch data: {resp.status_code} {resp.text}"
-    data = pd.read_csv(resp.text)
+    data = pd.read_csv(StringIO(resp.text))
 
     # Create a user-item matrix
     log.info("Creating user-item matrix...")

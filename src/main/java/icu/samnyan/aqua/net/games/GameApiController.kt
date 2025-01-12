@@ -209,13 +209,15 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             SELECT user_id, music_id, count(*) as count
             FROM ${tableName}_user_playlog_view
             GROUP BY user_id, music_id;
-        """.trimIndent()).exec.numCsv("user_id", "music_id", "count")
+        """.trimIndent()).exec.also {
+            logger.info("Recommender fetched ${it.size} plays")
+        }.numCsv("user_id", "music_id", "count")
     }
 
     @API("recommender-update")
     fun recommenderUpdate(@RP botSecret: String, @RB data: Map<Long, List<Int>>) {
         if (botSecret != botProps.secret) 403 - "Invalid Secret"
-
         recommendedMusic = data
+        logger.info("Recommender updated with ${data.size} users")
     }
 }
