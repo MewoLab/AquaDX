@@ -18,18 +18,15 @@ const val PROTO_VERSION = 1
 private object Command {
     // Control plane
     const val CTL_START = 1
-    // const val CTL_BIND = 2  // Actually maybe we don't need BIND
+    const val CTL_BIND = 2
     const val CTL_HEARTBEAT = 3
-    const val CTL_ACCEPT = 4  // Accept a new multiplexed TCP stream
+    const val CTL_TCP_ACCEPT = 4  // Accept a new multiplexed TCP stream
+    const val CTL_TCP_CONNECT = 5
+    const val CTL_TCP_CLOSE = 6
 
     // Data plane
     const val DATA_SEND = 21
     const val DATA_BROADCAST = 22
-    const val DATA_POLL = 23
-
-    // Server-to-client message
-    const val INCOMING_DATA = 41
-    const val INCOMING_CONN = 42
 }
 
 private object Proto {
@@ -43,9 +40,9 @@ data class Message(
     val sid: Int? = null, // Stream ID, only applicable in TCP streams, 0 in UDP
 
     // Src and dst should be simulated ipv4 addresses and 0-65535 ports
-    val src: Int? = null,
+    val src: UInt? = null,
     val sPort: Int? = null,
-    val dst: Int? = null,
+    val dst: UInt? = null,
     val dPort: Int? = null,
 
     val data: Any? = null
@@ -59,7 +56,7 @@ data class ActiveClient(
     val writer: BufferedWriter
 ) {
     val log = logger()
-    val stubIp by lazy { keychipToStubIp(clientKey) }
+    val stubIp = keychipToStubIp(clientKey)
     val mutex = ReentrantLock()
 
     var lastHeartbeat = millis()
@@ -78,26 +75,24 @@ fun ActiveClient.handle(message: Message) {
         Command.CTL_HEARTBEAT -> lastHeartbeat = millis()
         Command.DATA_SEND -> {
             // Find target by dst IP address
-            val tId = stubIpToKeychip(message.dst ?: return log.warn("No destination IP"))
-            val target = clients[tId] ?: return log.warn("Target not found: $tId")
+            val target = message.dst?.let { clients[it] } ?: return log.warn("Target not found: ${message.dst}")
 
             // Send to target TODO: SID
-            target.send(message.copy(cmd = Command.INCOMING_DATA, sid = 0))
+            target.send(message.copy(sid = 0))
         }
         Command.DATA_BROADCAST -> {
             // Broadcast to all clients. This is only used in UDP so SID is always 0
             assert(message.proto == Proto.UDP)
             clients.values.filter { it.clientKey != clientKey }
-                .forEach { it.send(message.copy(cmd = Command.INCOMING_DATA, sid = 0, src = stubIp)) }
+                .forEach { it.send(message.copy(sid = 0, src = stubIp)) }
         }
     }
 }
 
-fun keychipToStubIp(keychip: String) = "1${keychip.substring(1)}".toInt()
-fun stubIpToKeychip(ip: Int) = "A${ip.toString().substring(1)}"
+fun keychipToStubIp(keychip: String) = "1${keychip.substring(2)}".toUInt()
 
 // Keychip ID to Socket
-val clients = ConcurrentHashMap<String, ActiveClient>()
+val clients = ConcurrentHashMap<UInt, ActiveClient>()
 
 /**
  * Service for the party linker for AquaMai
@@ -130,8 +125,9 @@ class MaimaiFutari(private val port: Int = 20101) {
                     // Start: Register the client. Payload is the keychip
                     Command.CTL_START -> {
                         val id = message.data as String
-                        clients[id] = ActiveClient(id, socket, reader, writer)
-                        handler = clients[id]
+                        val client = ActiveClient(id, socket, reader, writer)
+                        clients[client.stubIp] = client
+                        handler = clients[client.stubIp]
                         log.info("[+] Client registered: $id")
 
                         // Send back the version
@@ -150,7 +146,7 @@ class MaimaiFutari(private val port: Int = 20101) {
             } else log.error("Error in client handler", e)
         } finally {
             // Remove client
-            handler?.clientKey?.let { clients.remove(it) }
+            handler?.stubIp?.let { clients.remove(it) }
             socket.close()
         }
     }
