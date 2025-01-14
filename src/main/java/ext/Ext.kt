@@ -220,6 +220,7 @@ fun Str.splitLines() = replace("\r\n", "\n").split('\n')
 fun Str.md5() = MD5.digest(toByteArray(Charsets.UTF_8)).toHexString()
 fun Str.fromChusanUsername() = String(this.toByteArray(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
 fun Str.truncate(len: Int) = if (this.length > len) this.take(len) + "..." else this
+val Str.some get() = ifBlank { null }
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
