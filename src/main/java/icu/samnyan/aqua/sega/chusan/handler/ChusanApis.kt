@@ -194,7 +194,7 @@ fun ChusanController.chusanInit() {
 
     "GetUserRecentRating".paged("userRecentRatingList") {
         db.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(uid, "recent_rating_list")()
-            ?.propertyValue?.ifBlank { null }
+            ?.propertyValue?.some
             ?.split(',')?.dropLastWhile { it.isEmpty() }?.map { it.split(':') }
             ?.map { (musicId, level, score) -> UserRecentRating(musicId.int, level.int, "2000001", score.int) }
             ?: listOf()
@@ -209,8 +209,8 @@ fun ChusanController.chusanInit() {
 
     "GetUserTeam" {
         val playDate = parsing { data["playDate"] as String }
-        val team = db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.chusanTeamName?.ifBlank { null }
-            ?: props.teamName?.ifBlank { null } ?:  "一緒に歌おう！"
+        val team = db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.chusanTeamName?.some
+            ?: props.teamName?.some ?:  "一緒に歌おう！"
 
         mapOf(
             "userId" to uid, "teamId" to 1, "teamRank" to 1, "teamName" to team,
@@ -230,11 +230,11 @@ fun ChusanController.chusanInit() {
 
         // Set the matching & reflector to the one set in the game options, or the external matching server
         val opts = TokenChecker.getCurrentSession()?.user?.gameOptions
-        val matching = opts?.chusanMatchingServer?.ifBlank { null } ?:
-            props.externalMatching?.ifBlank { null } ?:
+        val matching = opts?.chusanMatchingServer?.some ?:
+            props.externalMatching?.some ?:
             (req.getHeader("wrapper original url") ?: req.requestURL.toString())
                 .removeSuffix("GetGameSettingApi").removeSuffix("ChuniServlet/")
-        val reflector = opts?.chusanMatchingReflector?.ifBlank { null } ?:
+        val reflector = opts?.chusanMatchingReflector?.some ?:
             props.reflectorUrl
 
         mapOf(
