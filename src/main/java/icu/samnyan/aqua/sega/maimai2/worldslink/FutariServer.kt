@@ -54,7 +54,7 @@ fun ActiveClient.handle(msg: Msg) {
         Command.DATA_BROADCAST -> {
             // Broadcast to all clients. This is only used in UDP so SID is always 0
             if (msg.proto != Proto.UDP) return log.warn("TCP Broadcast received, something is wrong.")
-            clients.values.filter { it.clientKey != clientKey }.forEach { it.send(msg.copy(src = stubIp)) }
+            clients.values.forEach { it.send(msg.copy(src = stubIp)) }
         }
         Command.DATA_SEND, Command.CTL_TCP_ACCEPT_ACK -> {
             target ?: return log.warn("Send: Target not found: ${msg.dst}")
@@ -129,7 +129,7 @@ class MaimaiFutari(private val port: Int = 20101) {
         try {
             while (true) {
                 val input = (reader.readLine() ?: continue).trim('\uFEFF')
-                log.debug("Received: $input")
+                log.info("${socket.remoteSocketAddress} (${handler?.clientKey}) <<< $input")
                 val message = Msg.fromString(input)
 
                 when (message.cmd) {
