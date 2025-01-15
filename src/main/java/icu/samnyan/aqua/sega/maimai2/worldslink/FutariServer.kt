@@ -27,6 +27,7 @@ data class ActiveClient(
     val socket: Socket,
     val reader: BufferedReader,
     val writer: BufferedWriter,
+    val thread: Thread = Thread.currentThread(),
     // <Stream ID, Destination client stub IP>
     val tcpStreams: MutableMap<UInt, UInt> = mutableMapOf(),
     val pendingStreams: MutableSet<UInt> = mutableSetOf(),
@@ -39,9 +40,16 @@ data class ActiveClient(
 
     fun send(msg: Msg) {
         writeMutex.withLock {
-            writer.write(msg.toString())
-            writer.newLine()
-            writer.flush()
+            try {
+                writer.write(msg.toString())
+                writer.newLine()
+                writer.flush()
+            }
+            catch (e: Exception) {
+                log.error("Error sending message", e)
+                socket.close()
+                thread.interrupt()
+            }
         }
     }
 }
