@@ -17,7 +17,8 @@ import kotlin.concurrent.withLock
 
 const val PROTO_VERSION = 1
 const val MAX_STREAMS = 10
-const val SO_TIMEOUT = 10000
+const val SO_TIMEOUT = 20000
+//const val SO_TIMEOUT = 10000000
 
 fun ctlMsg(cmd: UInt, data: String? = null) = Msg(cmd, data = data)
 
@@ -47,10 +48,13 @@ data class ActiveClient(
 
 fun ActiveClient.handle(msg: Msg) {
     // Find target by dst IP address or TCP stream ID
-    val target = (msg.dst ?: msg.sid?.let { tcpStreams[it] } )?.let { clients[it] }
+    val target = (msg.sid?.let { tcpStreams[it] } ?: msg.dst)?.let { clients[it] }
 
     when (msg.cmd) {
-        Command.CTL_HEARTBEAT -> lastHeartbeat = millis()
+        Command.CTL_HEARTBEAT -> {
+            lastHeartbeat = millis()
+            send(ctlMsg(Command.CTL_HEARTBEAT))
+        }
         Command.DATA_BROADCAST -> {
             // Broadcast to all clients. This is only used in UDP so SID is always 0
             if (msg.proto != Proto.UDP) return log.warn("TCP Broadcast received, something is wrong.")
@@ -129,7 +133,7 @@ class MaimaiFutari(private val port: Int = 20101) {
         try {
             while (true) {
                 val input = (reader.readLine() ?: continue).trim('\uFEFF')
-                log.info("${socket.remoteSocketAddress} (${handler?.clientKey}) <<< $input")
+                if (input != "1,3") log.info("${socket.remoteSocketAddress} (${handler?.clientKey}) <<< $input")
                 val message = Msg.fromString(input)
 
                 when (message.cmd) {
