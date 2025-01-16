@@ -26,7 +26,7 @@ private val KJson = Json {
 }
 
 // Maximum time to live for a recruit record
-const val MAX_TTL = 3 * 60 * 1000
+const val MAX_TTL = 30 * 1000
 
 data class RecruitRecord(val d: RecruitInfo, val time: Long = millis())
 
