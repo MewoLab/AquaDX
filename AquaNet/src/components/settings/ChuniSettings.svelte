@@ -6,7 +6,7 @@
     type UserBox,
     type UserItem,
   } from "../../libs/generalTypes";
-  import { DATA, USER, USERBOX } from "../../libs/sdk";
+  import { DATA, USER, USERBOX, GAME } from "../../libs/sdk";
   import { t, ts } from "../../libs/i18n";
   import { DATA_HOST, FADE_IN, FADE_OUT, USERBOX_DEFAULT_URL } from "../../libs/config";
   import { fade, slide } from "svelte/transition";
@@ -96,6 +96,23 @@
     user = u
     return fetchData()
   }).catch((e) => { loading = false; error = e.message });
+
+  function exportData() {
+    submitting = "export"
+    GAME.export('chu3')
+      .then(data => download(JSON.stringify(data), `AquaDX_chu3_export_${userbox.userName}.json`))
+      .catch(e => error = e.message)
+      .finally(() => submitting = "")
+  }
+
+  function download(data: string, filename: string) {
+    const blob = new Blob([data]);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+  }
 
   let DDSreader: DDS | undefined;
 
@@ -268,7 +285,11 @@
       <button on:click={() => USERBOX_SETUP_RUN = !USERBOX_SETUP_RUN}>{t(!USERBOX_INSTALLED ? `userbox.new.activate_first` : `userbox.new.activate_update`)}</button>
     </p>
   {/if}
-  <ChuniMatchingSettings/>
+  <ChuniMatchingSettings/><br>
+  <button class="exportButton" on:click={exportData}>
+    <Icon icon="bxs:file-export"/>
+    {t('settings.export')}
+  </button>
 </div>
 {/if}
 
