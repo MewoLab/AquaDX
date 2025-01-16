@@ -8,11 +8,9 @@ import ext.str
 object Command {
     // Control plane
     const val CTL_START = 1u
-    const val CTL_BIND = 2u
     const val CTL_HEARTBEAT = 3u
     const val CTL_TCP_CONNECT = 4u  // Accept a new multiplexed TCP stream
     const val CTL_TCP_ACCEPT = 5u
-    const val CTL_TCP_ACCEPT_ACK = 6u
     const val CTL_TCP_CLOSE = 7u
 
     // Data plane
