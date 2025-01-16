@@ -64,7 +64,7 @@ fun ActiveClient.handle(msg: Msg) {
             lastHeartbeat = millis()
             send(ctlMsg(Command.CTL_HEARTBEAT))
         }
-        Command.DATA_SEND, Command.CTL_TCP_ACCEPT_ACK -> {
+        Command.DATA_SEND -> {
             target ?: return log.warn("Send: Target not found: ${msg.dst}")
 
             if (msg.proto == Proto.TCP && msg.sid !in tcpStreams)
