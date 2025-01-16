@@ -236,6 +236,14 @@ fun Maimai2ServletController.initApis() {
         )
     }
 
+    "GetServerAnnouncement" static { mapOf(
+        "title" to "",
+        "announcement" to "",
+        "showOnIdle" to false,
+        "showOnUserLogin" to false,
+        "imageUrl" to "",
+    ) }
+
     "GetGameWeeklyData" static { mapOf(
         "gameWeeklyData" to mapOf(
             "missionCategory" to 0,
