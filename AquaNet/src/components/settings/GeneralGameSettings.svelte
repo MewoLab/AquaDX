@@ -9,6 +9,9 @@
 </script>
 
 <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
+  <p class="warning">
+    These settings affect Mai and Wacca.
+  </p>
   <GameSettingFields game="general"/>
   <div class="field">
     <div class="bool">
@@ -22,6 +25,8 @@
 </div>
 
 <style lang="sass">
+  @use "../../vars"
+
   .fields
     display: flex
     flex-direction: column
@@ -54,4 +59,14 @@
 
       > input
         flex: 1
+
+  .warning
+    background: #aa555510
+    padding: 10px
+    border-left: solid 2px vars.$c-error
+
+    &::before
+      color: vars.$c-error
+      font-weight: bold
+      content: "！"
 </style>
