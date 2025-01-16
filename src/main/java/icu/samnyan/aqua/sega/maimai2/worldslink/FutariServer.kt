@@ -148,7 +148,7 @@ class MaimaiFutari(private val port: Int = 20101) {
 
         try {
             while (true) {
-                val input = (reader.readLine() ?: continue).trim('\uFEFF')
+                val input = (reader.readLine() ?: if (Thread.interrupted()) break else continue).trim('\uFEFF')
                 if (input != "1,3") log.info("${socket.remoteSocketAddress} (${handler?.clientKey}) <<< $input")
                 val message = Msg.fromString(input)
 
