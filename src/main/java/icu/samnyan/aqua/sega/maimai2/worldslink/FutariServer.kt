@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
 import java.net.SocketTimeoutException
+import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.collections.set
@@ -109,7 +110,14 @@ fun ActiveClient.handle(msg: Msg) {
     }
 }
 
-fun keychipToStubIp(keychip: String) = "1${keychip.substring(2)}".toUInt()
+fun hashStringToUInt(input: String) = MessageDigest.getInstance("MD5").digest(input.toByteArray()).let {
+    ((it[0].toUInt() and 0xFFu) shl 24) or
+    ((it[1].toUInt() and 0xFFu) shl 16) or
+    ((it[2].toUInt() and 0xFFu) shl 8) or
+    (it[3].toUInt() and 0xFFu)
+}
+
+fun keychipToStubIp(keychip: String) = hashStringToUInt(keychip)
 
 // Keychip ID to Socket
 val clients = ConcurrentHashMap<UInt, ActiveClient>()
