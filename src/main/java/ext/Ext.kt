@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalStdlibApi::class)
+
 package ext
 
 import icu.samnyan.aqua.net.utils.ApiException
@@ -113,7 +115,6 @@ val HTTP = HttpClient(CIO) {
 }
 val TIKA = Tika()
 val MIMES = MimeTypes.getDefaultMimeTypes()
-val MD5 = MessageDigest.getInstance("MD5")
 
 // Class resource
 object Ext { val log = logger() }
@@ -216,11 +217,12 @@ operator fun Str.get(range: IntRange) = substring(range.first, (range.last + 1).
 operator fun Str.get(start: Int, end: Int) = substring(start, end.coerceAtMost(length))
 fun Str.center(width: Int, padChar: Char = ' ') = padStart((length + width) / 2, padChar).padEnd(width, padChar)
 fun Str.splitLines() = replace("\r\n", "\n").split('\n')
-@OptIn(ExperimentalStdlibApi::class)
-fun Str.md5() = MD5.digest(toByteArray(Charsets.UTF_8)).toHexString()
+fun Str.hash(algo: Str) = MessageDigest.getInstance(algo).digest(toByteArray(StandardCharsets.UTF_8))
+fun Str.md5() = hash("MD5")
 fun Str.fromChusanUsername() = String(this.toByteArray(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8)
 fun Str.truncate(len: Int) = if (this.length > len) this.take(len) + "..." else this
 val Str.some get() = ifBlank { null }
+val ByteArray.hexStr get() = toHexString()
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }

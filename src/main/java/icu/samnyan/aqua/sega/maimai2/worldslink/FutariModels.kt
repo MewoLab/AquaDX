@@ -11,7 +11,7 @@ data class MechaInfo(
     val IpAddress: UInt,
     val MusicID: Int,
     val Entrys: List<Bool>,
-    val UserIDs: List<Long>,
+    var UserIDs: List<Long>,
     val UserNames: List<String>,
     val IconIDs: List<Int>,
     val FumenDifs: List<Int>,

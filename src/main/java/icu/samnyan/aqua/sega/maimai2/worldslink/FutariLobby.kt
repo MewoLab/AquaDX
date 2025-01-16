@@ -64,6 +64,7 @@ class FutariLobby(paths: PathProps) {
         recruits[d.ip] = RecruitRecord(d.RecruitInfo)
 
         if (!exists) log(d, "StartRecruit")
+        d.RecruitInfo.MechaInfo.UserIDs = d.RecruitInfo.MechaInfo.UserIDs.map { it.str.hashToUInt().toLong() }
     }
 
     @API("recruit/finish")

@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2.worldslink
 
 import ext.logger
+import ext.md5
 import ext.millis
 import ext.thread
 import java.io.BufferedReader
@@ -10,7 +11,6 @@ import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
 import java.net.SocketTimeoutException
-import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.collections.set
@@ -110,14 +110,14 @@ fun ActiveClient.handle(msg: Msg) {
     }
 }
 
-fun hashStringToUInt(input: String) = MessageDigest.getInstance("MD5").digest(input.toByteArray()).let {
+fun String.hashToUInt() = md5().let {
     ((it[0].toUInt() and 0xFFu) shl 24) or
     ((it[1].toUInt() and 0xFFu) shl 16) or
     ((it[2].toUInt() and 0xFFu) shl 8) or
     (it[3].toUInt() and 0xFFu)
 }
 
-fun keychipToStubIp(keychip: String) = hashStringToUInt(keychip)
+fun keychipToStubIp(keychip: String) = keychip.hashToUInt()
 
 // Keychip ID to Socket
 val clients = ConcurrentHashMap<UInt, ActiveClient>()

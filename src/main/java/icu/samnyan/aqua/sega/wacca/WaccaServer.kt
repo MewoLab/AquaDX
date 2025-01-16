@@ -71,7 +71,7 @@ class WaccaServer {
             """"maintNoticeTime":0,"maintNotPlayableTime":0,"maintStartTime":0,"params":$paramsJson}"""
 
         return ResponseEntity.ok().headers(
-            "X-Wacca-Hash" to resp.md5(),
+            "X-Wacca-Hash" to resp.md5().hexStr,
             "Content-Type" to "application/json; charset=utf-8"
         ).body(resp)
     }
