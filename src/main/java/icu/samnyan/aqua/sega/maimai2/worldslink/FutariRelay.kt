@@ -64,6 +64,11 @@ fun ActiveClient.handle(msg: Msg) {
             lastHeartbeat = millis()
             send(ctlMsg(Command.CTL_HEARTBEAT))
         }
+        Command.DATA_BROADCAST -> {
+            // Broadcast to all clients. This is only used in UDP so SID is always 0
+            if (msg.proto != Proto.UDP) return log.warn("TCP Broadcast received, something is wrong.")
+            clients.values.forEach { it.send(msg.copy(src = stubIp)) }
+        }
         Command.DATA_SEND -> {
             target ?: return log.warn("Send: Target not found: ${msg.dst}")
 
