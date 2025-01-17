@@ -39,6 +39,7 @@
     "lxgw-wenkai-lite-webfont": "^1.7.0",
     "modern-normalize": "^3.0.1",
     "moment": "^2.30.1",
+    "svelte-easy-crop": "^4.0.0",
     "svelte5-router": "^3.0.1"
   },
   "packageManager": "pnpm@9.7.0+sha512.dc09430156b427f5ecfc79888899e1c39d2d690f004be70e05230b72cb173d96839587545d09429b55ac3c429c801b4dc3c0e002f653830a420fa2dd4e3cf9cf"

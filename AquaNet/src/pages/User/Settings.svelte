@@ -9,6 +9,7 @@
   import { pfp } from "../../libs/ui";
   import { t, ts } from "../../libs/i18n";
   import { FADE_IN, FADE_OUT } from "../../libs/config";
+  import Cropper from "svelte-easy-crop";
   import UserBox from "../../components/settings/ChuniSettings.svelte";
   import Mai2Settings from "../../components/settings/Mai2Settings.svelte";
   import WaccaSettings from "../../components/settings/WaccaSettings.svelte";
@@ -32,6 +33,11 @@
 
   // Fetch user data
   const getMe = () => USER.me().then((m) => {
+    if (pfpCropURL != null) {
+      URL.revokeObjectURL(pfpCropURL);
+      pfpField.value = "";
+      pfpCropURL = null;
+    }
     me = m
 
     CARD.userGames(m.username).then(games => {
@@ -50,6 +56,8 @@
 
   let changed: string[] = []
   let pfpField: HTMLInputElement
+  let pfpCropURL: string | null = null;
+  let pfpCrop = { width: 0, height: 0, x: 0, y: 0 };
 
   function submit(field: string, value: string) {
     if (submitting) return
@@ -60,16 +68,53 @@
     }).catch(e => error = e.message).finally(() => submitting = "")
   }
 
-  function uploadPfp(file: File) {
+  function uploadPfp() {
     if (submitting) return
-    submitting = 'profilePicture'
-
-    USER.uploadPfp(file).then(() => {
-      me.profilePicture = file.name
-      // reload
-      getMe()
-    }).catch(e => error = e.message).finally(() => submitting = "")
+    // Don't know why this isn't just a part of the cropper module. Have to do this myself.. What a shame
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    canvas.width = 256;
+    canvas.height = 256;
+    let img = document.createElement("img");
+    img.onload = () => {
+      ctx?.drawImage(img, pfpCrop.x, pfpCrop.y, pfpCrop.width, pfpCrop.height, 0, 0, 256, 256);
+      canvas.toBlob(blob => {
+        if (!blob) return;
+        submitting = 'profilePicture'
+        USER.uploadPfp(blob as File).then(() => {
+          me.profilePicture = me.username
+          // reload
+          // this doesn't work btw
+          setTimeout(getMe, 200);
+        }).catch(e => error = e.message).finally(() => submitting = "")
+      });
+    }
+    img.src = pfpCropURL ?? "";
   }
+  function handlePfpUpload(e: Event & { target: HTMLInputElement }) {
+    if (!e.target) return;
+    let files = e?.target?.files;
+    if (!files || files.length <= 0) return;
+    let file = files[0];
+    console.log(me.username, me);
+    switch (file.type) {
+      case "image/gif":
+        USER.uploadPfp(file).then(() => {
+          me.profilePicture = me.username
+          // reload
+          setTimeout(getMe, 200);
+        }).catch(e => error = e.message).finally(() => submitting = "")
+        break;
+      case "image/png":
+      case "image/jpg":
+      case "image/jpeg":
+      case "image/webp":
+        pfpCropURL = URL.createObjectURL(file);
+        break;
+      default:
+        error = t("settings.profile.bad-format");
+    }
+  };
 
   const passwordAction = (node: HTMLInputElement, whether: boolean) => {
     if (whether) node.type = 'password'
@@ -107,8 +152,9 @@
             </button>
           {/if}
         </div>
+        <!-- Genuinely don't know why this is giving me an intellisense error. Works fine. -->
         <input id="profile-upload" type="file" accept="image/*" style="display: none" bind:this={pfpField}
-               on:change={() => pfpField.files && uploadPfp(pfpField.files[0])} />
+               on:change={handlePfpUpload} />
       </div>
 
       {#each profileFields as [field, name], i (field)}
@@ -155,6 +201,22 @@
   <StatusOverlays {error} loading={!me || !!submitting} />
 </main>
 
+{#if pfpCropURL != null}
+  <div class="overlay" transition:fade>
+    <div>
+      <div class="cropper-container">
+        <Cropper maxZoom={1e9} oncropcomplete={(e) => pfpCrop = e.pixels} image={pfpCropURL ?? "assets/imgs/no_profile.png"} aspect={1} cropShape="round"></Cropper>
+      </div>
+      <button on:click={uploadPfp}>
+        {t("settings.profile.save")}
+      </button>
+      <button on:click={getMe}>
+        {t("back")}
+      </button>
+    </div>
+  </div>
+{/if}
+
 <style lang="sass">
   @use "../../vars"
 
@@ -196,5 +258,10 @@
       max-height: 100px
       border-radius: vars.$border-radius
       object-fit: cover
+      aspect-ratio: 1
 
+  .cropper-container
+    position: relative
+    width: 400px
+    aspect-ratio: 1
 </style>

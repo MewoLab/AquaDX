@@ -75,7 +75,7 @@
     img
       width: 1.5rem
       height: 1.5rem
-      border-radius: 50%
+      border-radius: vars.$border-radius
       object-fit: cover
 
     .pfp
