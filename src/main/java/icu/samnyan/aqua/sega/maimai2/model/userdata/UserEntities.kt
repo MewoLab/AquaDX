@@ -574,3 +574,23 @@ class Mai2UserUdemae : Mai2UserEntity() {
     var npcWinNum = 0
     var npcLoseNum = 0
 }
+
+@Table(name = "maimai2_user_kaleidx")
+@Data @Entity
+class Mai2UserKaleidx : Mai2UserEntity() {
+    var gateId = 0
+    var isGateFound = false
+    var isKeyFound = false
+    var isClear = false
+    var totalRestLife = 0
+    var totalAchievement = 0
+    var totalDeluxscore = 0
+    var bestAchievement = 0
+    var bestDeluxscore = 0
+    var bestAchievementDate: String = ""
+    var bestDeluxscoreDate: String = ""
+    var playCount = 0
+    var clearDate: String = ""
+    var lastPlayDate: String = ""
+    var isInfoWatched = false
+}
