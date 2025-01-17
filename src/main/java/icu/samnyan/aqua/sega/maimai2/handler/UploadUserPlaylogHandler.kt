@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
+import ext.logger
 import ext.millis
 import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.BaseHandler
@@ -28,6 +29,7 @@ class UploadUserPlaylogHandler(
         val playBacklog = mutableMapOf<Long, MutableList<BacklogEntry>>()
 
         val VALID_GAME_IDS = setOf("SDEZ", "SDGA", "SDGB")
+        val log = logger()
     }
 
     override fun handle(request: Map<String, Any>): String {
@@ -49,7 +51,10 @@ class UploadUserPlaylogHandler(
             req.userPlaylog.musicId,
             req.userPlaylog.userPlayDate
         ).size > 0
-        if (isDup) return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.UploadUserPlaylogApi"}"""
+        if (isDup) {
+            log.info("Duplicate playlog detected")
+            return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.UploadUserPlaylogApi"}"""
+        }
 
         // Save if the user is registered
         val u = userDataRepository.findByCardExtId(req.userId).getOrNull()
