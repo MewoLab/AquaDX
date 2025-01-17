@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
@@ -177,16 +179,29 @@ fun Maimai2ServletController.initApis() {
     "GetUserFriendBonus" { mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
     "GetUserIntimate" { mapOf("userId" to uid, "length" to 0, "userIntimateList" to empty) }
     "GetTransferFriend" { mapOf("userId" to uid, "transferFriendList" to empty) }
-    "GetUserKaleidxScope" { mapOf("userId" to uid, "userKaleidxScopeList" to empty) }
     "GetUserNewItem" { mapOf("userId" to uid, "itemKind" to 0, "itemId" to 0) }
-    "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
 
     "GetUserCardPrintError" static { mapOf("length" to 0, "userPrintDetailList" to empty) }
     "GetUserFriendCheck" static { mapOf("returnCode" to 0) }
     "UserFriendRegist" static { mapOf("returnCode1" to 0, "returnCode2" to 0) }
     "GetGameNgMusicId" static { mapOf("length" to 0, "musicIdList" to empty) }
     "GetGameTournamentInfo" static { mapOf("length" to 0, "gameTournamentInfoList" to empty) }
+
+    // Kaleidoscope, added on 1.50
     "GetGameKaleidxScope" static { mapOf("gameKaleidxScopeList" to empty) }
+    "GetUserKaleidxScope" { mapOf("userId" to uid, "userKaleidxScopeList" to empty) }
+    // Added on 1.50
+    "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
+
+    // Added on 1.50 (export only)
+    "UploadUserPlaylogListApi" {
+        val lst = parsing { data["userPlaylogList"] as List<JDict> }
+        if (lst.size > 40) (400 - "Too many playlogs")
+        lst.forEach {
+            uploadUserPlaylog.handle(mapOf("userId" to uid, "userPlaylog" to it))
+        }
+        """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.UploadUserPlaylogListApi"}"""
+    }
 
     "GetGameSetting" static {
         // The client-side implementation for reboot time is extremely cursed.
@@ -262,11 +277,13 @@ fun Maimai2ServletController.initApis() {
         "userMissionDataList" to empty
     ) }
 
-    "GetGameMusicScore" static { mapOf(
+    // Added on 1.50
+    // This unfortunately cannot be used for custom charts, because sound data is not present.
+    "GetGameMusicScore" { mapOf(
         "gameMusicScore" to mapOf(
-            "musicId" to 0,
-            "level" to 0,
-            "type" to 0,
+            "musicId" to data["musicId"],
+            "level" to data["level"],
+            "type" to data["type"],
             "scoreData" to ""
         )
     ) }
