@@ -72,7 +72,8 @@ class UpsertUserAllHandler(
         req.run {
             listOfNotNull(
                 userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
-                userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList
+                userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList,
+                userKaleidxScopeList
             )
         }.flatten().forEach { it.user = u }
 
