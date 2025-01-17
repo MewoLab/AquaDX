@@ -34,6 +34,8 @@ data class RecruitInfo(
 )
 
 @Serializable
-data class StartRecruit(
+data class RecruitRecord(
     val RecruitInfo: RecruitInfo,
+    val Keychip: String,
+    var Time: Long = 0
 )

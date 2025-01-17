@@ -28,8 +28,6 @@ private val KJson = Json {
 // Maximum time to live for a recruit record
 const val MAX_TTL = 30 * 1000
 
-data class RecruitRecord(val d: RecruitInfo, val time: Long = millis())
-
 @RestController
 @RequestMapping(path = ["/mai2-futari"])
 class FutariLobby(paths: PathProps) {
@@ -52,16 +50,16 @@ class FutariLobby(paths: PathProps) {
         writer.flush()
     }
 
-    fun log(data: StartRecruit, msg: String) =
-        log("${LocalDateTime.now().isoDateTime()}: $msg: ${data.RecruitInfo.toJson()}")
+    fun log(data: RecruitRecord, msg: String) =
+        log("${LocalDateTime.now().isoDateTime()}: $msg: ${KJson.encodeToString(data)}")
 
-    val StartRecruit.ip get() = RecruitInfo.MechaInfo.IpAddress
+    val RecruitRecord.ip get() = RecruitInfo.MechaInfo.IpAddress
 
     @API("recruit/start")
     fun startRecruit(@RB data: String) {
-        val d = parsing { KJson.decodeFromString<StartRecruit>(data) }
+        val d = parsing { KJson.decodeFromString<RecruitRecord>(data) }.apply { Time = millis() }
         val exists = d.ip in recruits
-        recruits[d.ip] = RecruitRecord(d.RecruitInfo)
+        recruits[d.ip] = d
 
         if (!exists) log(d, "StartRecruit")
         d.RecruitInfo.MechaInfo.UserIDs = d.RecruitInfo.MechaInfo.UserIDs.map { it.str.hashToUInt().toLong() }
@@ -69,8 +67,9 @@ class FutariLobby(paths: PathProps) {
 
     @API("recruit/finish")
     fun finishRecruit(@RB data: String) {
-        val d = parsing { KJson.decodeFromString<StartRecruit>(data) }
+        val d = parsing { KJson.decodeFromString<RecruitRecord>(data) }
         if (d.ip !in recruits) 400 - "Recruit not found"
+        if (d.Keychip != recruits[d.ip]!!.Keychip) 400 - "Keychip mismatch"
         recruits.remove(d.ip)
         log(d, "EndRecruit")
     }
@@ -78,16 +77,16 @@ class FutariLobby(paths: PathProps) {
     @API("recruit/list")
     fun listRecruit(): String {
         val time = millis()
-        recruits.filterValues { time - it.time > MAX_TTL }.keys.forEach { recruits.remove(it) }
-        return recruits.values.toList().joinToString("\n") { KJson.encodeToString(it.d) }
+        recruits.filterValues { time - it.Time > MAX_TTL }.keys.forEach { recruits.remove(it) }
+        return recruits.values.toList().joinToString("\n") { KJson.encodeToString(it.RecruitInfo) }
     }
 }
 
 fun main(args: Array<String>) {
     val json = """{"RecruitInfo":{"MechaInfo":{"IsJoin":true,"IpAddress":1820162433,"MusicID":11692,"Entrys":[true,false],"UserIDs":[281474976710657,281474976710657],"UserNames":["ＧＵＥＳＴ","ＧＵＥＳＴ"],"IconIDs":[1,1],"FumenDifs":[0,-1],"Rateing":[0,0],"ClassValue":[0,0],"MaxClassValue":[0,0],"UserType":[0,0]},"MusicID":11692,"GroupID":0,"EventModeID":false,"JoinNumber":1,"PartyStance":0,"_startTimeTicks":638725464510308001,"_recvTimeTicks":0}}"""
     println(json.jsonMap().toJson())
-    val data = KJson.decodeFromString<StartRecruit>(json)
+    val data = KJson.decodeFromString<RecruitRecord>(json)
     println(json)
-    println(KJson.encodeToString(StartRecruit.serializer(), data))
+    println(KJson.encodeToString(data))
     println(data)
 }
