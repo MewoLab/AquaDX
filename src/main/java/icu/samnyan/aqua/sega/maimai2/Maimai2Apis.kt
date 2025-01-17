@@ -189,7 +189,7 @@ fun Maimai2ServletController.initApis() {
 
     // Kaleidoscope, added on 1.50
     "GetGameKaleidxScope" static { mapOf("gameKaleidxScopeList" to empty) }
-    "GetUserKaleidxScope" { mapOf("userId" to uid, "userKaleidxScopeList" to empty) }
+    "GetUserKaleidxScope".unpaged { db.userKaleidx.findByUser_Card_ExtId(uid) }
     // Added on 1.50
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
 
