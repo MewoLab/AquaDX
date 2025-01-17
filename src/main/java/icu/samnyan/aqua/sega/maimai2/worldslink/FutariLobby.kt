@@ -14,6 +14,7 @@ import java.io.FileOutputStream
 import java.time.LocalDateTime
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
+import kotlin.io.path.readText
 
 
 // KotlinX Serialization
@@ -30,7 +31,7 @@ const val MAX_TTL = 30 * 1000
 
 @RestController
 @RequestMapping(path = ["/mai2-futari"])
-class FutariLobby(paths: PathProps) {
+class FutariLobby(val paths: PathProps) {
     // <IP Address, RecruitInfo>
     val recruits = mutableMapOf<UInt, RecruitRecord>()
     // Append writer
@@ -40,7 +41,7 @@ class FutariLobby(paths: PathProps) {
 
     init {
         paths.init()
-        writer = FileOutputStream(File(paths.recruitLog), true).bufferedWriter()
+        writer = FileOutputStream(File(paths.futariRecruitLog), true).bufferedWriter()
     }
 
     fun log(data: String) = mutex.withLock {
@@ -69,7 +70,7 @@ class FutariLobby(paths: PathProps) {
     fun finishRecruit(@RB data: String) {
         val d = parsing { KJson.decodeFromString<RecruitRecord>(data) }
         if (d.ip !in recruits) 400 - "Recruit not found"
-        if (d.Keychip != recruits[d.ip]!!.Keychip) 400 - "Keychip mismatch"
+//        if (d.Keychip != recruits[d.ip]!!.Keychip) 400 - "Keychip mismatch"
         recruits.remove(d.ip)
         log(d, "EndRecruit")
     }
@@ -78,8 +79,11 @@ class FutariLobby(paths: PathProps) {
     fun listRecruit(): String {
         val time = millis()
         recruits.filterValues { time - it.Time > MAX_TTL }.keys.forEach { recruits.remove(it) }
-        return recruits.values.toList().joinToString("\n") { KJson.encodeToString(it.RecruitInfo) }
+        return recruits.values.toList().joinToString("\n") { KJson.encodeToString(it) }
     }
+
+    @API("server-list")
+    fun serverList() = paths.futariRelayInfo.path().readText().trim()
 }
 
 fun main(args: Array<String>) {

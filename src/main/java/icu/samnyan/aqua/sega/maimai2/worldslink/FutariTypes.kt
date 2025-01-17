@@ -1,9 +1,9 @@
+@file:Suppress("PropertyName")
+
 package icu.samnyan.aqua.sega.maimai2.worldslink
 
-import ext.arr
-import ext.ls
-import ext.some
-import ext.str
+import ext.*
+import kotlinx.serialization.Serializable
 
 object Command {
     // Control plane
@@ -54,3 +54,47 @@ data class Msg(
         }
     }
 }
+
+@Serializable
+data class MechaInfo(
+    val IsJoin: Bool,
+    val IpAddress: UInt,
+    val MusicID: Int,
+    val Entrys: List<Bool>,
+    var UserIDs: List<Long>,
+    val UserNames: List<String>,
+    val IconIDs: List<Int>,
+    val FumenDifs: List<Int>,
+    val Rateing: List<Int>,
+    val ClassValue: List<Int>,
+    val MaxClassValue: List<Int>,
+    val UserType: List<Int>
+)
+
+@Serializable
+data class RecruitInfo(
+    val MechaInfo: MechaInfo,
+    val MusicID: Int,
+    val GroupID: Int,
+    val EventModeID: Boolean,
+    val JoinNumber: Int,
+    val PartyStance: Int,
+    val _startTimeTicks: Long,
+    val _recvTimeTicks: Long
+)
+
+@Serializable
+data class RecruitRecord(
+    val RecruitInfo: RecruitInfo,
+    val Keychip: String,
+    var Server: RelayServerInfo? = null,
+    var Time: Long = 0,
+)
+
+@Serializable
+data class RelayServerInfo(
+    val name: String,
+    val addr: String,
+    val port: Int = 20101,
+    val official: Bool = true
+)
