@@ -16,4 +16,7 @@
 | 10       | Partner                 |
 | 11       | Frame                   |
 | 12       | Tickets                 |
+| 13       | Mile                    |
+| 14       | Intimate Item           |
+| 15       | Kaleidx Scope Key       |
 
