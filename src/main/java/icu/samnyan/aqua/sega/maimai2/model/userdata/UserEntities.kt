@@ -15,6 +15,7 @@ import jakarta.persistence.*
 import lombok.AllArgsConstructor
 import lombok.Data
 import lombok.NoArgsConstructor
+import java.time.LocalDateTime
 
 @MappedSuperclass
 open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
@@ -587,10 +588,10 @@ class Mai2UserKaleidx : Mai2UserEntity() {
     var totalDeluxscore = 0
     var bestAchievement = 0
     var bestDeluxscore = 0
-    var bestAchievementDate: String = ""
-    var bestDeluxscoreDate: String = ""
+    var bestAchievementDate: LocalDateTime = LocalDateTime.MIN
+    var bestDeluxscoreDate: LocalDateTime = LocalDateTime.MIN
     var playCount = 0
-    var clearDate: String = ""
-    var lastPlayDate: String = ""
+    var clearDate: LocalDateTime = LocalDateTime.MIN
+    var lastPlayDate: LocalDateTime = LocalDateTime.MIN
     var isInfoWatched = false
 }
