@@ -43,6 +43,14 @@ class UploadUserPlaylogHandler(
             ).increment()
         }
 
+        // Check duplicate
+        val isDup = playlogRepo.findByUser_Card_ExtIdAndMusicIdAndUserPlayDate(
+            req.userId,
+            req.userPlaylog.musicId,
+            req.userPlaylog.userPlayDate
+        ).size > 0
+        if (isDup) return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.UploadUserPlaylogApi"}"""
+
         // Save if the user is registered
         val u = userDataRepository.findByCardExtId(req.userId).getOrNull()
         if (u != null) playlogRepo.save(req.userPlaylog.apply { user = u })

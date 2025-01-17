@@ -99,6 +99,11 @@ interface Mai2UserOptionRepo : Mai2UserLinked<Mai2UserOption>
 
 interface Mai2UserPlaylogRepo : GenericPlaylogRepo<Mai2UserPlaylog>, Mai2UserLinked<Mai2UserPlaylog> {
     fun findByUser_Card_ExtIdAndMusicIdAndLevel(userId: Long, musicId: Int, level: Int): List<Mai2UserPlaylog>
+    fun findByUser_Card_ExtIdAndMusicIdAndUserPlayDate(
+        userCardExtId: Long,
+        musicId: Int,
+        userPlayDate: String
+    ): MutableList<Mai2UserPlaylog>
 }
 
 interface Mai2UserPrintDetailRepo : JpaRepository<Mai2UserPrintDetail, Long>
