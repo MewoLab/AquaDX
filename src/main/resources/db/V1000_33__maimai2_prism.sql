@@ -3,7 +3,7 @@ ALTER TABLE maimai2_user_playlog ADD COLUMN ext_bool2 BIT(1) DEFAULT 0;
 
 CREATE TABLE maimai2_user_kaleidx
 (
-    id                    BIGINT AUTO_INCREMENT NOT NULL,
+    id                    BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     user_id               BIGINT                NULL,
     gate_id               INT                   NOT NULL,
     is_gate_found         BIT(1)                NOT NULL,
