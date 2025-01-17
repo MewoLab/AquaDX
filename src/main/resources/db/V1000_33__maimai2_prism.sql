@@ -1,3 +1,4 @@
+ALTER TABLE maimai2_game_event ADD COLUMN disable_area VARCHAR(20) DEFAULT '';
 ALTER TABLE maimai2_user_playlog ADD COLUMN ext_bool2 BIT(1) DEFAULT 0;
 
 CREATE TABLE maimai2_user_kaleidx

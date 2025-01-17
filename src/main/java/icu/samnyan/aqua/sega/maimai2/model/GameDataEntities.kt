@@ -6,7 +6,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import lombok.Data
-import java.time.LocalDateTime
 
 @Data @Entity
 @Table(name = "maimai2_game_event")
@@ -20,6 +19,7 @@ class Mai2GameEvent : BaseEntity() {
 
     @JsonIgnore
     var enable = false
+    var disableArea = ""
 }
 
 @Data @Entity
