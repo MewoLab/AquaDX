@@ -58,7 +58,8 @@ class GetGameRankingHandler(
         "gameRankingList" to when(request["type"]) {
             1 -> {
                 val opts = TokenChecker.getCurrentSession()?.user?.gameOptions
-                if (opts?.enableMusicRank != true)
+                // If is null or true, return the ranking list
+                if (opts?.enableMusicRank == false)
                     emptyList()
                 else
                     musicRankingCache.map { mapOf("id" to it.musicId, "point" to it.weight, "userName" to "") }
