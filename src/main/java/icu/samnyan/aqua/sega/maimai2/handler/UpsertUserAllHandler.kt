@@ -85,15 +85,15 @@ class UpsertUserAllHandler(
             repos.userOption.save(it.apply { id = repos.userOption.findSingleByUser(u)()?.id ?: 0 })
         }
 
-        req.userCharacterList?.let { news ->
+        req.userCharacterList?.unique { it.characterId }?.let { news ->
             repos.userCharacter.saveAll(news.mapApply {
                 id = repos.userCharacter.findByUserAndCharacterId(u, characterId)()?.id ?: 0 }) }
 
-        req.userMapList?.let { news ->
+        req.userMapList?.unique { it.mapId }?.let { news ->
             repos.userMap.saveAll(news.mapApply {
                 id = repos.userMap.findByUserAndMapId(u, mapId)()?.id ?: 0 }) }
 
-        req.userLoginBonusList?.let { news ->
+        req.userLoginBonusList?.unique { it.bonusId }?.let { news ->
             repos.userLoginBonus.saveAll(news.mapApply {
                 id = repos.userLoginBonus.findByUserAndBonusId(u, bonusId)()?.id ?: 0 }) }
 
@@ -109,23 +109,23 @@ class UpsertUserAllHandler(
             saveRating(r.nextNewRatingList, u, "recent_rating_next_new")
         }
 
-        req.userItemList?.let { news ->
+        req.userItemList?.unique { it.itemId to it.itemKind }?.let { news ->
             repos.userItem.saveAll(news.mapApply {
                 id = repos.userItem.findByUserAndItemKindAndItemId(u, itemKind, itemId)()?.id ?: 0 }) }
 
-        req.userMusicDetailList?.let { news ->
+        req.userMusicDetailList?.unique { it.musicId to it.level }?.let { news ->
             repos.userMusicDetail.saveAll(news.mapApply {
                 id = repos.userMusicDetail.findByUserAndMusicIdAndLevel(u, musicId, level)()?.id ?: 0 }) }
 
-        req.userCourseList?.let { news ->
+        req.userCourseList?.unique { it.courseId }?.let { news ->
             repos.userCourse.saveAll(news.mapApply {
                 id = repos.userCourse.findByUserAndCourseId(u, courseId)()?.id ?: 0 }) }
 
-        req.userFriendSeasonRankingList?.let { news ->
+        req.userFriendSeasonRankingList?.unique { it.seasonId }?.let { news ->
             repos.userFriendSeasonRanking.saveAll(news.mapApply {
                 id = repos.userFriendSeasonRanking.findByUserAndSeasonId(u, seasonId)()?.id ?: 0 }) }
 
-        req.userFavoriteList?.let { news ->
+        req.userFavoriteList?.unique { it.itemKind }?.let { news ->
             repos.userFavorite.saveAll(news.mapApply {
                 id = repos.userFavorite.findByUserAndItemKind(u, itemKind)()?.id ?: 0 }) }
 
@@ -141,7 +141,7 @@ class UpsertUserAllHandler(
                 repos.userAct.saveAll(news.flatMap { listOf(it.musicList, it.playList) }.flatten()
                     .filter { it.kind != 0 && it.activityId != 0 }
                     .mapApply {
-                        id = repos.userAct.findByUserAndKindAndActivityId(u, kind, activityId)()?.id ?: 0
+                        // id = repos.userAct.findByUserAndKindAndActivityId(u, kind, activityId)()?.id ?: 0
                         user = u
                     }.sortedBy { it.sortNumber })
             }
