@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import ext.invoke
 import ext.mapApply
 import ext.minus
+import ext.unique
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.playBacklog
@@ -126,6 +127,11 @@ class UpsertUserAllHandler(
         req.userFavoriteList?.let { news ->
             repos.userFavorite.saveAll(news.mapApply {
                 id = repos.userFavorite.findByUserAndItemKind(u, itemKind)()?.id ?: 0 }) }
+
+        // Added on 1.50
+        req.userKaleidxScopeList?.unique { it.gateId }?.let { lst ->
+            repos.userKaleidx.saveAll(lst.mapApply {
+                id = repos.userKaleidx.findByUserAndGateId(u, gateId)?.id ?: 0 }) }
 
         // 2024/10/31 Found some user data findByUserAndKindAndActivityId is not unique
         // I think userActivityList is not important, so I will ignore it

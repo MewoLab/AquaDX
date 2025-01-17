@@ -109,6 +109,10 @@ interface Mai2UserPrintDetailRepo : JpaRepository<Mai2UserPrintDetail, Long>
 
 interface Mai2UserUdemaeRepo : Mai2UserLinked<Mai2UserUdemae>
 
+interface MAi2UserKaleidxRepo : Mai2UserLinked<Mai2UserKaleidx> {
+    fun findByUserAndGateId(user: Mai2UserDetail, gateId: Int): Mai2UserKaleidx?
+}
+
 interface Mai2GameChargeRepo : JpaRepository<Mai2GameCharge, Long>
 
 interface Mai2GameEventRepo : JpaRepository<Mai2GameEvent, Int> {
@@ -138,6 +142,7 @@ class Mai2Repos(
     val userPlaylog: Mai2UserPlaylogRepo,
     val userPrintDetail: Mai2UserPrintDetailRepo,
     val userUdemae: Mai2UserUdemaeRepo,
+    val userKaleidx: MAi2UserKaleidxRepo,
     val gameCharge: Mai2GameChargeRepo,
     val gameEvent: Mai2GameEventRepo,
     val gameSellingCard: Mai2GameSellingCardRepo

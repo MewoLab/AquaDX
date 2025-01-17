@@ -208,6 +208,8 @@ val <T> List<T>.mut get() = toMutableList()
 val <K, V> Map<K, V>.mut get() = toMutableMap()
 val <T> Set<T>.mut get() = toMutableSet()
 
+fun <T> List<T>.unique(fn: (T) -> Any) = distinctBy(fn).ifEmpty { null }
+
 // Optionals
 operator fun <T> Optional<T>.invoke(): T? = orElse(null)
 fun <T> Optional<T>.expect(message: Str = "Value is not present") = orElseGet { (400 - message) }
