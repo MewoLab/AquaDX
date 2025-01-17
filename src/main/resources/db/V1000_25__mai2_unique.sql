@@ -83,13 +83,6 @@ WHERE id NOT IN (
     GROUP BY user_id, item_kind
 );
 
-DELETE FROM maimai2_user_activity
-WHERE id NOT IN (
-    SELECT MAX(id)
-    FROM maimai2_user_activity
-    GROUP BY user_id, activity_id, kind
-);
-
 # Add unique constraint
 ALTER TABLE maimai2_user_extend
     ADD CONSTRAINT unique_maimai2_user_extend UNIQUE (user_id);
@@ -126,6 +119,3 @@ ALTER TABLE maimai2_user_friend_season_ranking
 
 ALTER TABLE maimai2_user_favorite
     ADD CONSTRAINT unique_maimai2_user_favorite UNIQUE (user_id, item_kind);
-
-ALTER TABLE maimai2_user_activity
-    ADD CONSTRAINT unique_maimai2_user_activity UNIQUE (user_id, activity_id, kind);
