@@ -590,10 +590,10 @@ class Mai2UserKaleidx : Mai2UserEntity() {
     var totalDeluxscore = 0
     var bestAchievement = 0
     var bestDeluxscore = 0
-    var bestAchievementDate: LocalDateTime = LocalDateTime.MIN
-    var bestDeluxscoreDate: LocalDateTime = LocalDateTime.MIN
+    var bestAchievementDate: LocalDateTime? = null
+    var bestDeluxscoreDate: LocalDateTime? = null
     var playCount = 0
-    var clearDate: LocalDateTime = LocalDateTime.MIN
-    var lastPlayDate: LocalDateTime = LocalDateTime.MIN
+    var clearDate: LocalDateTime? = null
+    var lastPlayDate: LocalDateTime? = null
     var isInfoWatched = false
 }

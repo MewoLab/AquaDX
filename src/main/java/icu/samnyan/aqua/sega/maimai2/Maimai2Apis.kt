@@ -188,7 +188,9 @@ fun Maimai2ServletController.initApis() {
     "GetGameTournamentInfo" static { mapOf("length" to 0, "gameTournamentInfoList" to empty) }
 
     // Kaleidoscope, added on 1.50
-    "GetGameKaleidxScope" static { mapOf("gameKaleidxScopeList" to empty) }
+    "GetGameKaleidxScope" static { mapOf("gameKaleidxScopeList" to ls(
+        mapOf("gateId" to 1, "phaseId" to 1),
+    )) }
     "GetUserKaleidxScope".unpaged { db.userKaleidx.findByUser_Card_ExtId(uid) }
     // Added on 1.50
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
