@@ -43,6 +43,9 @@ class AquaGameOptions(
 
     @SettingField("chu3-matching")
     var chusanMatchingReflector: String = "",
+
+    @SettingField("mai2")
+    var enableMusicRank: Boolean = true,
 )
 
 interface AquaGameOptionsRepo : JpaRepository<AquaGameOptions, Long>

@@ -153,6 +153,8 @@ export const EN_REF_SETTINGS = {
   'settings.fields.gameUsername.desc': 'Your name shown in game',
   'settings.fields.optOutOfLeaderboard.name': 'Opt Out of Leaderboard',
   'settings.fields.optOutOfLeaderboard.desc': 'You will still be able to see yourself on the leaderboard after logging in',
+  'settings.fields.enableMusicRank.name': 'Enable Recommended Music Rank on Your Machine',
+  'settings.fields.enableMusicRank.desc': 'If you have your own ranking, you can turn this off. It only affects your own machine',
   'settings.mai2.name': 'Player Name',
   'settings.profile.picture': 'Profile Picture',
   'settings.profile.upload-new': 'Upload New',
