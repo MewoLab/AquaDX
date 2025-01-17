@@ -507,6 +507,8 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
 
     @JsonProperty("extBool1")
     var extBool1 = false
+    @JsonProperty("extBool2")
+    var extBool2 = false
 
     override val isFullCombo: Boolean
         get() = maxCombo == totalCombo
