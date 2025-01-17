@@ -28,11 +28,7 @@ interface Mai2UserLinked<T>: JpaRepository<T, Long>, IUserRepo<Mai2UserDetail, T
 
 interface Mai2MapEncountNpcRepo : Mai2UserLinked<Mai2MapEncountNpc>
 
-interface Mai2UserActRepo : Mai2UserLinked<Mai2UserAct> {
-    fun findByUserAndKindAndActivityId(user: Mai2UserDetail, kind: Int, id: Int): Optional<Mai2UserAct>
-
-    fun findByUser_Card_ExtIdAndKind(userId: Long, kind: Int): List<Mai2UserAct>
-}
+interface Mai2UserActRepo : Mai2UserLinked<Mai2UserAct>
 
 interface Mai2UserCardRepo : Mai2UserLinked<Mai2UserCard> {
     fun findByUserAndCardId(user: Mai2UserDetail, cardId: Int): Optional<Mai2UserCard>

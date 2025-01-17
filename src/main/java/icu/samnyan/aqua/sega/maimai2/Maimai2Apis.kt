@@ -47,8 +47,8 @@ fun Maimai2ServletController.initApis() {
     "GetUserActivity" {
         db.userAct.findByUser_Card_ExtId(uid).let { act -> mapOf(
             "userActivity" to mapOf(
-                "playList" to act.filter { it.kind == 1 },
-                "musicList" to act.filter { it.kind == 2 }
+                "playList" to act.filter { it.kind == 1 }.take(200),
+                "musicList" to act.filter { it.kind == 2 }.take(200)
             )
         ) }
     }
