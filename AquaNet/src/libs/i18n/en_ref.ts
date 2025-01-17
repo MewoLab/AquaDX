@@ -156,6 +156,7 @@ export const EN_REF_SETTINGS = {
   'settings.mai2.name': 'Player Name',
   'settings.profile.picture': 'Profile Picture',
   'settings.profile.upload-new': 'Upload New',
+  'settings.profile.bad-format': 'Invalid image format. Supported types are PNG, JPG, JPEG, WEBP & GIF.',
   'settings.profile.save': 'Save',
   'settings.profile.name': 'Display Name',
   'settings.profile.username': 'Username',
@@ -165,7 +166,8 @@ export const EN_REF_SETTINGS = {
   'settings.profile.unset': 'Unset',
   'settings.profile.unchanged': 'Unchanged',
   'settings.export': 'Export Player Data',
-  'settings.cabNotice': "Note: These settings will only affect your own cab/setup. If you're playing on someone else's setup, please contact them to change these settings."
+  'settings.cabNotice': "Note: These settings will only affect your own cab/setup. If you're playing on someone else's setup, please contact them to change these settings.",
+  'settings.gameNotice': "These only apply to Mai and Wacca."
 }
 
 export const EN_REF_USERBOX = {

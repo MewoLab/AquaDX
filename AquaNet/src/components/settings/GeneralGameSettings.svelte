@@ -2,7 +2,7 @@
   import { fade } from "svelte/transition";
   import { FADE_IN, FADE_OUT } from "../../libs/config";
   import GameSettingFields from "./GameSettingFields.svelte";
-  import { ts } from "../../libs/i18n";
+  import { t, ts } from "../../libs/i18n";
   import useLocalStorage from "../../libs/hooks/useLocalStorage.svelte";
 
   const rounding = useLocalStorage("rounding", true);
@@ -10,7 +10,7 @@
 
 <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
   <p class="warning">
-    These settings affect Mai and Wacca.
+    {ts("settings.gameNotice")}
   </p>
   <GameSettingFields game="general"/>
   <div class="field">
