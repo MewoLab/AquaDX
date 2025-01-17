@@ -194,7 +194,7 @@ fun Maimai2ServletController.initApis() {
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
 
     // Added on 1.50 (export only)
-    "UploadUserPlaylogListApi" {
+    "UploadUserPlaylogList" {
         val lst = parsing { data["userPlaylogList"] as List<JDict> }
         if (lst.size > 40) (400 - "Too many playlogs")
         lst.forEach {
