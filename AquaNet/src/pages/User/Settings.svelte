@@ -106,7 +106,6 @@
         }).catch(e => error = e.message).finally(() => submitting = "")
         break;
       case "image/png":
-      case "image/jpg":
       case "image/jpeg":
       case "image/webp":
         pfpCropURL = URL.createObjectURL(file);
@@ -153,7 +152,7 @@
           {/if}
         </div>
         <!-- Genuinely don't know why this is giving me an intellisense error. Works fine. -->
-        <input id="profile-upload" type="file" accept="image/*" style="display: none" bind:this={pfpField}
+        <input id="profile-upload" type="file" accept="image/gif,image/png,image/jpeg,image/webp" style="display: none" bind:this={pfpField}
                on:change={handlePfpUpload} />
       </div>
 
