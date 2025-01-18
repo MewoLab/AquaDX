@@ -191,7 +191,10 @@ fun Maimai2ServletController.initApis() {
     "GetGameKaleidxScope" static { mapOf("gameKaleidxScopeList" to ls(
         mapOf("gateId" to 1, "phaseId" to 1),
     )) }
-    "GetUserKaleidxScope".unpaged { db.userKaleidx.findByUser_Card_ExtId(uid) }
+    "GetUserKaleidxScope".unpaged {
+        db.userKaleidx.findByUser_Card_ExtId(uid)
+            .mapApply { isKeyFound = true }
+    }
     // Added on 1.50
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
 
