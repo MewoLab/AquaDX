@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler
 import com.querydsl.jpa.impl.JPAQueryFactory
 import ext.logger
 import ext.thread
+import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.userdata.QMai2UserPlaylog
 import org.springframework.scheduling.annotation.Scheduled
@@ -55,7 +56,14 @@ class GetGameRankingHandler(
     override fun handle(request: Map<String, Any>): Any = mapOf(
         "type" to request["type"],
         "gameRankingList" to when(request["type"]) {
-            1 -> musicRankingCache.map { mapOf("id" to it.musicId, "point" to it.weight, "userName" to "") }
+            1 -> {
+                val opts = TokenChecker.getCurrentSession()?.user?.gameOptions
+                // If is null or true, return the ranking list
+                if (opts?.enableMusicRank == false)
+                    emptyList()
+                else
+                    musicRankingCache.map { mapOf("id" to it.musicId, "point" to it.weight, "userName" to "") }
+            }
             else -> emptyList()
         }
     )

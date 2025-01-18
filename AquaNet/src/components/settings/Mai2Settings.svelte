@@ -5,6 +5,7 @@
   import Icon from "@iconify/svelte";
   import StatusOverlays from "../StatusOverlays.svelte";
   import { GAME } from "../../libs/sdk";
+  import GameSettingFields from "./GameSettingFields.svelte";
 
   const profileFields = [
     ['name', t('settings.mai2.name')],
@@ -72,6 +73,7 @@
       </div>
     </div>
   {/each}
+  <GameSettingFields game="mai2"/>
   <button class="exportButton" on:click={exportData}>
     <Icon icon="bxs:file-export"/>
     {t('settings.export')}
