@@ -6,6 +6,8 @@ import ext.*
 import icu.samnyan.aqua.sega.general.PagedHandler
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
+import java.time.LocalDate
 import java.util.*
 
 fun Maimai2ServletController.initApis() {
@@ -187,13 +189,34 @@ fun Maimai2ServletController.initApis() {
     "GetGameNgMusicId" static { mapOf("length" to 0, "musicIdList" to empty) }
     "GetGameTournamentInfo" static { mapOf("length" to 0, "gameTournamentInfoList" to empty) }
 
+    // <phaseId: start offset days>
+    val phases = mapOf(1 to 1, 2 to 7, 3 to 14, 4 to 21)
+    // Find the minimum phase id that started prior to today.
+    fun findPhase(baseDate: LocalDate): Int {
+        val today = LocalDate.now()
+        return phases.entries.find { baseDate.plusDays(it.value.toLong()) >= today }?.key ?: 5
+    }
+
     // Kaleidoscope, added on 1.50
-    "GetGameKaleidxScope" static { mapOf("gameKaleidxScopeList" to ls(
-        mapOf("gateId" to 1, "phaseId" to 1),
+    "GetGameKaleidxScope" { mapOf("gameKaleidxScopeList" to ls(
+        mapOf("gateId" to 1, "phaseId" to findPhase(LocalDate.of(2025, 1, 18))),
+        mapOf("gateId" to 2, "phaseId" to findPhase(LocalDate.of(2025, 2, 20))),
+        mapOf("gateId" to 3, "phaseId" to 2),
+        mapOf("gateId" to 4, "phaseId" to 2),
+        mapOf("gateId" to 5, "phaseId" to 2),
+        mapOf("gateId" to 6, "phaseId" to 2),
     )) }
     "GetUserKaleidxScope".unpaged {
-        db.userKaleidx.findByUser_Card_ExtId(uid)
+        val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
+        db.userKaleidx.findByUser(u)
             .mapApply { isKeyFound = true }
+            .ifEmpty { ls(
+                // I'll add this here so people don't need to unlock it
+                Mai2UserKaleidx().apply {
+                    user = u
+                    gateId = 1
+                }
+            ) }
     }
     // Added on 1.50
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }

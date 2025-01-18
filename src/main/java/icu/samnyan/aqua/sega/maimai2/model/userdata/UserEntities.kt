@@ -581,9 +581,9 @@ class Mai2UserUdemae : Mai2UserEntity() {
 @Table(name = "maimai2_user_kaleidx")
 @Data @Entity
 class Mai2UserKaleidx : Mai2UserEntity() {
-    var gateId = 0
-    var isGateFound = false
-    var isKeyFound = false
+    var gateId = 1
+    var isGateFound = true
+    var isKeyFound = true
     var isClear = false
     var totalRestLife = 0
     var totalAchievement = 0
