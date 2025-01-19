@@ -193,8 +193,8 @@ fun Maimai2ServletController.initApis() {
     val phases = mapOf(1 to 1, 2 to 7, 3 to 14, 4 to 21)
     // Find the minimum phase id that started prior to today.
     fun findPhase(baseDate: LocalDate): Int {
-        val today = LocalDate.now()
-        return phases.entries.find { baseDate.plusDays(it.value.toLong()) >= today }?.key ?: 5
+        val today = jstNow().toLocalDate()
+        return phases.entries.find { baseDate.plusDays(it.value.toLong()) > today }?.key ?: 5
     }
 
     // Kaleidoscope, added on 1.50
