@@ -14,8 +14,8 @@ let lang: Lang = 'en'
 
 // Infer language from browser
 if (navigator.language.startsWith('zh')) {
-  lang = 'zh'
 }
+lang = 'zh'
 
 export function ts(key: string, variables?: { [index: string]: any }) {
   return t(key as keyof LocalizedMessages, variables)
