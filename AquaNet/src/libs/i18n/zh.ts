@@ -117,7 +117,7 @@ const zhHome: typeof EN_REF_HOME = {
   'home.linkcard.notfound': "找不到卡",
   'home.linkcard.unlink': "取消链接",
   'home.linkcard.unlink-notice': "你确定要取消此卡的链接吗？",
-  'home.linkcard.felica-ac-warning': "该 Access Code 是一张 Felica AIC 卡。\n如果你使用实体卡（而非 aime.txt 模拟）刷卡登录游戏，与官方服务器不同，你需要绑定该卡的 Felica SN（或与之对应的，游戏界面中查看得到的 0 开头的卡号）而非此号码。\n如果你使用 aime.txt 模拟登录，请忽略本警告继续绑定。",
+  'home.linkcard.felica-ac-warning': "该 Access Code 是一张 FeliCa AIC 卡。\n如果你使用实体卡（而非 aime.txt 模拟）刷卡登录游戏，与官方服务器不同，你需要绑定该卡的 FeliCa SN（或与之对应的，游戏界面中查看得到的 00 开头的卡号）而非此号码。\n如果你使用 aime.txt 模拟登录，请忽略本警告继续绑定。",
   'home.setup.welcome': "欢迎! 如果您有街机框体或者手台，请按照以下说明设置以连接到 AquaDX。",
   'home.setup.blockquote': "我们假设您已经拥有所需的文件，并且可以启动机台或手台附带的游戏（例如 ROM 和 segatools）。如果没有，请联系您设备的卖家以获取所需的文件，因为出于版权原因，我们不会提供这些文件。",
   'home.setup.get': "开始",

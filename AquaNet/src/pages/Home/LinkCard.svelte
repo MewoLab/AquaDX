@@ -223,7 +223,7 @@
   function formatLUID(luid: string, ghost: boolean = false) {
     if (ghost) return luid.slice(0, 6) + " " + (luid.slice(6).match(/.{4}/g)?.join(" ") ?? "")
     switch (cardType(luid)) {
-      case "Felica SN":
+      case "FeliCa SN":
         return BigInt(luid).toString(16).toUpperCase().padStart(16, "0").match(/.{1,2}/g)!.join(":")
       case "Access Code":
         return luid.match(/.{4}/g)!.join(" ")
@@ -233,9 +233,9 @@
   }
 
   function cardType(luid: string) {
-    if (luid.startsWith("00")) return "Felica SN"
+    if (luid.startsWith("00")) return "FeliCa SN"
     if (luid.length === 20) return "Access Code"
-    if (luid.includes(":")) return "Felica SN"
+    if (luid.includes(":")) return "FeliCa SN"
     if (luid.includes(" ")) return "Access Code"
     return "Unknown"
   }

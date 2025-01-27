@@ -107,7 +107,7 @@ export const EN_REF_HOME = {
   'home.linkcard.notfound': 'Card not found',
   'home.linkcard.unlink': 'Unlink Card',
   'home.linkcard.unlink-notice': 'Are you sure you want to unlink this card?',
-  'home.linkcard.felica-ac-warning': 'This Access Code is of a Felica AIC card.\nIf you are logging in with a physical card (not aime.txt emulation), unlike the official server, you need to bind the Felica SN of the card (or the 0-prefixed card number shown in the game) instead of this code.\nIf you are logging in with aime.txt emulation, please ignore this warning and proceed.',
+  'home.linkcard.felica-ac-warning': 'This Access Code is of a FeliCa AIC card.\nIf you are logging in with a physical card (not aime.txt emulation), unlike the official server, you need to bind the FeliCa SN of the card (or the 00-prefixed card number shown in the game) instead of this code.\nIf you are logging in with aime.txt emulation, please ignore this warning and proceed.',
   'home.setup.welcome': 'Welcome! If you own an arcade cabinet or game setup, please follow the instructions below to set up the connection with AquaDX.',
   'home.setup.blockquote': 'We assume that you already have the required files and can run the game (e.g. ROM and segatools) that come with the cabinet or game setup. If not, please contact the seller of your device for the required files, as we will not provide them for copyright reasons.',
   'home.setup.get': 'Get started',
