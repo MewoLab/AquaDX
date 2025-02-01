@@ -6,6 +6,7 @@ import ext.*
 import icu.samnyan.aqua.sega.general.PagedHandler
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserIntimate
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
 import java.time.LocalDate
 import java.util.*
@@ -175,11 +176,15 @@ fun Maimai2ServletController.initApis() {
         mapOf("userId" to uid, "rivalId" to rivalId, "nextIndex" to 0, "userRivalMusicList" to res.values)
     }
 
+    "GetUserIntimate".unpaged {
+        val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
+        db.userIntimate.findByUser(u)
+    }
+
     // Empty List Handlers
     "GetUserRegion".unpaged { empty }
     "GetUserGhost".unpaged { empty }
     "GetUserFriendBonus" { mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
-    "GetUserIntimate" { mapOf("userId" to uid, "length" to 0, "userIntimateList" to empty) }
     "GetTransferFriend" { mapOf("userId" to uid, "transferFriendList" to empty) }
     "GetUserNewItem" { mapOf("userId" to uid, "itemKind" to 0, "itemId" to 0) }
 
