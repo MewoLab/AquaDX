@@ -114,6 +114,10 @@ interface MAi2UserKaleidxRepo : Mai2UserLinked<Mai2UserKaleidx> {
     fun findByUserAndGateId(user: Mai2UserDetail, gateId: Int): Mai2UserKaleidx?
 }
 
+interface MAi2UserIntimateRepo : Mai2UserLinked<Mai2UserIntimate> {
+    fun findByUserAndPartnerId(user: Mai2UserDetail, partnerId: Int): Mai2UserIntimate?
+}
+
 interface Mai2GameChargeRepo : JpaRepository<Mai2GameCharge, Long>
 
 interface Mai2GameEventRepo : JpaRepository<Mai2GameEvent, Int> {
@@ -144,6 +148,7 @@ class Mai2Repos(
     val userPrintDetail: Mai2UserPrintDetailRepo,
     val userUdemae: Mai2UserUdemaeRepo,
     val userKaleidx: MAi2UserKaleidxRepo,
+    val userIntimate: MAi2UserIntimateRepo,
     val gameCharge: Mai2GameChargeRepo,
     val gameEvent: Mai2GameEventRepo,
     val gameSellingCard: Mai2GameSellingCardRepo
