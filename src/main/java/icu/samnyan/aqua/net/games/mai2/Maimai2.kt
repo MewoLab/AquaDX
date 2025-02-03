@@ -85,6 +85,8 @@ class Maimai2(
     suspend fun userNamePlate(@RP username: Str) = us.cardByName(username) { card ->
         val userData = repos.userData.findByCardExtId(card.extId).orElse(null) ?: (404 - "User not found")
         mapOf(
+            "lastGameId" to userData.lastGameId,
+            "lastRomVersion" to userData.lastRomVersion,
             "iconId" to userData.iconId,
             "plateId" to userData.plateId,
             "titleId" to userData.titleId,
