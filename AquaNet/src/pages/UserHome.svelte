@@ -18,7 +18,7 @@
   import { type GameName, getMult, roundFloor } from "../libs/scoring";
   import StatusOverlays from "../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
-  import { GAME_TITLE, t } from "../libs/i18n";
+  import { countryCodeToEmoji, GAME_TITLE, t } from "../libs/i18n";
   import RankDetails from "../components/RankDetails.svelte";
   import RatingComposition from "../components/RatingComposition.svelte";
   import useLocalStorage from "../libs/hooks/useLocalStorage.svelte";
@@ -121,7 +121,12 @@
     <div class="user-pfp">
       <img use:pfp={d.user.aquaUser} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
-        <h2>{d.user.name}</h2>
+        <div class="name-left">
+          <h2>{d.user.name}</h2>
+          {#if d.user.aquaUser}
+            <div class="country">{countryCodeToEmoji(d.user.aquaUser?.country)}</div>
+          {/if}
+        </div>
         {#if typeof d.user.rival === 'boolean' && game === 'mai2'}
           <span class="clickable" on:click={() => setRival(!d?.user.rival)} role="button" tabindex="0"
              on:keydown={e => e.key === "Enter" && setRival(!d?.user.rival)}>
@@ -358,6 +363,10 @@
       align-items: center
       justify-content: space-between
       gap: 10px
+
+      .name-left
+        display: flex
+        gap: 1em
 
   .pfp
     width: 100px
