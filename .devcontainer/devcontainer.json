@@ -1,0 +1,17 @@
+{
+    "name": "AquaDX Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "vscjava.vscode-gradle",
+                "vscjava.vscode-java-pack",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "fwcd.kotlin"
+            ]
+        }
+    }
+}
