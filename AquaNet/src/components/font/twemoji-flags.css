@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'TwemojiCountryFlags';
+  src: url('./TwemojiCountryFlags.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.country {
+  font-family: TwemojiCountryFlags,"Twemoji Mozilla","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji","EmojiOne Color","Android Emoji",sans-serif;
+  font-size: 2em;
+}
