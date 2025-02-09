@@ -15,6 +15,7 @@ WORKDIR /home/gradle
 RUN sed -i 's/\r$//' ./gradlew
 
 # Download dependencies - cached if build.gradle.kts and settings.gradle.kts are unchanged
+RUN chmod +x ./gradlew
 RUN ./gradlew dependencies
 
 # Copy the project source, this layer is rebuilt whenever a file has changed
