@@ -2,6 +2,9 @@ import { EN_REF, type LocalizedMessages } from "./i18n/en_ref";
 import { ZH } from "./i18n/zh";
 import type { GameName } from "./scoring";
 
+import zhCountires from "./i18n/zh_countries.json"
+import enCountires from "./i18n/en_countries.json"
+
 type Lang = 'en' | 'zh'
 
 const msgs: Record<Lang, LocalizedMessages> = {
@@ -9,6 +12,10 @@ const msgs: Record<Lang, LocalizedMessages> = {
   zh: ZH
 }
 
+const countries: Record<Lang, typeof enCountires> = {
+  en: enCountires,
+  zh: zhCountires
+}
 
 let lang: Lang = 'en'
 
@@ -47,6 +54,10 @@ export function t(key: keyof LocalizedMessages, variables?: { [index: string]: a
   return msg
 }
 Object.assign(window, { t })
+
+export function getCountryName(code: keyof typeof enCountires) {
+  return countries[lang][code]
+}
 
 export const GAME_TITLE: { [key in GameName]: string } =
   {chu3: t("game.chu3"), mai2: t("game.mai2"), ongeki: t("game.ongeki"), wacca: t("game.wacca")}
