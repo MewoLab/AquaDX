@@ -90,6 +90,8 @@ class Maimai2(
             "iconId" to userData.iconId,
             "plateId" to userData.plateId,
             "titleId" to userData.titleId,
+            "frameId" to userData.frameId,
+            "partnerId" to userData.partnerId,
             "classRank" to userData.classRank,
             "playerRating" to userData.playerRating,
             "userName" to userData.userName,
