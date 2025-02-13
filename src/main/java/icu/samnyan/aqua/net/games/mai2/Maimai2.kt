@@ -27,8 +27,16 @@ class Maimai2(
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
     override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy {
-        mapOf("userName" to usernameCheck(SEGA_USERNAME_CAHRS))
+        mapOf(
+            "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
+            "iconId" to { u, v -> u.iconId = v.int() },
+            "plateId" to { u, v -> u.plateId = v.int() },
+            "titleId" to { u, v -> u.titleId = v.int() },
+            "frameId" to { u, v -> u.frameId = v.int() },
+            "partnerId" to { u, v -> u.partnerId = v.int() },
+        )
     }
+    override val gettableFields: Set<String> = setOf("lastGameId", "lastRomVersion", "classRank", "playerRating", "courseRank")
 
     override suspend fun userSummary(@RP username: Str, @RP token: String?) = us.cardByName(username) { card ->
         val extra = repos.userGeneralData.findByUser_Card_ExtId(card.extId)
@@ -82,22 +90,8 @@ class Maimai2(
     }
 
     @API("user-name-plate")
-    suspend fun userNamePlate(@RP username: Str) = us.cardByName(username) { card ->
-        val userData = repos.userData.findByCardExtId(card.extId).orElse(null) ?: (404 - "User not found")
-        mapOf(
-            "lastGameId" to userData.lastGameId,
-            "lastRomVersion" to userData.lastRomVersion,
-            "iconId" to userData.iconId,
-            "plateId" to userData.plateId,
-            "titleId" to userData.titleId,
-            "frameId" to userData.frameId,
-            "partnerId" to userData.partnerId,
-            "classRank" to userData.classRank,
-            "playerRating" to userData.playerRating,
-            "userName" to userData.userName,
-            "courseRank" to userData.courseRank,
-        )
-    }
+    // legacy
+    suspend fun userNamePlate(@RP username: Str) = this.userDetail(username)
 
     @API("user-favorite")
     suspend fun userFavorite(@RP username: Str) = us.cardByName(username) { card ->
