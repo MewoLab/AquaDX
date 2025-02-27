@@ -175,10 +175,10 @@
 
     {#if d.user.aquaUser?.profileBio}
       <div class="activity-info">
-        <div class="info-bottom">
+        <div class="info-bottom profile-bio-container">
           <div class="profile-bio">
             <span>{t("settings.profile.bio")}</span>
-            <span>{d.user.aquaUser?.profileBio}</span>
+            <span class="profile-bio-text">{d.user.aquaUser?.profileBio}</span>
           </div>
         </div>
       </div> 
@@ -452,6 +452,16 @@
 
   .info-bottom
     width: max-content
+
+    &.profile-bio-container, 
+    &.profile-bio-container div
+      width: 100%
+
+    .profile-bio-text
+      white-space: pre
+      max-height: 10em
+      overflow-y: auto
+      flex: 1
 
   .info-top > div > span:last-child
     font-size: 1.5rem
