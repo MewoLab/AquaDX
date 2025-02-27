@@ -30,7 +30,7 @@
   registerChart()
 
   export let username: string;
-  export let game: GameName = "mai2"
+  export let game: GameName = "auto"
   let calElement: HTMLElement
   let error: string;
   let me: AquaNetUser
@@ -57,6 +57,19 @@
     USER.isLoggedIn() && USER.me().then(u => me = u)
 
     CARD.userGames(username).then(games => {
+      if (game == "auto") {
+        let targetGames = Object.entries(games)
+        .map(d => {
+          if (d[1])
+          d[1].lastLogin = d[1].lastLogin ? new Date(d[1].lastLogin) : new Date(0);
+          return d;
+        }).sort((a,b) => {
+          return b[1]?.lastLogin - a[1]?.lastLogin;
+        });
+        if (targetGames[0])
+          window.location.href = `/u/${username}/${targetGames[0][0]}`
+        return;
+      }
       if (!games[game]) {
         // Find a valid game
         const valid = Object.entries(games).filter(([g, valid]) => valid)
@@ -105,7 +118,7 @@
     }).catch((e) => { error = e.message; console.error(e) } );
   }
 
-  if (Object.keys(GAME_TITLE).includes(game)) init()
+  if (Object.keys(GAME_TITLE).includes(game) || game == "auto") init()
   else error = t("UserHome.InvalidGame", {game})
 
   const setRival = (isAdd: boolean) => {

@@ -1,7 +1,7 @@
 import { DATA_HOST } from "./config"
 import type { MusicMeta } from "./generalTypes"
 
-export type GameName = 'mai2' | 'chu3' | 'ongeki' | 'wacca'
+export type GameName = 'mai2' | 'chu3' | 'ongeki' | 'wacca' | 'auto'
 
 const multTable = {
   'mai2': [
@@ -67,7 +67,9 @@ const multTable = {
     [ 60.0, 0, 'B' ],
     [ 1.0, 0, 'C' ],
     [ 0.0, 0, 'D' ]
-  ]
+  ],
+  
+  'auto': []
 }
 
 export function getMult(achievement: number, game: GameName) {
