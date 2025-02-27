@@ -56,6 +56,12 @@ void main() {
     gl_FragColor =  texture2D(uTexture, vTextureCoord);
 }`
 
+export interface RGB {
+    r: number,
+    g: number,
+    b: number
+}
+
 export class DDS {
     constructor(db: IDBDatabase | undefined) {
         this.cache = new DDSCache(db);
@@ -241,13 +247,27 @@ export class DDS {
      * @param s Scale factor
      * @returns An object URL which correlates to a Blob
      */
-    async getFileFromSheet(path: string, x: number, y: number, w: number, h: number, s?: number): Promise<string> {
+    async getFileFromSheet(path: string, x: number, y: number, w: number, h: number, s?: number, color?: RGB): Promise<string> {
         if (!await this.loadFile(path))
             return "";
         this.canvas2D.width = w * (s ?? 1);
         this.canvas2D.height = h * (s ?? 1);
         this.ctx.drawImage(this.canvasGL, x, y, w, h, 0, 0, w * (s ?? 1), h * (s ?? 1));
         
+        if (color) {
+            let colorData = this.ctx.getImageData(0, 0, this.canvas2D.width, this.canvas2D.height);
+            for (let i = 0; colorData.data.length > i; i++)
+                switch (i % 4) {
+                    case 0:
+                        colorData.data[i] *= (color.r / 255); break;
+                    case 1:
+                        colorData.data[i] *= (color.g / 255); break;
+                    case 2:
+                        colorData.data[i] *= (color.b / 255); break;
+                }
+            this.ctx.putImageData(colorData, 0, 0);
+        }
+
         /* We don't want to cache this, it's a spritesheet piece. */
         return URL.createObjectURL(await this.get2DBlob("image/png") ?? new Blob([]));
     };

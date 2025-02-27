@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { DDS } from "../../../libs/userbox/dds"
+    import { DDS, type RGB } from "../../../libs/userbox/dds"
     import { ddsDB } from "../../../libs/userbox/userbox"
 
     const DDSreader = new DDS(ddsDB);
@@ -15,6 +15,26 @@
     let ratingToString = (rating: number) => {
         return rating.toFixed(2)
     }
+
+    interface RatingRange {
+        min: number,
+        offset: number,
+        color?: RGB
+    };
+    // https://en.wikipedia.org/wiki/Chunithm#Rating
+    const ratingColors: RatingRange[] = ([
+        {min: 0.00, offset: 4, color: {r: 0, g: 191, b: 64}},
+        {min: 4.00, offset: 4, color: {r: 255, g: 111, b: 0}},
+        {min: 7.00, offset: 4, color: {r: 255, g: 64, b: 64}},
+        {min: 10.00, offset: 4, color: {r: 147, g: 38, b: 255}},
+        {min: 12.00, offset: 3},
+        {min: 13.25, offset: 2},
+        {min: 14.50, offset: 1},
+        {min: 15.25, offset: 0},
+        {min: 16.00, offset: 5}
+    ]).filter(f => f.min <= chuniRating);
+    const ratingDigitOrder = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
+    const ratingColorData = (ratingColors[ratingColors.length - 1] ?? ratingColors[0]);
 </script>
 {#await DDSreader?.getFile(`nameplate:${chuniNameplate.toString().padStart(8, "0")}`, `nameplate:00000001`) then nameplateURL}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -41,11 +61,25 @@
                     {chuniName}
                 </span>
             </div>
-            <div class="chuni-user-rating">
-                RATING
-                <span class="chuni-user-rating-number">
-                    {ratingToString(chuniRating)}
-                </span>
+            <div class={`chuni-user-rating color-${ratingColorData.color}`}>
+                
+                {#await DDSreader?.getFileFromSheet("surfboard:CHU_UI_Common_01_v11.dds", 485, 5 + (28 * ratingColorData.offset), 62, 15, undefined, ratingColorData.color) then url}
+                    {#if url}
+                        <img src={url} alt="Rating">
+                        <span class="chuni-user-rating-number">
+                            {#each ratingToString(chuniRating).split("") as digit}
+                                {#await DDSreader?.getFileFromSheet("surfboard:CHU_UI_Common_01_v11.dds", 552 + (24 * (ratingDigitOrder.indexOf(digit) ?? 0)), 1 + (28 * ratingColorData.offset), 16, 20, undefined, ratingColorData.color) then url}
+                                    <img src={url} alt="Rating Digit">
+                                {/await}
+                            {/each}
+                        </span>
+                    {:else}
+                        RATING
+                        <span class="chuni-user-rating-number">
+                            {ratingToString(chuniRating)}
+                        </span>
+                    {/if}
+                {/await}
             </div>
         </div>
     </div>
@@ -54,8 +88,8 @@
 @use "../../../vars"
 
 @font-face
-    font-family: "Zen Maru Gothic"
-    src: url("/assets/fonts/ZenMaru.woff2")
+    font-family: "Gothic A1"
+    src: url("/assets/fonts/GothicA1.woff2")
 
 .chuni-nameplate
     width: 576px
@@ -83,7 +117,7 @@
         top: 40px
 
         font-size: 1.15em
-        font-family: "Zen Maru Gothic", sans-serif
+        font-family: "Gothic A1", sans-serif
         font-weight: bold
 
         overflow-x: hidden
@@ -128,7 +162,7 @@
             display: flex
             align-items: center
             color: black
-            font-family: "Zen Maru Gothic", sans-serif
+            font-family: "Gothic A1", sans-serif
             font-weight: bold
 
         .chuni-user-name
@@ -149,7 +183,7 @@
             flex: 1 0 35%
             font-size: 0.875em
             text-shadow: #333 1px 1px, #333 1px -1px, #333 -1px 1px, #333 -1px -1px
-            color: #ddf
+            color: #fff
 
             .chuni-user-rating-number
                 font-size: 1.5em

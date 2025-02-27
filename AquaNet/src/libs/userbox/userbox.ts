@@ -85,6 +85,8 @@ const DIRECTORY_PATHS = ([
             ([
                 "CHU_UI_Common_Avatar_body_00.dds",
                 "CHU_UI_Common_Avatar_face_00.dds",
+                "CHU_UI_Common_01_v11.dds",
+                "CHU_UI_TeamEmblem_01_v14.dds",
                 "CHU_UI_title_rank_00_v10.dds"
             ]).includes(name),
         id: (name: string) => name
