@@ -122,9 +122,22 @@
       <img use:pfp={d.user.aquaUser} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
         <div class="name-left">
-          <h2>{d.user.name}</h2>
+          
           {#if d.user.aquaUser}
+            {#if d.user.aquaUser.displayName}
+              <h2>{d.user.aquaUser?.displayName}</h2>
+            {:else}
+              <h2>{d.user.name}</h2>
+            {/if}
+            <div class="game-name">
+              {#if d.user.aquaUser.displayName}
+                {d.user.name}
+              {/if}
+              (@{d.user.aquaUser.username})
+            </div>
             <div class="country">{countryCodeToEmoji(d.user.aquaUser?.country)}</div>
+          {:else}
+            <h2>{d.user.name}</h2>
           {/if}
         </div>
         {#if typeof d.user.rival === 'boolean' && game === 'mai2'}
@@ -378,6 +391,16 @@
       .name-left
         display: flex
         gap: 1em
+        position: relative
+
+        .game-name
+          position: absolute
+          left: 0.5em
+          bottom: 0
+          transform: translate(0, 75%)
+          opacity: 50%
+          white-space: nowrap
+          max-width: 50%
 
   .pfp
     width: 100px
