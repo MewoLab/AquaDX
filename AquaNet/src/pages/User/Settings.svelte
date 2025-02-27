@@ -167,7 +167,7 @@
           <label for={field}>{name}</label>
           <div>
             {#if field == "profileBio"}
-             <textarea id={field} bind:value={me[field]} on:input={() => changed = [...changed, field]} maxlength=255 placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}></textarea>
+             <textarea id={field} bind:value={me[field]} on:input={() => changed = [...changed, field]} maxlength=255 placeholder={t('settings.profile.unset')}></textarea>
             {:else}
               <input id={field} type="text" use:passwordAction={field === 'password'}
                 bind:value={me[field]} on:input={() => changed = [...changed, field]}
