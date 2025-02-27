@@ -40,7 +40,7 @@
   {/if}
   {#if ANNOUNCEMENT}
     <div class="announcement">
-      <strong>{t('navigation.notice').toLowerCase()}</strong>: {ANNOUNCEMENT}
+      <strong>{t('navigation.notice')}</strong>: {ANNOUNCEMENT}
     </div>
   {/if}
   <a href="/home">{t('navigation.home').toLowerCase()}</a>
