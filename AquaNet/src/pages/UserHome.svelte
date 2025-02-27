@@ -146,6 +146,19 @@
       </nav>
     </div>
 
+    {#if d.user.aquaUser?.profileBio}
+      <div>
+        <div class="activity-info">
+          <div class="info-bottom">
+            <div class="profile-bio">
+              <span>{t("settings.profile.bio")}</span>
+              <span>{d.user.aquaUser?.profileBio}</span>
+            </div>
+          </div>
+        </div> 
+      </div>
+    {/if}
+    
     <ChuniUserboxDisplay {game} {username} bind:error={error} />
 
     <div>
