@@ -7,8 +7,9 @@
   import { USER } from "./libs/sdk";
   import type { AquaNetUser } from "./libs/generalTypes";
   import Settings from "./pages/User/Settings.svelte";
-  import { pfp } from "./libs/ui"
+  import { pfp, tooltip } from "./libs/ui"
   import { ANNOUNCEMENT } from "./libs/config";
+  import { t } from "./libs/i18n";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -39,15 +40,15 @@
   {/if}
   {#if ANNOUNCEMENT}
     <div class="announcement">
-      <strong>Notice</strong>: {ANNOUNCEMENT}
+      <strong>{t('navigation.notice').toLowerCase()}</strong>: {ANNOUNCEMENT}
     </div>
   {/if}
-  <a href="/home">home</a>
+  <a href="/home">{t('navigation.home').toLowerCase()}</a>
   <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
-       role="button" tabindex="0">maps</div>
-  <a href="/ranking">rankings</a>
+       role="button" tabindex="0">{t('navigation.maps').toLowerCase()}</div>
+  <a href="/ranking">{t('navigation.rankings').toLowerCase()}</a>
   {#if me}
-    <a href="/u/{me.username}">
+    <a href="/u/{me.username}" use:tooltip={t('navigation.profile')}> 
       <img alt="profile" class="pfp" use:pfp={me}/>
     </a>
   {/if}
