@@ -30,14 +30,14 @@
   registerChart()
 
   export let username: string;
-  export let game: GameName = "auto"
+  export let game: GameName | "auto" = "auto"
   let calElement: HTMLElement
   let error: string;
   let me: AquaNetUser
   title(`User ${username}`)
   const rounding = useLocalStorage("rounding", true);
 
-  const titleText = GAME_TITLE[game]
+  const titleText = game != "auto" ? GAME_TITLE[game] : "?"
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
 
@@ -122,6 +122,7 @@
   else error = t("UserHome.InvalidGame", {game})
 
   const setRival = (isAdd: boolean) => {
+    if (game == "auto") return;
     isLoading = true
     GAME.setRival(game, username, isAdd).then(() => {
       d!.user.rival = isAdd
@@ -309,12 +310,14 @@
       </div>
     </div>
 
-    <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} {game}/>
-    <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} {game}/>
-    <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} {game}/>
+    <!-- I don't like doing this but it may be preferable to gaslighting the types -->
+     
+    <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} game={game != "auto" ? game : "mai2"}/>
+    <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} game={game != "auto" ? game : "mai2"}/>
+    <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} game={game != "auto" ? game : "mai2"}/>
     <!-- <RatingComposition title="Hot 10" comp={d.user.ratingComposition.hot10} {allMusics} {game}/> -->
     <!-- <RatingComposition title="N10" comp={d.user.ratingComposition.next10} {allMusics} {game}/> -->
-    <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} {game} top={10}/>
+    <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} game={game != "auto" ? game : "mai2"} top={10}/>
 
     <div class="recent">
       <h2>{t('UserHome.RecentScores')}</h2>
@@ -335,12 +338,12 @@
                     {r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.worldsEndTag ?? '-'}
                   </span>
                 </span>
-                <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
-                  <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
+                <span class={`rank-${getMult(r.achievement, game != "auto" ? game : "mai2")[2].toString()[0]}`}>
+                  <span class="rank-text">{("" + getMult(r.achievement, game != "auto" ? game : "mai2")[2]).replace("p", "+")}</span>
                   <span class="rank-num" use:tooltip={(r.achievement / 10000).toFixed(4)}>
                     {
                       rounding.value ?
-                        roundFloor(r.achievement, game, 1) :
+                        roundFloor(r.achievement, game != "auto" ? game : "mai2", 1) :
                         (r.achievement / 10000).toFixed(4)
                     }%
                   </span>

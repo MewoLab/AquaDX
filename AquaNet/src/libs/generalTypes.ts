@@ -42,7 +42,6 @@ export interface CardSummary {
   ongeki: CardSummaryGame | null
   diva: CardSummaryGame | null
   wacca: CardSummaryGame | null
-  auto: CardSummaryGame | null // let's pretend this just doesn't exist
 }
 
 
