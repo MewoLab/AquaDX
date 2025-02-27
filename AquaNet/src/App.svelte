@@ -8,6 +8,7 @@
   import type { AquaNetUser } from "./libs/generalTypes";
   import Settings from "./pages/User/Settings.svelte";
   import { pfp } from "./libs/ui"
+  import { ANNOUNCEMENT } from "./libs/config";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -35,6 +36,11 @@
       <img src="/assets/icons/android-chrome-192x192.png" alt="AquaDX"/>
       <span>AquaNet</span>
     </a>
+  {/if}
+  {#if ANNOUNCEMENT}
+    <div class="announcement">
+      <strong>Notice</strong>: {ANNOUNCEMENT}
+    </div>
   {/if}
   <a href="/home">home</a>
   <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
@@ -77,6 +83,22 @@
       height: 1.5rem
       border-radius: vars.$border-radius
       object-fit: cover
+
+    .announcement
+      position: absolute
+      left: 50%
+      transform: translate(-50%, 0)
+      top: 0
+      width: 50%
+      height: 100%
+      display: flex
+      justify-content: center
+      align-content: center
+      z-index: -1
+      background: linear-gradient(90deg, #6f0f0f00 0%, vars.$c-shadow 50%, #6f0f0f00 100%)
+      font-size: 1.125em
+      text-decoration: none !important
+      color: inherit !important
 
     .pfp
       width: 2rem
