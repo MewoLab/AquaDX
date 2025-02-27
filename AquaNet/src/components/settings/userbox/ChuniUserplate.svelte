@@ -52,6 +52,11 @@
 {/await}
 <style lang="sass">
 @use "../../../vars"
+
+@font-face
+    font-family: "Zen Maru Gothic"
+    src: url("/assets/fonts/ZenMaru.woff2")
+
 .chuni-nameplate
     width: 576px
     height: 228px
@@ -78,7 +83,7 @@
         top: 40px
 
         font-size: 1.15em
-        font-family: sans-serif
+        font-family: "Zen Maru Gothic", sans-serif
         font-weight: bold
 
         overflow-x: hidden
@@ -123,7 +128,7 @@
             display: flex
             align-items: center
             color: black
-            font-family: sans-serif
+            font-family: "Zen Maru Gothic", sans-serif
             font-weight: bold
 
         .chuni-user-name
