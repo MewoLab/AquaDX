@@ -8,6 +8,7 @@
   import type { AquaNetUser } from "./libs/generalTypes";
   import Settings from "./pages/User/Settings.svelte";
   import { pfp } from "./libs/ui"
+  import MaiPhoto from "./pages/MaiPhoto.svelte";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -40,6 +41,7 @@
   <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
        role="button" tabindex="0">maps</div>
   <a href="/ranking">rankings</a>
+  <a href="/pictures">pictures</a>
   {#if me}
     <a href="/u/{me.username}">
       <img alt="profile" class="pfp" use:pfp={me}/>
@@ -55,6 +57,7 @@
   <Route path="/u/:username" component={UserHome} />
   <Route path="/u/:username/:game" component={UserHome} />
   <Route path="/settings" component={Settings} />
+  <Route path="/pictures" component={MaiPhoto} />
 </Router>
 
 <style lang="sass">

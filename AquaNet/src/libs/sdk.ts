@@ -284,6 +284,8 @@ export const CARD = {
 export const GAME = {
   trend: (username: string, game: GameName): Promise<TrendEntry[]> =>
     post(`/api/v2/game/${game}/trend`, { username }),
+  photos: (): Promise<string[]> =>
+    post(`/api/v2/game/mai2/my-photo`, { }),
   userSummary: (username: string, game: GameName): Promise<GenericGameSummary> =>
     post(`/api/v2/game/${game}/user-summary`, { username }),
   ranking: (game: GameName): Promise<GenericRanking[]> =>
