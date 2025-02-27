@@ -28,8 +28,9 @@
     [ 'displayName', t('settings.profile.name') ],
     [ 'username', t('settings.profile.username') ],
     [ 'password', t('settings.profile.password') ],
+    /* Neither of these did anything of importance
     [ 'country', t('settings.profile.country') ],
-    [ 'profileLocation', t('settings.profile.location') ],
+    [ 'profileLocation', t('settings.profile.location') ],*/
     [ 'profileBio', t('settings.profile.bio') ],
   ] as const
 
@@ -165,9 +166,14 @@
         <div class="field">
           <label for={field}>{name}</label>
           <div>
-            <input id={field} type="text" use:passwordAction={field === 'password'}
-                   bind:value={me[field]} on:input={() => changed = [...changed, field]}
-                   placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
+            {#if field == "profileBio"}
+             <textarea id={field} bind:value={me[field]} on:input={() => changed = [...changed, field]} maxlength=255 placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}></textarea>
+            {:else}
+              <input id={field} type="text" use:passwordAction={field === 'password'}
+                bind:value={me[field]} on:input={() => changed = [...changed, field]}
+                placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
+            {/if}
+
             {#if changed.includes(field) && me[field]}
               <button transition:slide={{axis: 'x'}} on:click={() => submit(field, me[field])}>
                 {#if submitting === field}
@@ -256,7 +262,7 @@
       gap: 1rem
       margin-top: 0.5rem
 
-      > input
+      > input, > textarea
         flex: 1
 
     img
@@ -265,6 +271,8 @@
       border-radius: vars.$border-radius
       object-fit: cover
       aspect-ratio: 1
+
+      
 
   .cropper-container
     position: relative

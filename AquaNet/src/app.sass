@@ -134,7 +134,7 @@ button.icon
 .error
   color: vars.$c-error
 
-input
+input, textarea
   border-radius: vars.$border-radius
   border: 1px solid transparent
   padding: 0.6em 1.2em
@@ -144,6 +144,10 @@ input
   background-color: vars.$ov-lighter
   transition: vars.$transition
   box-sizing: border-box
+  resize: none
+
+textarea
+  height: 5em
 
 // Dropdown
 select
