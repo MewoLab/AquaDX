@@ -136,7 +136,7 @@
       <img use:pfp={d.user.aquaUser} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
         <div class="name-left">
-          
+
           {#if d.user.aquaUser}
             {#if d.user.aquaUser.displayName}
               <h2>{d.user.aquaUser?.displayName}</h2>
@@ -160,16 +160,17 @@
             {d.user.rival ? t("UserHome.RemoveRival") : t("UserHome.AddRival")}
           </span>
         {/if}
-        {#if me && me.username === username}
-          <a class="setting-icon clickable" use:tooltip={t("UserHome.Settings")} href="/settings">
-            <Icon icon="eos-icons:rotating-gear"/>
-          </a>
-        {/if}
       </div>
       <nav>
         {#each d.validGames as [g, name]}
           <a href={`/u/${username}/${g}`} class:active={game === g}>{name}</a>
         {/each}
+
+        {#if me && me.username === username}
+          <a class="setting-icon clickable" use:tooltip={t("UserHome.Settings")} href="/settings">
+            <Icon icon="eos-icons:rotating-gear"/>
+          </a>
+        {/if}
       </nav>
     </div>
 
@@ -181,9 +182,9 @@
             <span class="profile-bio-text">{d.user.aquaUser?.profileBio}</span>
           </div>
         </div>
-      </div> 
+      </div>
     {/if}
-    
+
     <ChuniUserboxDisplay {game} {username} bind:error={error} />
 
     <div>
@@ -311,7 +312,7 @@
     </div>
 
     <!-- I don't like doing this but it may be preferable to gaslighting the types -->
-     
+
     <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} game={game != "auto" ? game : "mai2"}/>
     <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} game={game != "auto" ? game : "mai2"}/>
     <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} game={game != "auto" ? game : "mai2"}/>
@@ -397,6 +398,9 @@
       display: flex
       align-items: center
 
+      position: relative
+      z-index: 20
+
     .name-box
       flex: 1
       display: flex
@@ -453,7 +457,7 @@
   .info-bottom
     width: max-content
 
-    &.profile-bio-container, 
+    &.profile-bio-container,
     &.profile-bio-container div
       width: 100%
 
