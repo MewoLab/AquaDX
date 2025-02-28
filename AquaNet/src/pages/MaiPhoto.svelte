@@ -15,10 +15,10 @@
 
 <main>
   <div class="content-main">
-    <p>Here you can see the pictures you have uploaded.</p>
+    <p>Here you can see the pictures you have uploaded from mai.</p>
   <div class="pictures">
   {#each photos as photo}
-    <img class="rounded-2xl" src="{AQUA_HOST}/api/v2/game/mai2/my-photo/{photo}?token={token}" alt="Memorial" />
+    <img class="rounded-2xl max-w-sm" src="{AQUA_HOST}/api/v2/game/mai2/my-photo/{photo}?token={token}" alt="Memorial" />
   {/each}
   {#if photos.length === 0}
     <p>There are no photos available. Try uploading some!</p>
@@ -31,7 +31,8 @@
 
   .pictures
     display: flex
-    flex-direction: column
+    flex-wrap: wrap
     justify-content: center
+    row-gap: 1rem
     gap: 1rem
 </style>
