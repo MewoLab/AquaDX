@@ -2,6 +2,7 @@ import {
   EN_REF_GENERAL,
   EN_REF_HOME,
   EN_REF_LEADERBOARD,
+  EN_REF_MAI_PHOTO,
   EN_REF_SETTINGS,
   EN_REF_USER,
   EN_REF_USERBOX,
@@ -234,6 +235,11 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.new.error.invalidUrl': '输入的 URL 无效。'
 };
 
+export const zhMaiPhoto: typeof EN_REF_MAI_PHOTO = {
+  'maiphoto.title': 'Mai 纪念照片库',
+  'maiphoto.url_warning': '注意：如果想与朋友分享图片的话，请先保存照片再发出去。不要复制图片 URL，因为 URL 中包含 AquaDX 账号信息。',
+  'maiphoto.none': '还没有图片哦~ 可以在每次游戏结束的时候点击上传来上传照片。',
+}
 
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
-  ...zhLeaderboard, ...zhHome, ...zhSettings, ...zhUserbox }
+  ...zhLeaderboard, ...zhHome, ...zhSettings, ...zhUserbox, ...zhMaiPhoto }

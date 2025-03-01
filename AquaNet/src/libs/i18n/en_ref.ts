@@ -230,7 +230,7 @@ export const EN_REF_USERBOX = {
 }
 
 export const EN_REF_MAI_PHOTO = {
-  'maiphoto.title': 'Mai Memorial Photo',
+  'maiphoto.title': 'Mai Memorial Photo Gallery',
   'maiphoto.url_warning': 'Note: If you want to share a photo with your friend, please save the photo. Do not copy image URL because the URL contains sensitive information.',
   'maiphoto.none': 'No photo found. You can upload photo by clicking upload at the end of each game session.',
 }
