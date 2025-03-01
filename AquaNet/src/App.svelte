@@ -4,7 +4,7 @@
   import UserHome from "./pages/UserHome.svelte";
   import Home from "./pages/Home.svelte";
   import Ranking from "./pages/Ranking.svelte";
-  import { USER } from "./libs/sdk";
+  import { CARD, USER } from "./libs/sdk";
   import type { AquaNetUser } from "./libs/generalTypes";
   import Settings from "./pages/User/Settings.svelte";
   import MaiPhoto from "./pages/MaiPhoto.svelte";
@@ -26,9 +26,18 @@
 
   export let url = "";
   let me: AquaNetUser
+  let playedMai = false
 
-  if (USER.isLoggedIn()) USER.me().then(m => me = m).catch(e => console.error(e))
+  if (USER.isLoggedIn())
+  {
+    USER.me().then(m => {
+      me = m
+      CARD.userGames(me.username).then(game => {
+        playedMai = !!game.mai2
+      })
+    }).catch(e => console.error(e))
 
+  }
   let path = window.location.pathname;
 </script>
 
@@ -48,7 +57,9 @@
   <!-- <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
        role="button" tabindex="0">{t('navigation.maps').toLowerCase()}</div> -->
   <a href="/ranking">{t('navigation.rankings').toLowerCase()}</a>
-  <a href="/pictures">pictures</a>
+  {#if playedMai}
+    <a href="/pictures">photo</a>
+  {/if}
   {#if me}
     <a href="/u/{me.username}" use:tooltip={t('navigation.profile')}>
       <img alt="profile" class="pfp" use:pfp={me}/>
