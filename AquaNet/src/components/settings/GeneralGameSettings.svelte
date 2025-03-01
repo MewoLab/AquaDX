@@ -9,9 +9,9 @@
 </script>
 
 <div out:fade={FADE_OUT} in:fade={FADE_IN} class="fields">
-  <p class="warning">
+  <blockquote>
     {ts("settings.gameNotice")}
-  </p>
+  </blockquote>
   <GameSettingFields game="general"/>
   <div class="field">
     <div class="bool">
@@ -59,14 +59,4 @@
 
       > input
         flex: 1
-
-  .warning
-    background: #aa555510
-    padding: 10px
-    border-left: solid 2px vars.$c-error
-
-    &::before
-      color: vars.$c-error
-      font-weight: bold
-      content: "！"
 </style>
