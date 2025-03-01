@@ -34,15 +34,11 @@ class CardService(val cardRepo: CardRepository)
     /**
      * Find a card by its access code
      *
-     * If the card is linked to a user, return the user's ghost card instead
-     *
      * @param accessCode String represent of an access code
      * @return Optional of a Card
      */
     fun getCardByAccessCode(accessCode: String?): Optional<Card> = Optional.ofNullable(
-        cardRepo.findByLuid(accessCode).getOrNull()?.let {
-            it.aquaUser?.ghostCard ?: it
-        }
+        cardRepo.findByLuid(accessCode).getOrNull()
     )
 
     /**
