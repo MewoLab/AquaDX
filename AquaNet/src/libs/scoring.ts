@@ -67,7 +67,7 @@ const multTable = {
     [ 60.0, 0, 'B' ],
     [ 1.0, 0, 'C' ],
     [ 0.0, 0, 'D' ]
-  ]
+  ],
 }
 
 export function getMult(achievement: number, game: GameName) {

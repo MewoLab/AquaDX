@@ -72,6 +72,11 @@ export const EN_REF_GENERAL = {
   'action.refresh': 'Refresh',
   'action.cancel': 'Cancel',
   'action.confirm': 'Confirm',
+  'navigation.profile': 'Profile',
+  'navigation.maps': 'Maps',
+  'navigation.home': 'Home',
+  'navigation.rankings': 'Rankings',
+  'navigation.notice': 'Notice'
 }
 
 export const EN_REF_HOME = {

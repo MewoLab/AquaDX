@@ -30,14 +30,14 @@
   registerChart()
 
   export let username: string;
-  export let game: GameName = "mai2"
+  export let game: GameName | "auto" = "auto"
   let calElement: HTMLElement
   let error: string;
   let me: AquaNetUser
   title(`User ${username}`)
   const rounding = useLocalStorage("rounding", true);
 
-  const titleText = GAME_TITLE[game]
+  const titleText = game != "auto" ? GAME_TITLE[game] : "?"
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
 
@@ -57,6 +57,19 @@
     USER.isLoggedIn() && USER.me().then(u => me = u)
 
     CARD.userGames(username).then(games => {
+      if (game == "auto") {
+        let targetGames = Object.entries(games)
+        .map(d => {
+          if (d[1])
+          d[1].lastLogin = d[1].lastLogin ? new Date(d[1].lastLogin) : new Date(0);
+          return d;
+        }).sort((a,b) => {
+          return b[1]?.lastLogin - a[1]?.lastLogin;
+        });
+        if (targetGames[0])
+          window.location.href = `/u/${username}/${targetGames[0][0]}`
+        return;
+      }
       if (!games[game]) {
         // Find a valid game
         const valid = Object.entries(games).filter(([g, valid]) => valid)
@@ -105,10 +118,11 @@
     }).catch((e) => { error = e.message; console.error(e) } );
   }
 
-  if (Object.keys(GAME_TITLE).includes(game)) init()
+  if (Object.keys(GAME_TITLE).includes(game) || game == "auto") init()
   else error = t("UserHome.InvalidGame", {game})
 
   const setRival = (isAdd: boolean) => {
+    if (game == "auto") return;
     isLoading = true
     GAME.setRival(game, username, isAdd).then(() => {
       d!.user.rival = isAdd
@@ -122,9 +136,22 @@
       <img use:pfp={d.user.aquaUser} alt="" class="pfp" on:error={pfpNotFound}>
       <div class="name-box">
         <div class="name-left">
-          <h2>{d.user.name}</h2>
+
           {#if d.user.aquaUser}
+            {#if d.user.aquaUser.displayName}
+              <h2>{d.user.aquaUser?.displayName}</h2>
+            {:else}
+              <h2>{d.user.name}</h2>
+            {/if}
+            <div class="game-name">
+              {#if d.user.aquaUser.displayName}
+                {d.user.name}
+              {/if}
+              (@{d.user.aquaUser.username})
+            </div>
             <div class="country">{countryCodeToEmoji(d.user.aquaUser?.country)}</div>
+          {:else}
+            <h2>{d.user.name}</h2>
           {/if}
         </div>
         {#if typeof d.user.rival === 'boolean' && game === 'mai2'}
@@ -133,18 +160,30 @@
             {d.user.rival ? t("UserHome.RemoveRival") : t("UserHome.AddRival")}
           </span>
         {/if}
-        {#if me && me.username === username}
-          <a class="setting-icon clickable" use:tooltip={t("UserHome.Settings")} href="/settings">
-            <Icon icon="eos-icons:rotating-gear"/>
-          </a>
-        {/if}
       </div>
       <nav>
         {#each d.validGames as [g, name]}
           <a href={`/u/${username}/${g}`} class:active={game === g}>{name}</a>
         {/each}
+
+        {#if me && me.username === username}
+          <a class="setting-icon clickable" use:tooltip={t("UserHome.Settings")} href="/settings">
+            <Icon icon="eos-icons:rotating-gear"/>
+          </a>
+        {/if}
       </nav>
     </div>
+
+    {#if d.user.aquaUser?.profileBio}
+      <div class="activity-info">
+        <div class="info-bottom profile-bio-container">
+          <div class="profile-bio">
+            <span>{t("settings.profile.bio")}</span>
+            <span class="profile-bio-text">{d.user.aquaUser?.profileBio}</span>
+          </div>
+        </div>
+      </div>
+    {/if}
 
     <ChuniUserboxDisplay {game} {username} bind:error={error} />
 
@@ -272,12 +311,14 @@
       </div>
     </div>
 
-    <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} {game}/>
-    <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} {game}/>
-    <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} {game}/>
+    <!-- I don't like doing this but it may be preferable to gaslighting the types -->
+
+    <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} game={game != "auto" ? game : "mai2"}/>
+    <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} game={game != "auto" ? game : "mai2"}/>
+    <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} game={game != "auto" ? game : "mai2"}/>
     <!-- <RatingComposition title="Hot 10" comp={d.user.ratingComposition.hot10} {allMusics} {game}/> -->
     <!-- <RatingComposition title="N10" comp={d.user.ratingComposition.next10} {allMusics} {game}/> -->
-    <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} {game} top={10}/>
+    <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} game={game != "auto" ? game : "mai2"} top={10}/>
 
     <div class="recent">
       <h2>{t('UserHome.RecentScores')}</h2>
@@ -298,12 +339,12 @@
                     {r.notes?.[r.level === 10 ? 0 : r.level]?.lv?.toFixed(1) ?? r.worldsEndTag ?? '-'}
                   </span>
                 </span>
-                <span class={`rank-${getMult(r.achievement, game)[2].toString()[0]}`}>
-                  <span class="rank-text">{("" + getMult(r.achievement, game)[2]).replace("p", "+")}</span>
+                <span class={`rank-${getMult(r.achievement, game != "auto" ? game : "mai2")[2].toString()[0]}`}>
+                  <span class="rank-text">{("" + getMult(r.achievement, game != "auto" ? game : "mai2")[2]).replace("p", "+")}</span>
                   <span class="rank-num" use:tooltip={(r.achievement / 10000).toFixed(4)}>
                     {
                       rounding.value ?
-                        roundFloor(r.achievement, game, 1) :
+                        roundFloor(r.achievement, game != "auto" ? game : "mai2", 1) :
                         (r.achievement / 10000).toFixed(4)
                     }%
                   </span>
@@ -357,6 +398,9 @@
       display: flex
       align-items: center
 
+      position: relative
+      z-index: 20
+
     .name-box
       flex: 1
       display: flex
@@ -367,6 +411,16 @@
       .name-left
         display: flex
         gap: 1em
+        position: relative
+
+        .game-name
+          position: absolute
+          left: 0.5em
+          bottom: 0
+          transform: translate(0, 75%)
+          opacity: 50%
+          white-space: nowrap
+          max-width: 50%
 
   .pfp
     width: 100px
@@ -402,6 +456,16 @@
 
   .info-bottom
     width: max-content
+
+    &.profile-bio-container,
+    &.profile-bio-container div
+      width: 100%
+
+    .profile-bio-text
+      white-space: pre
+      max-height: 10em
+      overflow-y: auto
+      flex: 1
 
   .info-top > div > span:last-child
     font-size: 1.5rem
