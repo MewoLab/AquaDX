@@ -229,7 +229,15 @@ export const EN_REF_USERBOX = {
   'userbox.new.error.invalidUrl': 'The URL you inputted is invalid.'
 }
 
+export const EN_REF_MAI_PHOTO = {
+  'maiphoto.title': 'Mai Memorial Photo',
+  'maiphoto.url_warning': 'Note: If you want to share a photo with your friend, please save the photo. Do not copy image URL because the URL contains sensitive information.',
+  'maiphoto.none': 'No photo found. You can upload photo by clicking upload at the end of each game session.',
+}
+
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,
-  ...EN_REF_LEADERBOARD, ...EN_REF_HOME, ...EN_REF_SETTINGS, ...EN_REF_USERBOX }
+  ...EN_REF_LEADERBOARD, ...EN_REF_HOME, ...EN_REF_SETTINGS, ...EN_REF_USERBOX,
+  ...EN_REF_MAI_PHOTO
+}
 
 export type LocalizedMessages = typeof EN_REF
