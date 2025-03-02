@@ -1,6 +1,6 @@
 import type { ChusanMatchingOption } from "./generalTypes"
 
-export const AQUA_HOST = 'https://kanui.pinapelz.com/aqua'
+export const AQUA_HOST = 'https://kanui.pinapelz.com'
 export const DATA_HOST = 'https://aquadx.net'
 
 // This will be displayed for users to connect from the client
