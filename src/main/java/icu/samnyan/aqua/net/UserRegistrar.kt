@@ -165,6 +165,11 @@ class UserRegistrar(
     @Doc("Get the information of the current logged-in user.", "User information")
     suspend fun getUser(@RP token: Str) = jwt.auth(token)
 
+    @API("/user-info")
+    @Doc("Get the information of a user by username.", "User information")
+    fun getUserInfo(@RP username: Str) =
+        userRepo.findByUsernameIgnoreCase(username)?.publicFields ?: (404 - "User not found")
+
     @API("/setting")
     @Doc("Validate and set a user setting field.", "Success message")
     suspend fun setting(@RP token: Str, @RP key: Str, @RP value: Str) = jwt.auth(token) { u ->

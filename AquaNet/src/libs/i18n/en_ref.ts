@@ -102,6 +102,7 @@ export const EN_REF_HOME = {
   'home.linkcard.access-code': 'The 20-digit access code on the back of your card. (If it doesn\'t work, please try scanning your card in game and enter the access code shown on screen)',
   'home.linkcard.enter-sn1': 'Download the NFC Tools app on your phone',
   'home.linkcard.enter-sn2': 'and scan your card. Then, enter the Serial Number.',
+  'home.linkcard.kdx-notice': "If you're using KanadeDX, please enter the simulated card number (you can find it in settings > card).",
   'home.linkcard.link': 'Link',
   'home.linkcard.data-conflict': 'Data Conflict',
   'home.linkcard.name': 'Name',

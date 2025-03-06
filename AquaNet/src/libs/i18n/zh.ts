@@ -108,6 +108,7 @@ const zhHome: typeof EN_REF_HOME = {
   'home.linkcard.access-code': "卡背面的 20 位卡号（如果提示找不到卡，请尝试使用游戏内置的显示卡号功能，输入游戏读取到的卡号）",
   'home.linkcard.enter-sn1': "在您的手机",
   'home.linkcard.enter-sn2': "上下载 NFC Tools 并扫描您的卡。然后输入显示的 SN 号。",
+  'home.linkcard.kdx-notice': "如果你在玩 KanadeDX，请在这里输入虚拟卡号（可以在设置 > 卡号中找到卡号）",
   'home.linkcard.link': "绑定",
   'home.linkcard.data-conflict': "卡号冲突",
   'home.linkcard.name': "名称",

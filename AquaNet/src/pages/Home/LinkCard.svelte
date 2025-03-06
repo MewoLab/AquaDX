@@ -243,7 +243,7 @@
   function isInput(e: KeyboardEvent) {
     return e.key.length === 1 && !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey
   }
-  
+
   async function dropFile(e: DragEvent) {
     e.preventDefault()
     e.stopPropagation()
@@ -308,6 +308,7 @@
       <button transition:slide={{axis: 'x'}} on:click={() => link('AC')}>{t('home.linkcard.link')}</button>
     {/if}
   </label>
+  <blockquote>{t('home.linkcard.kdx-notice')}</blockquote>
   {#if errorAC}
     <p class="error" style={warningAC ? "margin-bottom: 0" : ""} transition:slide>{errorAC}</p>
   {/if}
