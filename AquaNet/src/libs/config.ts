@@ -4,7 +4,7 @@ export const AQUA_HOST = 'https://kanui.pinapelz.com'
 export const DATA_HOST = 'https://aquadx.net'
 
 // This will be displayed for users to connect from the client
-export const AQUA_CONNECTION = 'aquadx.hydev.org'
+export const AQUA_CONNECTION = 'leciel.photoner.arks'
 
 export const TURNSTILE_SITE_KEY = '0x4AAAAAAA_M1QijUVlbl2BN'
 export const DISCORD_INVITE = 'https://discord.gg/FNgveqFF7s'
