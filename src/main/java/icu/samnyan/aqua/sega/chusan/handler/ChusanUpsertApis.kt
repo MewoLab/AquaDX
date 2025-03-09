@@ -35,15 +35,18 @@ fun ChusanController.upsertApiInit() {
             listOfNotNull(
                 userPlaylogList, userGameOption, userMapAreaList, userCharacterList, userItemList,
                 userMusicDetailList, userActivityList, userChargeList, userCourseList, userDuelList,
-                userNetBattlelogList
+                userNetBattlelogList, userUnlockChallengeList
             ).flatten().forEach { it.user = u }
 
             // Ratings
             fun Iterable<UserRecentRating>.str() = joinToString(",") { "${it.musicId}:${it.difficultId}:${it.score}" }
 
             ls(
-                userRecentRatingList to "recent_rating_list", userRatingBaseList to "rating_base_list",
-                userRatingBaseHotList to "rating_hot_list", userRatingBaseNextList to "rating_next_list",
+                userRecentRatingList to "recent_rating_list",
+                userRatingBaseList to "rating_base_list",
+                userRatingBaseHotList to "rating_hot_list",
+                userRatingBaseNextList to "rating_next_list",
+                userRatingBaseNewList to "rating_new_list"
             ).filter { it.first != null }.forEach { (list, key) ->
                 val d = db.userGeneralData.findByUserAndPropertyKey(u, key)()
                     ?: UserGeneralData().apply { user = u; propertyKey = key }
@@ -120,6 +123,10 @@ fun ChusanController.upsertApiInit() {
             userDuelList?.let { list ->
                 db.userDuel.saveAll(list.distinctBy { it.duelId }.mapApply {
                     id = db.userDuel.findByUserAndDuelId(u, duelId)?.id ?: 0 }) }
+
+            userUnlockChallengeList?.let { list ->
+                db.userChallenge.saveAll(list.distinctBy { it.unlockChallengeId }.mapApply {
+                    id = db.userChallenge.findByUserAndUnlockChallengeId(u, unlockChallengeId)?.id ?: 0 }) }
 
             // Need testing
 //            userLoginBonusList?.let { list ->

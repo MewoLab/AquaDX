@@ -27,6 +27,53 @@ fun ChusanController.chusanInit() {
         mapOf("type" to type, "length" to 0, "gameRankingList" to lst)
     }
 
+    // VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE
+    "GetGameCourseLevel" {
+        // gameCourseLevelList: [{courseId: int, startDate: date, endDate: date}]
+        mapOf("length" to 0, "gameCourseLevelList" to listOf(
+            mapOf("courseId" to 300004, "startDate" to "2019-01-01 00:00:00", "endDate" to "2077-01-01 11:45:14"),
+            mapOf("courseId" to 300009, "startDate" to "2019-01-01 00:00:00", "endDate" to "2077-01-01 11:45:14")
+        ))
+    }
+
+    "GetGameUCCondition" {
+        val lst = listOf(
+            mapOf("unlockChallengeId" to 10001, "length" to 1, "conditionList" to listOf(
+                mapOf("type" to 1, "conditionId" to 3020798, "logicalOpe" to 1, "startDate" to "2024-03-08 01:00:00", "endDate" to "2077-01-01 11:45:14")
+            )),
+            mapOf("unlockChallengeId" to 10002, "length" to 1, "conditionList" to listOf(
+                mapOf("type" to 0, "conditionId" to -1, "logicalOpe" to 1, "startDate" to "2024-03-08 01:00:00", "endDate" to "2077-01-01 11:45:14")
+            ))
+        )
+        mapOf("length" to lst.size, "gameUnlockChallengeConditionList" to lst)
+    }
+
+    "GetUserUC".paged("userUnlockChallengeList") {
+        // unlockChallengeId: int, status: int, clearCourseId: int, conditionType: int
+        // score: int, life: int, clearDate: date
+        db.userChallenge.findByUser_Card_ExtId(uid)
+    }
+
+    "GetUserRecMusic".paged("userRecMusicList") {
+        // musicId: int, recMusicList: string
+        // musicId cannot be the same with the id in recMusicList
+        val u = db.userData.findByCard_ExtId(uid)() ?: return@paged empty
+        val list = (chusan.recommendedMusic[u.id] ?: ls()).filter { it != 1 }
+
+        if (list.isEmpty()) empty
+        else ls(mapOf("musicId" to 1, "recMusicList" to list.joinToString(";") { "$it,1" }))
+    }
+
+    "GetUserRecRating".paged("userRecRatingList") {
+        // ratingMin: int, ratingMax: int, recMusicList: string
+        // This doesn't work
+//        listOf(
+//            mapOf("ratingMin" to 0, "ratingMax" to 30, "recMusicList" to "2387,1;2658,1")
+//        )
+        empty
+    }
+    // VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE VERSE
+
     // Stub handlers
     "GetGameIdlist" { """{"type":"${data["type"]}","length":"0","gameIdlistList":[]}""" }
 

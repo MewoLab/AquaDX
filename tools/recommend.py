@@ -10,19 +10,19 @@ import requests
 import scipy.sparse as sp
 import implicit
 from hypy_utils.logging_utils import setup_logger
+from tqdm import tqdm
 
 BASE_URL = "https://aquadx.net/aqua/api/v2/game"
-GAME = "mai2"
 BOT_SECRET = "hunter2"
 
 log = setup_logger()
 
 
-if __name__ == '__main__':
+def main(game: str):
     # Load the CSV data
     log.info("Loading data...")
     # data = pd.read_csv("data.csv")
-    resp = requests.get(f"{BASE_URL}/{GAME}/recommender-fetch", params={"botSecret": BOT_SECRET})
+    resp = requests.get(f"{BASE_URL}/{game}/recommender-fetch", params={"botSecret": BOT_SECRET})
     assert resp.status_code == 200, f"Failed to fetch data: {resp.status_code} {resp.text}"
     data = pd.read_csv(StringIO(resp.text))
 
@@ -41,11 +41,20 @@ if __name__ == '__main__':
     # Generate recommendations for each user
     log.info("Generating recommendations...")
     recommendations = {}
-    for user_id in range(user_item_matrix.shape[0]):  # Loop over all users
+    for user_id in tqdm(list(range(user_item_matrix.shape[0]))):  # Loop over all users
         rec, prob = model.recommend(user_id, user_item_matrix[user_id], N=20)
         recommendations[user_id] = [int(item) for item in rec]
 
     # Save recommendations to a file
     log.info("Saving recommendations...")
     # Path("recommendations.json").write_text(json.dumps(recommendations))
-    resp = requests.post(f"{BASE_URL}/{GAME}/recommender-update", params={"botSecret": BOT_SECRET}, json=recommendations)
+    resp = requests.post(f"{BASE_URL}/{game}/recommender-update", params={"botSecret": BOT_SECRET}, json=recommendations)
+    if resp.status_code != 200:
+        log.error(f"Failed to update recommendations: {resp.status_code} {resp.text}")
+
+    log.info("Done!")
+
+
+if __name__ == '__main__':
+    main("mai2")
+    main("chu3")

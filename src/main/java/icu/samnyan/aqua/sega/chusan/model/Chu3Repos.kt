@@ -136,6 +136,10 @@ interface Chu3NetBattleLogRepo : Chu3UserLinked<Chu3NetBattleLog> {
 
 interface Chu3UserMiscRepo : Chu3UserLinked<Chu3UserMisc>
 
+interface Chu3UserChallengeRepo : Chu3UserLinked<Chu3UserChallenge> {
+    fun findByUserAndUnlockChallengeId(user: Chu3UserData, unlockChallengeId: Int): Chu3UserChallenge?
+}
+
 interface Chu3GameChargeRepo : JpaRepository<GameCharge, Long>
 
 interface Chu3GameEventRepo : JpaRepository<GameEvent, Int> {
@@ -191,6 +195,7 @@ class Chu3Repos(
     val userCMissionProgress: Chu3UserCMissionProgressRepo,
     val netBattleLog: Chu3NetBattleLogRepo,
     val userMisc: Chu3UserMiscRepo,
+    val userChallenge: Chu3UserChallengeRepo,
     val gameCharge: Chu3GameChargeRepo,
     val gameEvent: Chu3GameEventRepo,
     val gameGachaCard: Chu3GameGachaCardRepo,

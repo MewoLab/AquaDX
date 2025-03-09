@@ -141,6 +141,10 @@ class Chu3UserData : BaseEntity(), IUserData {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Transient
     var userEmoney: UserEmoney? = null
+    
+    // VERSE
+    var trophyIdSub1 = 0
+    var trophyIdSub2 = 0
 
     override val totalScore get() = totalHiScore
 }
