@@ -318,7 +318,13 @@
     <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} game={game != "auto" ? game : "mai2"}/>
     <!-- <RatingComposition title="Hot 10" comp={d.user.ratingComposition.hot10} {allMusics} {game}/> -->
     <!-- <RatingComposition title="N10" comp={d.user.ratingComposition.next10} {allMusics} {game}/> -->
-    <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} game={game != "auto" ? game : "mai2"} top={10}/>
+     <!-- Chuni -->
+    {#if d.user.ratingComposition.new}
+      <RatingComposition title="New 20" comp={d.user.ratingComposition.new} {allMusics} game="chu3"/>
+    {:else}
+      <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} game={game != "auto" ? game : "mai2"} top={10}/>
+    {/if}
+
 
     <div class="recent">
       <h2>{t('UserHome.RecentScores')}</h2>

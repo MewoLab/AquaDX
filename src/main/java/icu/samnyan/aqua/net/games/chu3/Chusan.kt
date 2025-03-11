@@ -52,6 +52,7 @@ class Chusan(
             "best30" to (extra["rating_base_list"] ?: ""),
             "hot10" to (extra["rating_hot_list"] ?: ""),
             "next10" to (extra["rating_next_list"] ?: ""),
+            "new" to (extra["rating_new_list"] ?: ""),
         )
 
         genericUserSummary(card, ratingComposition)

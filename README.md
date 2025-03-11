@@ -33,15 +33,13 @@ Below is a list of games supported by this server.
 
 | Game                   | Ver  | Codename            | Thanks to                                  |
 |------------------------|------|---------------------|--------------------------------------------|
-| SDHD: CHUNITHM         | 2.30 | VERSE¹              | [@rinsama](https://github.com/mxihan)      |
+| SDHD: CHUNITHM         | 2.30 | VERSE               | [@rinsama](https://github.com/mxihan)      |
 | SDEZ: MaiMai DX        | 1.50 | PRiSM               | [@肥宅虾哥](https://github.com/FeiZhaixiage)   |
 | SDGA: MaiMai DX (Intl) | 1.50 | PRiSM               | [@Clansty](https://github.com/clansty)     |
 | SDED: Card Maker       | 1.39 |                     | [@Becods](https://github.com/Becods)       |
 | SDDT: O.N.G.E.K.I.     | 1.45 | bright MEMORY Act.3 | [@Gamer2097](https://github.com/Gamer2097) |
 | SBZV: Project DIVA     | 7.10 | Future Tone         |                                            |
 | SDFE: Wacca (*ALPHA)   | 3.07 | Reverse             |                                            |
-
-* ¹: For VERSE, normal gameplay works, but events and new features might be missing. Luminous+ and older are fully supported.
 
 Check out these docs for more information.
 * [Game specific notes](docs/game_specific_notes.md)

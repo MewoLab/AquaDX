@@ -6,6 +6,8 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # Runs at midnight UTC every Sunday
 
 jobs:
   build-and-push:
