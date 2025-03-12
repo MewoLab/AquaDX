@@ -191,6 +191,8 @@ export const EN_REF_USERBOX = {
   'userbox.nameplateId': 'Nameplate',
   'userbox.frameId': 'Frame',
   'userbox.trophyId': 'Trophy (Title)',
+  'userbox.trophyIdSub1': 'Trophy Sub #1 (Title)',
+  'userbox.trophyIdSub2': 'Trophy Sub #2 (Title)',
   'userbox.mapIconId': 'Map Icon',
   'userbox.voiceId': 'System Voice',
   'userbox.avatarWear': 'Avatar Wear',
