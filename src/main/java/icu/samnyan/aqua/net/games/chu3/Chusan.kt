@@ -29,6 +29,8 @@ class Chusan(
         "nameplateId" to { u, v -> u.nameplateId = v.int },
         "frameId" to { u, v -> u.frameId = v.int },
         "trophyId" to { u, v -> u.trophyId = v.int },
+        "trophyIdSub1" to { u, v -> u.trophyIdSub1 = v.int },
+        "trophyIdSub2" to { u, v -> u.trophyIdSub2 = v.int },
         "mapIconId" to { u, v -> u.mapIconId = v.int },
         "voiceId" to { u, v -> u.voiceId = v.int },
         "avatarWear" to { u, v -> u.avatarWear = v.int },

@@ -45,6 +45,13 @@ netsh advfirewall firewall add rule name="Chunithm National Matching Outbound" d
 
 ## Troubleshooting
 
+**Q: Me and my friend are queuing but we can't join the same room**
+
+Make sure you both have the same ROM and options (e.g. it would not work if you have luminuous and they have verse, or if you have A121 while they don't).
+
+> [!NOTE]
+> If you just updated your options, your matching will be disabled because of data version mismatch. You need to play for a session, save, and then restart your game for the server-side data version to update.
+
 **Q: Matching server BAD on network check**
 
 Make sure you have selected "Yukiotoko" as your matching server. 
