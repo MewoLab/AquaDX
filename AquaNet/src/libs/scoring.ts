@@ -135,7 +135,7 @@ export function parseComposition(item: string, allMusics: Record<string, MusicMe
     if (game === 'mai2')
       return Math.floor(diff * mult * (Math.min(100.5, score / 10000) / 100)).toFixed(0)
     if (game === 'chu3')
-      return (chusanRating(diff, score) / 100).toFixed(1)
+      return (Math.floor(chusanRating(diff, score)) / 100).toFixed(2)
   }
 
   return {
