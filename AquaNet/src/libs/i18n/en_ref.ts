@@ -72,6 +72,11 @@ export const EN_REF_GENERAL = {
   'action.refresh': 'Refresh',
   'action.cancel': 'Cancel',
   'action.confirm': 'Confirm',
+  'navigation.profile': 'Profile',
+  'navigation.maps': 'Maps',
+  'navigation.home': 'Home',
+  'navigation.rankings': 'Rankings',
+  'navigation.notice': 'Notice'
 }
 
 export const EN_REF_HOME = {
@@ -97,6 +102,7 @@ export const EN_REF_HOME = {
   'home.linkcard.access-code': 'The 20-digit access code on the back of your card. (If it doesn\'t work, please try scanning your card in game and enter the access code shown on screen)',
   'home.linkcard.enter-sn1': 'Download the NFC Tools app on your phone',
   'home.linkcard.enter-sn2': 'and scan your card. Then, enter the Serial Number.',
+  'home.linkcard.kdx-notice': "If you're using KanadeDX, please enter the simulated card number (you can find it in settings > card).",
   'home.linkcard.link': 'Link',
   'home.linkcard.data-conflict': 'Data Conflict',
   'home.linkcard.name': 'Name',
@@ -107,6 +113,7 @@ export const EN_REF_HOME = {
   'home.linkcard.notfound': 'Card not found',
   'home.linkcard.unlink': 'Unlink Card',
   'home.linkcard.unlink-notice': 'Are you sure you want to unlink this card?',
+  'home.linkcard.felica-ac-warning': 'This Access Code is of a FeliCa AIC card.\nIf you are logging in with a physical card (not aime.txt emulation), unlike the official server, you need to bind the FeliCa SN of the card (or the 00-prefixed card number shown in the game) instead of this code.\nIf you are logging in with aime.txt emulation, please ignore this warning and proceed.',
   'home.setup.welcome': 'Welcome! If you own an arcade cabinet or game setup, please follow the instructions below to set up the connection with AquaDX.',
   'home.setup.blockquote': 'We assume that you already have the required files and can run the game (e.g. ROM and segatools) that come with the cabinet or game setup. If not, please contact the seller of your device for the required files, as we will not provide them for copyright reasons.',
   'home.setup.get': 'Get started',
@@ -126,6 +133,7 @@ export const EN_REF_SETTINGS = {
   'settings.tabs.game': 'Game',
   'settings.tabs.chu3': 'Chuni',
   'settings.tabs.mai2': 'Mai',
+  'settings.tabs.ongeki': 'Ongeki',
   'settings.tabs.wacca': 'Wacca',
   'settings.fields.unlockMusic.name': 'Unlock All Music',
   'settings.fields.unlockMusic.desc': 'Unlock all music and master difficulty in game.',
@@ -134,7 +142,7 @@ export const EN_REF_SETTINGS = {
   'settings.fields.unlockCollectables.name': 'Unlock All Collectables',
   'settings.fields.unlockCollectables.desc': 'Unlock all collectables (nameplate, title, icon, frame) in game.',
   'settings.fields.unlockTickets.name': 'Unlock All Tickets',
-  'settings.fields.unlockTickets.desc': 'Infinite map/ex tickets (note: maimai still limits which tickets can be used).',
+  'settings.fields.unlockTickets.desc': 'Infinite map/ex tickets (Note: maimai still limits which tickets can be used).',
   'settings.fields.waccaInfiniteWp.name': 'Wacca: Infinite WP',
   'settings.fields.waccaInfiniteWp.desc': 'Set WP to 999999',
   'settings.fields.waccaAlwaysVip.name': 'Wacca: Always VIP',
@@ -147,6 +155,8 @@ export const EN_REF_SETTINGS = {
   'settings.fields.chusanMatchingReflector.desc': 'URL of the national matching server\'s UDP reflector.',
   'settings.fields.chusanMatchingServer.name': 'Matching Server',
   'settings.fields.chusanMatchingServer.desc': 'URL of the national matching server.',
+  'settings.fields.ongekiInfiniteKaika.name': 'Infinite Kaika',
+  'settings.fields.ongekiInfiniteKaika.desc': 'Set Kaika to 999',
   'settings.fields.rounding.name': 'Score Rounding',
   'settings.fields.rounding.desc': 'Round the score to one decimal place',
   'settings.fields.gameUsername.name': 'In-Game Username',
@@ -163,6 +173,7 @@ export const EN_REF_SETTINGS = {
   'settings.profile.name': 'Display Name',
   'settings.profile.username': 'Username',
   'settings.profile.password': 'Password',
+  'settings.profile.country': 'Country',
   'settings.profile.location': 'Location',
   'settings.profile.bio': 'Bio',
   'settings.profile.unset': 'Unset',
@@ -180,6 +191,8 @@ export const EN_REF_USERBOX = {
   'userbox.nameplateId': 'Nameplate',
   'userbox.frameId': 'Frame',
   'userbox.trophyId': 'Trophy (Title)',
+  'userbox.trophyIdSub1': 'Trophy Sub #1 (Title)',
+  'userbox.trophyIdSub2': 'Trophy Sub #2 (Title)',
   'userbox.mapIconId': 'Map Icon',
   'userbox.voiceId': 'System Voice',
   'userbox.avatarWear': 'Avatar Wear',
@@ -219,7 +232,15 @@ export const EN_REF_USERBOX = {
   'userbox.new.error.invalidUrl': 'The URL you inputted is invalid.'
 }
 
+export const EN_REF_MAI_PHOTO = {
+  'maiphoto.title': 'Mai Memorial Photo Gallery',
+  'maiphoto.url_warning': 'Note: If you want to share a photo with your friend, please save the photo. Do not copy image URL because the URL contains sensitive information.',
+  'maiphoto.none': 'No photo found. You can upload photo by clicking upload at the end of each game session.',
+}
+
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,
-  ...EN_REF_LEADERBOARD, ...EN_REF_HOME, ...EN_REF_SETTINGS, ...EN_REF_USERBOX }
+  ...EN_REF_LEADERBOARD, ...EN_REF_HOME, ...EN_REF_SETTINGS, ...EN_REF_USERBOX,
+  ...EN_REF_MAI_PHOTO
+}
 
 export type LocalizedMessages = typeof EN_REF

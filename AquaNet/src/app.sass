@@ -1,5 +1,6 @@
 @use "sass:color"
 @use "vars"
+@import 'components/font/twemoji-flags.css'
 @import 'lxgw-wenkai-lite-webfont/style.css'
 
 html
@@ -78,6 +79,7 @@ button
   opacity: 0.9
   cursor: pointer
   transition: vars.$transition
+  white-space: nowrap
 
 button:hover
   border-color: vars.$c-main
@@ -126,11 +128,13 @@ button.icon
   // --lv-color: 239, 242, 225
   --lv-text-clip: linear-gradient(110deg, #5ac42c, #5ccc22, #959f26, #cc7c23, #c93143, #8f4876, #4c3eb1, #3c3397)
 
+.warning
+  color: vars.$c-warning
 
 .error
   color: vars.$c-error
 
-input
+input, textarea
   border-radius: vars.$border-radius
   border: 1px solid transparent
   padding: 0.6em 1.2em
@@ -140,6 +144,10 @@ input
   background-color: vars.$ov-lighter
   transition: vars.$transition
   box-sizing: border-box
+  resize: none
+
+textarea
+  height: 5em
 
 // Dropdown
 select
@@ -181,6 +189,9 @@ label
 input:focus, input:focus-visible
   border: 1px solid vars.$c-main
   outline: none
+
+input.warning
+  border: 1px solid vars.$c-warning
 
 input.error
   border: 1px solid vars.$c-error
@@ -306,6 +317,9 @@ main.content
     gap: 1rem
 
     max-width: 400px
+
+.aqua-tooltip
+  z-index: 900
 
 .no-margin
   margin: 0

@@ -73,7 +73,7 @@ class UpsertUserAllHandler(
             listOfNotNull(
                 userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
                 userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList,
-                userKaleidxScopeList
+                userKaleidxScopeList, userIntimateList
             )
         }.flatten().forEach { it.user = u }
 
@@ -95,7 +95,9 @@ class UpsertUserAllHandler(
 
         req.userLoginBonusList?.unique { it.bonusId }?.let { news ->
             repos.userLoginBonus.saveAll(news.mapApply {
-                id = repos.userLoginBonus.findByUserAndBonusId(u, bonusId)()?.id ?: 0 }) }
+                id = repos.userLoginBonus.findByUserAndBonusId(u, bonusId)()?.id ?: 0 
+                isCurrent = false
+            }) }
 
         req.userRatingList?.getOrNull(0)?.let { r ->
             repos.userUdemae.saveAndFlush(r.udemae.apply {
@@ -133,6 +135,10 @@ class UpsertUserAllHandler(
         req.userKaleidxScopeList?.unique { it.gateId }?.let { lst ->
             repos.userKaleidx.saveAll(lst.mapApply {
                 id = repos.userKaleidx.findByUserAndGateId(u, gateId)?.id ?: 0 }) }
+
+        req.userIntimateList?.unique { it.partnerId }?.let { lst ->
+            repos.userIntimate.saveAll(lst.mapApply {
+                id = repos.userIntimate.findByUserAndPartnerId(u, partnerId)?.id ?: 0 }) }
 
         // 2024/10/31 Found some user data findByUserAndKindAndActivityId is not unique
         // I think userActivityList is not important, so I will ignore it

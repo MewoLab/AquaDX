@@ -6,6 +6,7 @@ import ext.*
 import icu.samnyan.aqua.sega.general.PagedHandler
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserIntimate
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
 import java.time.LocalDate
 import java.util.*
@@ -58,20 +59,6 @@ fun Maimai2ServletController.initApis() {
     // Maimai only request for event type 1
     "GetGameEvent" static { mapOf("type" to 1, "gameEventList" to db.gameEvent.findByEnable(true)) }
     "GetGameCharge" static { db.gameCharge.findAll().let { mapOf("length" to it.size, "gameChargeList" to it) } }
-
-    "GetUserRivalData" {
-        val rivalId = parsing { data["rivalId"]!!.long }
-
-        // rivalId should store and fetch with the id column of table rather than card_ext_id
-        // or user will be able to get others' ext_id by setting them as rival
-        mapOf(
-            "userId" to uid,
-            "userRivalData" to mapOf(
-                "rivalId" to rivalId,
-                "rivalName" to (db.userData.findById(rivalId)()?.userName ?: "")
-            )
-        )
-    }
 
     "GetUserOption" { mapOf(
         "userId" to uid,
@@ -154,10 +141,16 @@ fun Maimai2ServletController.initApis() {
 
     "GetUserRivalData" {
         val rivalId = parsing { data["rivalId"]!!.long }
-        mapOf("userId" to uid, "userRivalData" to mapOf(
-            "rivalId" to rivalId,
-            "rivalName" to (db.userData.findByCardExtId(rivalId)()?.userName ?: "")
-        ))
+
+        // rivalId should store and fetch with the id column of table rather than card_ext_id
+        // or user will be able to get others' ext_id by setting them as rival
+        mapOf(
+            "userId" to uid,
+            "userRivalData" to mapOf(
+                "rivalId" to rivalId,
+                "rivalName" to (db.userData.findById(rivalId)()?.userName ?: "")
+            )
+        )
     }
 
     "GetUserRivalMusic" {
@@ -175,11 +168,15 @@ fun Maimai2ServletController.initApis() {
         mapOf("userId" to uid, "rivalId" to rivalId, "nextIndex" to 0, "userRivalMusicList" to res.values)
     }
 
+    "GetUserIntimate".unpaged {
+        val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
+        db.userIntimate.findByUser(u)
+    }
+
     // Empty List Handlers
     "GetUserRegion".unpaged { empty }
     "GetUserGhost".unpaged { empty }
     "GetUserFriendBonus" { mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
-    "GetUserIntimate" { mapOf("userId" to uid, "length" to 0, "userIntimateList" to empty) }
     "GetTransferFriend" { mapOf("userId" to uid, "transferFriendList" to empty) }
     "GetUserNewItem" { mapOf("userId" to uid, "itemKind" to 0, "itemId" to 0) }
 
@@ -200,23 +197,21 @@ fun Maimai2ServletController.initApis() {
     // Kaleidoscope, added on 1.50
     "GetGameKaleidxScope" { mapOf("gameKaleidxScopeList" to ls(
         mapOf("gateId" to 1, "phaseId" to findPhase(LocalDate.of(2025, 1, 18))),
-        mapOf("gateId" to 2, "phaseId" to findPhase(LocalDate.of(2025, 2, 20))),
+        mapOf("gateId" to 2, "phaseId" to 2),
         mapOf("gateId" to 3, "phaseId" to 2),
-        mapOf("gateId" to 4, "phaseId" to 2),
+        mapOf("gateId" to 4, "phaseId" to findPhase(LocalDate.of(2025, 2, 25))),
         mapOf("gateId" to 5, "phaseId" to 2),
         mapOf("gateId" to 6, "phaseId" to 2),
     )) }
     "GetUserKaleidxScope".unpaged {
         val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
-        db.userKaleidx.findByUser(u)
-            .mapApply { isKeyFound = true }
-            .ifEmpty { ls(
-                // I'll add this here so people don't need to unlock it
-                Mai2UserKaleidx().apply {
-                    user = u
-                    gateId = 1
-                }
-            ) }
+        val lst = db.userKaleidx.findByUser(u)
+            .mapApply { isKeyFound = true }.toMutableList()
+
+        lst += (1..6).filter { i -> lst.none { it.gateId == i } }
+            .map { Mai2UserKaleidx().apply { user = u; gateId = it } }
+
+        lst
     }
     // Added on 1.50
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }

@@ -46,6 +46,9 @@ class AquaGameOptions(
 
     @SettingField("mai2")
     var enableMusicRank: Boolean = true,
+
+    @SettingField("ongeki")
+    var ongekiInfiniteKaika: Boolean = false,
 )
 
 interface AquaGameOptionsRepo : JpaRepository<AquaGameOptions, Long>

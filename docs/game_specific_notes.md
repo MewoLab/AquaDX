@@ -23,7 +23,6 @@
 ### Non-working features
 * KOP related
 * Tournament mode
-* Chart recommendation (Festival)
 
 ## O.N.G.E.K.I
 

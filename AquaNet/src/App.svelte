@@ -4,10 +4,13 @@
   import UserHome from "./pages/UserHome.svelte";
   import Home from "./pages/Home.svelte";
   import Ranking from "./pages/Ranking.svelte";
-  import { USER } from "./libs/sdk";
+  import { CARD, USER } from "./libs/sdk";
   import type { AquaNetUser } from "./libs/generalTypes";
   import Settings from "./pages/User/Settings.svelte";
-  import { pfp } from "./libs/ui"
+  import MaiPhoto from "./pages/MaiPhoto.svelte";
+  import { pfp, tooltip } from "./libs/ui"
+  import { ANNOUNCEMENT } from "./libs/config";
+  import { t } from "./libs/i18n";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -23,9 +26,18 @@
 
   export let url = "";
   let me: AquaNetUser
+  let playedMai = false
 
-  if (USER.isLoggedIn()) USER.me().then(m => me = m).catch(e => console.error(e))
+  if (USER.isLoggedIn())
+  {
+    USER.me().then(m => {
+      me = m
+      CARD.userGames(me.username).then(game => {
+        playedMai = !!game.mai2
+      })
+    }).catch(e => console.error(e))
 
+  }
   let path = window.location.pathname;
 </script>
 
@@ -36,12 +48,20 @@
       <span>AquaNet</span>
     </a>
   {/if}
-  <a href="/home">home</a>
-  <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
-       role="button" tabindex="0">maps</div>
-  <a href="/ranking">rankings</a>
+  {#if ANNOUNCEMENT}
+    <div class="announcement">
+      <strong>{t('navigation.notice')}</strong>: {ANNOUNCEMENT}
+    </div>
+  {/if}
+  <a href="/home">{t('navigation.home').toLowerCase()}</a>
+  <!-- <div on:click={() => alert("Coming soon™")} on:keydown={e => e.key === "Enter" && alert("Coming soon™")}
+       role="button" tabindex="0">{t('navigation.maps').toLowerCase()}</div> -->
+  <a href="/ranking">{t('navigation.rankings').toLowerCase()}</a>
+  {#if playedMai}
+    <a href="/pictures">photo</a>
+  {/if}
   {#if me}
-    <a href="/u/{me.username}">
+    <a href="/u/{me.username}" use:tooltip={t('navigation.profile')}>
       <img alt="profile" class="pfp" use:pfp={me}/>
     </a>
   {/if}
@@ -55,6 +75,7 @@
   <Route path="/u/:username" component={UserHome} />
   <Route path="/u/:username/:game" component={UserHome} />
   <Route path="/settings" component={Settings} />
+  <Route path="/pictures" component={MaiPhoto} />
 </Router>
 
 <style lang="sass">
@@ -77,6 +98,22 @@
       height: 1.5rem
       border-radius: vars.$border-radius
       object-fit: cover
+
+    .announcement
+      position: absolute
+      left: 50%
+      transform: translate(-50%, 0)
+      top: 0
+      width: 50%
+      height: 100%
+      display: flex
+      justify-content: center
+      align-content: center
+      z-index: -1
+      background: linear-gradient(90deg, #6f0f0f00 0%, vars.$c-shadow 50%, #6f0f0f00 100%)
+      font-size: 1.125em
+      text-decoration: none !important
+      color: inherit !important
 
     .pfp
       width: 2rem

@@ -14,6 +14,7 @@
   import Mai2Settings from "../../components/settings/Mai2Settings.svelte";
   import WaccaSettings from "../../components/settings/WaccaSettings.svelte";
   import GeneralGameSettings from "../../components/settings/GeneralGameSettings.svelte";
+  import OngekiSettings from "../../components/settings/OngekiSettings.svelte";
 
   USER.ensureLoggedIn()
 
@@ -27,7 +28,9 @@
     [ 'displayName', t('settings.profile.name') ],
     [ 'username', t('settings.profile.username') ],
     [ 'password', t('settings.profile.password') ],
-    [ 'profileLocation', t('settings.profile.location') ],
+    /* Neither of these did anything of importance
+    [ 'country', t('settings.profile.country') ],
+    [ 'profileLocation', t('settings.profile.location') ],*/
     [ 'profileBio', t('settings.profile.bio') ],
   ] as const
 
@@ -49,6 +52,9 @@
       }
       if (games.wacca && !tabs.includes('wacca')) {
         tabs = [...tabs, 'wacca']
+      }
+      if (games.ongeki && !tabs.includes('ongeki')) {
+        tabs = [...tabs, 'ongeki']
       }
     })
   }).catch(e => error = e.message)
@@ -160,9 +166,14 @@
         <div class="field">
           <label for={field}>{name}</label>
           <div>
-            <input id={field} type="text" use:passwordAction={field === 'password'}
-                   bind:value={me[field]} on:input={() => changed = [...changed, field]}
-                   placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
+            {#if field == "profileBio"}
+             <textarea id={field} bind:value={me[field]} on:input={() => changed = [...changed, field]} maxlength=255 placeholder={t('settings.profile.unset')}></textarea>
+            {:else}
+              <input id={field} type="text" use:passwordAction={field === 'password'}
+                bind:value={me[field]} on:input={() => changed = [...changed, field]}
+                placeholder={field === 'password' ? t('settings.profile.unchanged') : t('settings.profile.unset')}/>
+            {/if}
+
             {#if changed.includes(field) && me[field]}
               <button transition:slide={{axis: 'x'}} on:click={() => submit(field, me[field])}>
                 {#if submitting === field}
@@ -193,6 +204,8 @@
     <Mai2Settings username={me.username} />
   {:else if tabs[tab] === 'wacca'}
     <WaccaSettings />
+  {:else if tabs[tab] === 'ongeki'}
+    <OngekiSettings />
   {:else if tabs[tab] === 'game'}
     <GeneralGameSettings />
   {/if}
@@ -249,7 +262,7 @@
       gap: 1rem
       margin-top: 0.5rem
 
-      > input
+      > input, > textarea
         flex: 1
 
     img
@@ -258,6 +271,8 @@
       border-radius: vars.$border-radius
       object-fit: cover
       aspect-ratio: 1
+
+      
 
   .cropper-container
     position: relative

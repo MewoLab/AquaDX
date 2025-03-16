@@ -34,7 +34,7 @@
   // Available (unlocked) options for each kind of item
   // In allItems: 'namePlate', 'frame', 'trophy', 'mapIcon', 'systemVoice', 'avatarAccessory'
   let allItems: Record<string, Record<string, { name: string }>> = {}
-  let iKinds = { namePlate: 1, frame: 2, trophy: 3, mapIcon: 8, systemVoice: 9, avatarAccessory: 11 }
+  let iKinds = { namePlate: 1, frame: 2, trophy: 3, trophySub1: 4, trophySub2: 5, mapIcon: 8, systemVoice: 9, avatarAccessory: 11 }
   // In userbox: 'nameplateId', 'frameId', 'trophyId', 'mapIconId', 'voiceId', 'avatar{Wear/Head/Face/Skin/Item/Front/Back}'
   let userbox: UserBox
   let avatarKinds = ['Wear', 'Head', 'Face', 'Skin', 'Item', 'Front', 'Back'] as const
@@ -66,6 +66,10 @@
     userItems = Object.entries(iKinds).flatMap(([iKey, iKind]) => {
       if (iKey != 'avatarAccessory') {
         let ubKey = `${iKey}Id`
+        if (iKey.slice('trophy'.length, 'trophy'.length + 3) == "Sub") {
+          ubKey = `trophyIdSub${iKey.slice('trophySub'.length, 'trophySub'.length + 1)}`;
+          iKey = `trophy`;
+        }
         if (ubKey == 'namePlateId') ubKey = 'nameplateId'
         if (ubKey == 'systemVoiceId') ubKey = 'voiceId'
         return [{ iKey, ubKey: ubKey as keyof UserBox,

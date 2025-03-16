@@ -54,6 +54,7 @@ class UpsertUserAll(
     var userRatingBaseHotList: List<UserRecentRating>? = null,
     var userRatingBaseList: List<UserRecentRating>? = null,
     var userRatingBaseNextList: List<UserRecentRating>? = null,
+    var userRatingBaseNewList: List<UserRecentRating>? = null,
     var userLoginBonusList: List<JDict>? = null,
     var userMapAreaList: List<UserMap>? = null,
     var userOverPowerList: List<JDict>? = null,
@@ -62,4 +63,5 @@ class UpsertUserAll(
     var userNetBattleData: List<UpsertNetBattleData>? = null,
     var userCMissionList: List<UserCMissionResp>? = null,
     var userFavoriteMusicList: List<FavNewMusic>? = null,
+    var userUnlockChallengeList: List<Chu3UserChallenge>? = null,
 )

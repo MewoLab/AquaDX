@@ -3,7 +3,7 @@
 > [!CAUTION]  
 > This guide assumes you have basic programming & networking knowledge.  
 > We will not be answering basic questions like how to set up port forwarding or domain records.  
-> If you're new to self-hosting, please just use our public server in the Usage section above.
+> If you're new to self-hosting, please just use our public server in the [regular Usage section](https://github.com/MewoLab/AquaDX#usage).
 
 1. Install [Docker](https://www.docker.com/get-started/) and [Git](https://git-scm.com/downloads)
 2. Run `git clone https://github.com/MewoLab/AquaDX` to clone this repo.

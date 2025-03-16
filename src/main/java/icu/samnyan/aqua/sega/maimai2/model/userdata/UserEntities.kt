@@ -597,3 +597,11 @@ class Mai2UserKaleidx : Mai2UserEntity() {
     var lastPlayDate: LocalDateTime? = null
     var isInfoWatched = false
 }
+
+@Table(name = "maimai2_user_intimate")
+@Data @Entity
+class Mai2UserIntimate : Mai2UserEntity() {
+    var partnerId = 1;
+    var intimateLevel = 0;
+    var intimateCountRewarded = 0;
+}

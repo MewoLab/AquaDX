@@ -60,7 +60,7 @@
 
   .tooltip
     position: absolute
-    z-index: 1000
+    z-index: 900
     background: white
     padding: 10px 16px
     border-radius: vars.$border-radius

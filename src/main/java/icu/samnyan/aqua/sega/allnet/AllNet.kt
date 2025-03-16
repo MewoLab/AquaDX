@@ -96,7 +96,7 @@ class AllNet(
 
     @PostMapping("/sys/servlet/PowerOn", produces = ["text/plain"])
     fun powerOn(dataStream: InputStream, req: HttpServletRequest): String {
-        val localAddr = req.localAddr
+        val here = req.getHeader("AllNet-Forwarded-From") ?: props.host.ifBlank { req.localAddr }
         val localPort = req.localPort.toString()
 
         // game_id SDEZ, ver 1.35, serial A0000001234, ip, firm_ver 50000, boot_ver 0000,
@@ -138,8 +138,8 @@ class AllNet(
 
         val formatVer = reqMap["format_ver"] ?: ""
         val resp = props.map.mut + mapOf(
-            "uri" to switchUri(localAddr, localPort, gameId, ver, session),
-            "host" to props.host.ifBlank { localAddr },
+            "uri" to switchUri(here, localPort, gameId, ver, session),
+            "host" to props.host.ifBlank { here },
         )
 
         // Different responses for different versions
@@ -171,9 +171,8 @@ class AllNet(
         return resp.toUrl() + "\n"
     }
 
-    private fun switchUri(localAddr: Str, localPort: Str, gameId: Str, ver: Str, session: Str?): Str {
-        val addr = props.host.ifBlank { localAddr } +
-            if (props.hidePort) "" else ":${props.port ?: localPort}"
+    private fun switchUri(hereAddr: Str, localPort: Str, gameId: Str, ver: Str, session: Str?): Str {
+        val addr = hereAddr + (if (props.hidePort) "" else ":${props.port ?: localPort}")
 
         // If keychip authentication is enabled, the game URLs will be set to /gs/{token}/{game}/...
         val base = if (session != null) "gs/$session" else "g"

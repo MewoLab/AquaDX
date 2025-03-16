@@ -115,9 +115,11 @@ class AimeDB(
         }
     }
 
-    fun getCard(accessCode: String) = cardService.getCardByAccessCode(accessCode).getOrNull()?.let {
+    fun getCard(accessCode: String) = cardService.getCardByAccessCode(accessCode).getOrNull()?.let { card ->
         // Update card access time
-        cardService.cardRepo.save(it.apply { accessTime = LocalDateTime.now() }).extId
+        cardService.cardRepo.save(card.apply { accessTime = LocalDateTime.now() }).let {
+            it.aquaUser?.ghostCard ?: it
+        }?.extId
     } ?: -1
 
     /**

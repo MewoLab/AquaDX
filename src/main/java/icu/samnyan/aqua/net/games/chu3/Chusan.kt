@@ -29,6 +29,8 @@ class Chusan(
         "nameplateId" to { u, v -> u.nameplateId = v.int },
         "frameId" to { u, v -> u.frameId = v.int },
         "trophyId" to { u, v -> u.trophyId = v.int },
+        "trophyIdSub1" to { u, v -> u.trophyIdSub1 = v.int },
+        "trophyIdSub2" to { u, v -> u.trophyIdSub2 = v.int },
         "mapIconId" to { u, v -> u.mapIconId = v.int },
         "voiceId" to { u, v -> u.voiceId = v.int },
         "avatarWear" to { u, v -> u.avatarWear = v.int },
@@ -52,6 +54,7 @@ class Chusan(
             "best30" to (extra["rating_base_list"] ?: ""),
             "hot10" to (extra["rating_hot_list"] ?: ""),
             "next10" to (extra["rating_next_list"] ?: ""),
+            "new" to (extra["rating_new_list"] ?: ""),
         )
 
         genericUserSummary(card, ratingComposition)

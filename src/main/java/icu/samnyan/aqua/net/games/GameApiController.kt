@@ -44,8 +44,10 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     private var rankingCacheLock = ReentrantLock()
     // Sorted index List<Rating> = Rank
     private var rankingSortedIndex: List<Int> = emptyList()
+    private val pageSize = 100
+
     @API("ranking")
-    fun ranking(@RP token: String?): List<GenericRankingPlayer> {
+    fun ranking(@RP token: String?, @RP page: Int?): List<GenericRankingPlayer> {
         val time = millis()
 
         // Check cache validity
@@ -59,10 +61,14 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
 
         // Read from cache if we just computed it less than duration ago
         // Shadow-ban: Do not show banned cards in the ranking except for the user who owns the card
-        // TODO: pagination
-        return rankingCache.filter { !it.l || it.r.username == reqUser?.username }
+        val v = rankingCache.filter { !it.l || it.r.username == reqUser?.username }
             .mapIndexed { i, it -> it.r.apply { rank = i + 1 } }
             .also { logger.info("Ranking returned in ${millis() - time}ms") }
+
+        return page?.let {
+            if (it < 0) (400 - "Invalid page number")
+            v.drop(it * pageSize).take(pageSize)
+        } ?: v
     }
 
     @PostConstruct

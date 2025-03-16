@@ -54,13 +54,29 @@ class BotController(
 
         // 1. Check if the card exist
         var cards = listOfNotNull(
-            us.cardRepo.findByExtId(cardId.long)(),
             us.cardRepo.findByLuid(cardId)(),
-            us.cardRepo.findById(cardId.long)(),
         ).mut
+
+        cardId.toLongOrNull()?.let {
+            cards += listOfNotNull(
+                us.cardRepo.findById(it)(),
+                us.cardRepo.findByExtId(it)(),
+            )
+
+            cards += listOfNotNull(
+                us.userRepo.findByAuId(it)?.cards,
+            ).flatten()
+        }
+
+        cards += listOfNotNull(
+            us.userRepo.findByEmailIgnoreCase(cardId)?.cards,
+            us.userRepo.findByUsernameIgnoreCase(cardId)?.cards,
+        ).flatten()
+
         cards += cards.flatMap {
             (it.aquaUser?.cards ?: emptyList()) + listOfNotNull(it.aquaUser?.ghostCard)
         }
+
         cards = cards.distinctBy { it.id }.mut
 
         return cards.map { card ->

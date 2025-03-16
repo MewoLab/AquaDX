@@ -148,6 +148,10 @@ class Mai2UserDetail(
     var cmLastEmoneyCredit: Int = 69,
     var mapStock: Int = 0,
 
+    // MaiMile
+    var point: Int = 0,
+    var totalPoint: Int = 0,
+
     // TODO: Make these non-nullable with default value
     var currentPlayCount: Int? = 0,
     var renameCredit: Int? = 0

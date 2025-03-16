@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity.BodyBuilder
 import org.springframework.web.bind.annotation.*
+import java.io.File
 import java.lang.reflect.Field
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
@@ -235,6 +236,7 @@ fun <T> Lock.maybeLock(block: () -> T) = if (tryLock()) try { block() } finally 
 fun path(part1: Str, vararg parts: Str) = Path.of(part1, *parts)
 fun Str.path() = Path.of(this)
 operator fun Path.div(part: Str) = resolve(part)
+operator fun File.div(fileName: Str) = File(this, fileName)
 fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
 
 fun <T: Any> T.logger() = LoggerFactory.getLogger(this::class.java)
