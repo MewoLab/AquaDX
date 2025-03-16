@@ -1,15 +1,15 @@
 import type { ChusanMatchingOption } from "./generalTypes"
 
-export const AQUA_HOST = 'https://aquadx.net/aqua'
-export const DATA_HOST = 'https://aquadx.net'
+export const AQUA_HOST = import.meta.env.VITE_AQUA_HOST
+export const DATA_HOST = import.meta.env.VITE_DATA_HOST
 
 // This will be displayed for users to connect from the client
-export const AQUA_CONNECTION = 'aquadx.hydev.org'
+export const AQUA_CONNECTION = import.meta.env.VITE_AQUA_CONNECTION
 
-export const TURNSTILE_SITE_KEY = '0x4AAAAAAASGA2KQEIelo9P9'
-export const DISCORD_INVITE = 'https://discord.gg/FNgveqFF7s'
-export const TELEGRAM_INVITE = 'https://t.me/+zBL4RZdyfvUzZGU1'
-export const QQ_INVITE = 'https://qm.qq.com/q/wvNXbXbHbO'
+export const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY
+export const DISCORD_INVITE = import.meta.env.VITE_DISCORD_INVITE
+export const TELEGRAM_INVITE = import.meta.env.VITE_TELEGRAM_INVITE
+export const QQ_INVITE = import.meta.env.VITE_QQ_INVITE
 
 // UI
 export const FADE_OUT = { duration: 200 }

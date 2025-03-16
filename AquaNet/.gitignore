@@ -33,3 +33,6 @@ dist-ssr
 !.yarn/versions
 
 public/chu3
+
+# local env file
+*.local
