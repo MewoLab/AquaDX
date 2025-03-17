@@ -1,9 +1,11 @@
 package icu.samnyan.aqua.sega.cardmaker.handler.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import icu.samnyan.aqua.sega.allnet.KeychipSession;
 import icu.samnyan.aqua.sega.general.BaseHandler;
 import icu.samnyan.aqua.sega.cardmaker.model.response.data.GameConnect;
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper;
+import icu.samnyan.aqua.sega.allnet.TokenChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class GetGameConnectHandler implements BaseHandler {
 
     @Autowired
     public GetGameConnectHandler(BasicMapper mapper, @Value("${allnet.server.host:}") String ALLNET_HOST,
-    @Value("${allnet.server.port:}") String ALLNET_PORT, @Value("${server.port:}") String SERVER_PORT) {
+                                 @Value("${allnet.server.port:}") String ALLNET_PORT, @Value("${server.port:}") String SERVER_PORT) {
         this.mapper = mapper;
         this.ALLNET_HOST = ALLNET_HOST;
         this.ALLNET_PORT = ALLNET_PORT;
@@ -43,7 +45,8 @@ public class GetGameConnectHandler implements BaseHandler {
     public String handle(Map<String, ?> request) throws JsonProcessingException {
         int type = ((Number) request.get("type")).intValue(); // Allnet enabled or not
         long version = ((Number) request.get("version")).longValue(); // Rom version
-        
+        KeychipSession session = TokenChecker.Companion.getCurrentSession();
+
         // Unless ip and port is explicitly overridden, use the guessed ip and port as same as AllNet Controller does.
         String localAddr;
         try {
@@ -56,10 +59,11 @@ public class GetGameConnectHandler implements BaseHandler {
         String addr = ALLNET_HOST.equals("") ? localAddr : ALLNET_HOST;
         String port = ALLNET_PORT.equals("") ? SERVER_PORT : ALLNET_PORT;
 
+        String base = session == null ? "/g" : "/gs/" + session.getToken();
         List<GameConnect> gameConnectList = new ArrayList<>();
-        GameConnect chuni = new GameConnect(0, 1, "http://" + addr + ":" + port + "/g/chu3/" + version + "/");
-        GameConnect mai = new GameConnect(1, 1, "http://" + addr + ":" + port + "/g/mai2/");
-        GameConnect ongeki = new GameConnect(2, 1, "http://" + addr + ":" + port + "/g/ongeki/");
+        GameConnect chuni = new GameConnect(0, 1, "http://" + addr + ":" + port + base + "/chu3/" + version + "/");
+        GameConnect mai = new GameConnect(1, 1, "http://" + addr + ":" + port + base + "/mai2/");
+        GameConnect ongeki = new GameConnect(2, 1, "http://" + addr + ":" + port + base + "/ongeki/");
         gameConnectList.add(chuni);
         gameConnectList.add(mai);
         gameConnectList.add(ongeki);
