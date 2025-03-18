@@ -2,10 +2,10 @@ services:
   app:
     image: hykilpikonna/aquadx:latest
     ports:
-      - "80:8080"
+      - "80:80"
       - "8443:8443"
       - "22345:22345"
-    restart: on-failure:3
+    restart: unless-stopped
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/main
       - SPRING_DATASOURCE_USERNAME=cat
@@ -27,6 +27,7 @@ services:
       - "${AQUADX_DB_PORT:-127.0.0.1:3369}:3306"
     volumes:
       - "${AQUADX_DB_DATA:-mariadb_data}:/var/lib/mysql"
+    restart: unless-stopped
 
 volumes:
   mariadb_data:
