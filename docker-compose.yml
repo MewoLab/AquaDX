@@ -2,7 +2,7 @@ services:
   app:
     image: hykilpikonna/aquadx:latest
     ports:
-      - "80:80"
+      - "80:8080"
       - "8443:8443"
       - "22345:22345"
     restart: on-failure:3
