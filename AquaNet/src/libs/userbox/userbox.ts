@@ -191,7 +191,6 @@ export async function userboxFileProcess(folder: FileSystemEntry, progressUpdate
 
     initializeDb();
     const optionFolder = await scanRecursive(folder, "A001");
-    console.log(optionFolder);
     if (optionFolder)
         await scanOptionFolder((await getParent(optionFolder)) as FileSystemDirectoryEntry, progressUpdate);
     const dataFolder = await scanRecursive(folder, "A000");
