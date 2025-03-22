@@ -215,7 +215,7 @@ export const EN_REF_USERBOX = {
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': 'Drag and drop your Chuni game folder (Lumi or newer) into the box below to display UserBoxes with their nameplate & avatar. All files are handled in-browser.',
-  'userbox.new.setup.notice': 'This tool assumes your files to be in "bin/option" and "data/A000".',
+  'userbox.new.setup.notice': 'Select the highest folder containing your game data.',
   'userbox.new.setup.processing_file': 'Processing',
   'userbox.new.setup.finalizing': 'Saving to internal storage',
   'userbox.new.drop': 'Drop game folder here',
