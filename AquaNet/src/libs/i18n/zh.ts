@@ -198,8 +198,8 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.nameplateId': '名牌',
   'userbox.frameId': '边框',
   'userbox.trophyId': '称号',
-  'userbox.trophyIdSub1': '副标题 #1',
-  'userbox.trophyIdSub2': '副标题 #2',
+  'userbox.trophyIdSub1': '称号2',
+  'userbox.trophyIdSub2': '称号3',
   'userbox.mapIconId': '地图图标',
   'userbox.voiceId': '系统语音',
   'userbox.avatarWear': '企鹅服饰',
@@ -222,7 +222,7 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': '将中二（Lumi 或更高版本）的游戏文件夹拖放到下方区域，以显示带有名牌和头像的 UserBox。所有文件都在浏览器中处理。',
-  'userbox.new.setup.notice': '选择包含游戏数据的最高文件夹。', // This is Google Translate, please correct it if incorrect
+  'userbox.new.setup.notice': '选择包含游戏数据的最外层文件夹。',
   'userbox.new.setup.processing_file': '正在处理文件',
   'userbox.new.setup.finalizing': '正在保存到内部存储',
   'userbox.new.drop': '将游戏文件夹拖到此处',
