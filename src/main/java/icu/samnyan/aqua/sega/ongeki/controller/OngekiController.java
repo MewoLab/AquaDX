@@ -4,7 +4,6 @@ package icu.samnyan.aqua.sega.ongeki.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import icu.samnyan.aqua.sega.ongeki.handler.impl.*;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,6 +65,7 @@ public class OngekiController {
     private final GetClientBookkeepingHandler getClientBookkeepingHandler;
     private final GetClientTestmodeHandler getClientTestmodeHandler;
     private final GetGameMusicReleaseStateHandler getGameMusicReleaseStateHandler;
+    private final GetUserSkinHandler getUserSkinHandler;
 
     @PostMapping("ExtendLockTimeApi")
     public String extendLockTime(@ModelAttribute Map<String, Object> request) {
@@ -275,6 +275,11 @@ public class OngekiController {
     @PostMapping("GetUserScenarioApi")
     public String getUserScenario(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserScenarioHandler.handle(request);
+    }
+
+    @PostMapping("GetUserSkinApi")
+    public String getUserSkin(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserSkinHandler.handle(request);
     }
 
     @PostMapping("GetUserStoryApi")

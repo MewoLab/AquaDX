@@ -48,6 +48,8 @@ public class UserMusicDetail implements Serializable, IGenericUserMusic {
 
     private int platinumScoreMax;
 
+    private int platinumScoreStar;
+
     private int maxComboCount;
 
     private int maxOverKill;

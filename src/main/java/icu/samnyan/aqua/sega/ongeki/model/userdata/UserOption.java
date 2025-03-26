@@ -82,6 +82,8 @@ public class UserOption implements Serializable {
 
     private int effectPos;
 
+    private int effectAttack;
+
     private int judgeDisp;
 
     private int judgePos;
