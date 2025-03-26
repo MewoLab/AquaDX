@@ -32,3 +32,18 @@ CREATE TABLE ongeki_user_event_map
 
 ALTER TABLE ongeki_user_event_map
     ADD CONSTRAINT FKU_ONGEKI_USER_EVENT_MAP FOREIGN KEY (user_id) REFERENCES ongeki_user_data (id);
+
+-- ongeki_user_skin
+CREATE TABLE ongeki_user_skin
+(
+    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id  BIGINT                NULL,
+    is_valid BIT                   NOT NULL,
+    deck_id  INT                   NOT NULL,
+    card_id1 INT                   NOT NULL,
+    card_id2 INT                   NOT NULL,
+    card_id3 INT                   NOT NULL
+);
+
+ALTER TABLE ongeki_user_skin
+    ADD CONSTRAINT FKU_ONGEKI_USER_SKIN FOREIGN KEY (user_id) REFERENCES ongeki_user_data (id);
