@@ -50,6 +50,9 @@ public class UserMemoryChapter implements Serializable {
     @JsonProperty("isBossWatched")
     private boolean isBossWatched;
 
+    @JsonProperty("isEndingWatched")
+    private boolean isEndingWatched;
+
     @JsonProperty("isClear")
     private boolean isClear;
 

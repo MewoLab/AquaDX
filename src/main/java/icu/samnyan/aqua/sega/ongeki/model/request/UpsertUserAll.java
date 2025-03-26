@@ -102,6 +102,8 @@ public class UpsertUserAll implements Serializable {
 
     private List<UserKop> userKopList;
 
+    public UserEventMap userEventMap;
+
     private Map<String, Object> clientSystemInfo;
 
     @JsonProperty("isNewMusicDetailList")

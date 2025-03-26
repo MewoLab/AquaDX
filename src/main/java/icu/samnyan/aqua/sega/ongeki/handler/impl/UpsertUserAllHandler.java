@@ -60,10 +60,11 @@ public class UpsertUserAllHandler implements BaseHandler {
     private final UserEventMusicRepository userEventMusicRepository;
     private final UserTechEventRepository userTechEventRepository;
     private final UserKopRepository userKopRepository;
+    private final UserEventMapRepository userEventMapRepository;
 
     @Autowired
     public UpsertUserAllHandler(BasicMapper mapper,
-                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository) {
+                                CardService cardService, UserDataRepository userDataRepository, UserOptionRepository userOptionRepository, UserPlaylogRepository userPlaylogRepository, UserActivityRepository userActivityRepository, UserMusicDetailRepository userMusicDetailRepository, UserCharacterRepository userCharacterRepository, UserCardRepository userCardRepository, UserDeckRepository userDeckRepository, UserStoryRepository userStoryRepository, UserChapterRepository userChapterRepository, UserItemRepository userItemRepository, UserMusicItemRepository userMusicItemRepository, UserLoginBonusRepository userLoginBonusRepository, UserEventPointRepository userEventPointRepository, UserMissionPointRepository userMissionPointRepository, UserTrainingRoomRepository userTrainingRoomRepository, UserGeneralDataRepository userGeneralDataRepository, UserBossRepository userBossRepository, UserScenarioRepository userScenarioRepository, UserTechCountRepository userTechCountRepository, UserTradeItemRepository userTradeItemRepository, UserEventMusicRepository userEventMusicRepository, UserTechEventRepository userTechEventRepository, UserKopRepository userKopRepository, UserMemoryChapterRepository userMemoryChapterRepository, UserEventMapRepository userEventMapRepository) {
         this.mapper = mapper;
         this.cardService = cardService;
         this.userDataRepository = userDataRepository;
@@ -91,6 +92,7 @@ public class UpsertUserAllHandler implements BaseHandler {
         this.userEventMusicRepository = userEventMusicRepository;
         this.userTechEventRepository = userTechEventRepository;
         this.userKopRepository = userKopRepository;
+        this.userEventMapRepository = userEventMapRepository;
     }
 
     @Override
@@ -573,6 +575,17 @@ public class UpsertUserAllHandler implements BaseHandler {
             newUserKopList.add(newUserKop);
         }
         userKopRepository.saveAll(newUserKopList);
+
+        // UserEventMap
+        UserEventMap newUserEventMap = upsertUserAll.getUserEventMap();
+        if (newUserEventMap != null) {
+            Optional<UserEventMap> userEventOptional = userEventMapRepository.findByUser(newUserData);
+            UserEventMap userEventMap = userEventOptional.orElseGet(() -> new UserEventMap(newUserData));
+
+            newUserEventMap.setId(userEventMap.getId());
+            newUserEventMap.setUser(newUserData);
+            userEventMapRepository.save(newUserEventMap);
+        }
 
         String json = mapper.write(new CodeResp(1, "upsertUserAll"));
         logger.info("Response: " + json);

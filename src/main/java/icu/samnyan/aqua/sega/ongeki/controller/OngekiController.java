@@ -37,6 +37,7 @@ public class OngekiController {
     private final GetUserCharacterHandler getUserCharacterHandler;
     private final GetUserDataHandler getUserDataHandler;
     private final GetUserDeckByKeyHandler getUserDeckByKeyHandler;
+    private final GetUserEventMapHandler getUserEventMapHandler;
     private final GetUserEventPointHandler getUserEventPointHandler;
     private final GetUserEventRankingHandler getUserEventRankingHandler;
     private final GetUserEventMusicHandler getUserEventMusicHandler;
@@ -54,6 +55,7 @@ public class OngekiController {
     private final GetUserRivalMusicHandler getUserRivalMusicHandler;
     private final GetUserRivalDataHandler getUserRivalDataHandler;
     private final GetUserScenarioHandler getUserScenarioHandler;
+    private final GetUserSkinHandler getUserSkinHandler;
     private final GetUserStoryHandler getUserStoryHandler;
     private final GetUserTechCountHandler getUserTechCountHandler;
     private final GetUserTechEventHandler getUserTechEventHandler;
@@ -65,7 +67,6 @@ public class OngekiController {
     private final GetClientBookkeepingHandler getClientBookkeepingHandler;
     private final GetClientTestmodeHandler getClientTestmodeHandler;
     private final GetGameMusicReleaseStateHandler getGameMusicReleaseStateHandler;
-    private final GetUserSkinHandler getUserSkinHandler;
 
     @PostMapping("ExtendLockTimeApi")
     public String extendLockTime(@ModelAttribute Map<String, Object> request) {
@@ -185,6 +186,11 @@ public class OngekiController {
     @PostMapping("GetUserDeckByKeyApi")
     public String getUserDeckByKey(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
         return getUserDeckByKeyHandler.handle(request);
+    }
+
+    @PostMapping("GetUserEventMapApi")
+    public String getUserEventMap(@ModelAttribute Map<String, Object> request) throws JsonProcessingException {
+        return getUserEventMapHandler.handle(request);
     }
 
     @PostMapping("GetUserEventPointApi")
