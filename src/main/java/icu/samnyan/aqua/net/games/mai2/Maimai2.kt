@@ -28,18 +28,19 @@ class Maimai2(
 
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
-    override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy {
-        mapOf(
-            "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
-            "iconId" to { u, v -> u.iconId = v.int() },
-            "plateId" to { u, v -> u.plateId = v.int() },
-            "titleId" to { u, v -> u.titleId = v.int() },
-            "frameId" to { u, v -> u.frameId = v.int() },
-            "partnerId" to { u, v -> u.partnerId = v.int() },
-            "charaSlot" to { u, v -> u.charaSlot = v.split(',').map { it.int() } },
-            "charaLockSlot" to { u, v -> u.charaLockSlot = v.split(',').map { it.int() } },
-        )
-    }
+    override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy { mapOf(
+        "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
+        "iconId" to { u, v -> u.iconId = v.int() },
+        "plateId" to { u, v -> u.plateId = v.int() },
+        "titleId" to { u, v -> u.titleId = v.int() },
+        "frameId" to { u, v -> u.frameId = v.int() },
+        "partnerId" to { u, v -> u.partnerId = v.int() },
+        "charaSlot" to { u, v -> u.charaSlot = v.split(',').map { it.int() } },
+        "charaLockSlot" to { u, v -> u.charaLockSlot = v.split(',').map { it.int() } },
+
+        "lastRomVersion" to { u, v -> u.lastRomVersion = v },
+        "lastDataVersion" to { u, v -> u.lastDataVersion = v },
+    ) }
     override val gettableFields: Set<String> = setOf("lastGameId", "lastRomVersion", "classRank", "playerRating", "courseRank")
 
     override suspend fun userSummary(@RP username: Str, @RP token: String?) = us.cardByName(username) { card ->

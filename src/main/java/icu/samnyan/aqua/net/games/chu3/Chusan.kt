@@ -40,6 +40,9 @@ class Chusan(
         "avatarItem" to { u, v -> u.avatarItem = v.int },
         "avatarFront" to { u, v -> u.avatarFront = v.int },
         "avatarBack" to { u, v -> u.avatarBack = v.int },
+
+        "lastRomVersion" to { u, v -> u.lastRomVersion = v },
+        "lastDataVersion" to { u, v -> u.lastDataVersion = v },
     ) }
     override val gettableFields: Set<String> = setOf("level", "playerRating", "characterId")
 

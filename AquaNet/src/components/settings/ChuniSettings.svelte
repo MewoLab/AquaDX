@@ -8,13 +8,11 @@
   } from "../../libs/generalTypes";
   import { DATA, USER, USERBOX, GAME } from "../../libs/sdk";
   import { t, ts } from "../../libs/i18n";
-  import { DATA_HOST, FADE_IN, FADE_OUT, USERBOX_DEFAULT_URL } from "../../libs/config";
+  import { FADE_IN, FADE_OUT, USERBOX_DEFAULT_URL } from "../../libs/config";
   import { fade, slide } from "svelte/transition";
   import StatusOverlays from "../StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import GameSettingFields from "./GameSettingFields.svelte";
-  import { filter } from "d3";
-  import { coverNotFound } from "../../libs/ui";
 
   import { userboxFileProcess, ddsDB, initializeDb } from "../../libs/userbox/userbox"
 
@@ -24,7 +22,6 @@
   import useLocalStorage from "../../libs/hooks/useLocalStorage.svelte";
   import { DDS } from "../../libs/userbox/dds";
   import ChuniMatchingSettings from "./ChuniMatchingSettings.svelte";
-  import InputWithButton from "../ui/InputWithButton.svelte";
   import InputField from "../ui/InputField.svelte";
 
   let user: AquaNetUser

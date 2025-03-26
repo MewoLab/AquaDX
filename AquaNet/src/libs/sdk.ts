@@ -253,3 +253,6 @@ export const TRANSFER = {
   push: (d: AllNetClient, data: string) =>
     post('/api/v2/transfer/push', {}, { json: { client: d, data } }),
 }
+
+// @ts-ignore
+window.sdk = { USER, USERBOX, CARD, GAME, DATA, SETTING, TRANSFER }
