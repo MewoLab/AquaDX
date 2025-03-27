@@ -43,16 +43,18 @@ else JACKSON.readValue(this, cls)
 fun <T> T.toJson() = JACKSON.writeValueAsString(this)
 
 inline fun <reified T> String.json() = try {
-    JACKSON.readValue(this, T::class.java)
+    if (isEmpty() || this == "null") null
+    else JACKSON.readValue(this, T::class.java)
 }
 catch (e: Exception) {
     println("Failed to parse JSON: $this")
     throw e
 }
 
-fun String.jsonMap(): Map<String, Any?> = json()
-fun String.jsonArray(): List<Map<String, Any?>> = json()
-
+fun String.jsonMap(): Map<String, Any?> = json() ?: emptyMap()
+fun String.jsonArray(): List<Map<String, Any?>> = json() ?: emptyList()
+fun String.jsonMaybeMap(): Map<String, Any?>? = json()
+fun String.jsonMaybeArray(): List<Map<String, Any?>>? = json()
 
 // KotlinX Serialization
 @OptIn(ExperimentalSerializationApi::class)

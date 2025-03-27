@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import icu.samnyan.aqua.sega.chusan.model.GameGachaCard
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserItem
 import java.io.Serializable
 
 class UpsertUserGacha : Serializable {
@@ -13,7 +13,7 @@ class UpsertUserGacha : Serializable {
     var userCharacterList: List<Any>? = null
     var userCardList: List<Any>? = null
     var gameGachaCardList: List<GameGachaCard>? = null
-    var userItemList: List<UserItem>? = null
+    var userItemList: List<Chu3UserItem>? = null
 
     @JsonProperty("isNewCharacterList")
     var isNewCharacterList: String? = null

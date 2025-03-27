@@ -31,10 +31,10 @@ class Chu3Import(
     artemisRenames = mapOf(
         "chuni_item_character" to ImportClass(UserCharacter::class),
         "chuni_item_duel" to ImportClass(UserDuel::class),
-        "chuni_item_item" to ImportClass(UserItem::class, mapOf("isValid" to "valid")),
+        "chuni_item_item" to ImportClass(Chu3UserItem::class, mapOf("isValid" to "valid")),
 //        "chuni_item_login_bonus" to ImportClass(UserLoginBonus::class, mapOf("isWatched" to "watched")),
         "chuni_item_map_area" to ImportClass(UserMap::class),
-        "chuni_profile_activity" to ImportClass(UserActivity::class, mapOf("activityId" to "id")),
+        "chuni_profile_activity" to ImportClass(Chu3UserActivity::class, mapOf("activityId" to "id")),
         "chuni_profile_charge" to ImportClass(UserCharge::class),
         "chuni_profile_data" to ImportClass(Chu3UserData::class, mapOf("user" to null, "version" to null, "isNetMember" to null)),
         "chuni_profile_option" to ImportClass(UserGameOption::class, mapOf("version" to null)),

@@ -1,12 +1,13 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
 import ext.logger
+import ext.long
 import ext.millis
+import ext.parsing
 import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
-import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPlaylog
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPlaylog
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import icu.samnyan.aqua.spring.Metrics
@@ -33,9 +34,10 @@ class UploadUserPlaylogHandler(
     }
 
     override fun handle(request: Map<String, Any>): String {
-        val req = mapper.convert(request, UploadUserPlaylog::class.java)
+        val uid = parsing { request["userId"]!!.long }
+        val playlog = parsing { mapper.convert(request["userPlaylog"]!!, Mai2UserPlaylog::class.java) }
 
-        val version = tryParseGameVersion(req.userPlaylog.version)
+        val version = tryParseGameVersion(playlog.version)
         if (version != null) {
             val session = TokenChecker.getCurrentSession()
             val gameId = if (session?.gameId in VALID_GAME_IDS) session!!.gameId else ""
@@ -47,9 +49,9 @@ class UploadUserPlaylogHandler(
 
         // Check duplicate
         val isDup = playlogRepo.findByUser_Card_ExtIdAndMusicIdAndUserPlayDate(
-            req.userId,
-            req.userPlaylog.musicId,
-            req.userPlaylog.userPlayDate
+            uid,
+            playlog.musicId,
+            playlog.userPlayDate
         ).size > 0
         if (isDup) {
             log.info("Duplicate playlog detected")
@@ -57,14 +59,14 @@ class UploadUserPlaylogHandler(
         }
 
         // Save if the user is registered
-        val u = userDataRepository.findByCardExtId(req.userId).getOrNull()
-        if (u != null) playlogRepo.save(req.userPlaylog.apply { user = u })
+        val u = userDataRepository.findByCardExtId(uid).getOrNull()
+        if (u != null) playlogRepo.save(playlog.apply { user = u })
 
         // If the user hasn't registered (first play), save the playlog to a backlog
         else {
-            playBacklog.putIfAbsent(req.userId, mutableListOf())
-            playBacklog[req.userId]?.apply {
-                add(BacklogEntry(millis(), req.userPlaylog))
+            playBacklog.putIfAbsent(uid, mutableListOf())
+            playBacklog[uid]?.apply {
+                add(BacklogEntry(millis(), playlog))
                 if (size > 6) clear()  // Prevent abuse
             }
         }

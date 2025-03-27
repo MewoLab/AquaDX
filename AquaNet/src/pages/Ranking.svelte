@@ -59,7 +59,7 @@
             {/if}
           </span>
           <span class="rating">{
-            game === 'chu3' ?
+            game === 'chu3' || game === 'ongeki' ?
               (user.rating / 100).toFixed(2) :
               user.rating.toLocaleString()
           }</span>

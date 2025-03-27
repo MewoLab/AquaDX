@@ -4,12 +4,10 @@ package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
 import icu.samnyan.aqua.sega.general.PagedHandler
-import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusic
-import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRivalMusicDetail
-import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserIntimate
+import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusic
+import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusicDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
 import java.time.LocalDate
-import java.util.*
 
 fun Maimai2ServletController.initApis() {
     // Used because maimai does not actually require paging implementation
@@ -157,7 +155,7 @@ fun Maimai2ServletController.initApis() {
         val rivalId = parsing { data["rivalId"]!!.long }
 
         val lst = db.userMusicDetail.findByUserId(rivalId)
-        val res = lst.associate { it.musicId to UserRivalMusic(it.musicId, LinkedList()) }
+        val res = lst.associate { it.musicId to UserRivalMusic(it.musicId) }
 
         lst.forEach {
             res[it.musicId]!!.userRivalMusicDetailList.add(
@@ -195,6 +193,7 @@ fun Maimai2ServletController.initApis() {
     }
 
     // Kaleidoscope, added on 1.50
+    // [{gateId, phaseId}]
     "GetGameKaleidxScope" { mapOf("gameKaleidxScopeList" to ls(
         mapOf("gateId" to 1, "phaseId" to findPhase(LocalDate.of(2025, 1, 18))),
         mapOf("gateId" to 2, "phaseId" to 2),
@@ -203,6 +202,8 @@ fun Maimai2ServletController.initApis() {
         mapOf("gateId" to 5, "phaseId" to 2),
         mapOf("gateId" to 6, "phaseId" to 2),
     )) }
+    // Request: {userId}
+    // Response: {userId, userKaleidxScopeList}
     "GetUserKaleidxScope".unpaged {
         val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
         val lst = db.userKaleidx.findByUser(u)
@@ -213,6 +214,8 @@ fun Maimai2ServletController.initApis() {
 
         lst
     }
+    // Request: {userId, version, userData: [UserDetail], userPlaylogList: [UserPlaylog]}
+    // Response: {userId, userItemList: [UserItem]}
     // Added on 1.50
     "GetUserNewItemList" { mapOf("userId" to uid, "userItemList" to empty) }
 

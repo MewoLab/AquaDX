@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.allnet
 
 import ext.Str
 import icu.samnyan.aqua.net.FrontierProps
+import icu.samnyan.aqua.net.components.GeoIP
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletRequestWrapper
 import jakarta.servlet.http.HttpServletResponse
@@ -27,6 +28,7 @@ class TokenChecker(
     val keyChipRepo: KeyChipRepo,
     val keychipSessionService: KeychipSessionService,
     val frontierProps: FrontierProps,
+    val geoip: GeoIP
 ) : HandlerInterceptor {
     val log = LoggerFactory.getLogger(TokenChecker::class.java)
 
@@ -43,10 +45,11 @@ class TokenChecker(
     override fun preHandle(req: HttpServletRequest, resp: HttpServletResponse, handler: Any): Boolean {
         // Skip the interceptor if the request is already forwarded
         if (req.getAttribute("token") != null) return true
+        val ip = geoip.getIP(req)
 
         // Parse the token from the request path
         val token = extractTokenFromPath(req.requestURI)
-        log.debug("PreHandle: ${req.requestURI} from ip ${req.remoteAddr}, token: $token")
+        log.debug("PreHandle: ${req.requestURI} from ip $ip, token: $token")
 
         // Check whether the token exists in the database
         // The token can either be a keychip id (old method) or a session id (new method)
@@ -67,7 +70,7 @@ class TokenChecker(
 
         // Token doesn't exist, reject the request
         resp.status = HttpServletResponse.SC_FORBIDDEN
-        log.warn("Request rejected: ${req.requestURI} from ip ${req.remoteAddr}")
+        log.warn("Request rejected: ${req.requestURI} from ip $ip")
         return false
     }
 

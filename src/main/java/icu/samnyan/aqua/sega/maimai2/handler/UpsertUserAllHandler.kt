@@ -3,13 +3,12 @@ package icu.samnyan.aqua.sega.maimai2.handler
 import com.fasterxml.jackson.core.JsonProcessingException
 import ext.invoke
 import ext.mapApply
-import ext.minus
 import ext.unique
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.playBacklog
 import icu.samnyan.aqua.sega.maimai2.model.*
-import icu.samnyan.aqua.sega.maimai2.model.request.UpsertUserAll
+import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UpsertUserAll
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import lombok.AllArgsConstructor
@@ -31,15 +30,12 @@ class UpsertUserAllHandler(
 
     @Throws(JsonProcessingException::class)
     override fun handle(request: Map<String, Any>): Any? {
-        val upsertUserAll = mapper.convert(request, UpsertUserAll::class.java)
+        val upsertUserAll = mapper.convert(request, Mai2UpsertUserAll::class.java)
         val userId = upsertUserAll.userId
         val req = upsertUserAll.upsertUserAll
 
         // If user is guest, just return OK response.
         if ((userId and 281474976710657L) == 281474976710657L) return SUCCESS
-
-        // UserData
-        if (req.userData == null) 400 - "Invalid Request"
 
         val userData = repos.userData.findByCardExtId(userId)()
         val u = repos.userData.saveAndFlush(req.userData[0].apply {

@@ -62,21 +62,22 @@ class ChusanController(
         val token = TokenChecker.getCurrentSession()?.token?.substring(0, 6) ?: "NO-TOKEN"
         log.info("Chu3 < $api : ${data.toJson()} : [$token]")
 
+        val noop = """{"returnCode":"1","apiName":"$api"}"""
         if (api !in noopEndpoint && !handlers.containsKey(api)) {
             log.warn("Chu3 > $api not found")
-            return """{"returnCode":"1","apiName":"$api"}"""
+            return noop
         }
 
         // Only record the counter metrics if the API is known.
         Metrics.counter("aquadx_chusan_api_call", "api" to api).increment()
         if (api in noopEndpoint) {
             log.info("Chu3 > $api no-op")
-            return """{"returnCode":"1"}"""
+            return noop
         }
 
         return try {
             Metrics.timer("aquadx_chusan_api_latency", "api" to api).recordCallable {
-                serialize(api, handlers[api]!!(ctx)).also {
+                serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
                         log.info("Chu3 > $api : $it")
                 }

@@ -1,4 +1,5 @@
 import {
+  EN_REF_AQUATRANS,
   EN_REF_GENERAL,
   EN_REF_HOME,
   EN_REF_LEADERBOARD,
@@ -197,6 +198,8 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.nameplateId': '名牌',
   'userbox.frameId': '边框',
   'userbox.trophyId': '称号',
+  'userbox.trophyIdSub1': '称号2',
+  'userbox.trophyIdSub2': '称号3',
   'userbox.mapIconId': '地图图标',
   'userbox.voiceId': '系统语音',
   'userbox.avatarWear': '企鹅服饰',
@@ -219,7 +222,7 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': '将中二（Lumi 或更高版本）的游戏文件夹拖放到下方区域，以显示带有名牌和头像的 UserBox。所有文件都在浏览器中处理。',
-  'userbox.new.setup.notice': '我们支持的目录结构是把 opt 放进 "bin/option" 并且把 "A000" 放在 "data" 里面。',
+  'userbox.new.setup.notice': '选择包含游戏数据的最外层文件夹。',
   'userbox.new.setup.processing_file': '正在处理文件',
   'userbox.new.setup.finalizing': '正在保存到内部存储',
   'userbox.new.drop': '将游戏文件夹拖到此处',
@@ -242,5 +245,38 @@ export const zhMaiPhoto: typeof EN_REF_MAI_PHOTO = {
   'maiphoto.none': '还没有图片哦~ 可以在每次游戏结束的时候点击上传来上传照片。',
 }
 
+export const zhAquaTrans: typeof EN_REF_AQUATRANS = {
+  'trans.title': '🏳️‍⚧️ AquaTrans™ 数据迁移工具',
+  'trans.confirm.unbackuped.title': '确认迁移',
+  'trans.confirm.unbackuped.msg': '似乎还没有备份目标服务器的数据，真的要继续吗？（推荐先备份一下，因为迁移的时候会覆盖数据）',
+  'trans.confirm.untested.title': '不太聪明喵',
+  'trans.confirm.untested.msg': '在两个服务器上都测试完连接之后才能进行数据迁移哦！',
+  'trans.confirm.done.title': '完成！',
+  'trans.confirm.done.msg': '数据迁移成功！在 ${dst} 上的数据已被来自 ${src} 的数据覆盖。',
+  'trans.alert.in-progress': '在迁移了在迁移了',
+  'trans.prompt-html': `
+    <p>👋 欢迎使用 AquaTrans™ 服务器游玩数据迁移工具！</p>
+    <p>这个工具可以导出任意服务器的数据，并使用连接凭证（卡号、服务器地址和 Keychip ID）将数据导入任何其他服务器。</p>
+    <p>我将模拟游戏客户端，从源服务器拉取游戏数据并推送到目标服务器。</p>
+    <p>填写下面的表格开始迁移吧！</p>
+  `,
+  'trans.error.empty': '请填写所有字段。',
+  'trans.error.untested': '请先进行连接测试。',
+  'trans.success.import': '数据导入成功！',
+  'trans.source.title': '源服务器',
+  'trans.target.title': '目标服务器',
+  'trans.field.addr': '服务器地址',
+  'trans.field.keychip': '狗号',
+  'trans.field.game': '游戏',
+  'trans.field.version': '版本',
+  'trans.field.card': '卡号',
+  'trans.btn.test': '测试连接',
+  'trans.btn.export': '导出数据',
+  'trans.btn.import': '导入数据',
+}
+
+
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
-  ...zhLeaderboard, ...zhHome, ...zhSettings, ...zhUserbox, ...zhMaiPhoto }
+  ...zhLeaderboard, ...zhHome, ...zhSettings, ...zhUserbox, ...zhMaiPhoto,
+  ...zhAquaTrans
+}

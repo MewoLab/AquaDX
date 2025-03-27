@@ -17,13 +17,13 @@ import java.util.List;
 public class ChuniDataImport {
     private String gameId;
     private ExternalUserData userData;
-    private List<UserActivity> userActivityList;
+    private List<Chu3UserActivity> userActivityList;
     private List<UserCharacter> userCharacterList;
     private List<UserCharge> userChargeList;
     private List<UserCourse> userCourseList;
     private List<UserDuel> userDuelList;
     private UserGameOption userGameOption;
-    private List<UserItem> userItemList;
+    private List<Chu3UserItem> userItemList;
     private List<UserMap> userMapList;
     private List<UserMusicDetail> userMusicDetailList;
     private List<UserPlaylog> userPlaylogList;

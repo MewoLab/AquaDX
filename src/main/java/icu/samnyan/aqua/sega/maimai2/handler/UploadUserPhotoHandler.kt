@@ -1,11 +1,8 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
-import ext.div
-import ext.isoDateTime
-import ext.logger
-import ext.path
+import ext.*
 import icu.samnyan.aqua.sega.general.BaseHandler
-import icu.samnyan.aqua.sega.maimai2.model.request.UploadUserPhoto
+import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UserPhoto
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import org.springframework.stereotype.Component
 import java.io.IOException
@@ -23,9 +20,7 @@ class UploadUserPhotoHandler(private val mapper: BasicMapper) :
         // Maimai DX sends split base64 data for one jpeg image.
         // So, make a temp file and keep append bytes until last part received.
         // If finished, rename it to other name so user can keep save multiple scorecards in a single day.
-
-        val uploadUserPhoto = mapper.convert(request, UploadUserPhoto::class.java)
-        val up = uploadUserPhoto.userPhoto
+        val up = parsing { mapper.convert(request["userPhoto"]!!, Mai2UserPhoto::class.java) }
 
         try {
             val tmpFile = tmpDir / "${up.userId}-${up.trackNo}.tmp"

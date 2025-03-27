@@ -14,7 +14,7 @@ and change `allnet.server.host` to your LAN IP address (e.g. 192.168.0.?). You c
 
 > [!NOTE]  
 > The guide above will create a new MariaDB database.  
-> If you were using SQLite Aqua before, it is not supported in AquaDX. Please export your data and import it to MariaDB.  
+> If you were using SQLite Aqua before, it is not supported in AquaDX. Please export your data and import it to your new instance.  
 > If you were using MySQL Aqua before, you can migrate to MariaDB using [this guide here](docs/mysql_to_mariadb.md).
 
 ### Configuration
@@ -42,3 +42,9 @@ docker compose up
 
 ### Building
 You need to install JDK 21 on your system, then run `./gradlew clean build`. The jar file will be built into the `build/libs` folder.
+
+## Why drop SQLite support?
+
+If you wonder why I dropped SQLite support, ask SQLite devs why they still haven't supported adding a single constraint to a table without all the hassle of creating a new one and migrating all data over and finally deleting the original.
+
+![](sqlite-sucks.png)

@@ -66,6 +66,7 @@ public class GetUserPreviewHandler implements BaseHandler {
             resp.setLevel(user.getLevel());
             resp.setExp(user.getExp());
             resp.setPlayerRating(user.getPlayerRating());
+            resp.setNewPlayerRating(user.getNewPlayerRating());
 
             resp.setLastGameId(user.getLastGameId());
 

@@ -5,7 +5,7 @@ import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.ChusanData
 import icu.samnyan.aqua.sega.chusan.model.request.UserCMissionResp
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserItem
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 import java.time.format.DateTimeFormatter
@@ -179,7 +179,7 @@ fun ChusanController.chusanInit() {
             db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.let {
                 if (it.chusanInfinitePenguins && kind == 5) {
                     items.removeAll { it.itemId in penguins }
-                    items.addAll(penguins.map { UserItem(kind, it, 999, true) })
+                    items.addAll(penguins.map { Chu3UserItem(kind, it, 999, true) })
                 }
             }
 

@@ -49,6 +49,9 @@ class AquaGameOptions(
 
     @SettingField("ongeki")
     var ongekiInfiniteKaika: Boolean = false,
+
+    @SettingField("profile")
+    var countryOverride: String = "",
 )
 
 interface AquaGameOptionsRepo : JpaRepository<AquaGameOptions, Long>

@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler
 import ext.invoke
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
-import icu.samnyan.aqua.sega.maimai2.model.response.data.UserRating
+import icu.samnyan.aqua.sega.maimai2.model.UserRating
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserRate
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserUdemae
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper

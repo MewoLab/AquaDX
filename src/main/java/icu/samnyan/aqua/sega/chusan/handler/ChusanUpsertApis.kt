@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.handler
 
 import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
-import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserAll
+import icu.samnyan.aqua.sega.chusan.model.request.Chu3UserAll
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 
@@ -17,7 +17,7 @@ fun ChusanController.upsertApiInit() {
     }
 
     "UpsertUserAll" api@ {
-        val req = mapper.convert(data["upsertUserAll"], UpsertUserAll::class.java)
+        val req = parsing { mapper.convert<Chu3UserAll>(data["upsertUserAll"]!!) }
 
         req.run {
             // UserData

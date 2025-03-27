@@ -212,3 +212,53 @@ export function pfp(node: HTMLImageElement, me?: AquaNetUser) {
   node.src = me?.profilePicture ? `${AQUA_HOST}/uploads/net/portrait/${me.profilePicture}` : DEFAULT_PFP
   node.onerror = e => pfpNotFound(e as Event)
 }
+
+export function download(data: string, filename: string) {
+  const blob = new Blob([data]);
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  link.click();
+}
+
+export async function selectJsonFile(): Promise<any> {
+  return new Promise((resolve, reject) => {
+    // Create a hidden file input element
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json,application/json';
+    input.style.display = 'none';
+
+    // Listen for when the user selects a file
+    input.addEventListener('change', (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      if (!target.files || target.files.length === 0) {
+        return reject(new Error("No file selected"));
+      }
+      const file = target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        try {
+          const jsonData = JSON.parse(reader.result as string);
+          resolve(jsonData);
+        } catch (error) {
+          reject(new Error("Error parsing JSON: " + error));
+        }
+      };
+
+      reader.onerror = () => {
+        reject(new Error("Error reading file"));
+      };
+
+      reader.readAsText(file);
+    });
+
+    // Append the input to the DOM, trigger click, and then remove it
+    document.body.appendChild(input);
+    input.click();
+    document.body.removeChild(input);
+  });
+}
+

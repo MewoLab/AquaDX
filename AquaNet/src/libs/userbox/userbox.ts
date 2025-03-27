@@ -5,6 +5,7 @@ const isDirectory = (e: FileSystemEntry): e is FileSystemDirectoryEntry => e.isD
 const isFile = (e: FileSystemEntry): e is FileSystemFileEntry => e.isFile
 
 const getDirectory = (directory: FileSystemDirectoryEntry, path: string): Promise<FileSystemEntry> => new Promise((res, rej) => directory.getDirectory(path, {}, d => res(d), e => rej()));
+const getParent = (directory: FileSystemDirectoryEntry): Promise<FileSystemEntry> => new Promise((res, rej) => directory.getParent(d => res(d), e => rej()));
 const getFile = (directory: FileSystemDirectoryEntry, path: string): Promise<FileSystemEntry> => new Promise((res, rej) => directory.getFile(path, {}, d => res(d), e => rej()));
 const getFiles = async (directory: FileSystemDirectoryEntry): Promise<Array<FileSystemEntry>> => {
     let reader = directory.createReader();
@@ -42,6 +43,26 @@ const getDirectoryFromPath = async (base: FileSystemDirectoryEntry, path: string
             return null;
     };
     return directory;
+}
+
+const scanRecursive = async (root: FileSystemDirectoryEntry, target: string): Promise<FileSystemDirectoryEntry | undefined> => {
+    let directories: FileSystemEntry[] = [root];
+
+    while (directories.length > 0) {
+        const directory = directories[0] as FileSystemDirectoryEntry;
+        if (directory.isDirectory) {
+            if (directory.name == target)
+                return directory;
+            let children: FileSystemEntry[] = await new Promise(r => directory.createReader().readEntries(d => r(d)));
+            directories = [
+                ...directories,
+                ...(children.filter(v => v.isDirectory))
+            ];
+        }
+        directories.shift();
+    }
+
+    return;
 }
 
 export let ddsDB: IDBDatabase | undefined ;
@@ -169,12 +190,12 @@ export async function userboxFileProcess(folder: FileSystemEntry, progressUpdate
         return t("userbox.new.error.invalidFolder");
 
     initializeDb();
-    const optionFolder = await getDirectoryFromPath(folder, "bin/option") ?? await getDirectoryFromPath(folder, "option");
+    const optionFolder = await scanRecursive(folder, "A001");
     if (optionFolder)
-        await scanOptionFolder(optionFolder, progressUpdate);
-    const dataFolder = await getDirectoryFromPath(folder, "data");
+        await scanOptionFolder((await getParent(optionFolder)) as FileSystemDirectoryEntry, progressUpdate);
+    const dataFolder = await scanRecursive(folder, "A000");
     if (dataFolder)
-        await scanOptionFolder(dataFolder, progressUpdate);
+        await scanOptionFolder((await getParent(dataFolder)) as FileSystemDirectoryEntry, progressUpdate);
     useLocalStorage("userboxURL", "").value = "";
     useLocalStorage("userboxNew", false).value = true;
     useLocalStorage("userboxNewProfile", false).value = true;

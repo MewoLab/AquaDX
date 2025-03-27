@@ -8,13 +8,14 @@ import type {
   TrendEntry,
   AquaNetUser, GameOption,
   UserBox,
-  UserItem
+  UserItem,
+  Dict
 } from './generalTypes'
 import type { GameName } from './scoring'
 
-interface RequestInitWithParams extends RequestInit {
+interface ExtReqInit extends RequestInit {
   params?: { [index: string]: string }
-  localCache?: boolean
+  json?: any
 }
 
 /**
@@ -37,188 +38,113 @@ export function reconstructUrl(input: URL | RequestInfo, callback: (url: URL) =>
 /**
  * Fetch with url parameters
  */
-export function fetchWithParams(input: URL | RequestInfo, init?: RequestInitWithParams): Promise<Response> {
+export function fetchWithParams(input: URL | RequestInfo, init?: ExtReqInit): Promise<Response> {
   return fetch(reconstructUrl(input, u => {
     u.search = new URLSearchParams(init?.params ?? {}).toString()
   }), init)
 }
 
-const cache: { [index: string]: any } = {}
+/**
+ * Do something with the response when it's not ok
+ *
+ * @param res Response object
+ */
+async function ensureOk(res: Response) {
+  if (!res.ok) {
+    const text = await res.text()
+    console.error(`${res.status}: ${text}`)
 
-export async function post(endpoint: string, params: Record<string, any> = {}, init?: RequestInitWithParams): Promise<any> {
+    // If 400 invalid token is caught, should invalidate the token and redirect to signin
+    if (text === 'Invalid token') {
+      localStorage.removeItem('token')
+      window.location.href = '/'
+    }
+
+    // Try to parse as json
+    let json
+    try {
+      json = JSON.parse(text)
+    } catch (e) {
+      throw new Error(text)
+    }
+    if (json.error) throw new Error(json.error)
+  }
+}
+
+/**
+ * Post to an endpoint and return the response in JSON while doing error checks
+ * and handling token (and token expiry) automatically.
+ *
+ * @param endpoint The endpoint to post to (e.g., '/pull')
+ * @param params An object containing the request body or any necessary parameters
+ * @param init Additional fetch/init configuration
+ * @returns The JSON response from the server
+ */
+export async function post(endpoint: string, params: Dict = {}, init?: ExtReqInit): Promise<any> {
+  return postHelper(endpoint, params, init).then(it => it.json())
+}
+
+/**
+ * Actual impl of post(). This does not return JSON but returns response object.
+ */
+async function postHelper(endpoint: string, params: Dict = {}, init?: ExtReqInit): Promise<any> {
   // Add token if exists
   const token = localStorage.getItem('token')
   if (token && !('token' in params)) params = { ...(params ?? {}), token }
 
-  if (init?.localCache) {
-    const cached = cache[endpoint + JSON.stringify(params) + JSON.stringify(init)]
-    if (cached) return cached
+  if (init?.json) {
+    init.body = JSON.stringify(init.json)
+    init.headers = { 'Content-Type': 'application/json', ...init.headers }
+    init.json = undefined
   }
 
-  const res = await fetchWithParams(AQUA_HOST + endpoint, {
-    method: 'POST',
-    params,
-    ...init
-  }).catch(e => {
-    console.error(e)
-    throw new Error('Network error')
-  })
+  const res = await fetchWithParams(AQUA_HOST + endpoint, { method: 'POST', params, ...init })
+    .catch(e => { console.error(e); throw new Error("Network error") })
+  await ensureOk(res)
 
-  if (!res.ok) {
-    const text = await res.text()
-    console.error(`${res.status}: ${text}`)
-
-    // If 400 invalid token is caught, should invalidate the token and redirect to signin
-    if (text === 'Invalid token') {
-      localStorage.removeItem('token')
-      window.location.href = '/'
-    }
-
-    // Try to parse as json
-    let json
-    try {
-      json = JSON.parse(text)
-    } catch (e) {
-      throw new Error(text)
-    }
-    if (json.error) throw new Error(json.error)
-  }
-
-  const ret = res.json()
-  cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
-
-  return ret
+  return res
 }
 
-export async function get(endpoint: string, params:any,init?: RequestInitWithParams): Promise<any> {
-  // Add token if exists
-  const token = localStorage.getItem('token')
-  if (token && !('token' in params)) params = { ...(params ?? {}), token }
+const decoder = new TextDecoder()
 
-  if (init?.localCache) {
-    const cached = cache[endpoint + JSON.stringify(init)]
-    if (cached) return cached
+/**
+ * Post with a stream response. Similar to post(), but the response will stream messages to onChunk.
+ */
+export async function postStream(endpoint: string, params: Dict = {}, onChunk: (data: any) => void, init?: ExtReqInit): Promise<void> {
+  const res = await postHelper(endpoint, params, init)
+  if (!res.body) {
+    console.error('Response body is not a stream')
+    return
   }
 
-  const res = await fetchWithParams(AQUA_HOST + endpoint, {
-    method: 'GET',
-    params,
-    ...init
-  }).catch(e => {
-    console.error(e)
-    throw new Error('Network error')
-  })
+  // The response body is a ReadableStream. We'll read chunks as they arrive.
+  const reader = res.body?.getReader()
+  if (!reader) return
+  let buffer = ''
 
-  if (!res.ok) {
-    const text = await res.text()
-    console.error(`${res.status}: ${text}`)
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
 
-    // If 400 invalid token is caught, should invalidate the token and redirect to signin
-    if (text === 'Invalid token') {
-      localStorage.removeItem('token')
-      window.location.href = '/'
+      // Decode any new data, parse full lines, keep the rest in buffer
+      buffer += decoder.decode(value, { stream: true })
+      let fullLines = buffer.split('\n')
+      buffer = fullLines.pop() ?? ''
+
+      for (const line of fullLines) {
+        if (!line.trim()) continue // skip empty lines
+        onChunk(JSON.parse(line))
+      }
     }
 
-    // Try to parse as json
-    let json
-    try {
-      json = JSON.parse(text)
-    } catch (e) {
-      throw new Error(text)
-    }
-    if (json.error) throw new Error(json.error)
+    // If there's leftover data in 'buffer' after stream ends, parse
+    if (buffer.trim())
+      onChunk(JSON.parse(buffer.trim()))
+
+  } finally {
+    reader.releaseLock()
   }
-
-  const ret = res.json()
-  cache[endpoint + JSON.stringify(init)] = ret
-
-  return ret
-}
-
-export async function put(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
-  // Add token if exists
-  const token = localStorage.getItem('token')
-  if (token && !('token' in params)) params = { ...(params ?? {}), token }
-
-  if (init?.localCache) {
-    const cached = cache[endpoint + JSON.stringify(params) + JSON.stringify(init)]
-    if (cached) return cached
-  }
-
-  const res = await fetchWithParams(AQUA_HOST + endpoint, {
-    method: 'PUT',
-    body: JSON.stringify(params),
-    headers:{
-      'Content-Type':'application/json',
-      ...init?.headers
-    },
-    ...init
-  }).catch(e => {
-    console.error(e)
-    throw new Error('Network error')
-  })
-
-  if (!res.ok) {
-    const text = await res.text()
-    console.error(`${res.status}: ${text}`)
-
-    // If 400 invalid token is caught, should invalidate the token and redirect to signin
-    if (text === 'Invalid token') {
-      localStorage.removeItem('token')
-      window.location.href = '/'
-    }
-
-    // Try to parse as json
-    let json
-    try {
-      json = JSON.parse(text)
-    } catch (e) {
-      throw new Error(text)
-    }
-    if (json.error) throw new Error(json.error)
-  }
-
-  const ret = res.json()
-  cache[endpoint + JSON.stringify(params) + JSON.stringify(init)] = ret
-
-  return ret
-}
-
-export async function realPost(endpoint: string, params: any, init?: RequestInitWithParams): Promise<any> {
-  const res = await fetchWithParams(AQUA_HOST + endpoint, {
-    method: 'POST',
-    body: JSON.stringify(params),
-    headers:{
-      'Content-Type':'application/json',
-      ...init?.headers
-    },
-    ...init
-  }).catch(e => {
-    console.error(e)
-    throw new Error('Network error')
-  })
-
-  if (!res.ok) {
-    const text = await res.text()
-    console.error(`${res.status}: ${text}`)
-
-    // If 400 invalid token is caught, should invalidate the token and redirect to signin
-    if (text === 'Invalid token') {
-      localStorage.removeItem('token')
-      window.location.href = '/'
-    }
-
-    // Try to parse as json
-    let json
-    try {
-      json = JSON.parse(text)
-    } catch (e) {
-      throw new Error(text)
-    }
-    if (json.error) throw new Error(json.error)
-  }
-
-  return res.json()
 }
 
 /**
@@ -229,6 +155,7 @@ export async function realPost(endpoint: string, params: any, init?: RequestInit
 async function register(user: { username: string, email: string, password: string, turnstile: string }) {
   return await post('/api/v2/user/register', user)
 }
+
 async function login(user: { email: string, password: string, turnstile: string }) {
   const data = await post('/api/v2/user/login', user)
 
@@ -263,11 +190,11 @@ export const USER = {
 
 export const USERBOX = {
   getProfile: (): Promise<{ user: UserBox, items: UserItem[] }> =>
-    get('/api/v2/game/chu3/user-box', {}),
+    post('/api/v2/game/chu3/user-box', {}),
   setUserBox: (d: { field: string, value: number | string }) =>
     post(`/api/v2/game/chu3/user-detail-set`, d),
   getUserProfile: (username: string): Promise<UserBox> =>
-    get(`/api/v2/game/chu3/user-detail`, {username})
+    post(`/api/v2/game/chu3/user-detail`, {username})
 }
 
 export const CARD = {
@@ -295,9 +222,9 @@ export const GAME = {
   export: (game: GameName): Promise<Record<string, any>> =>
     post(`/api/v2/game/${game}/export`),
   import: (game: GameName, data: any): Promise<Record<string, any>> =>
-    post(`/api/v2/game/${game}/import`, {}, { body: JSON.stringify(data) }),
+    post(`/api/v2/game/${game}/import`, {}, { json: data }),
   importMusicDetail: (game: GameName, data: any): Promise<Record<string, any>> =>
-    post(`/api/v2/game/${game}/import-music-detail`, {}, {body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}}),
+    post(`/api/v2/game/${game}/import-music-detail`, {}, { json: data }),
   setRival: (game: GameName, rivalUserName: string, isAdd: boolean) =>
     post(`/api/v2/game/${game}/set-rival`, { rivalUserName, isAdd }),
 }
@@ -317,3 +244,15 @@ export const SETTING = {
   detailSet: (game: string, field: string, value: any) =>
     post(`/api/v2/game/${game}/user-detail-set`, { field, value }),
 }
+
+export const TRANSFER = {
+  check: (d: AllNetClient): Promise<TrCheckGood> =>
+    post('/api/v2/transfer/check', {}, { json: d }),
+  pull: (d: AllNetClient, callback: (data: TrStreamMessage) => void) =>
+    postStream('/api/v2/transfer/pull', {}, callback, { json: d }),
+  push: (d: AllNetClient, data: string) =>
+    post('/api/v2/transfer/push', {}, { json: { client: d, data } }),
+}
+
+// @ts-ignore
+window.sdk = { USER, USERBOX, CARD, GAME, DATA, SETTING, TRANSFER }

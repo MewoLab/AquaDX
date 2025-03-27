@@ -35,7 +35,6 @@ public class UserData implements Serializable, IUserData {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aime_card_id", unique = true)
     private Card card;
-    // Access code in card
 
     private String userName;
 
@@ -57,9 +56,15 @@ public class UserData implements Serializable, IUserData {
 
     private int medalCount;
 
+    private int shizukuCount;
+
     private int playerRating;
 
     private int highestRating;
+
+    private int newPlayerRating;
+
+    private int newHighestRating;
 
     private int battlePoint;
 
@@ -117,6 +122,18 @@ public class UserData implements Serializable, IUserData {
     private long sumBattleMasterHighScore;
 
     private long sumBattleLunaticHighScore;
+
+    private int sumPlatinumScoreStar;
+
+    private int sumBasicPlatinumScoreStar;
+
+    private int sumAdvancedPlatinumScoreStar;
+
+    private int sumExpertPlatinumScoreStar;
+
+    private int sumMasterPlatinumScoreStar;
+
+    private int sumLunaticPlatinumScoreStar;
 
     private String eventWatchedDate;
 

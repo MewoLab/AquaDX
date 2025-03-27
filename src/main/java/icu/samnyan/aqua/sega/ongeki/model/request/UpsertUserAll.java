@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.ongeki.model.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating;
+import icu.samnyan.aqua.sega.ongeki.model.gamedata.OngekiFumenScore;
 import icu.samnyan.aqua.sega.ongeki.model.userdata.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,6 +48,18 @@ public class UpsertUserAll implements Serializable {
 
     private List<UserRecentRating> userRatingBaseHotNextList;
 
+    private List<OngekiFumenScore> userNewRatingBasePScoreList;
+
+    private List<OngekiFumenScore> userNewRatingBaseBestList;
+
+    private List<OngekiFumenScore> userNewRatingBaseBestNewList;
+
+    private List<OngekiFumenScore> userNewRatingBaseNextPScoreList;
+
+    private List<OngekiFumenScore> userNewRatingBaseNextBestList;
+
+    private List<OngekiFumenScore> userNewRatingBaseNextBestNewList;
+
     private List<UserMusicDetail> userMusicDetailList;
 
     private List<UserCharacter> userCharacterList;
@@ -88,6 +101,8 @@ public class UpsertUserAll implements Serializable {
     private List<UserTechEvent> userTechEventList;
 
     private List<UserKop> userKopList;
+
+    public UserEventMap userEventMap;
 
     private Map<String, Object> clientSystemInfo;
 

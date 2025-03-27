@@ -30,7 +30,7 @@ typealias PagePost = (MutJDict) -> Unit
 data class PagedProcessor(val add: JDict?, val fn: PagedHandler, var post: PagePost? = null)
 
 // A very :3 way of declaring APIs
-abstract class MeowApi(val serialize: (String, Any?) -> String) {
+abstract class MeowApi(val serialize: (String, Any) -> String) {
     val initH = mutableMapOf<String, SpecialHandler>()
     infix operator fun String.invoke(fn: SpecialHandler) = initH.set("${this}Api", fn)
     infix fun String.static(fn: () -> Any) = serialize(this, fn()).let { resp -> this { resp } }

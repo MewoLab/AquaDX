@@ -1,12 +1,11 @@
 package icu.samnyan.aqua.sega.chusan.handler
 
-import com.fasterxml.jackson.core.type.TypeReference
 import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.UpsertUserGacha
 import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCardPrintState
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserItem
+import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserItem
 import java.time.LocalDateTime
 
 fun ChusanController.cmApiInit() {
@@ -29,7 +28,7 @@ fun ChusanController.cmApiInit() {
         val (gachaId, placeId) = parsing { data["gachaId"]!!.int to data["placeId"]!!.int }
 
         val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
-        val upsertUserGacha = parsing { mapper.convert(data["cmUpsertUserGacha"], UpsertUserGacha::class.java) }
+        val upsertUserGacha = parsing { mapper.convert<UpsertUserGacha>(data["cmUpsertUserGacha"]!!) }
 
         upsertUserGacha.gameGachaCardList?.let { lst ->
             db.userCardPrintState.saveAll(lst.map {
@@ -63,7 +62,7 @@ fun ChusanController.cmApiInit() {
     }
 
     "CMUpsertUserPrintCancel" {
-        val orderIdList: List<Long> = cmMapper.convert(data["orderIdList"], object : TypeReference<List<Long>>() {})
+        val orderIdList: List<Long> = cmMapper.convert<List<Long>>(parsing { data["orderIdList"]!! })
 
         db.userCardPrintState.saveAll(orderIdList.mapNotNull {
             // TODO: The original code by Eori writes findById but I don't think that is correct...
@@ -76,8 +75,8 @@ fun ChusanController.cmApiInit() {
     }
 
     "CMUpsertUserPrintSubtract" api@ {
-        val userCardPrintState = cmMapper.convert(data["userCardPrintState"], UserCardPrintState::class.java)
-        val userItemList = cmMapper.convert(data["userItemList"], object : TypeReference<List<UserItem>>() {})
+        val userCardPrintState = cmMapper.convert<UserCardPrintState>(parsing { data["userCardPrintState"]!! })
+        val userItemList = cmMapper.convert<List<Chu3UserItem>>(parsing { data["userItemList"]!! })
 
         val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
 

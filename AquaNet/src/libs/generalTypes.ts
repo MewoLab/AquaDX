@@ -1,3 +1,5 @@
+export type Dict = Record<string, any>
+
 export interface TrendEntry {
   date: string
   rating: number
@@ -48,7 +50,7 @@ export interface CardSummary {
 export interface ConfirmProps {
   title: string
   message: string
-  confirm: () => void
+  confirm?: () => void
   cancel?: () => void
   dangerous?: boolean
 }

@@ -22,6 +22,7 @@ public class GetUserPreviewResp {
     private int level = 0;
     private long exp = 0;
     private long playerRating = 0;
+    private long newPlayerRating = 0;
     private String lastGameId = "";
     private String lastRomVersion = "";
     private String lastDataVersion = "";

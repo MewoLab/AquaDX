@@ -11,6 +11,7 @@
   import { pfp, tooltip } from "./libs/ui"
   import { ANNOUNCEMENT } from "./libs/config";
   import { t } from "./libs/i18n";
+  import Transfer from "./pages/Transfer/Transfer.svelte";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -76,6 +77,7 @@
   <Route path="/u/:username/:game" component={UserHome} />
   <Route path="/settings" component={Settings} />
   <Route path="/pictures" component={MaiPhoto} />
+  <Route path="/transfer" component={Transfer} />
 </Router>
 
 <style lang="sass">

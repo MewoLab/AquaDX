@@ -6,6 +6,7 @@
   import StatusOverlays from "../StatusOverlays.svelte";
   import { GAME } from "../../libs/sdk";
   import GameSettingFields from "./GameSettingFields.svelte";
+  import { download } from "../../libs/ui";
 
   const profileFields = [
     ['name', t('settings.mai2.name')],
@@ -41,15 +42,6 @@
       .then(data => download(JSON.stringify(data), `AquaDX_maimai2_export_${values[0]}.json`))
       .catch(e => error = e.message)
       .finally(() => submitting = "")
-  }
-
-  function download(data: string, filename: string) {
-    const blob = new Blob([data]);
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
   }
 </script>
 

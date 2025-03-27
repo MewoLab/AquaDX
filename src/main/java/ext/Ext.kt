@@ -192,8 +192,7 @@ val Any?.str get() = toString()
 // Collections
 fun <T> ls(vararg args: T) = args.toList()
 inline fun <reified T> arr(vararg args: T) = arrayOf(*args)
-operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) =
-    (if (this is MutableMap) this else mut).apply { putAll(map) }
+operator fun <K, V> Map<K, V>.plus(map: Map<K, V>) = mut.apply { putAll(map) }
 operator fun <K, V> MutableMap<K, V>.plusAssign(map: Map<K, V>) { putAll(map) }
 fun <K, V: Any> Map<K, V?>.vNotNull(): Map<K, V> = filterValues { it != null }.mapValues { it.value!! }
 fun <T> MutableList<T>.popAll(list: List<T>) = list.also { removeAll(it) }
@@ -238,6 +237,7 @@ fun Str.path() = Path.of(this)
 operator fun Path.div(part: Str) = resolve(part)
 operator fun File.div(fileName: Str) = File(this, fileName)
 fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
+fun Str.ensureNoEndingSlash() = if (endsWith('/')) dropLast(1) else this
 
 fun <T: Any> T.logger() = LoggerFactory.getLogger(this::class.java)
 

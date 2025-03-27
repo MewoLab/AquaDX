@@ -215,7 +215,7 @@ export const EN_REF_USERBOX = {
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': 'Drag and drop your Chuni game folder (Lumi or newer) into the box below to display UserBoxes with their nameplate & avatar. All files are handled in-browser.',
-  'userbox.new.setup.notice': 'This tool assumes your files to be in "bin/option" and "data/A000".',
+  'userbox.new.setup.notice': 'Select the highest folder containing your game data.',
   'userbox.new.setup.processing_file': 'Processing',
   'userbox.new.setup.finalizing': 'Saving to internal storage',
   'userbox.new.drop': 'Drop game folder here',
@@ -238,9 +238,39 @@ export const EN_REF_MAI_PHOTO = {
   'maiphoto.none': 'No photo found. You can upload photo by clicking upload at the end of each game session.',
 }
 
+export const EN_REF_AQUATRANS = {
+  'trans.title': '🏳️‍⚧️ AquaTrans™ Data Transfer',
+  'trans.confirm.unbackuped.title': 'Confirm transfer',
+  'trans.confirm.unbackuped.msg': "It seems like you haven't backed up your destination data. Are you sure you want to proceed? (This will overwrite your destination server's data)",
+  'trans.confirm.untested.title': 'Error',
+  'trans.confirm.untested.msg': "It seems like you haven't tested both connections yet. Please test the connections first.",
+  'trans.confirm.done.title': 'Done!',
+  'trans.confirm.done.msg': 'Transfer completed successfully! Your data on ${dst} is overwritten with your data from ${src}.',
+  'trans.alert.in-progress': "Transfer already in progress!",
+  'trans.prompt-html': `
+    <p>👋 Welcome to the AquaTrans™ server data transfer tool!</p>
+    <p>You can use this to export data from any server, and input data into any server using the connection credentials (card number, server address, and keychip id).</p>
+    <p>This tool will simulate a game client and pull your data from the source server, and push your data to the destination server.</p>
+    <p>Please fill out the info below to get started!</p>
+  `,
+  'trans.error.empty': 'Please fill out all fields.',
+  'trans.error.untested': 'Please test the connections first.',
+  'trans.success.import': 'Data imported successfully!',
+  'trans.source.title': 'Source Server',
+  'trans.target.title': 'Destination Server',
+  'trans.field.addr': 'Server Address',
+  'trans.field.keychip': 'Keychip ID',
+  'trans.field.game': 'Game',
+  'trans.field.version': 'Version',
+  'trans.field.card': 'Card Number',
+  'trans.btn.test': 'Test Connection',
+  'trans.btn.export': 'Export Data',
+  'trans.btn.import': 'Import Data',
+}
+
 export const EN_REF = { ...EN_REF_USER, ...EN_REF_Welcome, ...EN_REF_GENERAL,
   ...EN_REF_LEADERBOARD, ...EN_REF_HOME, ...EN_REF_SETTINGS, ...EN_REF_USERBOX,
-  ...EN_REF_MAI_PHOTO
+  ...EN_REF_MAI_PHOTO, ...EN_REF_AQUATRANS
 }
 
 export type LocalizedMessages = typeof EN_REF

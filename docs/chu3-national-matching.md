@@ -22,10 +22,8 @@ This is tested on Chusan 2.27.
    If you're using fufubot segatools, please override it with Dniel97's version (don't forget to update `segatools.ini`).
 3. Patch your `chusanApp.exe` using [Two-Torial's open-source patcher](https://patcher.two-torial.xyz/)  
    (Make sure you disable "Set all timer to 999", enable "No encryption", "No TLS", "Patch for head-to-head play")
-4. Add the option [ARRR](https://pixeldrain.com/u/D2jjN3of).  
-   If you're playing with friends, make sure they have the same options as you.
-5. Pet your cat 🐈
-6. Launch!
+4. Pet your cat 🐈
+5. Launch!
 
 > [!WARNING]  
 > If you have `duolinguo.dll` in your bin, please remove it. Yukiotoko is a vanilla matching server and is incompatible with `duolinguo.dll`.  

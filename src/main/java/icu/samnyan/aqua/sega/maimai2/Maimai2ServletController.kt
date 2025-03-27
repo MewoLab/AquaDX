@@ -68,9 +68,10 @@ class Maimai2ServletController(
     @API("/{api}")
     fun handle(@PathVariable api: String, @RequestBody data: Map<String, Any>, req: HttpServletRequest): Any {
         logger.info("Mai2 < $api : ${data.toJson()}") // TODO: Optimize logging
+        val noop = """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
         if (api !in noopEndpoint && !handlers.containsKey(api)) {
             logger.warn("Mai2 > $api not found")
-            return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
+            return noop
         }
 
         // Only record the counter metrics if the API is known.
@@ -78,13 +79,13 @@ class Maimai2ServletController(
 
         if (api in noopEndpoint) {
             logger.info("Mai2 > $api no-op")
-            return """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
+            return noop
         }
 
         return try {
             Metrics.timer("aquadx_maimai2_api_latency", "api" to api).recordCallable {
                 val ctx = RequestContext(req, data.mut)
-                serialize(api, handlers[api]!!(ctx)).also {
+                serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     logger.info("Mai2 > $api : ${it.truncate(1000)}")
                 }
             }

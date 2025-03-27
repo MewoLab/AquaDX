@@ -1,0 +1,1 @@
+ALTER TABLE aqua_game_options ADD country_override CHAR(2) NULL;

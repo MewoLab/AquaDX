@@ -195,7 +195,7 @@
             <div class="rating">
               <span>{game === 'mai2' ? t("UserHome.DXRating"): t("UserHome.Rating")}</span>
               <span>{
-                game === 'chu3' ?
+                game === 'chu3' || game === 'ongeki' ?
                   (d.user.rating / 100).toFixed(2) :
                   d.user.rating.toLocaleString()
               }</span>

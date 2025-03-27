@@ -16,7 +16,7 @@
 
     It is recommended you have the latest version of the game and all of the options your users may use.
 
-    The script to generate the proper paths can be found in [tools/chusan-extractor.js](tools/chusan-extractor.js). Node.js or Bun is required.<br>
+    The script to generate the proper paths can be found in [tools/extract-chusan.js](../tools/extract-chusan.js). Node.js or Bun is required.<br>
     Please read the comments at the top of the script for usage instructions.
 
 2. Copy the new `chu3` folder where you need it to be (read #3 if you're hosting AquaNet and want to host on the same endpoints).

@@ -82,6 +82,10 @@ class KeychipSessionService(
      */
     fun find(token: String) = repo.findByToken(token)?.apply {
         lastUse = System.currentTimeMillis()
-        repo.save(this)
+        try {
+            repo.save(this)
+        } catch (_: Exception) {
+            logger.error("Failed to update last use time for session $token")
+        }
     }
 }

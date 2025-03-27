@@ -40,11 +40,11 @@ interface Chu3UserLoginBonusRepo : JpaRepository<UserLoginBonus, Long> {
     fun findLoginBonus(userId: Int, version: Int, presetId: Long): Optional<UserLoginBonus>
 }
 
-interface Chu3UserActivityRepo : Chu3UserLinked<UserActivity> {
-    fun findTopByUserAndActivityIdAndKindOrderByIdDesc(user: Chu3UserData, activityId: Int, kind: Int): Optional<UserActivity>
-    fun findByUserAndActivityIdAndKind(user: Chu3UserData, activityId: Int, kind: Int): UserActivity?
+interface Chu3UserActivityRepo : Chu3UserLinked<Chu3UserActivity> {
+    fun findTopByUserAndActivityIdAndKindOrderByIdDesc(user: Chu3UserData, activityId: Int, kind: Int): Optional<Chu3UserActivity>
+    fun findByUserAndActivityIdAndKind(user: Chu3UserData, activityId: Int, kind: Int): Chu3UserActivity?
 
-    fun findAllByUser_Card_ExtIdAndKind(extId: Long, kind: Int): List<UserActivity>
+    fun findAllByUser_Card_ExtIdAndKind(extId: Long, kind: Int): List<Chu3UserActivity>
 }
 
 interface Chu3UserCardPrintStateRepo : Chu3UserLinked<UserCardPrintState> {
@@ -89,14 +89,14 @@ interface Chu3UserGeneralDataRepo : Chu3UserLinked<UserGeneralData> {
     fun findByUser_Card_ExtIdAndPropertyKey(extId: Long, key: String): Optional<UserGeneralData>
 }
 
-interface Chu3UserItemRepo : Chu3UserLinked<UserItem> {
-    fun findAllByUser(user: Chu3UserData): List<UserItem>
-    fun findTopByUserAndItemIdAndItemKindOrderByIdDesc(user: Chu3UserData, itemId: Int, itemKind: Int): Optional<UserItem>
-    fun findByUserAndItemIdAndItemKind(user: Chu3UserData, itemId: Int, itemKind: Int): UserItem?
+interface Chu3UserItemRepo : Chu3UserLinked<Chu3UserItem> {
+    fun findAllByUser(user: Chu3UserData): List<Chu3UserItem>
+    fun findTopByUserAndItemIdAndItemKindOrderByIdDesc(user: Chu3UserData, itemId: Int, itemKind: Int): Optional<Chu3UserItem>
+    fun findByUserAndItemIdAndItemKind(user: Chu3UserData, itemId: Int, itemKind: Int): Chu3UserItem?
 
-    fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int, pageable: Pageable): Page<UserItem>
+    fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int, pageable: Pageable): Page<Chu3UserItem>
 
-    fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int): List<UserItem>
+    fun findAllByUser_Card_ExtIdAndItemKind(extId: Long, itemKind: Int): List<Chu3UserItem>
 }
 
 interface Chu3UserMapRepo : Chu3UserLinked<UserMap> {
