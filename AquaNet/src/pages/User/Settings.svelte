@@ -15,6 +15,7 @@
   import WaccaSettings from "../../components/settings/WaccaSettings.svelte";
   import GeneralGameSettings from "../../components/settings/GeneralGameSettings.svelte";
   import OngekiSettings from "../../components/settings/OngekiSettings.svelte";
+  import useLocalStorage from "../../libs/hooks/useLocalStorage.svelte";
 
   USER.ensureLoggedIn()
 
@@ -120,6 +121,10 @@
         error = t("settings.profile.bad-format");
     }
   };
+  function logOut() {
+    localStorage.removeItem("token");
+    location.href = "/";
+  }
 
   const passwordAction = (node: HTMLInputElement, whether: boolean) => {
     if (whether) node.type = 'password'
@@ -194,6 +199,11 @@
             <span class="name">{ts(`settings.fields.optOutOfLeaderboard.name`)}</span>
             <span class="desc">{ts(`settings.fields.optOutOfLeaderboard.desc`)}</span>
           </label>
+        </div>
+      </div>
+      <div class="field m-t">
+        <div>
+          <button on:click={logOut}>{ts(`settings.profile.logout`)}</button>
         </div>
       </div>
     </div>
