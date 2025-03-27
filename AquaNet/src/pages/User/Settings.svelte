@@ -203,7 +203,7 @@
       </div>
       <div class="field m-t">
         <div>
-          <button on:click={logOut}>Log out</button>
+          <button on:click={logOut}>{ts(`settings.profile.logout`)}</button>
         </div>
       </div>
     </div>

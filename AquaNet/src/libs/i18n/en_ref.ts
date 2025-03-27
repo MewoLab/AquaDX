@@ -177,6 +177,7 @@ export const EN_REF_SETTINGS = {
   'settings.profile.location': 'Location',
   'settings.profile.bio': 'Bio',
   'settings.profile.unset': 'Unset',
+  'settings.profile.logout': 'Log out',
   'settings.profile.unchanged': 'Unchanged',
   'settings.export': 'Export Player Data',
   'settings.cabNotice': "Note: These settings will only affect your own cab/setup. If you're playing on someone else's setup, please contact them to change these settings.",
