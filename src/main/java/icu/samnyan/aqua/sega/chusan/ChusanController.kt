@@ -41,7 +41,8 @@ class ChusanController(
 
     val noopEndpoint = setOf("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
-        "PrinterLoginApi", "PrinterLogoutApi", "Ping", "GameLogoutApi", "RemoveMatchingMemberApi")
+        "PrinterLoginApi", "PrinterLogoutApi", "Ping", "GameLogoutApi", "RemoveMatchingMemberApi",
+        "UpsertClientPlayTimeApi", "UpsertClientGameStartApi", "UpsertClientGameEndApi")
 
     init { chusanInit() }
     val handlers = initH
