@@ -40,6 +40,16 @@
 
   }
   let path = window.location.pathname;
+
+  if ((new Date().getDate() == 1 
+    && new Date().getMonth() == 3 
+    && localStorage.getItem("token"))) 
+  {
+    const s = document.createElement("link");
+    s.href = "/assets/chu/aqua.css";
+    s.rel = "stylesheet";
+    document.head.appendChild(s);
+  }
 </script>
 
 <nav>
