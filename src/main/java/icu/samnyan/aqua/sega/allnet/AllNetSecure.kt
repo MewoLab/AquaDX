@@ -37,6 +37,7 @@ class TokenChecker(
 
         private val currentSession = ThreadLocal<KeychipSession?>()
         fun getCurrentSession() = currentSession.get()
+        fun tokenShort() = getCurrentSession()?.token?.substring(0, 6) ?: "NO-TOKEN"
     }
 
     /**

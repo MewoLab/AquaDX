@@ -15,4 +15,9 @@ public class UserRecentRating {
     private int difficultId;
     private String romVersionCode;
     private int score;
+
+    @Override
+    public String toString() {
+        return musicId + ":" + difficultId + ":" + score;
+    }
 }

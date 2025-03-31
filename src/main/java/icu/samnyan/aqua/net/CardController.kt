@@ -12,6 +12,7 @@ import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
+import icu.samnyan.aqua.sega.ongeki.OgkUserDataRepo
 import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
 import jakarta.persistence.EntityManager
 import org.springframework.scheduling.annotation.Scheduled
@@ -176,7 +177,7 @@ class CardGameService(
     val maimai2: Mai2UserDataRepo,
     val chusan: Chu3UserDataRepo,
     val wacca: WcUserRepo,
-    val ongeki: icu.samnyan.aqua.sega.ongeki.dao.userdata.UserDataRepository,
+    val ongeki: OgkUserDataRepo,
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
     val safety: AquaNetSafetyService,
     val cardRepo: CardRepository,

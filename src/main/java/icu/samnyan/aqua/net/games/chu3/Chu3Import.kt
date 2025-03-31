@@ -3,7 +3,7 @@ package icu.samnyan.aqua.net.games.chu3
 import ext.API
 import ext.returns
 import ext.vars
-import icu.samnyan.aqua.api.model.resp.sega.chuni.v2.external.Chu3DataExport
+import icu.samnyan.aqua.net.games.IExportClass
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
 import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
@@ -48,4 +48,23 @@ class Chu3Import(
 ) {
     override fun createEmpty() = Chu3DataExport()
     override val userDataRepo = repos.userData
+}
+
+
+data class Chu3DataExport(
+    override var gameId: String = "SDHD",
+    override var userData: Chu3UserData,
+    var userGameOption: UserGameOption,
+    var userActivityList: List<Chu3UserActivity>,
+    var userCharacterList: List<UserCharacter>,
+    var userChargeList: List<UserCharge>,
+    var userCourseList: List<UserCourse>,
+    var userDuelList: List<UserDuel>,
+    var userItemList: List<Chu3UserItem>,
+    var userMapList: List<UserMap>,
+    var userMusicDetailList: List<UserMusicDetail>,
+    var userPlaylogList: List<UserPlaylog>,
+): IExportClass<Chu3UserData> {
+    constructor() : this("SDHD",
+        Chu3UserData(), UserGameOption(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList())
 }

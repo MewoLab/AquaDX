@@ -4,13 +4,13 @@ import ext.*
 import icu.samnyan.aqua.net.games.mai2.Maimai2
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.net.utils.simpleDescribe
+import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.*
 import icu.samnyan.aqua.sega.maimai2.handler.*
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.spring.Metrics
 import io.ktor.client.request.*
 import jakarta.servlet.http.HttpServletRequest
-import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import java.time.format.DateTimeFormatter
 import kotlin.reflect.full.declaredMemberProperties
@@ -38,7 +38,7 @@ class Maimai2ServletController(
 ): MeowApi(serialize = { _, resp -> if (resp is String) resp else resp.toJson() }) {
 
     companion object {
-        private val logger = LoggerFactory.getLogger(Maimai2ServletController::class.java)
+        private val log = logger()
         private val empty = listOf<Any>()
         private val GAME_SETTING_DATE_FMT = DateTimeFormatter.ofPattern("2010-01-01 HH:mm:00.0")
         private val GAME_SETTING_TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:00")
@@ -54,7 +54,7 @@ class Maimai2ServletController(
     val noopEndpoint = setOf("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
         "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi",
-        "UpsertUserChargelogApi")
+        "UpsertUserChargelogApi","UpsertClientPlayTimeApi")
 
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, SpecialHandler> = initH + endpointList.associateWith { api ->
@@ -67,10 +67,12 @@ class Maimai2ServletController(
 
     @API("/{api}")
     fun handle(@PathVariable api: String, @RequestBody data: Map<String, Any>, req: HttpServletRequest): Any {
-        logger.info("Mai2 < $api : ${data.toJson()}") // TODO: Optimize logging
+        val token = TokenChecker.tokenShort()
+        log.info("$token : $api < ${data.toJson()}")
+
         val noop = """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
         if (api !in noopEndpoint && !handlers.containsKey(api)) {
-            logger.warn("Mai2 > $api not found")
+            log.warn("$token : $api > not found")
             return noop
         }
 
@@ -78,7 +80,7 @@ class Maimai2ServletController(
         Metrics.counter("aquadx_maimai2_api_call", "api" to api).increment()
 
         if (api in noopEndpoint) {
-            logger.info("Mai2 > $api no-op")
+            log.info("$token : $api > no-op")
             return noop
         }
 
@@ -86,7 +88,7 @@ class Maimai2ServletController(
             Metrics.timer("aquadx_maimai2_api_latency", "api" to api).recordCallable {
                 val ctx = RequestContext(req, data.mut)
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
-                    logger.info("Mai2 > $api : ${it.truncate(1000)}")
+                    log.info("$token : $api > ${it.truncate(500)}")
                 }
             }
         } catch (e: Exception) {

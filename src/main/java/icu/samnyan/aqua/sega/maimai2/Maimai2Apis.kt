@@ -3,21 +3,12 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
-import icu.samnyan.aqua.sega.general.PagedHandler
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusicDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
 import java.time.LocalDate
 
 fun Maimai2ServletController.initApis() {
-    // Used because maimai does not actually require paging implementation
-    fun String.unpaged(key: String? = null, fn: PagedHandler) {
-        val k = key ?: (this.replace("Get", "").firstCharLower() + "List")
-        this {
-            fn(this).let { mapOf("userId" to uid, "nextIndex" to 0, "length" to it.size, k to it) }
-        }
-    }
-
     "GetUserExtend" { mapOf(
         "userId" to uid,
         "userExtend" to (db.userExtend.findSingleByUser_Card_ExtId(uid)() ?: (404 - "User not found"))

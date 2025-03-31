@@ -182,7 +182,7 @@ class AllNet(
             "SDHD" -> "chu3/$ver/"
             "SDGS" -> "chu3/$ver/" // International (c3exp)
             "SBZV" -> "diva/"
-            "SDDT" -> "ongeki/"
+            "SDDT" -> "ongeki/$ver/"
             "SDEY" -> "mai/"
             "SDGA" -> "mai2/" // International (Exp)
             "SDGB" -> "mai2/" // International (China) - TODO: Test it

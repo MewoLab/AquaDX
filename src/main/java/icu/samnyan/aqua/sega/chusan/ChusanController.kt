@@ -41,7 +41,8 @@ class ChusanController(
 
     val noopEndpoint = setOf("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
         "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
-        "PrinterLoginApi", "PrinterLogoutApi", "Ping", "GameLogoutApi", "RemoveMatchingMemberApi")
+        "PrinterLoginApi", "PrinterLogoutApi", "Ping", "GameLogoutApi", "RemoveMatchingMemberApi",
+        "UpsertClientPlayTimeApi", "UpsertClientGameStartApi", "UpsertClientGameEndApi")
 
     init { chusanInit() }
     val handlers = initH
@@ -59,19 +60,19 @@ class ChusanController(
         }
 
         if (api.startsWith("CM") && api !in handlers) api = api.removePrefix("CM")
-        val token = TokenChecker.getCurrentSession()?.token?.substring(0, 6) ?: "NO-TOKEN"
-        log.info("Chu3 < $api : ${data.toJson()} : [$token]")
+        val token = TokenChecker.tokenShort()
+        log.info("$token : $api < ${data.toJson()}")
 
         val noop = """{"returnCode":"1","apiName":"$api"}"""
         if (api !in noopEndpoint && !handlers.containsKey(api)) {
-            log.warn("Chu3 > $api not found")
+            log.warn("$token : $api > not found")
             return noop
         }
 
         // Only record the counter metrics if the API is known.
         Metrics.counter("aquadx_chusan_api_call", "api" to api).increment()
         if (api in noopEndpoint) {
-            log.info("Chu3 > $api no-op")
+            log.info("$token : $api > no-op")
             return noop
         }
 
@@ -79,14 +80,11 @@ class ChusanController(
             Metrics.timer("aquadx_chusan_api_latency", "api" to api).recordCallable {
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
-                        log.info("Chu3 > $api : $it")
+                        log.info("$token : $api > ${it.truncate(500)}")
                 }
             }
         } catch (e: Exception) {
-            Metrics.counter(
-                "aquadx_chusan_api_error",
-                "api" to api, "error" to e.simpleDescribe()
-            ).increment()
+            Metrics.counter("aquadx_chusan_api_error", "api" to api, "error" to e.simpleDescribe()).increment()
             throw e
         }
     }

@@ -20,6 +20,8 @@ class Wacca(
 ): GameApiController<WaccaUser>("wacca", WaccaUser::class) {
     override val settableFields: Map<String, (WaccaUser, String) -> Unit> by lazy { mapOf(
         "userName" to usernameCheck(WACCA_USERNAME_CHARS),
+
+        "lastRomVersion" to { u, v -> u.lastRomVersion = v },
     ) }
 
     override suspend fun trend(@RP username: String) = us.cardByName(username) { card ->

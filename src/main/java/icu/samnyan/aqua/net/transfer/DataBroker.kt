@@ -9,8 +9,8 @@ import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UserAll
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserFavorite
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserItem
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail
-import icu.samnyan.aqua.sega.ongeki.model.request.UpsertUserAll
-import icu.samnyan.aqua.sega.ongeki.model.userdata.UserItem
+import icu.samnyan.aqua.sega.ongeki.model.OngekiUpsertUserAll
+import icu.samnyan.aqua.sega.ongeki.model.UserItem
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import icu.samnyan.aqua.sega.util.jackson.IMapper
 import icu.samnyan.aqua.sega.util.jackson.StringMapper
@@ -131,15 +131,18 @@ class OngekiDataBroker(allNet: AllNetClient, log: (String) -> Unit): DataBroker(
     override val mapper = BasicMapper()
     override val url by lazy { allNet.gameUrl.ensureNoEndingSlash() }
 
+    class UserMusicWrapper(var userMusicDetailList: List<icu.samnyan.aqua.sega.ongeki.model.UserMusicDetail>)
+
     override fun pull(): String {
         val (userId, paged) = prePull()
 
-        return UpsertUserAll().apply {
+        return OngekiUpsertUserAll().apply {
             userData = ls("GetUserDataApi".get("userData", userId))
             userOption = ls("GetUserOptionApi".get("userOption", userId))
             userMusicItemList = "GetUserMusicItemApi".get("userMusicItemList", paged)
             userBossList = "GetUserBossApi".get("userBossList", userId)
-            userMusicDetailList = "GetUserMusicApi".get("userMusicList", paged)
+            userMusicDetailList = "GetUserMusicApi".get<List<UserMusicWrapper>>("userMusicList", paged)
+                .flatMap { it.userMusicDetailList }
             userTechCountList = "GetUserTechCountApi".get("userTechCountList", userId)
             userCardList = "GetUserCardApi".get("userCardList", paged)
             userCharacterList = "GetUserCharacterApi".get("userCharacterList", paged)

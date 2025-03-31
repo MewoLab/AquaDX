@@ -1,0 +1,1 @@
+ALTER TABLE maimai2_user_playlog ADD COLUMN ext_bool3 BIT(1) DEFAULT 0;
