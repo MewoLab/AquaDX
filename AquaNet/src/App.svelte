@@ -41,7 +41,7 @@
   }
   let path = window.location.pathname;
 
-  if (new Date("April 2 2025") - new Date() > 0 && localStorage.getItem("token"))) 
+  if (new Date("April 2 2025") - new Date() > 0 && localStorage.getItem("token")) 
   {
     const s = document.createElement("link");
     s.href = "/assets/chu/aqua.css";
