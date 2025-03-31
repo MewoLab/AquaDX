@@ -29,7 +29,7 @@ nav > *.active,
   background-position: 50% 4px;
   max-width: 528px !important;
   margin: 0 auto;
-  padding-top: 100px;
+  padding: 100px 0 0 0 !important;
   height: unset !important;
   box-shadow: -8px 0 0 0 #fdd500, -12px 0 0 0 #f9f9db, 8px 0 0 0 #fdd500,
     12px 0 0 0 #f9f9db;
@@ -141,4 +141,24 @@ main:has(.user-pfp) {
 body {
   background: #fdd500 !important;
   color: white;
+}
+
+@media (max-width: 1200px) {
+  #app {
+    background-position: 50% 60px !important;
+    padding-top: 150px !important;
+  }
+}
+
+@media (max-width: 1028px) {
+  #app {
+    background-size: 90%;
+  }
+  
+  .user-pfp {
+    margin-top: -36px !important;
+  }
+  .user-pfp nav {
+    top: -10px !important;
+  }
 }
