@@ -1,9 +1,8 @@
 /*
 
 Happy April Fools!
-
-Some assets are owned by SEGA.
-CHUNITHM-NET and CHUNITHM are IPs of SEGA.
+This theme will stay here.
+Note that I made it with Stylish in mind, it's quite jank.
 
 */
 * {
@@ -23,7 +22,7 @@ nav > *.active,
   box-shadow: none !important;
 }
 #app {
-  background: url(/assets/chu/logo.bin),
+  background: url(/assets/theme/cn/logo.bin),
     #f9f9db;
   background-repeat: no-repeat;
   background-position: 50% 4px;
@@ -35,7 +34,7 @@ nav > *.active,
     12px 0 0 0 #f9f9db;
 }
 nav:has(.logo) {
-  position: fixed !important;
+  position: absolute !important;
   top: 0;
   left: 0;
   width: calc(100% - 96px);
@@ -62,7 +61,7 @@ nav.tabs {
   display: flex;
   justify-content: center;
   margin: 0 0 10px 0 !important;
-  background: url(/assets/chu/header.bin);
+  background: url(/assets/theme/cn/header.bin);
 }
 .chuni-userbox-row {
   flex-wrap: wrap;
