@@ -1,0 +1,163 @@
+/*
+
+Happy April Fools!
+This theme will stay here.
+Note that I made it with Stylish in mind, it's quite jank.
+
+*/
+* {
+  font-family: "ヒラギノ角ゴ Pro W3", "メイリオ", Meiryo, "ＭＳ Ｐゴシック",
+    "MS P Gothic", sans-serif;
+}
+nav > a,
+nav > *.active,
+.setting-icon path {
+  color: unset !important;
+}
+.aqua-tooltip {
+  background: black;
+}
+.fw-block {
+  background: none !important;
+  box-shadow: none !important;
+}
+#app {
+  background: url(/assets/theme/cn/logo.bin),
+    #f9f9db;
+  background-repeat: no-repeat;
+  background-position: 50% 4px;
+  max-width: 528px !important;
+  margin: 0 auto;
+  padding: 100px 0 0 0 !important;
+  height: unset !important;
+  box-shadow: -8px 0 0 0 #fdd500, -12px 0 0 0 #f9f9db, 8px 0 0 0 #fdd500,
+    12px 0 0 0 #f9f9db;
+}
+nav:has(.logo) {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: calc(100% - 96px);
+}
+nav {
+  color: black;
+}
+.user-pfp {
+  margin-top: -56px !important;
+}
+.outer-title-options,
+.outer-title-options *,
+nav.tabs {
+  color: white !important;
+}
+.outer-title-options {
+  margin-top: 0 !important;
+  display: unset !important;
+}
+.outer-title-options h2 {
+  width: 460px;
+  position: relative;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px 0 !important;
+  background: url(/assets/theme/cn/header.bin);
+}
+.chuni-userbox-row {
+  flex-wrap: wrap;
+}
+.chuni-userbox button {
+  width: calc(100% / 4) !important;
+  font-size: 0px;
+}
+.chuni-userbox-row button {
+  width: unset !important;
+  flex: 0 1 calc(100% / 3) !important;
+}
+.chuni-userbox-row button img {
+  overflow: hidden;
+  font-size: 10px;
+}
+.chuni-nameplate {
+  background: none !important;
+  position: relative !important;
+  left: 20px;
+}
+.chuni-userbox {
+  background: none !important;
+}
+main {
+  max-width: calc(460px - 40px) !important;
+  margin: 16px auto 0 auto !important;
+  background: #2c4056 !important;
+  border-radius: unset !important;
+  padding: 10px 20px !important;
+}
+main:has(.user-pfp) {
+  margin: 64px auto 0 auto !important;
+}
+.rating-composition {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0 !important;
+}
+.rating-composition > div {
+  width: 47.5%;
+  margin: 1.25%;
+}
+.map-detail-container {
+  background: none !important;
+  border-radius: 0 !important;
+}
+.lv {
+  border-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  width: 50px !important;
+}
+.rank-text {
+  min-width: 20px !important;
+}
+.chuni-userbox-container {
+  flex-wrap: wrap;
+}
+.profile-bio-text {
+  white-space: unset !important;
+}
+.chuni-penguin-container {
+  padding: 64px 0;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(249, 249, 219, 1) 0%,
+    rgba(249, 249, 219, 1) 69%,
+    rgba(231, 231, 202, 1) 70%,
+    rgba(231, 231, 202, 1) 100%
+  );
+}
+body {
+  background: #fdd500 !important;
+  color: white;
+}
+
+@media (max-width: 1200px) {
+  #app {
+    background-position: 50% 60px !important;
+    padding-top: 150px !important;
+  }
+}
+
+@media (max-width: 1028px) {
+  #app {
+    background-size: 90%;
+  }
+  
+  .user-pfp {
+    margin-top: -36px !important;
+  }
+  .user-pfp nav {
+    top: -10px !important;
+  }
+}

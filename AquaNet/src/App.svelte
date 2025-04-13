@@ -12,6 +12,7 @@
   import { ANNOUNCEMENT } from "./libs/config";
   import { t } from "./libs/i18n";
   import Transfer from "./pages/Transfer/Transfer.svelte";
+  import { link } from "d3";
 
   console.log(`%c
 ┏━┓         ┳━┓━┓┏━
@@ -38,6 +39,14 @@
       })
     }).catch(e => console.error(e))
 
+    const themeStyle = document.createElement("link");
+    themeStyle.rel = "stylesheet";
+    switch (localStorage.getItem("theme")) {
+      case "cn":
+        themeStyle.href = "/assets/theme/cn.css";
+    };
+    if (themeStyle.href)
+      document.head.appendChild(themeStyle);
   }
   let path = window.location.pathname;
 </script>

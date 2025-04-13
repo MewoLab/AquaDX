@@ -4,6 +4,9 @@
   import { TRANSFER } from "../../libs/sdk";
   import { download, selectJsonFile } from "../../libs/ui";
   import InputTextShort from "./InputTextShort.svelte";
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher()
 
   export let src: AllNetSrc
   export let gameInfo: AllNetGame
@@ -12,8 +15,10 @@
   export let tested: boolean = false
   let [loading, error] = [false, ""]
 
+  const blacklist = ['amime.missless.net']
+
   function testConnection() {
-    if (loading) return
+    if (loading || isBlacklist) return
 
     // Preliminiary checks
     if (!src.dns || !src.keychip || !src.card || !gameInfo.game || !gameInfo.version) {
@@ -78,12 +83,18 @@
       messages = [t('trans.success.import')]
     }).catch(err => error = err.message).finally(() => loading = false)
   }
+
+  $: isBlacklist = !!blacklist.filter(x => src.dns.includes(x))
 </script>
 
 <StatusOverlays {loading} />
 
 <div class="server source" class:src={isSrc} class:hasError={error} class:tested={tested}>
   <h3>{t(`trans.${isSrc ? "source" : "target"}.title`)}</h3>
+
+  {#if !isSrc && isBlacklist}
+    <blockquote class="error-msg">{t('trans.blacklist')}</blockquote>
+  {/if}
 
   {#if error}
     <blockquote class="error-msg">{error}</blockquote>
@@ -92,9 +103,11 @@
   <!-- First input line -->
   <div class="inputs">
     <InputTextShort desc={t('trans.field.addr')} placeholder="e.g. http://aquadx.hydev.org"
-      bind:value={src.dns} on:change validate={v => /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(v)} disabled={tested} />
+      bind:value={src.dns} on:change disabled={tested}
+      validate={v => /^https?:\/\/[a-z0-9.-]+(:\d+)?$/i.test(v)} />
     <InputTextShort desc={t('trans.field.keychip')} placeholder="e.g. A0299792458"
-      bind:value={src.keychip} on:change validate={v => /^([A-Z0-9]{11}|[A-Z0-9]{4}-[A-Z0-9]{11})$/.test(v)} disabled={tested} />
+      bind:value={src.keychip} on:change disabled={tested}
+      validate={v => /^([A-Z0-9]{11}|[A-Z0-9]{4}-[A-Z0-9]{11})$/.test(v)} />
   </div>
 
   <!-- Second input line -->
@@ -106,7 +119,10 @@
         bind:value={gameInfo.version} on:change disabled={tested} />
     </div>
     <InputTextShort desc={t('trans.field.card')} placeholder="e.g. 27182818284590452353"
-      bind:value={src.card} on:change disabled={tested} />
+      bind:value={src.card} disabled={tested} on:change={value => {
+        src.card = src.card.replaceAll(' ', '')
+        dispatch('change', { value });
+      }} />
   </div>
 
   <!-- Streaming messages -->
