@@ -190,6 +190,7 @@ export const EN_REF_SETTINGS = {
 export const EN_REF_USERBOX = {
   'userbox.header.general': 'General Settings',
   'userbox.header.matching': 'National Matching',
+  'userbox.header.matching.symbolChat': 'Chat Symbols (Matching)',
   'userbox.header.userbox': 'UserBox Settings',
   'userbox.header.preview': 'UserBox Preview',
   'userbox.nameplateId': 'Nameplate',
@@ -216,6 +217,8 @@ export const EN_REF_USERBOX = {
   'userbox.matching.option.collab': 'Collaborators',
   'userbox.matching.custom.name': 'Custom',
   'userbox.matching.custom.sub': 'Enter your own URL',
+  'userbox.matching.symbolChat': 'Message Choice',
+  'userbox.matching.symbolChat.default': 'Default',
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': 'Drag and drop your Chuni game folder (Lumi or newer) into the box below to display UserBoxes with their nameplate & avatar. All files are handled in-browser.',
