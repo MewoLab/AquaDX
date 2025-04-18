@@ -84,7 +84,6 @@ fun ChusanController.chusanInit() {
     "GetUserRivalData" { """{"userId":"${data["userId"]}","length":"0","userRivalData":[]}""" }
     "GetUserRegion" { """{"userId":"${data["userId"]}","length":"0","userRegionList":[]}""" }
     "GetUserPrintedCard" { """{"userId":"${data["userId"]}","length":0,"nextIndex":-1,"userPrintedCardList":[]}""" }
-    "GetUserSymbolChatSetting" { """{"userId":"${data["userId"]}","length":"0","symbolChatInfoList":[]}""" }
 
     // Net battle data
     "GetUserNetBattleData" api@ {
@@ -97,6 +96,21 @@ fun ChusanController.chusanInit() {
         ))
     }
     "GetUserNetBattleRankingInfo" { """{"userId":"${data["userId"]}","length":"0","userNetBattleRankingInfoList":{}}""" }
+
+    "GetUserSymbolChatSetting".paged("symbolChatInfoList") {
+        fun Int.makeSymbols(order: Int) = (1..5).map {
+            mapOf(
+                "sceneId" to it,
+                "symbolChatId" to this,
+                "orderId" to order
+            )
+        }
+
+        db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.run {
+            listOf(chusanSymbolChat1, chusanSymbolChat2, chusanSymbolChat3, chusanSymbolChat4)
+                .flatMapIndexed { i, sym -> sym?.makeSymbols(i) ?: empty }
+        } ?: empty
+    }
 
     // User handlers
     "GetUserData" {
