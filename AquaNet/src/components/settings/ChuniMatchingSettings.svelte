@@ -45,7 +45,7 @@
     submitting = field
 
     await SETTING.set(field, symbols[id + 1]).catch(e => error = e.message).finally(() => submitting = null);
-    changed = changed.filter(v => v != `symbolChat${id}`)
+    changed = changed.filter(v => v != `chusanSymbolChat${id}`)
     return true
   }
 
@@ -86,15 +86,15 @@
   {#await fetchSymbolData() then}
     {#each {length: 4}, i}
       <div class="field">
-        <label for={`symbolChat${i}`}>{ts(`userbox.matching.symbolChat`) + ` #${i + 1}`}</label>
+        <label for={`chusanSymbolChat${i}`}>{ts(`userbox.matching.symbolChat`) + ` #${i + 1}`}</label>
         <div>
-          <select bind:value={symbols[i + 1]} id={`symbolChat${i}`} on:change={() => {changed = [...changed, `symbolChat${i}`];}}>
+          <select bind:value={symbols[i + 1]} id={`chusanSymbolChat${i}`} on:change={() => {changed = [...changed, `chusanSymbolChat${i}`];}}>
             <option value={null}>{ts(`userbox.matching.symbolChat.default`)}</option>
             {#each Object.entries(allItems.symbolChat).filter((f) => parseInt(f[0]) !== 0) as [id, option]}
               <option value={parseInt(id)}>{option?.name || `(unknown ${id})`}</option>
             {/each}
           </select>
-          {#if changed.includes(`symbolChat${i}`)}
+          {#if changed.includes(`chusanSymbolChat${i}`)}
             <button transition:slide={{axis: "x"}} disabled={!!submitting} on:click={() => submitSymbol(i)}>
               {t("settings.profile.save")}
             </button>
