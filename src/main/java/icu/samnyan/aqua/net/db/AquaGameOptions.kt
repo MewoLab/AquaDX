@@ -43,6 +43,15 @@ class AquaGameOptions(
 
     @SettingField("chu3-matching")
     var chusanMatchingReflector: String = "",
+    
+    @SettingField("chu3-matching-chat")
+    var chusanSymbolChat1: Int? = null,
+    @SettingField("chu3-matching-chat")
+    var chusanSymbolChat2: Int? = null,
+    @SettingField("chu3-matching-chat")
+    var chusanSymbolChat3: Int? = null,
+    @SettingField("chu3-matching-chat")
+    var chusanSymbolChat4: Int? = null,
 
     @SettingField("mai2")
     var enableMusicRank: Boolean = true,

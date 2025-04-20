@@ -84,6 +84,11 @@ const zhGeneral: typeof EN_REF_GENERAL = {
   "action.refresh": "刷新",
   "action.cancel": "取消",
   "action.confirm": "确认",
+  'navigation.profile': '个人资料',
+  'navigation.maps': '地图',
+  'navigation.home': '首页',
+  'navigation.rankings': '排行榜',
+  'navigation.notice': '公告'
 }
 
 const zhHome: typeof EN_REF_HOME = {
@@ -197,6 +202,7 @@ const zhSettings: typeof EN_REF_SETTINGS = {
 export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.header.general': '游戏设置',
   'userbox.header.matching': '全国对战',
+  'userbox.header.matching.symbolChat': '全国对战聊天表情',
   'userbox.header.userbox': 'UserBox 设置',
   'userbox.header.preview': 'UserBox 预览',
   'userbox.nameplateId': '名牌',
@@ -223,6 +229,8 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.matching.option.collab': '合作伙伴',
   'userbox.matching.custom.name': '自定义',
   'userbox.matching.custom.sub': '输入其他的匹配 URL',
+  'userbox.matching.symbolChat': '表情选择',
+  'userbox.matching.symbolChat.default': '默认',
 
   'userbox.new.name': 'AquaBox',
   'userbox.new.setup': '将中二（Lumi 或更高版本）的游戏文件夹拖放到下方区域，以显示带有名牌和头像的 UserBox。所有文件都在浏览器中处理。',
