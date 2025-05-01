@@ -56,7 +56,7 @@ class BotController(
         secret.checkSecret()
 
         // 1. Find user card
-        val oc = us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")
+        val oc = (us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")).maybeGhost()
 
         // 2. Change the status to migrated
         us.cardRepo.save(oc.apply {

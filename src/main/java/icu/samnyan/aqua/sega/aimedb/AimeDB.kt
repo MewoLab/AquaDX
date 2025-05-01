@@ -124,16 +124,13 @@ class AimeDB(
         }
     }
 
-    fun getCard(accessCode: String) = us.cardRepo.findByLuid(accessCode)()?.let { card ->
+    fun getCard(accessCode: String) = us.cardRepo.findByLuid(accessCode)()?.maybeGhost()?.let { card ->
         // If it's migrated to Minato, return the Minato card for 24 hours
         if (card.status == CardStatus.MIGRATED_TO_MINATO && card.accessTime.plusDays(1).isAfter(utcNow()))
             return BotProps.MINATO_CARD_EXT.long
 
-        // Update card access time
-        us.cardRepo.save(card.apply { accessTime = LocalDateTime.now() })
-
-        // If it's a ghost card, return the ghost card. Otherwise, return the original card
-        (card.aquaUser?.ghostCard ?: card).extId
+        // Update card access time and return the extId
+        us.cardRepo.save(card.apply { accessTime = LocalDateTime.now() }).extId
     } ?: -1
 
     /**

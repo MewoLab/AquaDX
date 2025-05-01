@@ -70,6 +70,11 @@ class Card(
 ) {
     @Suppress("unused") // Used by serialization
     val isLinked get() = aquaUser != null
+
+    /**
+     * Returns ghost card if this card is a ghost card, otherwise returns this card
+     */
+    fun maybeGhost() = aquaUser?.ghostCard ?: this
 }
 
 fun Card.sensitiveInfo() = mapOf("id" to id, "extId" to extId, "luid" to luid)
