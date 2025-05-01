@@ -16,7 +16,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets.US_ASCII
 import java.time.LocalDateTime
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -203,7 +202,7 @@ class AimeDB(
         var status = 0
         var aimeId = 0L
 
-        if (cardService.getCardByAccessCode(luid).isEmpty) {
+        if (us.cardRepo.findByLuid(luid).isEmpty) {
             val card: Card = cardService.registerByAccessCode(luid)
 
             status = 1
