@@ -32,16 +32,6 @@ class CardService(val cardRepo: CardRepository)
     fun getCardByExtId(extId: Long?): Optional<Card> = cardRepo.findByExtId(extId)
 
     /**
-     * Find a card by its access code
-     *
-     * @param accessCode String represent of an access code
-     * @return Optional of a Card
-     */
-    fun getCardByAccessCode(accessCode: String?): Optional<Card> = Optional.ofNullable(
-        cardRepo.findByLuid(accessCode).getOrNull()
-    )
-
-    /**
      * Register a new card with access code
      * @param accessCode String represent of an access code
      * @return a new registered Card

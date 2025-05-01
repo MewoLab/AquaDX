@@ -27,6 +27,7 @@ import java.security.MessageDigest
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.locks.Lock
@@ -129,11 +130,12 @@ inline fun <reified T> resJson(name: Str, warn: Boolean = true) = resStr(name)?.
 val JST_ZONE = ZoneId.of("Asia/Tokyo")
 fun jstNow() = LocalDateTime.now(JST_ZONE)
 fun millis() = System.currentTimeMillis()
+fun utcNow() = LocalDateTime.now(UTC)
 val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 fun LocalDate.isoDate() = format(DATE_FORMAT)
 fun String.isoDate() = DATE_FORMAT.parse(this, LocalDate::from)
-fun Date.utc() = toInstant().atZone(java.time.ZoneOffset.UTC).toLocalDate()
-fun LocalDate.toDate() = Date(atStartOfDay().toInstant(java.time.ZoneOffset.UTC).toEpochMilli())
+fun Date.utc() = toInstant().atZone(UTC).toLocalDate()
+fun LocalDate.toDate() = Date(atStartOfDay().toInstant(UTC).toEpochMilli())
 fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 fun String.isoDateTime() = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 val URL_SAFE_DT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")

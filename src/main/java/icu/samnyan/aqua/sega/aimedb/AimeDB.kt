@@ -1,10 +1,11 @@
 package icu.samnyan.aqua.sega.aimedb
 
-import ext.logger
-import ext.toHex
+import ext.*
+import icu.samnyan.aqua.net.BotProps
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.service.CardService
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
@@ -124,11 +125,16 @@ class AimeDB(
         }
     }
 
-    fun getCard(accessCode: String) = cardService.getCardByAccessCode(accessCode).getOrNull()?.let { card ->
+    fun getCard(accessCode: String) = us.cardRepo.findByLuid(accessCode)()?.let { card ->
+        // If it's migrated to Minato, return the Minato card for 24 hours
+        if (card.status == CardStatus.MIGRATED_TO_MINATO && card.accessTime.plusDays(1).isAfter(utcNow()))
+            return BotProps.MINATO_CARD_EXT.long
+
         // Update card access time
-        cardService.cardRepo.save(card.apply { accessTime = LocalDateTime.now() }).let {
-            it.aquaUser?.ghostCard ?: it
-        }?.extId
+        us.cardRepo.save(card.apply { accessTime = LocalDateTime.now() })
+
+        // If it's a ghost card, return the ghost card. Otherwise, return the original card
+        (card.aquaUser?.ghostCard ?: card).extId
     } ?: -1
 
     /**
