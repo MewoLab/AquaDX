@@ -3,6 +3,7 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusicDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
@@ -55,12 +56,6 @@ fun Maimai2ServletController.initApis() {
     ) }
 
     "CreateToken" static { """{"Bearer":"meow"}""" }
-    "UserLogin" static { mapOf(
-        "returnCode" to 1, "loginCount" to 1,
-        "lastLoginDate" to "2020-01-01 00:00:00.0",
-        "consecutiveLoginCount" to 0, "loginId" to 1,
-        "Bearer" to "meow", "bearer" to "meow"
-    ) }
 
     "CMUpsertUserPrintlog" static { """{"returnCode":1,"orderId":"0","serialId":"FAKECARDIMAG12345678"}""" }
 
@@ -91,7 +86,7 @@ fun Maimai2ServletController.initApis() {
         val d = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
         val option = db.userOption.findSingleByUser_Card_ExtId(uid)()
 
-        mapOf(
+        val res = mutableMapOf(
             "userId" to uid,
             "userName" to d.userName,
             "isLogin" to false,
@@ -114,6 +109,32 @@ fun Maimai2ServletController.initApis() {
             "isInherit" to false,
             "banState" to d.banState
         )
+
+        if (d.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            res["userName"] = "Migrated"
+            res["dispRate"] = 1
+            res["playerRating"] = 66564
+            res["totalAwake"] = 7114
+        }
+
+        res
+    }
+
+    "UserLogin" {
+        val d = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
+
+        val res = mutableMapOf(
+            "returnCode" to 1, "loginCount" to 1,
+            "lastLoginDate" to "2020-01-01 00:00:00.0",
+            "consecutiveLoginCount" to 0, "loginId" to 1,
+            "Bearer" to "meow", "bearer" to "meow"
+        )
+
+        if (d.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            res["returnCode"] = 0
+        }
+
+        res
     }
 
     "GetUserShopStock" {

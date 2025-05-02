@@ -8,6 +8,7 @@ import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
@@ -110,6 +111,8 @@ class UserRegistrar(
         val user = async { userRepo.findByEmailIgnoreCase(email) ?: userRepo.findByUsernameIgnoreCase(email) }
             ?: (400 - "User not found")
         if (!hasher.matches(password, user.pwHash)) 400 - "Invalid password"
+
+        if (user.ghostCard.status == CardStatus.MIGRATED_TO_MINATO) 400 - "Placeholder"
 
         // Check if email is verified
         if (!user.emailConfirmed && emailProps.enable) {

@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.RestController
 class BotProps {
     var enabled: Boolean = false
     var secret: String = ""
-
-    companion object {
-        const val MINATO_CARD_EXT: Int = Int.MAX_VALUE - 2;
-    }
 }
 
 @RestController
