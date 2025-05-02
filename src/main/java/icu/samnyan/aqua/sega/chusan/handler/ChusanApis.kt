@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.chusan.ChusanData
 import icu.samnyan.aqua.sega.chusan.model.request.UserCMissionResp
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserItem
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 import java.time.format.DateTimeFormatter
 
@@ -225,7 +226,7 @@ fun ChusanController.chusanInit() {
         val option = db.userGameOption.findSingleByUser(user)()
         val userDict = user.toJson().jsonMap().filterKeys { it in userPreviewKeys }
 
-        mapOf(
+        val res = mutableMapOf(
             "userId" to uid, "isLogin" to false, "emoneyBrandId" to 0,
             "lastLoginDate" to user.lastLoginDate, "lastPlayDate" to user.lastPlayDate,
             "userCharacter" to chara,
@@ -234,6 +235,14 @@ fun ChusanController.chusanInit() {
             "headphone" to option?.headphone,
             "chargeState" to 1, "userNameEx" to "", "banState" to 0,
         ) + userDict
+
+        if (user.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            res["userName"] = "Migrated"
+            res["rating"] = 0
+            res["playerLevel"] = 0
+        }
+
+        res
     }
 
     "GetUserMusic".paged("userMusicList") {
@@ -380,6 +389,13 @@ fun ChusanController.chusanInit() {
 //        }
 //        process()
 
-        """{"returnCode":"1"}"""
+        val user = db.userData.findByCard_ExtId(uid)()
+
+        if (user?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            """{"returnCode":"0"}"""
+        }
+        else {
+            """{"returnCode":"1"}"""
+        }
     }
 }

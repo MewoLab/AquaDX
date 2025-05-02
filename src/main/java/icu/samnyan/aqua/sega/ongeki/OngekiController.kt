@@ -26,7 +26,7 @@ class OngekiController(
 
     val log = logger()
 
-    val noopEndpoint = setOf("ExtendLockTimeApi", "GameLoginApi", "GameLogoutApi", "RegisterPromotionCardApi",
+    val noopEndpoint = setOf("ExtendLockTimeApi", "GameLogoutApi", "RegisterPromotionCardApi",
         "UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi", "UpsertClientSettingApi",
         "UpsertClientTestmodeApi", "UpsertUserGplogApi", "Ping")
 

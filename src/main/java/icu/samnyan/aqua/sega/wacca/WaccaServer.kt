@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.games.wacca.Wacca
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.net.utils.simpleDescribe
 import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_COLOR
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.NOTE_SOUND
@@ -221,8 +222,14 @@ fun WaccaServer.init() {
             }
         }
 
+        val status = u.lStatus().toMutableList()
+
+        if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            status[1] = "Migrated"
+        }
+
         u.run { ls(
-            "0 status" - lStatus(),
+            "0 status" - status,
             "1 options" - o.map { (k, v) -> ls(k, v) },
             "2 seasonalPlayModeCounts" - (playCounts.mapIndexed { i, it -> ls(season, i + 1, it) } + ls(ls(0, 1, 1))),
             "3 items" - ls(MUSIC_UNLOCK, TITLE, ICON, TROPHY, SKILL, TICKET, NOTE_COLOR, NOTE_SOUND, NAVIGATOR, USER_PLATE, TOUCH_EFFECT).map {

@@ -3,6 +3,7 @@
 package icu.samnyan.aqua.sega.ongeki
 
 import ext.*
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
 import icu.samnyan.aqua.sega.ongeki.model.OgkItemType
 import icu.samnyan.aqua.sega.ongeki.model.UserItem
@@ -114,7 +115,7 @@ fun OngekiController.initUser() {
         val u = db.data.findByCard_ExtId(uid)() ?: return@api mapOf("userId" to uid, "lastPlayDate" to null)
         val o = db.option.findSingleByUser(u)()
 
-        mapOf(
+        val res = mutableMapOf(
             "userId" to uid, "isLogin" to false,
 
             "userName" to u.userName, "reincarnationNum" to u.reincarnationNum,
@@ -134,6 +135,27 @@ fun OngekiController.initUser() {
             "banStatus" to 0,
             "isWarningConfirmed" to false,
         )
+
+        if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            res["userName"] = "Migrated"
+            res["level"] = 0
+            res["exp"] = 0
+            res["playerRating"] = 0
+            res["newPlayerRating"] = 0
+        }
+
+        res
+    }
+
+    "GameLogin" {
+        val user = db.data.findByCard_ExtId(uid)()
+
+        if (user?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            """{"returnCode":"0"}"""
+        }
+        else {
+            """{"returnCode":"1"}"""
+        }
     }
 
     "GetUserRecentRating".unpaged {
