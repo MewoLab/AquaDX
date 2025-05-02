@@ -62,6 +62,19 @@ class BotController(
         return SUCCESS
     }
 
+    @API("/clear-migrate-flag")
+    fun clearMigrateFlag(@RP secret: Str, @RP card: Str): Any {
+        secret.checkSecret()
+
+        val oc = (us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")).maybeGhost()
+
+        us.cardRepo.save(oc.apply {
+            status = CardStatus.NORMAL
+            accessTime = utcNow()
+        })
+        return SUCCESS
+    }
+
     @Transactional
     @PostMapping("/debug-user-profile")
     @Doc("Obtain debug information for a user card", "User card details")
