@@ -4,6 +4,7 @@ import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.model.sensitiveInfo
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import jakarta.transaction.Transactional
@@ -44,6 +45,34 @@ class BotController(
 
             SUCCESS
         }
+    }
+
+    @API("/migrated-to-minato")
+    fun migratedToMinato(@RP secret: Str, @RP card: Str): Any {
+        secret.checkSecret()
+
+        // 1. Find user card
+        val oc = (us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")).maybeGhost()
+
+        // 2. Change the status to migrated
+        us.cardRepo.save(oc.apply {
+            status = CardStatus.MIGRATED_TO_MINATO
+            accessTime = utcNow()
+        })
+        return SUCCESS
+    }
+
+    @API("/clear-migrate-flag")
+    fun clearMigrateFlag(@RP secret: Str, @RP card: Str): Any {
+        secret.checkSecret()
+
+        val oc = (us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")).maybeGhost()
+
+        us.cardRepo.save(oc.apply {
+            status = CardStatus.NORMAL
+            accessTime = utcNow()
+        })
+        return SUCCESS
     }
 
     @Transactional

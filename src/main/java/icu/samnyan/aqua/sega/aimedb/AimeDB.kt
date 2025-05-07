@@ -1,10 +1,11 @@
 package icu.samnyan.aqua.sega.aimedb
 
-import ext.logger
-import ext.toHex
+import ext.*
+import icu.samnyan.aqua.net.BotProps
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.service.CardService
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufUtil
@@ -15,7 +16,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets.US_ASCII
 import java.time.LocalDateTime
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -124,11 +124,9 @@ class AimeDB(
         }
     }
 
-    fun getCard(accessCode: String) = cardService.getCardByAccessCode(accessCode).getOrNull()?.let { card ->
-        // Update card access time
-        cardService.cardRepo.save(card.apply { accessTime = LocalDateTime.now() }).let {
-            it.aquaUser?.ghostCard ?: it
-        }?.extId
+    fun getCard(accessCode: String) = us.cardRepo.findByLuid(accessCode)()?.maybeGhost()?.let { card ->
+        // Update card access time and return the extId
+        us.cardRepo.save(card.apply { accessTime = LocalDateTime.now() }).extId
     } ?: -1
 
     /**
@@ -197,7 +195,7 @@ class AimeDB(
         var status = 0
         var aimeId = 0L
 
-        if (cardService.getCardByAccessCode(luid).isEmpty) {
+        if (us.cardRepo.findByLuid(luid).isEmpty) {
             val card: Card = cardService.registerByAccessCode(luid)
 
             status = 1

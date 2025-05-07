@@ -5,6 +5,26 @@ import icu.samnyan.aqua.net.db.AquaNetUser
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
+enum class CardStatus {
+    NORMAL,
+
+    // Reserved for future use
+    NORMAL_RESERVED_1,
+    NORMAL_RESERVED_2,
+    NORMAL_RESERVED_3,
+    NORMAL_RESERVED_4,
+    NORMAL_RESERVED_5,
+    NORMAL_RESERVED_6,
+    NORMAL_RESERVED_7,
+    NORMAL_RESERVED_8,
+    NORMAL_RESERVED_9,
+
+    // Deleted statuses
+    OVERWRITTEN,
+    DELETED,
+    MIGRATED_TO_MINATO,
+}
+
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
@@ -44,9 +64,17 @@ class Card(
     // Unfortunately some people decide to cheat and upload all perfect scores :(
     // This will not affect gameplay behavior, but will hide the user from ranking
     var rankingBanned: Boolean = false,
+
+    @Enumerated(EnumType.ORDINAL)
+    var status: CardStatus = CardStatus.NORMAL,
 ) {
     @Suppress("unused") // Used by serialization
     val isLinked get() = aquaUser != null
+
+    /**
+     * Returns ghost card if this card is a ghost card, otherwise returns this card
+     */
+    fun maybeGhost() = aquaUser?.ghostCard ?: this
 }
 
 fun Card.sensitiveInfo() = mapOf("id" to id, "extId" to extId, "luid" to luid)

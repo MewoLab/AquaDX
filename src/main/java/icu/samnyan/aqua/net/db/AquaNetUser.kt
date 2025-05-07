@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.allnet.KeyChipRepo
 import icu.samnyan.aqua.sega.allnet.KeychipSession
+import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import jakarta.persistence.*
@@ -117,7 +118,8 @@ class AquaUserServices(
     val keyChipRepo: KeyChipRepo,
     val allNetProps: AllNetProps,
     val jwt: JWT,
-    val em: EntityManager
+    val em: EntityManager,
+    val pop: GameMusicPopularity
 ) {
     companion object {
         val SETTING_FIELDS = AquaUserServices::class.functions

@@ -2,12 +2,13 @@ package icu.samnyan.aqua.sega.general
 
 import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
+import jakarta.persistence.EntityManager
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 
 @Component
-class GameMusicPopularity(val us: AquaUserServices) {
+class GameMusicPopularity(val em: EntityManager) {
     companion object {
         val log = logger()
 
@@ -23,8 +24,8 @@ class GameMusicPopularity(val us: AquaUserServices) {
         // Get the play count of each music in the last N days
         val after = LocalDate.now().minusDays(LOOK_BACK_DAYS).isoDate()
 
-        ranking = ls("chusan", "ongeki").associateWith { game ->
-            us.em.createNativeQuery("""
+        ranking = ls("maimai2", "chusan", "ongeki", "wacca").associateWith { game ->
+            em.createNativeQuery("""
                 SELECT music_id, count(user_id) as count 
                 FROM ${game}_user_playlog_view
                 WHERE user_play_date >= '${after}'

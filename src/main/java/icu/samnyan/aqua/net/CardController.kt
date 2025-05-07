@@ -19,7 +19,6 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import kotlin.jvm.optionals.getOrNull
 import kotlin.random.Random
 
@@ -145,7 +144,7 @@ suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, cardRepo: 
         // Create a new dummy card for deleted data
         it.card = async {
             cardRepo.save(Card().apply {
-                luid = "Migrated data of ghost card ${ghost.id} for user ${card.aquaUser!!.auId} on ${LocalDateTime.now(ZoneOffset.UTC).isoDateTime()}"
+                luid = "Migrated data of ghost card ${ghost.id} for user ${card.aquaUser!!.auId} on ${utcNow().isoDateTime()}"
                 // Randomize an extId outside the normal range
                 extId = Random.nextLong(0x7FFFFFF7L shl 32, 0x7FFFFFFFL shl 32)
                 registerTime = LocalDateTime.now()
