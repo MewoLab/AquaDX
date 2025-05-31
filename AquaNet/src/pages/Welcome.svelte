@@ -24,23 +24,26 @@
   if (USER.isLoggedIn()) {
     window.location.href = "/home"
   }
+if (location.pathname !== '/') {
+    location.href = `/${params.get('confirm-email') ? `?confirm-email=${params.get('confirm-email')}` : ""}`
+  } else
+    if (params.get('confirm-email')) {
 
-  if (params.get('confirm-email')) {
-    state = 'verify'
-    verifyMsg = t("welcome.verifying")
-    submitting = true
+      state = 'verify'
+      verifyMsg = t("welcome.verifying")
+      submitting = true
 
-    // Send request to server
-    USER.confirmEmail(params.get('confirm-email')!)
-      .then(() => {
-        verifyMsg = t('welcome.verified')
-        submitting = false
+      // Send request to server
+      USER.confirmEmail(params.get('confirm-email')!)
+        .then(() => {
+          verifyMsg = t('welcome.verified')
+          submitting = false
 
-        // Clear the query param
-        window.history.replaceState({}, document.title, window.location.pathname)
-      })
-      .catch(e => verifyMsg = t('welcome.verification-failed', { message: e.message }))
-  }
+          // Clear the query param
+          window.history.replaceState({}, document.title, window.location.pathname)
+        })
+        .catch(e => verifyMsg = t('welcome.verification-failed', { message: e.message }))
+    }
 
   async function submit(): Promise<any> {
     submitting = true

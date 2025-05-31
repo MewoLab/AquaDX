@@ -79,6 +79,7 @@
 
 <Router {url}>
   <Route path="/" component={Welcome} />
+  <Route path="/confirm" component={Welcome} /> <!-- For email confirmation only, backwards compatibility with AquaNet2 in the future -->
   <Route path="/home" component={Home} />
   <Route path="/ranking" component={Ranking} />
   <Route path="/ranking/:game" component={Ranking} />

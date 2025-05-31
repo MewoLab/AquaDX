@@ -76,7 +76,7 @@ class EmailService(
             .withSubject("Confirm Your Email Address for AquaNet")
             .withHTMLText(confirmTemplate
                 .replace("{{name}}", user.computedName)
-                .replace("{{url}}", "https://${props.webHost}?confirm-email=$token"))
+                .replace("{{url}}", "https://${props.webHost}/confirm?confirm-email=$token"))
             .buildEmail()).thenRun { log.info("Confirmation email sent to ${user.email}") }
     }
 
