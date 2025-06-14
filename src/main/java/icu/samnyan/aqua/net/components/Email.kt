@@ -69,15 +69,15 @@ class EmailService(
         confirmationRepo.save(confirmation)
 
         // Send email
-        log.info("Sending confirmation email to ${user.email}")
+        log.info("Sending verification email to ${user.email}")
         mailer.sendMail(EmailBuilder.startingBlank()
             .from(props.senderName, props.senderAddr)
             .to(user.computedName, user.email)
-            .withSubject("Confirm Your Email Address for AquaNet")
+            .withSubject("Verification Your Email Address for AquaNet")
             .withHTMLText(confirmTemplate
                 .replace("{{name}}", user.computedName)
-                .replace("{{url}}", "https://${props.webHost}/confirm?confirm-email=$token"))
-            .buildEmail()).thenRun { log.info("Confirmation email sent to ${user.email}") }
+                .replace("{{url}}", "https://${props.webHost}/verify?code=$token"))
+            .buildEmail()).thenRun { log.info("Verification email sent to ${user.email}") }
     }
 
     fun testEmail(addr: Str, name: Str) {

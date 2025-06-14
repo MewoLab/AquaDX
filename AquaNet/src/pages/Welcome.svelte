@@ -25,16 +25,16 @@
     window.location.href = "/home"
   }
 if (location.pathname !== '/') {
-    location.href = `/${params.get('confirm-email') ? `?confirm-email=${params.get('confirm-email')}` : ""}`
+    location.href = `/${params.get('code') ? `?code=${params.get('code')}` : ""}`
   } else
-    if (params.get('confirm-email')) {
+    if (params.get('code')) {
 
       state = 'verify'
       verifyMsg = t("welcome.verifying")
       submitting = true
 
       // Send request to server
-      USER.confirmEmail(params.get('confirm-email')!)
+      USER.confirmEmail(params.get('code')!)
         .then(() => {
           verifyMsg = t('welcome.verified')
           submitting = false
