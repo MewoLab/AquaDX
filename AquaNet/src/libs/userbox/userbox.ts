@@ -186,8 +186,6 @@ export function initializeDb() : Promise<void> {
 export async function userboxFileProcess(folder: FileSystemEntry, progressUpdate: (progress: number, progressString: string) => void): Promise<string | null> {
     if (!isDirectory(folder))
         return t("userbox.new.error.invalidFolder")
-    if (!(await validateDirectories(folder, "bin/option") || await validateDirectories(folder, "option")) && !(await validateDirectories(folder, "data/A000")))
-        return t("userbox.new.error.invalidFolder");
 
     initializeDb();
     const optionFolder = await scanRecursive(folder, "A001");
