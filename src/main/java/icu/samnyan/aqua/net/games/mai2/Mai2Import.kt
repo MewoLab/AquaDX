@@ -3,6 +3,7 @@ package icu.samnyan.aqua.net.games.mai2
 import ext.API
 import ext.returns
 import ext.vars
+import icu.samnyan.aqua.net.games.ExportOptions
 import icu.samnyan.aqua.net.games.IExportClass
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
@@ -44,7 +45,18 @@ class Mai2Import(
         "mai2_profile_option" to ImportClass(Mai2UserOption::class, mapOf("version" to null)),
         "mai2_score_best" to ImportClass(Mai2UserMusicDetail::class),
         "mai2_score_course" to ImportClass(Mai2UserCourse::class),
-    )
+    ),
+    customExporters = run {
+        mapOf(
+            Maimai2DataExport::userPlaylogList to { user: Mai2UserDetail, options: ExportOptions ->
+                if (options.playlogSince != null) {
+                    repos.userPlaylog.findByUserAndUserPlayDateAfter(user, options.playlogSince)
+                } else {
+                    repos.userPlaylog.findByUser(user)
+                }
+            }
+        ) as Map<kotlin.reflect.KMutableProperty1<Maimai2DataExport, Any>, (Mai2UserDetail, ExportOptions) -> Any?>
+    }
 ) {
     override fun createEmpty() = Maimai2DataExport()
     override val userDataRepo = repos.userData
