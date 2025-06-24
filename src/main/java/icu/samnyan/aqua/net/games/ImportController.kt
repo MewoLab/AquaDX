@@ -58,7 +58,8 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
     val exportFields: Map<String, Var<ExportModel, Any>>,
     val exportRepos: Map<Var<ExportModel, Any>, IUserRepo<UserModel, *>>,
     val artemisRenames: Map<String, ImportClass<*>>,
-    val customExporters: Map<Var<ExportModel, Any>, (UserModel, ExportOptions) -> Any?> = emptyMap()
+    val customExporters: Map<Var<ExportModel, Any>, (UserModel, ExportOptions) -> Any?> = emptyMap(),
+    val customImporters: Map<Var<ExportModel, Any>, (ExportModel, UserModel) -> Unit> = emptyMap()
 ) {
     abstract fun createEmpty(): ExportModel
     abstract val userDataRepo: GenericUserDataRepo<UserModel>
@@ -105,8 +106,8 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         val export = json.parseJackson(exportClass.java)
         if (!export.gameId.equals(game, true)) 400 - "Invalid game ID"
 
-        val lists = listRepos.toList().associate { (f, r) -> r to f.get(export) as List<IUserEntity<UserModel>> }.vNotNull()
-        val singles = singleRepos.toList().associate { (f, r) -> r to f.get(export) as IUserEntity<UserModel> }.vNotNull()
+        val lists = listRepos.toList().filter { (f, _) -> f !in customImporters }.associate { (f, r) -> r to f.get(export) as List<IUserEntity<UserModel>> }.vNotNull()
+        val singles = singleRepos.toList().filter { (f, _) -> f !in customImporters }.associate { (f, r) -> r to f.get(export) as IUserEntity<UserModel> }.vNotNull()
 
         // Validate new user data
         // Check that all ids are 0 (this should be true since all ids are @JsonIgnore)
@@ -138,6 +139,10 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
             // Save new data
             singles.forEach { (repo, single) -> (repo as IUserRepo<UserModel, Any>).save(single) }
             lists.forEach { (repo, list) -> (repo as IUserRepo<UserModel, Any>).saveAll(list) }
+            // Handle custom importers
+            customImporters.forEach { (field, importer) ->
+                importer(export, nu)
+            }
         }
 
         SUCCESS

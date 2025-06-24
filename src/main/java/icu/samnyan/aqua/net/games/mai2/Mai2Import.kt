@@ -9,6 +9,7 @@ import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserLinked
+import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UserFavoriteItem
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
 import org.springframework.web.bind.annotation.RestController
 import kotlin.reflect.full.declaredMembers
@@ -24,10 +25,15 @@ class Mai2Import(
     },
     exportRepos = Maimai2DataExport::class.vars()
         .filter { f -> f.name !in setOf("gameId", "userData") }
-        .associateWith { Mai2Repos::class.declaredMembers
-            .filter { f -> f returns Mai2UserLinked::class }
-            .firstOrNull { f -> f.name == it.name || f.name == it.name.replace("List", "") }
-            ?.call(repos) as Mai2UserLinked<*>? ?: error("No matching field found for ${it.name}")
+        .associateWith { field ->
+            val repoName = when (field.name) {
+                "userKaleidxScopeList" -> "userKaleidx"
+                else -> field.name.replace("List", "")
+            }
+            Mai2Repos::class.declaredMembers
+                .filter { f -> f returns Mai2UserLinked::class }
+                .firstOrNull { f -> f.name == repoName }
+                ?.call(repos) as Mai2UserLinked<*>? ?: error("No matching field found for ${field.name}")
         },
     artemisRenames = mapOf(
         "mai2_item_character" to ImportClass(Mai2UserCharacter::class),
@@ -46,17 +52,36 @@ class Mai2Import(
         "mai2_score_best" to ImportClass(Mai2UserMusicDetail::class),
         "mai2_score_course" to ImportClass(Mai2UserCourse::class),
     ),
-    customExporters = run {
-        mapOf(
-            Maimai2DataExport::userPlaylogList to { user: Mai2UserDetail, options: ExportOptions ->
-                if (options.playlogSince != null) {
-                    repos.userPlaylog.findByUserAndUserPlayDateAfter(user, options.playlogSince)
-                } else {
-                    repos.userPlaylog.findByUser(user)
-                }
+    customExporters = mapOf(
+        Maimai2DataExport::userPlaylogList to { user: Mai2UserDetail, options: ExportOptions ->
+            if (options.playlogSince != null) {
+                repos.userPlaylog.findByUserAndUserPlayDateAfter(user, options.playlogSince)
+            } else {
+                repos.userPlaylog.findByUser(user)
             }
-        ) as Map<kotlin.reflect.KMutableProperty1<Maimai2DataExport, Any>, (Mai2UserDetail, ExportOptions) -> Any?>
-    }
+        },
+        Maimai2DataExport::userFavoriteMusicList to { user: Mai2UserDetail, _: ExportOptions ->
+            repos.userGeneralData.findByUserAndPropertyKey(user, "favorite_music").orElse(null)
+                ?.propertyValue
+                ?.takeIf { it.isNotEmpty() }
+                ?.split(",")
+                ?.mapIndexed { index, id -> Mai2UserFavoriteItem().apply { orderId = index; this.id = id.toInt() } }
+                ?: emptyList()
+        }
+    ) as Map<kotlin.reflect.KMutableProperty1<Maimai2DataExport, Any>, (Mai2UserDetail, ExportOptions) -> Any?>,
+    customImporters = mapOf(
+        Maimai2DataExport::userFavoriteMusicList to { export: Maimai2DataExport, user: Mai2UserDetail ->
+            val favoriteMusicList = export.userFavoriteMusicList
+            if (favoriteMusicList.isNotEmpty()) {
+                val key = "favorite_music"
+                val data = repos.userGeneralData.findByUserAndPropertyKey(user, key).orElse(null)
+                    ?: Mai2UserGeneralData().apply { this.user = user; propertyKey = key }
+                repos.userGeneralData.save(data.apply {
+                    propertyValue = favoriteMusicList.map { it.id }.joinToString(",")
+                })
+            }
+        }
+    ) as Map<kotlin.reflect.KMutableProperty1<Maimai2DataExport, Any>, (Maimai2DataExport, Mai2UserDetail) -> Unit>
 ) {
     override fun createEmpty() = Maimai2DataExport()
     override val userDataRepo = repos.userData
@@ -79,11 +104,14 @@ data class Maimai2DataExport(
     var userLoginBonusList: List<Mai2UserLoginBonus>,
     var userMapList: List<Mai2UserMap>,
     var userMusicDetailList: List<Mai2UserMusicDetail>,
+    var userIntimateList: List<Mai2UserIntimate>,
+    var userFavoriteMusicList: List<Mai2UserFavoriteItem>,
+    var userKaleidxScopeList: List<Mai2UserKaleidx>,
     var userPlaylogList: List<Mai2UserPlaylog>,
     override var gameId: String = "SDEZ",
 ): IExportClass<Mai2UserDetail> {
     constructor() : this(Mai2UserDetail(), Mai2UserExtend(), Mai2UserOption(), Mai2UserUdemae(),
         mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf(),
         mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf(),
-        mutableListOf())
+        mutableListOf(), mutableListOf(), mutableListOf(), mutableListOf())
 }
