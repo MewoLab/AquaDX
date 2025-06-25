@@ -98,6 +98,7 @@ interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
     fun findByEmailIgnoreCase(email: String): AquaNetUser?
     fun findByUsernameIgnoreCase(username: String): AquaNetUser?
     fun findByKeychip(keychip: String): AquaNetUser?
+    fun findByGhostCardExtId(extId: Long): AquaNetUser?
 }
 
 data class SettingField(

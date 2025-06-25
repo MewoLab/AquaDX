@@ -54,8 +54,8 @@ class Mai2Import(
     ),
     customExporters = mapOf(
         Maimai2DataExport::userPlaylogList to { user: Mai2UserDetail, options: ExportOptions ->
-            if (options.playlogSince != null) {
-                repos.userPlaylog.findByUserAndUserPlayDateAfter(user, options.playlogSince)
+            if (options.playlogAfter != null) {
+                repos.userPlaylog.findByUserAndUserPlayDateAfter(user, options.playlogAfter)
             } else {
                 repos.userPlaylog.findByUser(user)
             }
