@@ -16,6 +16,11 @@ import lombok.AllArgsConstructor
 import lombok.Data
 import lombok.NoArgsConstructor
 import java.time.LocalDateTime
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import java.time.format.DateTimeFormatter
+import com.fasterxml.jackson.databind.JsonSerializer
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.core.JsonGenerator
 
 @MappedSuperclass
 open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
@@ -526,10 +531,14 @@ class Mai2UserKaleidx : Mai2UserEntity() {
     var totalDeluxscore = 0
     var bestAchievement = 0
     var bestDeluxscore = 0
+    @JsonSerialize(using = MaimaiDateSerializer::class)
     var bestAchievementDate: LocalDateTime? = null
+    @JsonSerialize(using = MaimaiDateSerializer::class)
     var bestDeluxscoreDate: LocalDateTime? = null
     var playCount = 0
+    @JsonSerialize(using = MaimaiDateSerializer::class)
     var clearDate: LocalDateTime? = null
+    @JsonSerialize(using = MaimaiDateSerializer::class)
     var lastPlayDate: LocalDateTime? = null
     var isInfoWatched = false
 }
@@ -540,4 +549,11 @@ class Mai2UserIntimate : Mai2UserEntity() {
     var partnerId = 1;
     var intimateLevel = 0;
     var intimateCountRewarded = 0;
+}
+
+val MAIMAI_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0")
+class MaimaiDateSerializer : JsonSerializer<LocalDateTime>() {
+    override fun serialize(v: LocalDateTime, j: JsonGenerator, s: SerializerProvider) {
+        j.writeString(v.format(MAIMAI_DATETIME))
+    }
 }
