@@ -84,13 +84,11 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         gameId = game
         userData = userDataRepo.findByCard(u.ghostCard) ?: (404 - "User not found")
         exportRepos.forEach { (f, u) ->
-            val customExporter = customExporters[f]
-            if (customExporter != null) {
-                customExporter(userData, options)?.let { f.set(this, it) }
-            } else {
-                if (f returns List::class) f.set(this, u.findByUser(userData))
-                else u.findSingleByUser(userData)()?.let { f.set(this, it) }
-            }
+            if (f returns List::class) f.set(this, u.findByUser(userData))
+            else u.findSingleByUser(userData)()?.let { f.set(this, it) }
+        }
+        customExporters.forEach { (f, exporter) ->
+            exporter(userData, options)?.let { f.set(this, it) }
         }
     }
 
@@ -106,8 +104,9 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         val export = json.parseJackson(exportClass.java)
         if (!export.gameId.equals(game, true)) 400 - "Invalid game ID"
 
-        val lists = listRepos.toList().filter { (f, _) -> f !in customImporters }.associate { (f, r) -> r to f.get(export) as List<IUserEntity<UserModel>> }.vNotNull()
-        val singles = singleRepos.toList().filter { (f, _) -> f !in customImporters }.associate { (f, r) -> r to f.get(export) as IUserEntity<UserModel> }.vNotNull()
+        val lists = listRepos.toList().associate { (f, r) -> r to f.get(export) as List<IUserEntity<UserModel>> }.vNotNull()
+        val singles = singleRepos.toList().associate { (f, r) -> r to f.get(export) as IUserEntity<UserModel> }.vNotNull()
+        var repoFieldMap = exportRepos.toList().associate { (f, r) -> r to f }
 
         // Validate new user data
         // Check that all ids are 0 (this should be true since all ids are @JsonIgnore)
