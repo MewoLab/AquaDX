@@ -112,5 +112,10 @@ data class Maimai2DataExport(
     var userFavoriteMusicList: List<Mai2UserFavoriteItem> = mutableListOf(),
     var userKaleidxScopeList: List<Mai2UserKaleidx> = mutableListOf(),
     var userPlaylogList: List<Mai2UserPlaylog> = mutableListOf(),
+    // Not supported yet:
+    // var userWeeklyData
+    // var userMissionDataList
+    // var userShopStockList
+    // var userTradeItemList
     override var gameId: String = "SDEZ",
 ): IExportClass<Mai2UserDetail>
