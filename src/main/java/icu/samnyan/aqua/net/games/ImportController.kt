@@ -70,7 +70,7 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
     @Autowired lateinit var netProps: AquaNetProps
     @Autowired lateinit var transManager: PlatformTransactionManager
     val trans by lazy { TransactionTemplate(transManager) }
-    @Autowired(required = false) @Lazy var fedy: Fedy? = null
+    @Autowired @Lazy lateinit var fedy: Fedy
 
     init {
         artemisRenames.values.forEach {
@@ -147,7 +147,7 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
             }
         }
 
-        Fedy.getGameName(game)?.let { fedy?.onImported(it, u.ghostCard.extId) }
+        Fedy.getGameName(game)?.let { fedy.onImported(it, u.ghostCard.extId) }
 
         SUCCESS
     }

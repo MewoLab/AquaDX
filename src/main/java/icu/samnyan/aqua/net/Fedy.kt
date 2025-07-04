@@ -26,6 +26,7 @@ import org.springframework.transaction.support.TransactionTemplate
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.IUserData
+import java.util.concurrent.CompletableFuture
 
 @Configuration
 @ConfigurationProperties(prefix = "aqua-net.fedy")
@@ -43,7 +44,6 @@ enum class FedyEvent {
 }
 
 @RestController
-@ConditionalOnProperty("aqua-net.fedy.enabled", havingValue = "true")
 @API("/api/v2/fedy")
 class Fedy(
     val jwt: JWT,
@@ -59,6 +59,7 @@ class Fedy(
     val transaction by lazy { TransactionTemplate(transactionManager) }
 
     private fun Str.checkKey() {
+        if (!props.enabled) 403 - "Fedy is disabled"
         if (!MessageDigest.isEqual(this.toByteArray(), props.key.toByteArray())) 403 - "Invalid Key"
     }
 
@@ -77,7 +78,7 @@ class Fedy(
         val userFedy = AquaNetUserFedy(aquaNetUser = user)
         userFedyRepo.save(userFedy)
 
-        notifyRemote(FedyEvent.Linked, mapOf("auId" to user.auId, "nonce" to nonce))
+        notify(FedyEvent.Linked, mapOf("auId" to user.auId, "nonce" to nonce))
         return mapOf("linkedAt" to userFedy.createdAt.toEpochMilli())
     }
 
@@ -88,7 +89,7 @@ class Fedy(
         val userFedy = userFedyRepo.findByAquaNetUserAuId(user.auId) ?: 412 - "User not linked"
         userFedyRepo.delete(userFedy)
 
-        notifyRemote(FedyEvent.Unlinked, mapOf("auId" to user.auId))
+        notify(FedyEvent.Unlinked, mapOf("auId" to user.auId))
         return SUCCESS
     }
 
@@ -140,10 +141,10 @@ class Fedy(
         transaction.execute { when (req.game) {
             "mai2" -> {
                 if (req.removeOldData) { removeOldData(mai2UserDataRepo) }
+                val userAll = req.data["upsertUserAll"] as JDict // UserAll first, prevent using backlog
+                mai2UpsertUserAll.handle(mapOf("userId" to extId, "upsertUserAll" to userAll))
                 val playlogs = req.data["userPlaylogList"] as List<JDict>
                 playlogs.forEach { mai2UploadUserPlaylog.handle(mapOf("userId" to extId, "userPlaylog" to it)) }
-                val userAll = req.data["upsertUserAll"] as JDict
-                mai2UpsertUserAll.handle(mapOf("userId" to extId, "upsertUserAll" to userAll))
             }
             else -> 406 - "Unsupported game"
         } }
@@ -151,19 +152,19 @@ class Fedy(
         return SUCCESS
     }
 
-    fun onUpserted(game: Str, maybeExtId: Any?) = notifyRemote(FedyEvent.Upserted, game, maybeExtId)
-    fun onImported(game: Str, maybeExtId: Any?) = notifyRemote(FedyEvent.Imported, game, maybeExtId)
+    fun onUpserted(game: Str, maybeExtId: Any?) = maybeNotifyAsync(FedyEvent.Upserted, game, maybeExtId)
+    fun onImported(game: Str, maybeExtId: Any?) = maybeNotifyAsync(FedyEvent.Imported, game, maybeExtId)
 
-    private fun notifyRemote(event: FedyEvent, game: Str, maybeExtId: Any?) { try {
-        val extId = maybeExtId?.long ?: return
-        val user = userRepo.findByGhostCardExtId(extId) ?: return
-        val userFedy = userFedyRepo.findByAquaNetUserAuId(user.auId) ?: return
-        notifyRemote(event, mapOf("auId" to user.auId, "game" to game))
+    private fun maybeNotifyAsync(event: FedyEvent, game: Str, maybeExtId: Any?) = if (!props.enabled) {} else CompletableFuture.runAsync { try {
+        val extId = maybeExtId?.long ?: return@runAsync
+        val user = userRepo.findByGhostCardExtId(extId) ?: return@runAsync
+        val userFedy = userFedyRepo.findByAquaNetUserAuId(user.auId) ?: return@runAsync
+        notify(event, mapOf("auId" to user.auId, "game" to game))
     } catch (e: Exception) {
-        log.error("Error handling Fedy on notifyRemote($event, $game, $maybeExtId)", e)
+        log.error("Error handling Fedy on maybeNotifyAsync($event, $game, $maybeExtId)", e)
     } }
 
-    private fun notifyRemote(event: FedyEvent, body: Any?) {
+    private fun notify(event: FedyEvent, body: Any?) {
         val MAX_RETRY = 3
         val body = body?.toJson() ?: "{}"
         var retry = 0
