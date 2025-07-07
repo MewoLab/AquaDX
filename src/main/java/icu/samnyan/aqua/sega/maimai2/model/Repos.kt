@@ -104,6 +104,7 @@ interface Mai2UserPlaylogRepo : GenericPlaylogRepo<Mai2UserPlaylog>, Mai2UserLin
         musicId: Int,
         userPlayDate: String
     ): MutableList<Mai2UserPlaylog>
+    fun findByUserAndUserPlayDateAfter(user: Mai2UserDetail, userPlayDate: String): List<Mai2UserPlaylog>
 }
 
 interface Mai2UserPrintDetailRepo : JpaRepository<Mai2UserPrintDetail, Long>

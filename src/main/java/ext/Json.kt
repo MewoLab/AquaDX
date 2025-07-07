@@ -8,6 +8,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonNamingStrategy
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 // Jackson
 val ACCEPTABLE_FALSE = setOf("0", "false", "no", "off", "False", "None", "null")
@@ -21,7 +23,13 @@ val JSON_FUZZY_BOOLEAN = SimpleModule().addDeserializer(Boolean::class.java, obj
 })
 val JSON_DATETIME = SimpleModule().addDeserializer(java.time.LocalDateTime::class.java, object : JsonDeserializer<java.time.LocalDateTime>() {
     override fun deserialize(parser: JsonParser, context: DeserializationContext) =
-        parser.text.asDateTime() ?: (400 - "Invalid date time value ${parser.text}")
+        // First try standard formats via asDateTime() method
+        parser.text.asDateTime() ?: try {
+            // Try maimai2 format (yyyy-MM-dd HH:mm:ss.0)
+            LocalDateTime.parse(parser.text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0"))
+        } catch (e: Exception) {
+            400 - "Invalid date time value ${parser.text}"
+        }
 })
 val JACKSON = jacksonObjectMapper().apply {
     setSerializationInclusion(JsonInclude.Include.NON_NULL)

@@ -92,7 +92,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
                     AVG(p.achievement) / 10000.0 AS acc,
                     SUM(p.is_full_combo) AS fc,
                     SUM(p.is_all_perfect) AS ap,
-                    c.ranking_banned or a.opt_out_of_leaderboard AS hide,
+                    c.ranking_banned or a.opt_out_of_leaderboard or c.status = 12 AS hide,
                     a.username
                 FROM ${tableName}_user_playlog_view p
                      JOIN ${tableName}_user_data_view u ON p.user_id = u.id
