@@ -183,6 +183,7 @@ export const EN_REF_SETTINGS = {
   'settings.profile.logout': 'Log out',
   'settings.profile.unchanged': 'Unchanged',
   'settings.export': 'Export Player Data',
+  'settings.batchManualExport': "Export in Batch Manual (for Tachi)",
   'settings.cabNotice': "Note: These settings will only affect your own cab/setup. If you're playing on someone else's setup, please contact them to change these settings.",
   'settings.gameNotice': "These only apply to Mai and Wacca."
 }

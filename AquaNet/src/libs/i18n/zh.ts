@@ -195,6 +195,7 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.profile.logout': '登出',
   'settings.profile.unchanged': '未更改',
   'settings.export': '导出玩家数据',
+  'settings.batchManualExport': "导出 Batch Manual 格式（用于 Tachi）",
   'settings.cabNotice': '注意：下面这些设置只会影响你自己的机器，如果你是在其他人的机器上玩的话，请联系机主来改设置',
   'settings.gameNotice': "这些设置仅对舞萌和华卡生效。",
 }
