@@ -156,24 +156,27 @@
         let noteLamp = null;
 
         if (level in DIFFICULTY_MAP) {
-          if (CATASTROPHY_SKILL_IDS.includes(score.skillId)) {
-            clearLamp = "CATASTROPHY"
-          }
-          else if (ABSOLUTE_SKILL_IDS.includes(score.skillId)) {
-            clearLamp = "ABSOLUTE"
-          }
-          else if (BRAVE_SKILL_IDS.includes(score.skillId)) {
-            clearLamp = "BRAVE"
-          }
-          else if (HARD_SKILL_IDS.includes(score.skillId)) {
-            clearLamp = "HARD"
-          }
-          else if (score.isClear) {
-            clearLamp = "CLEAR"
+          if (score.isClear) {
+            if (CATASTROPHY_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "CATASTROPHY";
+            }
+            else if (ABSOLUTE_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "ABSOLUTE";
+            }
+            else if (BRAVE_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "BRAVE";
+            }
+            else if (HARD_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "HARD";
+            }
+            else {
+              clearLamp = "CLEAR";
+            }
           }
           else {
-            clearLamp = "FAILED"
+            clearLamp = "FAILED";
           }
+
           
           if (score.isAllPerfect) {
             noteLamp = "ALL JUSTICE CRITICAL"
@@ -198,7 +201,7 @@
               "attack": score.judgeAttack,
               "miss": score.judgeGuilty
             },
-            "matchType": "inGameId",
+            "matchType": "inGameID",
             "identifier": score.musicId.toString(),
             "difficulty": DIFFICULTY_MAP[level],
             "timeAchieved": new Date(score.userPlayDate).getTime(),
