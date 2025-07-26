@@ -29,6 +29,7 @@ class UserRegistrar(
     val geoIP: GeoIP,
     val jwt: JWT,
     val confirmationRepo: EmailConfirmationRepo,
+    val resetPasswordRepo: ResetPasswordRepo,
     val cardRepo: CardRepository,
     val cardService: CardService,
     val validator: AquaUserServices,
@@ -142,6 +143,53 @@ class UserRegistrar(
         log.info("> Login success: ${user.username} ${user.auId}")
 
         return mapOf("token" to token)
+    }
+
+    @API("/reset-password")
+    @Doc("Reset password with a token sent through email to the user, if it exists.", "Success message") // wtf is the second param in this annotation?
+    suspend fun resetPassword(
+        @RP email: Str, @RP turnstile: Str,
+        request: HttpServletRequest
+    ) : Any {
+
+        // Check captcha
+        val ip = geoIP.getIP(request)
+        log.info("Net: /user/reset-password from $ip : $email")
+        if (!turnstileService.validate(turnstile, ip)) 400 - "Invalid captcha"
+
+        // Check if user exists, treat as email / username
+        val user = async { userRepo.findByEmailIgnoreCase(email) ?: userRepo.findByUsernameIgnoreCase(email) }
+            ?: return SUCCESS // obviously dont tell them if the email exists or not
+        
+        // Check if email is verified
+        if (!user.emailConfirmed && emailProps.enable) 400 - "Email not verified" // maybe similar logic to login here
+
+        // Send a password reset email
+        emailService.sendPasswordReset(user)
+        
+        return SUCCESS
+    }
+
+    @API("/change-password")
+    @Doc("Change a user's password given a reset code", "Success message") // again have no idea what it is
+    suspend fun changePassword(
+        @RP token: Str, @RP password: Str,
+        request: HttpServletRequest
+    ) : Any {
+        
+        // Find the reset token
+        val reset = async { resetPasswordRepo.findByToken(token) }
+
+        // Check if the token is valid
+        if (reset == null) 400 - "Invalid token"
+
+        // Check if the token is expired
+        if (reset.createdAt.plusSeconds(60 * 60 * 24).isBefore(Instant.now())) 400 - "Token expired"
+
+        // Change the password
+        async { userRepo.save(reset.aquaNetUser.apply { pwHash = validator.checkPwHash(password) }) } // how... 
+
+        return SUCCESS
     }
 
     @API("/confirm-email")

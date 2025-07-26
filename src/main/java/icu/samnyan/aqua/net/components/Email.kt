@@ -5,6 +5,7 @@ import ext.Str
 import ext.logger
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.EmailConfirmation
+import icu.samnyan.aqua.net.db.PasswordReset
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
@@ -38,10 +39,13 @@ class EmailService(
     val mailer: Mailer,
     val props: EmailProperties,
     val confirmationRepo: EmailConfirmationRepo,
+    val resetPasswordRepo: ResetPasswordRepo,
 ) {
     val log = logger()
     val confirmTemplate: Str = this::class.java.getResource("/email/confirm.html")?.readText()
-        ?: throw Exception("Email Template Not Found")
+        ?: throw Exception("Email Confirm Template Not Found")
+    val resetTemplate: Str = this::class.java.getResource("/email/reset.html")?.readText()
+        ?: throw Exception("Password Reset Template Not Found")
 
     @Async
     @EventListener(ApplicationStartedEvent::class)
@@ -78,6 +82,26 @@ class EmailService(
                 .replace("{{name}}", user.computedName)
                 .replace("{{url}}", "https://${props.webHost}/verify?code=$token"))
             .buildEmail()).thenRun { log.info("Verification email sent to ${user.email}") }
+    }
+
+    fun sendPasswordReset (user: AquaNetUser) {
+        if (!props.enable) return
+
+        // Generate token (UUID4)
+        val token = UUID.randomUUID().toString()
+        val reset = ResetPassword(token = token, aquaNetUser = user, createdAt = Date().toInstant())
+        resetPasswordRepo.save(reset)
+
+        // Send email
+        log.info("Sending reset password email to ${user.email}")
+        mailer.sendMail(EmailBuilder.startingBlank()
+            .from(props.senderName, props.senderAddr)
+            .to(user.computedName, user.email)
+            .withSubject("Reset Your Password for AquaNet")
+            .withHTMLText(resetTemplate
+                .replace("{{name}}", user.computedName)
+                .replace("{{url}}", "https://${props.webHost}/reset-password?code=$token"))
+            .buildEmail()).thenRun { log.info("Reset password email sent to ${user.email}") }
     }
 
     fun testEmail(addr: Str, name: Str) {

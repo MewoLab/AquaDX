@@ -20,31 +20,33 @@
 
   let error = ""
   let verifyMsg = ""
+  let code = ""
 
   if (USER.isLoggedIn()) {
     window.location.href = "/home"
   }
-if (location.pathname !== '/') {
-    location.href = `/${params.get('code') ? `?code=${params.get('code')}` : ""}`
-  } else
-    if (params.get('code')) {
-
+  if (params.get('code')) {
+    code = params.get('code')!
+    if (location.pathname === '/verify') {
       state = 'verify'
       verifyMsg = t("welcome.verifying")
       submitting = true
 
       // Send request to server
-      USER.confirmEmail(params.get('code')!)
+      USER.confirmEmail(code)
         .then(() => {
           verifyMsg = t('welcome.verified')
           submitting = false
 
-          // Clear the query param
-          window.history.replaceState({}, document.title, window.location.pathname)
-        })
-        .catch(e => verifyMsg = t('welcome.verification-failed', { message: e.message }))
+        // Clear the query param
+        window.history.replaceState({}, document.title, window.location.pathname)
+      })
+      .catch(e => verifyMsg = t('welcome.verification-failed', { message: e.message }))
     }
-
+    else if (location.pathname === '/reset-password') {
+      state = 'reset'
+    }
+  }
   async function submit(): Promise<any> {
     submitting = true
 
@@ -111,6 +113,52 @@ if (location.pathname !== '/') {
     submitting = false
   }
 
+  async function resetPassword(): Promise<any> {
+    submitting = true;
+
+    if (email === "") {
+      error = t("welcome.email-missing")
+      return submitting = false
+    }
+
+    // Send request to server
+    await USER.resetPassword({ email, turnstile })
+      .then(() => {
+          // Show email sent message, reusing email verify page
+          state = 'verify'
+          verifyMsg = t("welcome.reset-password-sent", { email })
+        })
+      .catch(e => {
+          error = e.message
+          submitting = false
+          turnstileReset()
+        })
+
+    submitting = false;
+  }
+
+  async function changePassword(): Promise<any> {
+    submitting = true
+
+    if (password === "") {
+      error = t("welcome.password-missing")
+      return submitting = false
+    }
+
+    // Send request to server
+    await USER.changePassword({ code, password })
+      .then(() => {
+        verifyMsg = t("welcome.password-reset-done")
+      })
+      .catch(e => {
+        error = e.message
+        submitting = false
+        turnstileReset()
+      })
+
+    submitting = false
+  }
+
 </script>
 
 <main id="home" class="no-margin">
@@ -143,6 +191,9 @@ if (location.pathname !== '/') {
             {isSignup ? t('welcome.btn-signup') : t('welcome.btn-login')}
           {/if}
         </button>
+        {#if !submitting}
+          <button on:click={() => state = 'submitreset'}>{t('welcome.btn-reset-password')}</button>
+        {/if}
         {#if TURNSTILE_SITE_KEY}
         <Turnstile siteKey={TURNSTILE_SITE_KEY} bind:reset={turnstileReset}
                    on:turnstile-callback={e => console.log(turnstile = e.detail.token)}
@@ -151,12 +202,49 @@ if (location.pathname !== '/') {
                    on:turnstile-timeout={_ => console.log(error = t('welcome.turnstile-timeout'))} />
         {/if}
       </div>
+    {:else if state === "submitreset"}
+      <div class="login-form" transition:slide>
+        {#if error}
+            <span class="error">{error}</span>
+          {/if}
+          <div on:click={() => state = 'home'} on:keypress={() => state = 'home'}
+              role="button" tabindex="0" class="clickable">
+            <Icon icon="line-md:chevron-small-left" />
+            <span>{t('back')}</span>
+          </div>
+          <input type="email" placeholder={t('email')} bind:value={email}>
+          <button on:click={resetPassword}>
+            {#if submitting}
+              <Icon icon="line-md:loading-twotone-loop"/>
+            {:else}
+              {t('welcome.btn-submit-reset-password')}
+            {/if}
+          </button>
+          {#if TURNSTILE_SITE_KEY}
+          <Turnstile siteKey={TURNSTILE_SITE_KEY} bind:reset={turnstileReset}
+                    on:turnstile-callback={e => console.log(turnstile = e.detail.token)}
+                    on:turnstile-error={_ => console.log(error = t("welcome.turnstile-error"))}
+                    on:turnstile-expired={_ => window.location.reload()}
+                    on:turnstile-timeout={_ => console.log(error = t('welcome.turnstile-timeout'))} />
+          {/if}
+      </div>
     {:else if state === "verify"}
       <div class="login-form" transition:slide>
         <span>{verifyMsg}</span>
         {#if !submitting}
           <button on:click={() => state = 'home'} transition:slide>{t('back')}</button>
         {/if}
+      </div>
+    {:else if state === "reset"}
+      <div class="login-form" transition:slide>
+        <input type="password" placeholder={t('new-password')} bind:value={password}>
+          <button on:click={changePassword}>
+            {#if submitting}
+              <Icon icon="line-md:loading-twotone-loop"/>
+            {:else}
+              {t('welcome.btn-submit-new-password')}
+            {/if}
+          </button>
       </div>
     {/if}
   </div>
