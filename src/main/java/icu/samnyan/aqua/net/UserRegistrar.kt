@@ -33,6 +33,7 @@ class UserRegistrar(
     val cardService: CardService,
     val validator: AquaUserServices,
     val emailProps: EmailProperties,
+    val sessionRepo: SessionTokenRepo,
     final val paths: PathProps
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
@@ -185,6 +186,12 @@ class UserRegistrar(
 
             // Save the user
             userRepo.save(u)
+
+            // Clear all tokens if changing password
+            if (key == "pwHash")
+                sessionRepo.deleteAll(
+                    sessionRepo.findByAquaNetUserAuId(u.auId)
+                )
         }
 
         SUCCESS
