@@ -202,6 +202,11 @@ class UserRegistrar(
         // Change the password
         async { userRepo.save(reset.aquaNetUser.apply { pwHash = validator.checkPwHash(password) }) }
 
+        // Clear all sessions
+        sessionRepo.deleteAll(
+            sessionRepo.findByAquaNetUserAuId(reset.aquaNetUser.auId)
+        )
+
         return SUCCESS
     }
 
