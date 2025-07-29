@@ -20,20 +20,20 @@
 
   let error = ""
   let verifyMsg = ""
-  let code = ""
+  let token = ""
 
   if (USER.isLoggedIn()) {
     window.location.href = "/home"
   }
   if (params.get('code')) {
-    code = params.get('code')!
+    token = params.get('code')!
     if (location.pathname === '/verify') {
       state = 'verify'
       verifyMsg = t("welcome.verifying")
       submitting = true
 
       // Send request to server
-      USER.confirmEmail(code)
+      USER.confirmEmail(token)
         .then(() => {
           verifyMsg = t('welcome.verified')
           submitting = false
@@ -104,7 +104,7 @@
           }
           else {
             error = e.message
-            submitting = false
+            submitting = false // unnecessary? see line 113, same for both reset functions
             turnstileReset()
           }
         })
@@ -121,6 +121,12 @@
       return submitting = false
     }
 
+    if (TURNSTILE_SITE_KEY && turnstile === "") {
+      // Sleep for 100ms to allow Turnstile to finish
+      error = t("welcome.waiting-turnstile")
+      return setTimeout(resetPassword, 100)
+    }
+
     // Send request to server
     await USER.resetPassword({ email, turnstile })
       .then(() => {
@@ -129,12 +135,22 @@
           verifyMsg = t("welcome.reset-password-sent", { email })
         })
       .catch(e => {
-          error = e.message
-          submitting = false
-          turnstileReset()
+          if (e.message === "Reset request rejected - STATE_0") {
+            state = 'verify'
+            verifyMsg = t("welcome.reset-state-0")
+          }
+          else if (e.message === "Reset request rejected - STATE_1") {
+            state = 'verify'
+            verifyMsg = t("welcome.reset-state-1")
+          }
+          else {
+            error = e.message
+            submitting = false
+            turnstileReset()
+          }
         })
 
-    submitting = false;
+    submitting = false
   }
 
   async function changePassword(): Promise<any> {
@@ -145,9 +161,10 @@
       return submitting = false
     }
 
-    // Send request to server
-    await USER.changePassword({ code, password })
+    // Send request to server 
+    await USER.changePassword({ token, password })
       .then(() => {
+        state = 'verify'
         verifyMsg = t("welcome.password-reset-done")
       })
       .catch(e => {
@@ -174,11 +191,13 @@
         {#if error}
           <span class="error">{error}</span>
         {/if}
-        <div on:click={() => state = 'home'} on:keypress={() => state = 'home'}
-             role="button" tabindex="0" class="clickable">
-          <Icon icon="line-md:chevron-small-left" />
-          <span>{t('back')}</span>
-        </div>
+        {#if error != t("welcome.waiting-turnstile")}
+          <div on:click={() => state = 'home'} on:keypress={() => state = 'home'}
+              role="button" tabindex="0" class="clickable">
+            <Icon icon="line-md:chevron-small-left" />
+            <span>{t('back')}</span>
+          </div>
+        {/if}
         {#if isSignup}
           <input type="text" placeholder={t('username')} bind:value={username}>
         {/if}
@@ -191,7 +210,7 @@
             {isSignup ? t('welcome.btn-signup') : t('welcome.btn-login')}
           {/if}
         </button>
-        {#if !submitting}
+        {#if state === "login" && !submitting}
           <button on:click={() => state = 'submitreset'}>{t('welcome.btn-reset-password')}</button>
         {/if}
         {#if TURNSTILE_SITE_KEY}
@@ -207,11 +226,13 @@
         {#if error}
             <span class="error">{error}</span>
           {/if}
-          <div on:click={() => state = 'home'} on:keypress={() => state = 'home'}
-              role="button" tabindex="0" class="clickable">
-            <Icon icon="line-md:chevron-small-left" />
-            <span>{t('back')}</span>
-          </div>
+          {#if error != t("welcome.waiting-turnstile")}
+            <div on:click={() => state = 'login'} on:keypress={() => state = 'login'}
+                role="button" tabindex="0" class="clickable">
+              <Icon icon="line-md:chevron-small-left" />
+              <span>{t('back')}</span>
+            </div>
+          {/if}
           <input type="email" placeholder={t('email')} bind:value={email}>
           <button on:click={resetPassword}>
             {#if submitting}
@@ -236,7 +257,10 @@
         {/if}
       </div>
     {:else if state === "reset"}
-      <div class="login-form" transition:slide>
+      {#if error}
+        <span class="error">{error}</span>
+      {/if}
+      <div class="login-form" transition:slide> 
         <input type="password" placeholder={t('new-password')} bind:value={password}>
           <button on:click={changePassword}>
             {#if submitting}

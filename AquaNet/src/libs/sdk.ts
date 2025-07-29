@@ -167,7 +167,7 @@ async function resetPassword(user: { email: string, turnstile: string }) {
   return await post('api/v2/user/reset-password', user)
 }
 
-async function changePassword(user: { code: string, password: string }) {
+async function changePassword(user: { token: string, password: string }) {
   return await post('/api/v2/user/change-password', user)
 }
 

@@ -146,7 +146,7 @@ class UserRegistrar(
     }
 
     @API("/reset-password")
-    @Doc("Reset password with a token sent through email to the user, if it exists.", "Success message") // wtf is the second param in this annotation?
+    @Doc("Reset password with a token sent through email to the user, if it exists.", "Success message")
     suspend fun resetPassword(
         @RP email: Str, @RP turnstile: Str,
         request: HttpServletRequest
@@ -162,16 +162,28 @@ class UserRegistrar(
             ?: return SUCCESS // obviously dont tell them if the email exists or not
         
         // Check if email is verified
-        if (!user.emailConfirmed && emailProps.enable) 400 - "Email not verified" // maybe similar logic to login here
+        if (!user.emailConfirmed && emailProps.enable) 400 - "Email not verified"
+
+        val resets = async { resetPasswordRepo.findByAquaNetUserAuId(user.auId) }
+        val lasReset = resets.maxByOrNull { it.createdAt }
+
+        if (lastReset?.createdAt?.plusSeconds(60)?.isAfter(Instant.now()) == true) {
+            400 - "Reset request rejected - STATE_0"
+        }
+
+        // Check if we have sent more than 3 confirmation emails in the last 24 hours
+        if (confirmations.count { it.createdAt.plusSeconds(60 * 60 * 24).isAfter(Instant.now()) } > 3) {
+            400 - "Reset request rejected- STATE_1"
+        }
 
         // Send a password reset email
         emailService.sendPasswordReset(user)
-        
+    
         return SUCCESS
     }
 
     @API("/change-password")
-    @Doc("Change a user's password given a reset code", "Success message") // again have no idea what it is
+    @Doc("Change a user's password given a reset code", "Success message")
     suspend fun changePassword(
         @RP token: Str, @RP password: Str,
         request: HttpServletRequest
@@ -187,7 +199,7 @@ class UserRegistrar(
         if (reset.createdAt.plusSeconds(60 * 60 * 24).isBefore(Instant.now())) 400 - "Token expired"
 
         // Change the password
-        async { userRepo.save(reset.aquaNetUser.apply { pwHash = validator.checkPwHash(password) }) } // how... 
+        async { userRepo.save(reset.aquaNetUser.apply { pwHash = validator.checkPwHash(password) }) }
 
         return SUCCESS
     }

@@ -84,6 +84,9 @@ class EmailService(
             .buildEmail()).thenRun { log.info("Verification email sent to ${user.email}") }
     }
 
+    /**
+     * Send a reset password email to the user
+     */
     fun sendPasswordReset (user: AquaNetUser) {
         if (!props.enable) return
 
