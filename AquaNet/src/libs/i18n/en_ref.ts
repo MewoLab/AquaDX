@@ -50,15 +50,15 @@ export const EN_REF_Welcome = {
   'welcome.turnstile-timeout': 'Network verification timed out. Please try again.',
   'welcome.verification-sent': 'A verification email has been sent to ${email}. Please check your inbox!',
   'welcome.reset-password-sent': 'A password reset email has been sent to ${email}. Please check your inbox!',
-  'welcome.verify-state-0': 'You haven\'t verified your email. A verification email had been sent to your inbox less than a minute ago. Please check your inbox!',
-  'welcome.verify-state-1': 'You haven\'t verified your email. We\'ve already sent 3 emails over the last 24 hours so we\'ll not send another one. Please check your inbox!',
+  'welcome.verify-state-0': 'You haven\'t verified your email. A verification email has been sent to your inbox just now. Please check your inbox!',
+  'welcome.verify-state-1': 'You haven\'t verified your email. You have requested too many emails, please try again later.',
   'welcome.verify-state-2': 'You haven\'t verified your email. We just sent you another verification email. Please check your inbox!',
-  'welcome.reset-state-0': 'A reset email had been sent to your inbox less than a minute ago. Please check your inbox!',
-  'welcome.reset-state-1': 'We\'ve already sent 3 emails over the last 24 hours so we\'ll not send another one. Please check your inbox!',
+  'welcome.reset-state-0': 'A reset email has been sent to your inbox just now. Please check your inbox!',
+  'welcome.reset-state-1': 'Too many emails have been sent. Another will not be sent.',
   'welcome.verifying': 'Verifying your email... please wait.',
   'welcome.verified': 'Your email has been verified! You can now log in now.',
   'welcome.verification-failed': 'Verification failed: ${message}. Please try again.',
-  'welcome.password-reset-done': 'Your password has been changed! You can log in now.',
+  'welcome.password-reset-done': 'Your password has been updated! Please log back in.',
 }
 
 export const EN_REF_LEADERBOARD = {

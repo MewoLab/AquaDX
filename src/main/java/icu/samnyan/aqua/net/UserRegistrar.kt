@@ -166,14 +166,14 @@ class UserRegistrar(
         if (!user.emailConfirmed && emailProps.enable) 400 - "Email not verified"
 
         val resets = async { resetPasswordRepo.findByAquaNetUserAuId(user.auId) }
-        val lasReset = resets.maxByOrNull { it.createdAt }
+        val lastReset = resets.maxByOrNull { it.createdAt }
 
         if (lastReset?.createdAt?.plusSeconds(60)?.isAfter(Instant.now()) == true) {
             400 - "Reset request rejected - STATE_0"
         }
 
         // Check if we have sent more than 3 confirmation emails in the last 24 hours
-        if (confirmations.count { it.createdAt.plusSeconds(60 * 60 * 24).isAfter(Instant.now()) } > 3) {
+        if (resets.count { it.createdAt.plusSeconds(60 * 60 * 24).isAfter(Instant.now()) } > 3) {
             400 - "Reset request rejected- STATE_1"
         }
 

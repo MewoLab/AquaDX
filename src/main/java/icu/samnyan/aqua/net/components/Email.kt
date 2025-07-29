@@ -5,8 +5,9 @@ import ext.Str
 import ext.logger
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.EmailConfirmation
-import icu.samnyan.aqua.net.db.PasswordReset
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
+import icu.samnyan.aqua.net.db.ResetPassword
+import icu.samnyan.aqua.net.db.ResetPasswordRepo
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.springsupport.SimpleJavaMailSpringSupport
