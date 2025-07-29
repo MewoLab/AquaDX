@@ -70,7 +70,7 @@
         if (ubKey == 'namePlateId') ubKey = 'nameplateId'
         if (ubKey == 'systemVoiceId') ubKey = 'voiceId'
         return [{ iKey, ubKey: ubKey as keyof UserBox,
-          items: profile.items.filter(x => x.itemKind === iKind)
+          items: profile.items.filter(x => x.itemKind === iKind || (iKey == "trophy" && x.itemKind == 3))
         }]
       }
 
@@ -104,6 +104,125 @@
       .then(data => download(JSON.stringify(data), `AquaDX_chu3_export_${userbox.userName}.json`))
       .catch(e => error = e.message)
       .finally(() => submitting = "")
+  }
+
+  async function exportBatchManual() {
+    submitting = "batchExport"
+
+    const DIFFICULTY_MAP: Record<number, string> = {
+      0: "BASIC",
+      1: "ADVANCED",
+      2: "EXPERT",
+      3: "MASTER",
+      4: "ULTIMA"
+    } // WORLD'S END scores not supported by Tachi
+    const DAN_MAP: Record<number, string> = {
+      1: "DAN_I",
+      2: "DAN_II",
+      3: "DAN_III",
+      4: "DAN_IV",
+      5: "DAN_V",
+      6: "DAN_INFINITE"
+    }
+    const CATASTROPHY_SKILL_IDS: number[] = [100009, 102009, 103007]
+    const ABSOLUTE_SKILL_IDS: number[] = [100008, 101008, 102008, 103006]
+    const BRAVE_SKILL_IDS: number[] = [100007, 101007, 102007, 103005] // Needs to be updated every major version :(
+    const HARD_SKILL_IDS: number[] = [100005, 100006, 101004, 101005, 101006, 102004, 102005, 102006, 103002, 103003, 103004] // Shamelessly stolen from https://github.com/beer-psi/saekawa/commit/b3bee13e126df2f4e2a449bdf971debb8c95ba40
+
+    let data: any
+    let output: any = {
+      "meta": {
+        "game": "chunithm",
+        "playtype": "Single",
+        "service": "AquaDX-Manual"
+      },
+      "scores": [],
+      "classes": {}
+    }
+    
+    try {
+      data = await GAME.export('chu3');
+    }
+    catch (e) {
+      error = e.message;
+      submitting = ""
+      return;
+    }
+
+    if (data && "userPlaylogList" in data) {
+      for (let score of data.userPlaylogList) {
+        let level = score.level
+        let clearLamp = null;
+        let noteLamp = null;
+
+        if (level in DIFFICULTY_MAP) {
+          if (score.isClear) {
+            if (CATASTROPHY_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "CATASTROPHY";
+            }
+            else if (ABSOLUTE_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "ABSOLUTE";
+            }
+            else if (BRAVE_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "BRAVE";
+            }
+            else if (HARD_SKILL_IDS.includes(score.skillId)) {
+              clearLamp = "HARD";
+            }
+            else {
+              clearLamp = "CLEAR";
+            }
+          }
+          else {
+            clearLamp = "FAILED";
+          }
+
+          
+          if (score.isAllPerfect) {
+            noteLamp = "ALL JUSTICE CRITICAL"
+          }
+          else if (score.isAllJustice) {
+            noteLamp = "ALL JUSTICE"
+          }
+          else if (score.isFullCombo) {
+            noteLamp = "FULL COMBO"
+          }
+          else {
+            noteLamp = "NONE"
+          }
+
+          output.scores.push({
+            "score": score.score,
+            "clearLamp": clearLamp,
+            "noteLamp": noteLamp,
+            "judgements": {
+              "jcrit": score.judgeHeaven + score.judgeCritical,
+              "justice": score.judgeJustice,
+              "attack": score.judgeAttack,
+              "miss": score.judgeGuilty
+            },
+            "matchType": "inGameID",
+            "identifier": score.musicId.toString(),
+            "difficulty": DIFFICULTY_MAP[level],
+            "timeAchieved": new Date(score.userPlayDate).getTime(),
+            "optional": {
+              "maxCombo": score.maxCombo
+            }
+          })
+        }
+      }
+    }
+    
+    if (data.userData.classEmblemMedal in DAN_MAP) {
+      output.classes["dan"] = DAN_MAP[data.userData.classEmblemMedal]
+    }
+
+    if (data.userData.classEmblemBase in DAN_MAP) {
+      output.classes["emblem"] = DAN_MAP[data.userData.classEmblemBase]
+    }
+
+    download(JSON.stringify(output), `AquaDX_chu3_BatchManualExport_${userbox.userName}.json`)
+    submitting = ""
   }
 
   function download(data: string, filename: string) {
@@ -300,6 +419,10 @@
   <button class="exportButton" on:click={exportData}>
     <Icon icon="bxs:file-export"/>
     {t('settings.export')}
+  </button>
+  <button class="exportBatchManualButton" on:click={exportBatchManual}>
+    <Icon icon="bxs:file-export"/>
+    {t('settings.batchManualExport')}
   </button>
 </div>
 {/if}
