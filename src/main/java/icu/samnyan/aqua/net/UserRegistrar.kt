@@ -174,7 +174,7 @@ class UserRegistrar(
 
         // Check if we have sent more than 3 confirmation emails in the last 24 hours
         if (resets.count { it.createdAt.plusSeconds(60 * 60 * 24).isAfter(Instant.now()) } > 3) {
-            400 - "Reset request rejected- STATE_1"
+            400 - "Reset request rejected - STATE_1"
         }
 
         // Send a password reset email
