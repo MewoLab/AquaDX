@@ -112,7 +112,29 @@ fun OngekiController.initUser() {
     }
 
     "GetUserPreview" api@ {
-        val u = db.data.findByCard_ExtId(uid)() ?: return@api mapOf("userId" to uid, "lastPlayDate" to null)
+	    val u = db.data.findByCard_ExtId(uid)() ?: return@api mapOf(
+		    "userId" to uid,
+		    "isLogin" to false,
+		    "lastLoginDate" to "0000-00-00 00:00:00",
+		    "userName" to "",
+		    "reincarnationNum" to 0,
+		    "level" to 0,
+		    "exp" to 0,
+		    "playerRating" to 0,
+		    "lastGameId" to "",
+		    "lastRomVersion" to "",
+		    "lastDataVersion" to "",
+		    "lastPlayDate" to "",
+		    "nameplateId" to 0,
+		    "trophyId" to 0,
+		    "cardId" to 0,
+		    "dispPlayerLv" to 0,
+		    "dispRating" to 0,
+		    "dispBP" to 0,
+		    "headphone" to 0,
+		    "banStatus" to 0,
+		    "isWarningConfirmed" to true
+	    )
         val o = db.option.findSingleByUser(u)()
 
         val res = mutableMapOf(
