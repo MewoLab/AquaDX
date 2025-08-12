@@ -63,7 +63,7 @@ class JWT(
     @Transactional
     fun gen(user: AquaNetUser): Str {
         val activeTokens = sessionRepo.findByAquaNetUserAuId(user.auId)
-            .sortedByDescending { it.expiry }.drop(4) // the cap is 5, but we append a new token after the fact
+            .sortedByDescending { it.expiry }.drop(9) // the cap is 10, but we append a new token after the fact
         if (activeTokens.isNotEmpty()) {
             sessionRepo.deleteAll(activeTokens)
         }
