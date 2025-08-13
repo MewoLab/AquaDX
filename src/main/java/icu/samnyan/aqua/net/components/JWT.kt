@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.db.SessionToken
 import icu.samnyan.aqua.net.db.SessionTokenRepo
+import icu.samnyan.aqua.net.db.getTokenExpiry
 import io.jsonwebtoken.JwtParser
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
@@ -96,6 +97,10 @@ class JWT(
                     sessionRepo.delete(token)
                     return null
                 }
+
+                sessionRepo.save(token.apply{
+                    expiry = getTokenExpiry()
+                })
             }
 
             return token?.aquaNetUser

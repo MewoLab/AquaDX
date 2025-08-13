@@ -7,6 +7,8 @@ import java.io.Serializable
 import java.time.Instant
 import java.util.UUID
 
+fun getTokenExpiry() = Instant.now().plusSeconds(7 * 86400)
+
 @Entity
 @Table(name = "aqua_net_session")
 class SessionToken(
@@ -16,7 +18,7 @@ class SessionToken(
 
     // Token creation time
     @Column(nullable = false)
-    var expiry: Instant = Instant.now().plusSeconds(14 * 86400),
+    var expiry: Instant = getTokenExpiry(),
 
     // Linking to the AquaNetUser
     @ManyToOne
