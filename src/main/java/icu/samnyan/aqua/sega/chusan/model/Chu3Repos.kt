@@ -174,6 +174,10 @@ interface Chu3GameLoginBonusRepo : JpaRepository<GameLoginBonus, Int> {
     fun findByRequiredDays(version: Int, presetId: Int, requiredDays: Int): Optional<GameLoginBonus>
 }
 
+interface Chu3UserRegionsRepo: Chu3UserLinked<UserRegions> {
+    fun findByUserIdAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
+}
+
 @Component
 class Chu3Repos(
     val userLoginBonus: Chu3UserLoginBonusRepo,
@@ -191,6 +195,7 @@ class Chu3Repos(
     val userMap: Chu3UserMapRepo,
     val userMusicDetail: Chu3UserMusicDetailRepo,
     val userPlaylog: Chu3UserPlaylogRepo,
+    val userRegions: Chu3UserRegionsRepo,
     val userCMission: Chu3UserCMissionRepo,
     val userCMissionProgress: Chu3UserCMissionProgressRepo,
     val netBattleLog: Chu3NetBattleLogRepo,

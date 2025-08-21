@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.core.JsonGenerator
+import java.time.LocalDate
 
 @MappedSuperclass
 open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
@@ -549,6 +550,14 @@ class Mai2UserIntimate : Mai2UserEntity() {
     var partnerId = 1;
     var intimateLevel = 0;
     var intimateCountRewarded = 0;
+}
+
+@Entity(name = "Maimai2UserRegions")
+@Table(name = "maimai2_user_regions")
+class UserRegions : Mai2UserEntity() {
+    var regionId = 0
+    var playCount = 0
+    var created: String = LocalDate.now().toString()
 }
 
 val MAIMAI_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0")

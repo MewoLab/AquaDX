@@ -127,6 +127,10 @@ interface Mai2GameEventRepo : JpaRepository<Mai2GameEvent, Int> {
 
 interface Mai2GameSellingCardRepo : JpaRepository<Mai2GameSellingCard, Long>
 
+interface Mai2UserRegionsRepo: Mai2UserLinked<UserRegions> {
+    fun findByUserIdAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
+}
+
 @Component
 class Mai2Repos(
     val mapEncountNpc: Mai2MapEncountNpcRepo,
@@ -152,5 +156,6 @@ class Mai2Repos(
     val userIntimate: MAi2UserIntimateRepo,
     val gameCharge: Mai2GameChargeRepo,
     val gameEvent: Mai2GameEventRepo,
-    val gameSellingCard: Mai2GameSellingCardRepo
+    val gameSellingCard: Mai2GameSellingCardRepo,
+    val userRegions: Mai2UserRegionsRepo,
 )

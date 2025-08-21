@@ -69,4 +69,10 @@ fun OngekiController.ongekiInit() {
     "GetClientTestmode" {
         empty.staticLst("clientTestmodeList") + mapOf("placeId" to data["placeId"])
     }
+
+    "GetUserRegion" {
+        db.regions.findByUser_Card_ExtId(uid)
+            .map { mapOf("regionId" to it.regionId, "playCount" to it.playCount) }
+        .staticLst("userRegionList") + mapOf("userId" to uid)
+    }
 }
