@@ -9,7 +9,12 @@
   const prefectures = ["None","Aichi","Aomori","Akita","Ishikawa","Ibaraki","Iwate","Ehime","Oita","Osaka","Okayama","Okinawa","Kagawa","Kagoshima","Kanagawa","Gifu","Kyoto","Kumamoto","Gunma","Kochi","Saitama","Saga","Shiga","Shizuoka","Shimane","Chiba","Tokyo","Tokushima","Tochigi","Tottori","Toyama","Nagasaki","Nagano","Nara","Niigata","Hyogo","Hiroshima","Fukui","Fukuoka","Fukushima","Hokkaido","Mie","Miyagi","Miyazaki","Yamagata","Yamaguchi","Yamanashi","Wakayama"]
 
   USER.me().then(user => {
-    regionId = (parseInt(user.region)-1) || 0;
+    const parsedRegion = parseInt(user.region);
+    if (!isNaN(parsedRegion) && parsedRegion > 0) {
+      regionId = parsedRegion - 1;
+    } else {
+      regionId = 0;
+    }
   })
 
   async function saveNewRegion() {
