@@ -6,7 +6,7 @@
   let submitting = ""
   let error: string;
 
-  const prefectures = ["None","Aichi","Aomori","Akita","Ishikawa","Ibaraki","Iwate","Ehime","Oita","Osaka","Okayama","Okinawa","Kagawa","Kagoshima","Kanagawa","Gifu","Kyoto","Kumamoto","Gunma","Kochi","Saitama","Saga","Shiga","Shizuoka","Shimane","Chiba","Tokyo","Tokushima","Tochiga","Tottori","Toyama","Nagasaki","Nagano","Nara","Niigata","Hyogo","Hiroshima","Fukui","Fukuoka","Fukushima","Hokkaido","Mie","Miyagi","Miyazaki","Yamagata","Yamaguchi","Yamanashi","Wakayama"]
+  const prefectures = ["None","Aichi","Aomori","Akita","Ishikawa","Ibaraki","Iwate","Ehime","Oita","Osaka","Okayama","Okinawa","Kagawa","Kagoshima","Kanagawa","Gifu","Kyoto","Kumamoto","Gunma","Kochi","Saitama","Saga","Shiga","Shizuoka","Shimane","Chiba","Tokyo","Tokushima","Tochigi","Tottori","Toyama","Nagasaki","Nagano","Nara","Niigata","Hyogo","Hiroshima","Fukui","Fukuoka","Fukushima","Hokkaido","Mie","Miyagi","Miyazaki","Yamagata","Yamaguchi","Yamanashi","Wakayama"]
 
   USER.me().then(user => {
     regionId = (parseInt(user.region)-1) || 0;
