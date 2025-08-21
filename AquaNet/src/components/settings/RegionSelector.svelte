@@ -32,7 +32,7 @@
     <span class="desc">{ts(`settings.regionSelector.desc`)}</span>
   </label>
   <select bind:value={regionId} on:change={saveNewRegion}>
-    <option value="" disabled selected>{ts("settings.regionSelector.select")}</option>
+    <option value={0} disabled selected>{ts("settings.regionSelector.select")}</option>
     {#each prefectures.filter(p=>p!=="None") as prefecture, index}
       <option value={index}>{prefecture}</option>
     {/each}

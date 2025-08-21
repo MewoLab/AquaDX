@@ -515,7 +515,10 @@ class UserSkin : OngekiUserEntity() {
 }
 
 @Entity(name = "OngekiUserRegions")
-@Table(name = "ongeki_user_regions")
+@Table(
+    name = "ongeki_user_regions",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "regionId"])]
+)
 class UserRegions : OngekiUserEntity() {
     var regionId = 0
     var playCount = 0

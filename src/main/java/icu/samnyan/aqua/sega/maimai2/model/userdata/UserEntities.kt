@@ -452,9 +452,9 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
         get() = maxCombo == totalCombo
 
     override val isAllPerfect: Boolean
-        get() = tapMiss + tapGood + tapGreat == 0 && 
-            holdMiss + holdGood + holdGreat == 0 && 
-            slideMiss + slideGood + slideGreat == 0 && 
+        get() = tapMiss + tapGood + tapGreat == 0 &&
+            holdMiss + holdGood + holdGreat == 0 &&
+            slideMiss + slideGood + slideGreat == 0 &&
             touchMiss + touchGood + touchGreat == 0 &&
             breakMiss + breakGood + breakGreat == 0
 }
@@ -553,7 +553,10 @@ class Mai2UserIntimate : Mai2UserEntity() {
 }
 
 @Entity(name = "Maimai2UserRegions")
-@Table(name = "maimai2_user_regions")
+@Table(
+    name = "maimai2_user_regions",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "region_id"])]
+)
 class UserRegions : Mai2UserEntity() {
     var regionId = 0
     var playCount = 0
