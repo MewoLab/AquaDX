@@ -115,7 +115,7 @@
       2: "EXPERT",
       3: "MASTER",
       4: "ULTIMA"
-    } // WORLD'S END scores not supported by Tachi
+    } as const // WORLD'S END scores not supported by Tachi
     const DAN_MAP: Record<number, string> = {
       1: "DAN_I",
       2: "DAN_II",
@@ -123,11 +123,35 @@
       4: "DAN_IV",
       5: "DAN_V",
       6: "DAN_INFINITE"
-    }
-    const CATASTROPHY_SKILL_IDS: number[] = [100009, 102009, 103007]
-    const ABSOLUTE_SKILL_IDS: number[] = [100008, 101008, 102008, 103006]
-    const BRAVE_SKILL_IDS: number[] = [100007, 101007, 102007, 103005] // Needs to be updated every major version :(
-    const HARD_SKILL_IDS: number[] = [100005, 100006, 101004, 101005, 101006, 102004, 102005, 102006, 103002, 103003, 103004] // Shamelessly stolen from https://github.com/beer-psi/saekawa/commit/b3bee13e126df2f4e2a449bdf971debb8c95ba40
+    } as const
+    const SKILL_IDS: Record<number, string> = {
+      100009: 'CATASTROPHY',
+      102009: 'CATASTROPHY',
+      103007: 'CATASTROPHY',
+
+      100008: 'ABSOLUTE',
+      101008: 'ABSOLUTE',
+      102008: 'ABSOLUTE',
+      103006: 'ABSOLUTE',
+
+      100007: 'BRAVE',
+      101007: 'BRAVE',
+      102007: 'BRAVE',
+      103005: 'BRAVE',
+
+      100005: 'HARD',
+      100006: 'HARD',
+      101004: 'HARD',
+      101005: 'HARD',
+      101006: 'HARD',
+      102004: 'HARD',
+      102005: 'HARD',
+      102006: 'HARD',
+      103002: 'HARD',
+      103003: 'HARD',
+      103004: 'HARD'
+    } as const
+    // Shamelessly stolen from https://github.com/beer-psi/saekawa/commit/b3bee13e126df2f4e2a449bdf971debb8c95ba40, needs to be updated every major version :(
 
     let data: any
     let output: any = {
@@ -139,46 +163,30 @@
       "scores": [],
       "classes": {}
     }
-    
+
     try {
-      data = await GAME.export('chu3');
+      data = await GAME.export('chu3')
     }
     catch (e) {
-      error = e.message;
+      error = e.message
       submitting = ""
-      return;
+      return
     }
 
     if (data && "userPlaylogList" in data) {
       for (let score of data.userPlaylogList) {
-        let level = score.level
-        let clearLamp = null;
-        let noteLamp = null;
+        let clearLamp = null
+        let noteLamp = null
 
-        if (level in DIFFICULTY_MAP) {
+        if (score.level in DIFFICULTY_MAP) {
           if (score.isClear) {
-            if (CATASTROPHY_SKILL_IDS.includes(score.skillId)) {
-              clearLamp = "CATASTROPHY";
-            }
-            else if (ABSOLUTE_SKILL_IDS.includes(score.skillId)) {
-              clearLamp = "ABSOLUTE";
-            }
-            else if (BRAVE_SKILL_IDS.includes(score.skillId)) {
-              clearLamp = "BRAVE";
-            }
-            else if (HARD_SKILL_IDS.includes(score.skillId)) {
-              clearLamp = "HARD";
-            }
-            else {
-              clearLamp = "CLEAR";
-            }
+            clearLamp = score.skillId in SKILL_IDS ? SKILL_IDS[score.skillId] : "CLEAR"
           }
           else {
-            clearLamp = "FAILED";
+            clearLamp = "FAILED"
           }
 
-          
-          if (score.isAllPerfect) {
+          if (score.score === 1010000) {
             noteLamp = "ALL JUSTICE CRITICAL"
           }
           else if (score.isAllJustice) {
@@ -203,8 +211,8 @@
             },
             "matchType": "inGameID",
             "identifier": score.musicId.toString(),
-            "difficulty": DIFFICULTY_MAP[level],
-            "timeAchieved": new Date(score.userPlayDate).getTime(),
+            "difficulty": DIFFICULTY_MAP[score.level],
+            "timeAchieved": score.sortNumber * 1000,
             "optional": {
               "maxCombo": score.maxCombo
             }
@@ -212,7 +220,7 @@
         }
       }
     }
-    
+
     if (data.userData.classEmblemMedal in DAN_MAP) {
       output.classes["dan"] = DAN_MAP[data.userData.classEmblemMedal]
     }

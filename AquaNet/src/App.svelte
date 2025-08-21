@@ -80,6 +80,7 @@
 <Router {url}>
   <Route path="/" component={Welcome} />
   <Route path="/verify" component={Welcome} /> <!-- For email verification only, backwards compatibility with AquaNet2 in the future -->
+  <Route path="/reset-password" component={Welcome} />
   <Route path="/home" component={Home} />
   <Route path="/ranking" component={Ranking} />
   <Route path="/ranking/:game" component={Ranking} />

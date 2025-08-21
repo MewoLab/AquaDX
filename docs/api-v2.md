@@ -59,7 +59,7 @@ Located at: [icu.samnyan.aqua.net.UserRegistrar](icu/samnyan/aqua/net/UserRegist
 * token: String
 * **Returns**: User information
 
-**/user/login** : Login with email/username and password. This will also check if the email is verified and send another confirmation
+**/user/login** : Login with email/username and password. This will also check if the email is verified and send another confirmation.
 
 * email: String
 * password: String
@@ -73,6 +73,18 @@ Located at: [icu.samnyan.aqua.net.UserRegistrar](icu/samnyan/aqua/net/UserRegist
 * password: String
 * turnstile: String
 * **Returns**: Success message
+
+**/user/reset-password** : Send the user a reset password email. This will also check if the email is verified or if many requests were sent recently.
+
+* email: String
+* turnstile: String
+* **Returns** Success message
+
+**/user/change-password** : Reset a user's password with a token sent through email to the user.
+
+* token: String
+* password: String
+* **Returns** Success message
 
 **/user/setting** : Validate and set a user setting field.
 
