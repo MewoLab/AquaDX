@@ -175,7 +175,7 @@ interface Chu3GameLoginBonusRepo : JpaRepository<GameLoginBonus, Int> {
 }
 
 interface Chu3UserRegionsRepo: Chu3UserLinked<UserRegions> {
-    fun findByUserIdAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
+    fun findByUserAndRegionId(user: Chu3UserData, regionId: Int): UserRegions?
 }
 
 @Component

@@ -9,6 +9,6 @@ import java.time.LocalDate
 @Table(name = "chusan_user_regions", uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "region_id"])])
 class UserRegions : Chu3UserEntity() {
     var regionId = 0
-    var playCount = 0
+    var playCount = 1
     var created: String = LocalDate.now().toString()
 }

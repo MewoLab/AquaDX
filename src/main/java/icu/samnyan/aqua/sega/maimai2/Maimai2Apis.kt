@@ -11,6 +11,8 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.UserRegions
 import java.time.LocalDate
 
 fun Maimai2ServletController.initApis() {
+    val log = logger()
+
     "GetUserExtend" { mapOf(
         "userId" to uid,
         "userExtend" to (db.userExtend.findSingleByUser_Card_ExtId(uid)() ?: (404 - "User not found"))
@@ -138,26 +140,15 @@ fun Maimai2ServletController.initApis() {
         // Get regionId from request
         val region = data["regionId"] as? Int
 
-        // TODO: move this out of login pls
-        if (region!=null && region > 0 && d != null) {
-            val userRegion = db.userRegions.findByUserAndRegionId(d.id, region)
-            if (userRegion.isPresent) {
-                userRegion.get().apply {
-                    playCount += 1
-                    db.userRegions.save(this)
-                }
-            } else {
-                logger().info("user: $d")
-                logger().info("region: $region")
-
-//                Create a new user region row
-                //                Crea una nueva fila de región de usuario
-                db.userRegions.save(UserRegions().apply {
-                    user = d
-                    regionId = region
-                    playCount = 1
-                })
+        // Only save if it is a valid region and the user has played at least a song
+        if (region != null && region > 0 && d != null) {
+            val region = db.userRegions.findByUserAndRegionId(d, region)?.apply {
+                playCount += 1
+            } ?: UserRegions().apply {
+                user = d
+                regionId = region
             }
+            db.userRegions.save(region)
         }
 
         res

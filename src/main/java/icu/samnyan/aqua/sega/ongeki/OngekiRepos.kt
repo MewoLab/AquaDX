@@ -148,7 +148,7 @@ interface OgkUserTrainingRoomRepo : OngekiUserLinked<UserTrainingRoom> {
 }
 
 interface OgkUserRegionsRepo: OngekiUserLinked<UserRegions> {
-    fun findByUserIdAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
+    fun findByUserAndRegionId(user: UserData, regionId: Int): UserRegions?
 }
 
 // Re:Fresh

@@ -559,7 +559,7 @@ class Mai2UserIntimate : Mai2UserEntity() {
 )
 class UserRegions : Mai2UserEntity() {
     var regionId = 0
-    var playCount = 0
+    var playCount = 1
     var created: String = LocalDate.now().toString()
 }
 

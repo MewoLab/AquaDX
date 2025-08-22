@@ -40,19 +40,13 @@ fun OngekiController.initUpsertAll() {
 
         // Only save if it is a valid region and the user has played at least a song
         if (region > 0 && all.userPlaylogList?.isNotEmpty() == true) {
-            val userRegion = db.regions.findByUserIdAndRegionId(u.id, region)
-            if (userRegion.isPresent) {
-                userRegion.get().apply {
-                    playCount += 1
-                    db.regions.save(this)
-                }
-            } else {
-                db.regions.save(UserRegions().apply {
-                    user = u
-                    regionId = region
-                    playCount = 1
-                })
+            val region = db.regions.findByUserAndRegionId(u, region)?.apply {
+                playCount += 1
+            } ?:UserRegions().apply {
+                user = u
+                regionId = region
             }
+            db.regions.save(region)
         }
 
         all.run {

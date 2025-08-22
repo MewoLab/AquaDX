@@ -521,6 +521,6 @@ class UserSkin : OngekiUserEntity() {
 )
 class UserRegions : OngekiUserEntity() {
     var regionId = 0
-    var playCount = 0
+    var playCount = 1
     var created: String = LocalDate.now().toString()
 }

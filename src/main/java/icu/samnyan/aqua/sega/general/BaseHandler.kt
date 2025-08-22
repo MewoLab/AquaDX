@@ -33,7 +33,10 @@ data class PagedProcessor(val add: JDict?, val fn: PagedHandler, var post: PageP
 // A very :3 way of declaring APIs
 abstract class MeowApi(val serialize: (String, Any) -> String) {
     val initH = mutableMapOf<String, SpecialHandler>()
-    infix operator fun String.invoke(fn: SpecialHandler) = initH.set("${this}Api", fn)
+    infix operator fun String.invoke(fn: SpecialHandler) {
+        if (initH.containsKey("${this}Api")) error("Duplicate API $this found! Someone is not smart 👀")
+        initH["${this}Api"] = fn
+    }
     infix fun String.static(fn: () -> Any) = serialize(this, fn()).let { resp -> this { resp } }
 
     // Page Cache: {cache key: (timestamp, full list)}
