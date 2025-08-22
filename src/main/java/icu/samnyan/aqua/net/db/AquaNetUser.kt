@@ -43,10 +43,6 @@ class AquaNetUser(
     @Column(length = 3)
     var country: String = "",
 
-    // Region code at most 2 characters
-    @Column(length = 2)
-    var region: String = "",
-
     // Last login time
     var lastLogin: Long = 0L,
 

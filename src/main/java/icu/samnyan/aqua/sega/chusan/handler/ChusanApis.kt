@@ -288,12 +288,6 @@ fun ChusanController.chusanInit() {
         )
     }
 
-    "GetUserRegion" {
-        db.userRegions.findByUser_Card_ExtId(uid)
-            .map { mapOf("regionId" to it.regionId, "playCount" to it.playCount) }
-            .let { mapOf("userId" to uid, "userRegionList" to it) }
-    }
-
     // Game settings
     "GetGameSetting" {
         val version = data["version"].toString()

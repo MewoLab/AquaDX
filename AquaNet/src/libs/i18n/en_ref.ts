@@ -195,11 +195,7 @@ export const EN_REF_SETTINGS = {
   'settings.export': 'Export Player Data',
   'settings.batchManualExport': "Export in Batch Manual (for Tachi)",
   'settings.cabNotice': "Note: These settings will only affect your own cab/setup. If you're playing on someone else's setup, please contact them to change these settings.",
-  'settings.gameNotice': "These only apply to Mai and Wacca.",
-  'settings.regionNotice': "These only apply to Mai, Ongeki and Chuni.",
-  'settings.regionSelector.title': "Prefecture Selector",
-  'settings.regionSelector.desc': "Select the region where you want the game to think you are playing",
-  'settings.regionSelector.select': "Select Prefecture",
+  'settings.gameNotice': "These only apply to Mai and Wacca."
 }
 
 export const EN_REF_USERBOX = {

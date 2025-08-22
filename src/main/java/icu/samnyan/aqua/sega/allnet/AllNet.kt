@@ -103,7 +103,6 @@ class AllNet(
         // encode UTF-8, format_ver 3, hops 1， token 2010451813
         val reqMap = decodeAllNet(dataStream.readAllBytes())
         val serial = reqMap["serial"] ?: ""
-        var region = props.map.mut["region0"] ?: "1"
         logger.info("AllNet /PowerOn : $reqMap")
 
         var session: String? = null
@@ -115,10 +114,6 @@ class AllNet(
             if (u != null) {
                 // Create a new session for the user
                 logger.info("> Keychip authenticated: ${u.auId} ${u.computedName}")
-                // If the user defined its own region apply it
-                if (u.region.isNotBlank()) {
-                    region = u.region
-                }
                 session = keychipSessionService.new(u, reqMap["game_id"] ?: "").token
             }
 
@@ -145,7 +140,6 @@ class AllNet(
         val resp = props.map.mut + mapOf(
             "uri" to switchUri(here, localPort, gameId, ver, session),
             "host" to props.host.ifBlank { here },
-            "region0" to region
         )
 
         // Different responses for different versions

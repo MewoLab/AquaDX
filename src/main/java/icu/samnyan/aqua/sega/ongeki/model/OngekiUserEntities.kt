@@ -7,7 +7,6 @@ import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
 import jakarta.persistence.*
-import java.time.LocalDate
 
 @MappedSuperclass
 class OngekiUserEntity : BaseEntity(), IUserEntity<UserData> {
@@ -512,15 +511,4 @@ class UserSkin : OngekiUserEntity() {
     var cardId1 = 0
     var cardId2 = 0
     var cardId3 = 0
-}
-
-@Entity(name = "OngekiUserRegions")
-@Table(
-    name = "ongeki_user_regions",
-    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "regionId"])]
-)
-class UserRegions : OngekiUserEntity() {
-    var regionId = 0
-    var playCount = 0
-    var created: String = LocalDate.now().toString()
 }

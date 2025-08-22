@@ -21,7 +21,6 @@ import java.time.format.DateTimeFormatter
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.core.JsonGenerator
-import java.time.LocalDate
 
 @MappedSuperclass
 open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
@@ -452,9 +451,9 @@ class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
         get() = maxCombo == totalCombo
 
     override val isAllPerfect: Boolean
-        get() = tapMiss + tapGood + tapGreat == 0 &&
-            holdMiss + holdGood + holdGreat == 0 &&
-            slideMiss + slideGood + slideGreat == 0 &&
+        get() = tapMiss + tapGood + tapGreat == 0 && 
+            holdMiss + holdGood + holdGreat == 0 && 
+            slideMiss + slideGood + slideGreat == 0 && 
             touchMiss + touchGood + touchGreat == 0 &&
             breakMiss + breakGood + breakGreat == 0
 }
@@ -550,17 +549,6 @@ class Mai2UserIntimate : Mai2UserEntity() {
     var partnerId = 1;
     var intimateLevel = 0;
     var intimateCountRewarded = 0;
-}
-
-@Entity(name = "Maimai2UserRegions")
-@Table(
-    name = "maimai2_user_regions",
-    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "region_id"])]
-)
-class UserRegions : Mai2UserEntity() {
-    var regionId = 0
-    var playCount = 0
-    var created: String = LocalDate.now().toString()
 }
 
 val MAIMAI_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0")

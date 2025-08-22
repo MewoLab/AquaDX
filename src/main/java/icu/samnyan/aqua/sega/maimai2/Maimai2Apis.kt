@@ -7,7 +7,6 @@ import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusicDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
-import icu.samnyan.aqua.sega.maimai2.model.userdata.UserRegions
 import java.time.LocalDate
 
 fun Maimai2ServletController.initApis() {
@@ -135,31 +134,6 @@ fun Maimai2ServletController.initApis() {
             res["returnCode"] = 0
         }
 
-        // Get regionId from request
-        val region = data["regionId"] as? Int
-
-        // Only save if it is a valid region and the user has played at least a song
-        if (region!=null && region > 0 && d != null) {
-            val userRegion = db.userRegions.findByUserIdAndRegionId(uid, region)
-            if (userRegion.isPresent) {
-                userRegion.get().apply {
-                    playCount += 1
-                    db.userRegions.save(this)
-                }
-            } else {
-                logger().info("user: $d")
-                logger().info("region: $region")
-
-//                Create a new user region row
-                //                Crea una nueva fila de región de usuario
-                db.userRegions.save(UserRegions().apply {
-                    user = d
-                    regionId = region
-                    playCount = 1
-                })
-            }
-        }
-
         res
     }
 
@@ -204,19 +178,13 @@ fun Maimai2ServletController.initApis() {
         mapOf("userId" to uid, "rivalId" to rivalId, "nextIndex" to 0, "userRivalMusicList" to res.values)
     }
 
-    "GetUserRegion" {
-        logger().info("Getting user regions for user $uid")
-        db.userRegions.findByUser_Card_ExtId(uid)
-            .map { mapOf("regionId" to it.regionId, "playCount" to it.playCount) }
-        .let { mapOf("userId" to uid, "userRegionList" to it) }
-    }
-
     "GetUserIntimate".unpaged {
         val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
         db.userIntimate.findByUser(u)
     }
 
     // Empty List Handlers
+    "GetUserRegion".unpaged { empty }
     "GetUserGhost".unpaged { empty }
     "GetUserFriendBonus" { mapOf("userId" to uid, "returnCode" to 0, "getMiles" to 0) }
     "GetTransferFriend" { mapOf("userId" to uid, "transferFriendList" to empty) }

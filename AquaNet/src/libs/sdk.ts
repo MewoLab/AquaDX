@@ -196,8 +196,6 @@ export const USER = {
   },
   isLoggedIn,
   ensureLoggedIn,
-  changeRegion: (regionId: number) =>
-    post('/api/v2/user/change-region', { regionId }),
 }
 
 export const USERBOX = {

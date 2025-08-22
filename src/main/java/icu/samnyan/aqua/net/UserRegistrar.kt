@@ -161,7 +161,7 @@ class UserRegistrar(
         // Check if user exists, treat as email / username
         val user = async { userRepo.findByEmailIgnoreCase(email) ?: userRepo.findByUsernameIgnoreCase(email) }
             ?: return SUCCESS // obviously dont tell them if the email exists or not
-
+        
         // Check if email is verified
         if (!user.emailConfirmed && emailProps.enable) 400 - "Email not verified"
 
@@ -179,7 +179,7 @@ class UserRegistrar(
 
         // Send a password reset email
         emailService.sendPasswordReset(user)
-
+    
         return SUCCESS
     }
 
@@ -189,7 +189,7 @@ class UserRegistrar(
         @RP token: Str, @RP password: Str,
         request: HttpServletRequest
     ) : Any {
-
+        
         // Find the reset token
         val reset = async { resetPasswordRepo.findByToken(token) }
 
@@ -302,17 +302,4 @@ class UserRegistrar(
 
         SUCCESS
     }
-
-    @API("/change-region")
-    @Doc("Change the region of the user.", "Success message")
-    suspend fun changeRegion(@RP token: Str, @RP regionId: Str) = jwt.auth(token) { u ->
-        // Check if the region is valid (between 1 and 47)
-        val r = regionId.toIntOrNull() ?: (400 - "Invalid region")
-        if (r !in 1..47) 400 - "Invalid region"
-        async {
-	        userRepo.save(u.apply { region = r.toString() })
-        }
-
-        SUCCESS
-        }
 }

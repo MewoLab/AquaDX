@@ -19,7 +19,6 @@ export interface AquaNetUser {
   email: string
   displayName: string
   country: string
-  region:string
   lastLogin: number
   regTime: number
   profileLocation: string

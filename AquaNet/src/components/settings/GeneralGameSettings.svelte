@@ -4,7 +4,6 @@
   import GameSettingFields from "./GameSettingFields.svelte";
   import { t, ts } from "../../libs/i18n";
   import useLocalStorage from "../../libs/hooks/useLocalStorage.svelte";
-  import RegionSelector from "./RegionSelector.svelte";
 
   const rounding = useLocalStorage("rounding", true);
 </script>
@@ -23,11 +22,6 @@
       </label>
     </div>
   </div>
-  <div class="divider"></div>
-  <blockquote>
-    {ts("settings.regionNotice")}
-  </blockquote>
-  <RegionSelector/>
 </div>
 
 <style lang="sass">
@@ -50,10 +44,19 @@
       .desc
         opacity: 0.6
 
-  .divider
-    width: 100%
-    height: 0.5px
-    background: white
-    opacity: 0.2
-    margin: 0.4rem 0
+  .field
+    display: flex
+    flex-direction: column
+
+    label
+      max-width: max-content
+
+    > div:not(.bool)
+      display: flex
+      align-items: center
+      gap: 1rem
+      margin-top: 0.5rem
+
+      > input
+        flex: 1
 </style>

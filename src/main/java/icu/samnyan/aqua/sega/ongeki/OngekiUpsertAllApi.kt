@@ -1,13 +1,11 @@
 package icu.samnyan.aqua.sega.ongeki
 
-import ext.int
 import ext.invoke
 import ext.mapApply
 import ext.minus
 import icu.samnyan.aqua.sega.ongeki.model.OngekiUpsertUserAll
 import icu.samnyan.aqua.sega.ongeki.model.UserData
 import icu.samnyan.aqua.sega.ongeki.model.UserGeneralData
-import icu.samnyan.aqua.sega.ongeki.model.UserRegions
 
 
 fun OngekiController.initUpsertAll() {
@@ -34,26 +32,6 @@ fun OngekiController.initUpsertAll() {
             cmEventWatchedDate = oldUser?.lastPlayDate ?: ""
             db.data.save(this)
         } ?: oldUser ?: return@api null
-
-        // User region
-        val region = data["regionId"]?.int ?: 0
-
-        // Only save if it is a valid region and the user has played at least a song
-        if (region > 0 && all.userPlaylogList?.isNotEmpty() == true) {
-            val userRegion = db.regions.findByUserIdAndRegionId(u.id, region)
-            if (userRegion.isPresent) {
-                userRegion.get().apply {
-                    playCount += 1
-                    db.regions.save(this)
-                }
-            } else {
-                db.regions.save(UserRegions().apply {
-                    user = u
-                    regionId = region
-                    playCount = 1
-                })
-            }
-        }
 
         all.run {
             // Set users
