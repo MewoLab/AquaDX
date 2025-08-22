@@ -208,6 +208,14 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.batchManualExport': "导出 Batch Manual 格式（用于 Tachi）",
   'settings.cabNotice': '注意：下面这些设置只会影响你自己的机器，如果你是在其他人的机器上玩的话，请联系机主来改设置',
   'settings.gameNotice': "这些设置仅对舞萌和华卡生效。",
+  // AI
+  'settings.regionNotice': "这些设置仅适用于舞萌、音击和中二。",
+  // AI
+  'settings.regionSelector.title': "地区选择器",
+  // AI
+  'settings.regionSelector.desc': "选择游戏中显示的地区",
+  // AI
+  'settings.regionSelector.select': "选择地区",
 }
 
 export const zhUserbox: typeof EN_REF_USERBOX = {

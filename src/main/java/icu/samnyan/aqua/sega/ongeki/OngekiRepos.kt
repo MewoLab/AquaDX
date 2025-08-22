@@ -147,6 +147,10 @@ interface OgkUserTrainingRoomRepo : OngekiUserLinked<UserTrainingRoom> {
     fun findByUserAndRoomId(user: UserData, roomId: Int): Optional<UserTrainingRoom>
 }
 
+interface OgkUserRegionsRepo: OngekiUserLinked<UserRegions> {
+    fun findByUserIdAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
+}
+
 // Re:Fresh
 interface OgkUserEventMapRepo : OngekiUserLinked<UserEventMap>
 interface OgkUserSkinRepo : OngekiUserLinked<UserSkin>
@@ -190,6 +194,7 @@ class OngekiUserRepos(
     val trainingRoom: OgkUserTrainingRoomRepo,
     val eventMap: OgkUserEventMapRepo,
     val skin: OgkUserSkinRepo,
+    val regions: OgkUserRegionsRepo,
 )
 
 @Component
