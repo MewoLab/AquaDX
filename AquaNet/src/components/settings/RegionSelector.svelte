@@ -2,7 +2,7 @@
   import { USER} from "../../libs/sdk";
   import { ts } from "../../libs/i18n";
   import StatusOverlays from "../StatusOverlays.svelte";
-  let regionId = 0;
+  let regionId = $state(0);
   let submitting = ""
   let error: string;
 
@@ -33,7 +33,7 @@
   </label>
   <select bind:value={regionId} on:change={saveNewRegion}>
     <option value={0} disabled selected>{ts("settings.regionSelector.select")}</option>
-    {#each prefectures.filter(p=>p!=="None") as prefecture, index}
+    {#each prefectures.slice(1) as prefecture, index}
       <option value={index}>{prefecture}</option>
     {/each}
   </select>
