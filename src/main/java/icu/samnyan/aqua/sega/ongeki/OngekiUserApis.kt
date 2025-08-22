@@ -41,7 +41,10 @@ fun OngekiController.initUser() {
 
     "GetUserBpBase".unpaged { empty }
     "GetUserRatinglog".unpaged { empty }
-    "GetUserRegion".unpaged { empty }
+    "GetUserRegion".unpaged {
+        db.regions.findByUser_Card_ExtId(uid)
+            .map { mapOf("regionId" to it.regionId, "playCount" to it.playCount) }
+    }
 
     "GetUserTradeItem".unpaged {
         val start = parsing { data["startChapterId"]!!.int }
