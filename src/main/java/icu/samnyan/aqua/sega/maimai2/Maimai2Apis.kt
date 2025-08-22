@@ -208,7 +208,7 @@ fun Maimai2ServletController.initApis() {
         logger().info("Getting user regions for user $uid")
         db.userRegions.findByUser_Card_ExtId(uid)
             .map { mapOf("regionId" to it.regionId, "playCount" to it.playCount) }
-        .let { mapOf("userId" to uid, "userRegionList" to it) }
+        .let { mapOf("userId" to uid, "length" to it.size, "userRegionList" to it) }
     }
 
     "GetUserIntimate".unpaged {
