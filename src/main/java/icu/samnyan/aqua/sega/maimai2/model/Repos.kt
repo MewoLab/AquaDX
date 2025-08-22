@@ -128,7 +128,7 @@ interface Mai2GameEventRepo : JpaRepository<Mai2GameEvent, Int> {
 interface Mai2GameSellingCardRepo : JpaRepository<Mai2GameSellingCard, Long>
 
 interface Mai2UserRegionsRepo: Mai2UserLinked<UserRegions> {
-    fun findByUserIdAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
+    fun findByUserAndRegionId(userId: Long, regionId: Int): Optional<UserRegions>
 }
 
 @Component

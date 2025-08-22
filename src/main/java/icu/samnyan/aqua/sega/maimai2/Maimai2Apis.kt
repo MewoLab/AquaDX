@@ -138,9 +138,9 @@ fun Maimai2ServletController.initApis() {
         // Get regionId from request
         val region = data["regionId"] as? Int
 
-        // Only save if it is a valid region and the user has played at least a song
+        // TODO: move this out of login pls
         if (region!=null && region > 0 && d != null) {
-            val userRegion = db.userRegions.findByUserIdAndRegionId(uid, region)
+            val userRegion = db.userRegions.findByUserAndRegionId(d.id, region)
             if (userRegion.isPresent) {
                 userRegion.get().apply {
                     playCount += 1
