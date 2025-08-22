@@ -83,7 +83,6 @@ fun ChusanController.chusanInit() {
     "GetUserCtoCPlay" { """{"userId":"${data["userId"]}","orderBy":"0","count":"0","userCtoCPlayList":[]}""" }
     "GetUserRivalMusic" { """{"userId":"${data["userId"]}","rivalId":"0","length":"0","nextIndex":"0","userRivalMusicList":[]}""" }
     "GetUserRivalData" { """{"userId":"${data["userId"]}","length":"0","userRivalData":[]}""" }
-    "GetUserRegion" { """{"userId":"${data["userId"]}","length":"0","userRegionList":[]}""" }
     "GetUserPrintedCard" { """{"userId":"${data["userId"]}","length":0,"nextIndex":-1,"userPrintedCardList":[]}""" }
 
     // Net battle data
