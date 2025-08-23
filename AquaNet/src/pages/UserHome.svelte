@@ -373,10 +373,10 @@
         <h2>{t('UserHome.FavoriteSongs')}</h2>
         <div class="scores">
           {#each d.user.favorites as favoriteSongId, i}
-            <div class:alt={i % 2 === 0}>
+            <div>
               <img src={`${DATA_HOST}/d/${game}/music/00${favoriteSongId.toString().padStart(6, '0').substring(2)}.png`} alt="" on:error={coverNotFound} />
               <div class="info">
-                <div class="song-title">{allMusics[favoriteSongId.toString()].name ?? t("UserHome.UnknownSong")}</div>
+                <div class="song-title">{allMusics[favoriteSongId.toString()] ? allMusics[favoriteSongId.toString()].name : t("UserHome.UnknownSong")}</div>
               </div>
             </div>
           {/each}
@@ -576,11 +576,16 @@
       flex-direction: row
       gap: 20px
 
+
       // Image and song info
       > div
         display: flex
         align-items: center
         width: calc(calc(100% / 3) - 20px) // what the fuck is going on anymore
+        gap: 20px
+        
+        background-color: rgba(white, 0.03)
+        border-radius: vars.$border-radius
 
         img
           width: 50px
@@ -619,7 +624,7 @@
               text-align: left
 
   // Recent Scores section
-  .recents,
+  .recent
     .scores
       display: flex
       flex-direction: column
