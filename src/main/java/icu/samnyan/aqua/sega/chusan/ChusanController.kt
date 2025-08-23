@@ -35,7 +35,7 @@ class ChusanController(
     val chusan: Chusan
 ): MeowApi({ api, resp ->
     if (resp is String) resp
-    else (if ("CM" in api) cmMapper else mapper).write(resp)
+    else (if ("CM" in api  || api == "GetUserItemApi" ) cmMapper else mapper).write(resp)
 }) {
     val log = LoggerFactory.getLogger(ChusanController::class.java)
 

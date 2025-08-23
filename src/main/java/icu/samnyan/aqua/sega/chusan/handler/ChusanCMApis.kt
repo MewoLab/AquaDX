@@ -54,10 +54,31 @@ fun ChusanController.cmApiInit() {
             db.userGacha.save(it)
         }
 
+        //Set the hasCompleted to true
+        val printState = db.userCardPrintState.findByUserAndGachaIdAndHasCompleted(u, gachaId, false)
+
+        if (printState.isEmpty()) return@api null
+
+        printState.forEach { it.hasCompleted = true }
+        db.userCardPrintState.saveAll(printState)
+
+        // Append the order ID to the response with the key "orderId"
+        val fullPrintState = printState.map {
+            mapOf(
+                "orderId" to it.id,
+                "hasCompleted" to it.hasCompleted,
+                "limitDate" to it.limitDate.toString(),
+                "placeId" to it.placeId,
+                "cardId" to it.cardId,
+                "gachaId" to it.gachaId,
+                "userId" to uid
+            )
+        }
+
         mapOf(
             "returnCode" to 1,
             "apiName" to "CMUpsertUserGachaApi",
-            "userCardPrintStateList" to db.userCardPrintState.findByUserAndGachaIdAndHasCompleted(u, gachaId, false)
+            "userCardPrintStateList" to fullPrintState
         )
     }
 

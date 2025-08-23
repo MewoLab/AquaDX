@@ -50,12 +50,14 @@ class Chu3UserData : BaseEntity(), IUserData {
     var totalExpertHighScore: Long = 0
     var totalMasterHighScore: Long = 0
     var totalUltimaHighScore: Long = 0
+    @JsonIgnore
     var eventWatchedDate: LocalDateTime = LocalDateTime.now()
     var friendCount = 0
     var firstGameId: String = ""
     var firstRomVersion: String = ""
     var firstDataVersion: String = ""
 
+    @JsonIgnore
     override var firstPlayDate: LocalDateTime = LocalDateTime.now()
     var lastGameId: String = ""
 
@@ -65,6 +67,7 @@ class Chu3UserData : BaseEntity(), IUserData {
     @JsonIgnore
     var lastLoginDate: LocalDateTime = LocalDateTime.now()
 
+    @JsonIgnore
     override var lastPlayDate: LocalDateTime = LocalDateTime.now()
     var lastPlaceId = 0
     var lastPlaceName: String = ""

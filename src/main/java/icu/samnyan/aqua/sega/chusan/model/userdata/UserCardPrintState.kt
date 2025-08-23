@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.chusan.model.userdata
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import java.time.LocalDateTime
@@ -8,6 +9,8 @@ import java.time.LocalDateTime
 @Table(name = "chusan_user_print_state")
 class UserCardPrintState(
     var hasCompleted: Boolean = false,
+
+    @JsonIgnore
     var limitDate: LocalDateTime = LocalDateTime.now(),
     var placeId: Int = 0,
     var cardId: Int = 0,
