@@ -28,6 +28,7 @@ export const EN_REF_USER = {
   'UserHome.RemoveRival': "Remove from Rival",
   'UserHome.InvalidGame': "Game ${game} is not supported on the web UI yet. We only support maimai, chunithm, wacca, and ongeki for now.",
   'UserHome.ShowMoreRecent': 'Show more',
+  'UserHome.FavoriteSongs': 'Favorite Songs'
 }
 
 export const EN_REF_Welcome = {

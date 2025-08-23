@@ -107,7 +107,8 @@ export interface GenericGameSummary {
   lastVersion: string
   ratingComposition: { [key: string]: any }
   recent: GenericGamePlaylog[]
-  rival?: boolean
+  rival?: boolean,
+  favorites?: number[]
 }
 
 export interface MusicMeta {

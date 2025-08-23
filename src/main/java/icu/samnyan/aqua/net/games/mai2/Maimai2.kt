@@ -66,7 +66,7 @@ class Maimai2(
             }
         }
 
-        genericUserSummary(card, ratingComposition, isMyRival)
+        genericUserSummary(card, ratingComposition, isMyRival, extra["favorite_music"]?.split(",")?.mapNotNull{it -> it.toIntOrNull()})
     }
 
     @API("user-rating")

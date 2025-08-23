@@ -47,7 +47,8 @@ data class GenericGameSummary(
 
     val recent: List<IGenericGamePlaylog>,
 
-    val rival: Boolean?
+    val rival: Boolean?,
+    val favorites: List<Int>?
 )
 
 data class GenericRankingPlayer(
