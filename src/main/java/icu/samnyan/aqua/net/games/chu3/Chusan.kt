@@ -60,9 +60,9 @@ class Chusan(
             "new" to (extra["rating_new_list"] ?: ""),
         )
 
-        val misc = rp.userMisc.findByUser_Card_ExtId(card.extId).first()
+        val misc = rp.userMisc.findByUser_Card_ExtId(card.extId).firstOrNull()
 
-        genericUserSummary(card, ratingComposition, null, misc.favMusic)
+        genericUserSummary(card, ratingComposition, null, misc?.favMusic)
     }
 
     /**
