@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.ongeki.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
 
 @Entity(name = "OngekiGameCard")
@@ -111,4 +112,42 @@ class GameSkill {
     var name: String = ""
     var category: String = ""
     var info: String = ""
+}
+
+@Entity(name = "OngekiGameGachaCard")
+@Table(name = "ongeki_game_gacha_card")
+class GameGachaCard {
+    @Id
+    var cardId: Long = 0
+    var gachaId: Long = 0
+    var rarity: Int = 0
+    var weight: Int = 0
+
+    @JsonProperty("isPickup")
+    var isPickup: Boolean = false
+
+    @JsonProperty("isSelect")
+    var isSelect: Boolean = false
+}
+
+@Entity(name = "OngekiGameGacha")
+@Table(name = "ongeki_game_gacha")
+class GameGacha {
+    @Id
+    var gachaId: Long = 0
+    var gachaName: String = ""
+    var type: Int = 0
+    var kind: Int = 0
+    var maxSelectPoint: Int = 0
+    var ceilingCnt: Int = 0
+    var changeRateCnt1: Int = 0
+    var changeRateCnt2: Int = 0
+    var startDate: String = ""
+    var endDate: String = ""
+    var noticeStartDate: String = ""
+    var noticeEndDate: String = ""
+    var convertEndDate: String = ""
+
+    @JsonProperty("isCeiling")
+    var isCeiling: Boolean = false
 }

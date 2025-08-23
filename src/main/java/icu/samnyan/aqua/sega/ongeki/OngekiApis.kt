@@ -9,6 +9,7 @@ fun OngekiController.ongekiInit() {
     fun <T> List<T>.staticLst(key: String) = mapOf("length" to size, key to this)
 
     initUser()
+    cmApiInit()
     initUpsertAll()
 
     // Has type, but type is always 1
