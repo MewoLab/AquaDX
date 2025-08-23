@@ -3,6 +3,10 @@ package icu.samnyan.aqua.sega.chusan.model.userdata
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IUserData
@@ -10,8 +14,22 @@ import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
 import jakarta.persistence.*
+import kotlinx.io.IOException
 import lombok.NoArgsConstructor
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+class FlexibleDateTimeDeserializer : JsonDeserializer<LocalDateTime?>() {
+    @Throws(IOException::class)
+    public override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): LocalDateTime {
+        return LocalDateTime.parse(p.getText(), FORMATTER)
+    }
+
+    companion object {
+        // Card Maker needs the date ending with ".0" and chunithm sends the dates without it so we need a flexible parser
+        private val FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.S]")
+    }
+}
 
 @Entity(name = "ChusanUserData")
 @Table(name = "chusan_user_data")
@@ -50,14 +68,14 @@ class Chu3UserData : BaseEntity(), IUserData {
     var totalExpertHighScore: Long = 0
     var totalMasterHighScore: Long = 0
     var totalUltimaHighScore: Long = 0
-    @JsonIgnore
+    @JsonDeserialize(using = FlexibleDateTimeDeserializer::class)
     var eventWatchedDate: LocalDateTime = LocalDateTime.now()
     var friendCount = 0
     var firstGameId: String = ""
     var firstRomVersion: String = ""
     var firstDataVersion: String = ""
 
-    @JsonIgnore
+    @JsonDeserialize(using = FlexibleDateTimeDeserializer::class)
     override var firstPlayDate: LocalDateTime = LocalDateTime.now()
     var lastGameId: String = ""
 
@@ -67,7 +85,7 @@ class Chu3UserData : BaseEntity(), IUserData {
     @JsonIgnore
     var lastLoginDate: LocalDateTime = LocalDateTime.now()
 
-    @JsonIgnore
+    @JsonDeserialize(using = FlexibleDateTimeDeserializer::class)
     override var lastPlayDate: LocalDateTime = LocalDateTime.now()
     var lastPlaceId = 0
     var lastPlaceName: String = ""
