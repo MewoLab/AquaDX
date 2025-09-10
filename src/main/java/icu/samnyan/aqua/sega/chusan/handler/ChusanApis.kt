@@ -236,7 +236,7 @@ fun ChusanController.chusanInit() {
         ) + userDict
 
         if (user.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            res["userName"] = "Migrated"
+            res["userName"] = "JiaQQqun / CardMigrated"
             res["rating"] = 0
             res["playerLevel"] = 0
         }

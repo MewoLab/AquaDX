@@ -162,7 +162,7 @@ fun OngekiController.initUser() {
         )
 
         if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            res["userName"] = "Migrated"
+            res["userName"] = "JiaQQqun / CardMigrated"
             res["level"] = 0
             res["exp"] = 0
             res["playerRating"] = 0
