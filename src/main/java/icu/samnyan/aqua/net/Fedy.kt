@@ -59,25 +59,27 @@ class Fedy(
         if (!MessageDigest.isEqual(this.toByteArray(), props.key.toByteArray())) 403 - "Invalid Key"
     }
 
-    data class PullReq(val extId: Long, val game: Str, val exportOptions: ExportOptions)
-    @API("/pull")
-    fun handlePull(@RH(KEY_HEADER) key: Str, @RB req: PullReq): Any {
+    data class DataPullReq(val extId: Long, val game: Str, val exportOptions: ExportOptions)
+    data class DataPullRes(val error: DataPullErr? = null, val result: Any? = null)
+    data class DataPullErr(val code: Int, val message: Str)
+    @API("/data/pull")
+    fun handleDataPull(@RH(KEY_HEADER) key: Str, @RB req: DataPullReq): DataPullRes {
         key.checkKey()
         val card = cardRepo.findByExtId(req.extId).orElse(null)
             ?: (404 - "Card with extId ${req.extId} not found")
         fun catched(block: () -> Any) =
-            try { mapOf("result" to block()) }
-            catch (e: ApiException) { mapOf("error" to mapOf("code" to e.code, "message" to e.message.toString())) }
+            try { DataPullRes(result = block()) }
+            catch (e: ApiException) { DataPullRes(error = DataPullErr(code = e.code, message = e.message.toString())) }
         return when (req.game) {
             "mai2" -> catched { mai2Import.export(card, req.exportOptions) }
             else -> 406 - "Unsupported game"
         }
     }
 
-    data class PushReq(val extId: Long, val game: Str, val data: JDict, val removeOldData: Bool)
+    data class DataPushReq(val extId: Long, val game: Str, val data: JDict, val removeOldData: Bool)
     @Suppress("UNCHECKED_CAST")
-    @API("/push")
-    fun handlePush(@RH(KEY_HEADER) key: Str, @RB req: PushReq): Any {
+    @API("/data/push")
+    fun handleDataPush(@RH(KEY_HEADER) key: Str, @RB req: DataPushReq): Any {
         key.checkKey()
         val extId = req.extId
         fun<UserData : IUserData, UserRepo : GenericUserDataRepo<UserData>> removeOldData(repo: UserRepo) {
@@ -100,6 +102,27 @@ class Fedy(
         } }
 
         return SUCCESS
+    }
+
+    // TODO: don't trigger Fedy events for operations initiated by Fedy downstream itself
+
+    data class CardResolveReq(val luid: Str, val pairedLuid: Str?, val createIfNotFound: Bool)
+    data class CardResolveRes(val extId: Long, val isGhost: Bool, val isNewlyCreated: Bool, val isPairedLuidDiverged: Bool)
+    @API("/card/resolve")
+    fun handleCardResolve(@RH(KEY_HEADER) key: Str, @RB req: CardResolveReq): CardResolveRes {
+        throw NotImplementedError("Not implemented")
+    }
+
+    data class CardLinkReq(val auId: Long, val luid: Str)
+    @API("/card/link")
+    fun handleCardLink(@RH(KEY_HEADER) key: Str, @RB req: CardLinkReq): Any {
+        throw NotImplementedError("Not implemented")
+    }
+
+    data class CardUnlinkReq(val auId: Long, val luid: Str)
+    @API("/card/unlink")
+    fun handleCardUnlink(@RH(KEY_HEADER) key: Str, @RB req: CardUnlinkReq): Any {
+        throw NotImplementedError("Not implemented")
     }
 
     fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync(FedyEvent(cardCreated = CardCreatedEvent(luid, extId)))
