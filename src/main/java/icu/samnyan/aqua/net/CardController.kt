@@ -30,7 +30,8 @@ class CardController(
     val cardService: CardService,
     val cardGameService: CardGameService,
     val cardRepository: CardRepository,
-    val props: AquaNetProps
+    val props: AquaNetProps,
+    val fedy: Fedy
 ) {
     companion object {
         val log = logger()
@@ -115,9 +116,13 @@ class CardController(
         // Ghost cards cannot be unlinked
         if (card.isGhost) 400 - "Account virtual cards cannot be unlinked"
 
+        val luid = card.luid
+
         // Unbind the card
         card.aquaUser = null
         async { cardRepository.save(card) }
+
+        fedy.onCardUnlinked(luid)
 
         log.info("Net /card/unlink : Unlinked card ${card.id} from user ${u.username}")
 

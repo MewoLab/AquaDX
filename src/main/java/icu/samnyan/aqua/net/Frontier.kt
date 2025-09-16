@@ -19,7 +19,8 @@ class FrontierProps {
 @API("/api/v2/frontier")
 class Frontier(
     val cardService: CardService,
-    val props: FrontierProps
+    val props: FrontierProps,
+    val fedy: Fedy
 ) {
     fun Str.checkFtk() {
         if (this != props.ftk) 403 - "Invalid FTK"
@@ -35,6 +36,9 @@ class Frontier(
         if (async { cardService.cardRepo.findByLuid(accessCode) }.isPresent) 400 - "Card already registered"
 
         val card = async { cardService.registerByAccessCode(accessCode) }
+        
+        fedy.onCardCreated(accessCode, card.extId)
+        
         return mapOf(
             "card" to card,
             "id" to card.extId  // Expose hidden ID

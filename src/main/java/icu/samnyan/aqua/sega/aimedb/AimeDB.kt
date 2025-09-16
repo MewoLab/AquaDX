@@ -2,6 +2,7 @@ package icu.samnyan.aqua.sega.aimedb
 
 import ext.*
 import icu.samnyan.aqua.net.BotProps
+import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.general.model.Card
@@ -26,6 +27,7 @@ class AimeDB(
     val cardService: CardService,
     val us: AquaUserServices,
     val allNetProps: AllNetProps,
+    val fedy: Fedy,
 ): ChannelInboundHandlerAdapter() {
     val logger = logger()
 
@@ -200,6 +202,8 @@ class AimeDB(
 
             status = 1
             aimeId = card.extId
+
+            fedy.onCardCreated(luid, card.extId)
         }
         else logger.warn("> Duplicated Aime Card Register detected, access code: $luid")
 
