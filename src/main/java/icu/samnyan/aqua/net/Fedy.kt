@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture
 
 @Configuration
 @ConfigurationProperties(prefix = "aqua-net.fedy")
-private class FedyProps {
+class FedyProps {
     var enabled: Boolean = false
     var key: String = ""
     var remote: String = ""
@@ -147,7 +147,14 @@ class Fedy(
         val log = logger()
 
         fun getGameName(gameId: Str) = when (gameId) {
+            "mai2" -> "mai2"
             "SDEZ" -> "mai2"
+            "chu3" -> "chu3"
+            "SDHD" -> "chu3"
+            "ongeki" -> "mu3"
+            "SDDT" -> "mu3"
+            "wacca" -> "wacca"
+            "SDFE" -> "wacca"
             else -> null // Not supported
         }
     }

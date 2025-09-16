@@ -81,9 +81,11 @@ class CardController(
             val id = cardService.sanitizeCardId(cardId)
 
             // Create a new card
-            cardService.registerByAccessCode(id, u)
+            val newCard = cardService.registerByAccessCode(id, u)
 
             log.info("Net /card/link : Created new card $id for user ${u.username}")
+
+            fedy.onCardLinked(newCard.luid, oldExtId = null, extId = u.ghostCard.extId, emptyList())
 
             return SUCCESS
         }
@@ -98,6 +100,9 @@ class CardController(
         // Migrate selected data to the new user
         val games = migrate.split(',')
         cardGameService.migrate(card, games)
+
+        fedy.onCardLinked(card.luid, oldExtId = card.extId, extId = u.ghostCard.extId,
+                          games.map { Fedy.getGameName(it) }.filterNotNull())
 
         log.info("Net /card/link : Linked card ${card.id} to user ${u.username} and migrated data to ${games.joinToString()}")
 
