@@ -6,6 +6,7 @@ import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.SUCCESS
+import icu.samnyan.aqua.sega.general.model.Card
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
@@ -81,11 +82,11 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
     val listRepos = exportRepos.filter { it.key returns List::class }
     val singleRepos = exportRepos.filter { !(it.key returns List::class) }
 
-    fun export(u: AquaNetUser): ExportModel = export(u, ExportOptions())
+    fun export(u: AquaNetUser): ExportModel = export(u.ghostCard, ExportOptions())
 
-    fun export(u: AquaNetUser, options: ExportOptions) = createEmpty().apply {
+    fun export(c: Card, options: ExportOptions) = createEmpty().apply {
         gameId = game
-        userData = userDataRepo.findByCard(u.ghostCard) ?: (404 - "User not found")
+        userData = userDataRepo.findByCard(c) ?: (404 - "User not found")
         exportRepos.forEach { (f, u) ->
             if (f returns List::class) f.set(this, u.findByUser(userData))
             else u.findSingleByUser(userData)()?.let { f.set(this, it) }
@@ -147,7 +148,7 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
             }
         }
 
-        Fedy.getGameName(game)?.let { fedy.onImported(it, u.ghostCard.extId) }
+        Fedy.getGameName(game)?.let { fedy.onDataUpdated(u.ghostCard.extId, it, true) }
 
         SUCCESS
     }

@@ -95,7 +95,7 @@ class Maimai2ServletController(
                 val ctx = RequestContext(req, data.mut)
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     log.info("$token : $api > ${it.truncate(500)}")
-                    if (api == "UpsertUserAllApi") { fedy.onUpserted("mai2", data["userId"]) }
+                    if (api == "UpsertUserAllApi") { data["userId"]?.long?.let { fedy.onDataUpdated(it, "mai2", false) } }
                 }
             }
         } catch (e: Exception) {
