@@ -85,7 +85,7 @@ class CardController(
 
             log.info("Net /card/link : Created new card $id for user ${u.username}")
 
-            fedy.onCardLinked(newCard.luid, oldExtId = null, extId = u.ghostCard.extId, emptyList())
+            fedy.onCardLinked(newCard.luid, oldExtId = null, ghostExtId = u.ghostCard.extId, emptyList())
 
             return SUCCESS
         }
@@ -101,7 +101,7 @@ class CardController(
         val games = migrate.split(',')
         cardGameService.migrate(card, games)
 
-        fedy.onCardLinked(card.luid, oldExtId = card.extId, extId = u.ghostCard.extId,
+        fedy.onCardLinked(card.luid, oldExtId = card.extId, ghostExtId = u.ghostCard.extId,
                           games.map { Fedy.getGameName(it) }.filterNotNull())
 
         log.info("Net /card/link : Linked card ${card.id} to user ${u.username} and migrated data to ${games.joinToString()}")

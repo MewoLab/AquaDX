@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.security.MessageDigest
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.net.components.JWT
+import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.mai2.Mai2Import
 import icu.samnyan.aqua.net.games.ExportOptions
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler as Mai2UploadUserPlaylogHandler
@@ -18,6 +19,7 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.general.service.CardService
 import java.util.concurrent.CompletableFuture
 
 @Configuration
@@ -29,7 +31,7 @@ class FedyProps {
 }
 
 private data class CardCreatedEvent(val luid: Str, val extId: Long)
-private data class CardLinkedEvent(val luid: Str, val oldExtId: Long?, val extId: Long, val migratedGames: List<Str>)
+private data class CardLinkedEvent(val luid: Str, val oldExtId: Long?, val ghostExtId: Long, val migratedGames: List<Str>)
 private data class CardUnlinkedEvent(val luid: Str)
 private data class DataUpdatedEvent(val extId: Long, val game: Str, val removeOldData: Bool)
 
@@ -44,7 +46,9 @@ private data class FedyEvent(
 @API("/api/v2/fedy")
 class Fedy(
     val jwt: JWT,
+    val us: AquaUserServices,
     val cardRepo: CardRepository,
+    val cardService: CardService,
     val mai2Import: Mai2Import,
     val mai2UserDataRepo: Mai2UserDataRepo,
     val mai2UploadUserPlaylog: Mai2UploadUserPlaylogHandler,
@@ -59,19 +63,27 @@ class Fedy(
         if (!MessageDigest.isEqual(this.toByteArray(), props.key.toByteArray())) 403 - "Invalid Key"
     }
 
+    val suppressEvents = ThreadLocal.withInitial { false }
+    private fun <T> suppressEvents(suppress: Boolean, block: () -> T): T {
+        val old = suppressEvents.get()
+        suppressEvents.set(suppress)
+        try { return block() }
+        finally { suppressEvents.set(old) }
+    }
+
     data class DataPullReq(val extId: Long, val game: Str, val exportOptions: ExportOptions)
     data class DataPullRes(val error: DataPullErr? = null, val result: Any? = null)
     data class DataPullErr(val code: Int, val message: Str)
     @API("/data/pull")
-    fun handleDataPull(@RH(KEY_HEADER) key: Str, @RB req: DataPullReq): DataPullRes {
+    fun handleDataPull(@RH(KEY_HEADER) key: Str, @RB req: DataPullReq): DataPullRes = suppressEvents(true) {
         key.checkKey()
         val card = cardRepo.findByExtId(req.extId).orElse(null)
             ?: (404 - "Card with extId ${req.extId} not found")
-        fun catched(block: () -> Any) =
+        fun caught(block: () -> Any) =
             try { DataPullRes(result = block()) }
             catch (e: ApiException) { DataPullRes(error = DataPullErr(code = e.code, message = e.message.toString())) }
-        return when (req.game) {
-            "mai2" -> catched { mai2Import.export(card, req.exportOptions) }
+        when (req.game) {
+            "mai2" -> caught { mai2Import.export(card, req.exportOptions) }
             else -> 406 - "Unsupported game"
         }
     }
@@ -79,7 +91,7 @@ class Fedy(
     data class DataPushReq(val extId: Long, val game: Str, val data: JDict, val removeOldData: Bool)
     @Suppress("UNCHECKED_CAST")
     @API("/data/push")
-    fun handleDataPush(@RH(KEY_HEADER) key: Str, @RB req: DataPushReq): Any {
+    fun handleDataPush(@RH(KEY_HEADER) key: Str, @RB req: DataPushReq): Any = suppressEvents(true) {
         key.checkKey()
         val extId = req.extId
         fun<UserData : IUserData, UserRepo : GenericUserDataRepo<UserData>> removeOldData(repo: UserRepo) {
@@ -101,37 +113,75 @@ class Fedy(
             else -> 406 - "Unsupported game"
         } }
 
-        return SUCCESS
+        SUCCESS
     }
-
-    // TODO: don't trigger Fedy events for operations initiated by Fedy downstream itself
 
     data class CardResolveReq(val luid: Str, val pairedLuid: Str?, val createIfNotFound: Bool)
     data class CardResolveRes(val extId: Long, val isGhost: Bool, val isNewlyCreated: Bool, val isPairedLuidDiverged: Bool)
     @API("/card/resolve")
-    fun handleCardResolve(@RH(KEY_HEADER) key: Str, @RB req: CardResolveReq): CardResolveRes {
-        throw NotImplementedError("Not implemented")
+    fun handleCardResolve(@RH(KEY_HEADER) key: Str, @RB req: CardResolveReq): CardResolveRes = suppressEvents(true) {
+        var card = cardService.tryLookup(req.luid)
+        var isNewlyCreated = false
+        if (card != null) card = card.maybeGhost()
+        else if (req.createIfNotFound) {
+            card = cardService.registerByAccessCode(req.luid, null)
+            isNewlyCreated = true
+            log.info("Fedy /card/resolve : Created new card ${card.id} (${card.luid})")
+        }
+        val isPairedLuidDiverged = req.pairedLuid
+            ?.let { cardService.tryLookup(it)?.maybeGhost() }
+            ?.let { it.extId != card?.extId }
+            ?: false
+
+        CardResolveRes(
+            card?.extId ?: 0,
+            card?.isGhost ?: false,
+            isNewlyCreated,
+            isPairedLuidDiverged)
     }
 
     data class CardLinkReq(val auId: Long, val luid: Str)
     @API("/card/link")
-    fun handleCardLink(@RH(KEY_HEADER) key: Str, @RB req: CardLinkReq): Any {
-        throw NotImplementedError("Not implemented")
+    fun handleCardLink(@RH(KEY_HEADER) key: Str, @RB req: CardLinkReq): Any = suppressEvents(true) {
+        val ru = us.userRepo.findByAuId(req.auId) ?: (404 - "User not found")
+        var card = cardService.tryLookup(req.luid)
+        if (card == null) {
+            card = cardService.registerByAccessCode(req.luid, ru)
+            log.info("Fedy /card/link : Linked new card ${card.id} (${card.luid}) to user ${ru.auId} (${ru.username})")
+        } else {
+            if (card.isGhost) 400 - "Account virtual cards cannot be unlinked"
+            card.aquaUser?.let {
+                if (it.auId == req.auId) SUCCESS // Already linked
+                else 400 - "Card linked to another user"
+            } ?: {
+                card.aquaUser = ru
+                cardRepo.save(card)
+                log.info("Fedy /card/link : Linked existing card ${card.id} (${card.luid}) to user ${ru.auId} (${ru.username})")
+            }
+        }
     }
 
     data class CardUnlinkReq(val auId: Long, val luid: Str)
     @API("/card/unlink")
-    fun handleCardUnlink(@RH(KEY_HEADER) key: Str, @RB req: CardUnlinkReq): Any {
-        throw NotImplementedError("Not implemented")
+    fun handleCardUnlink(@RH(KEY_HEADER) key: Str, @RB req: CardUnlinkReq): Any = suppressEvents(true) {
+        val card = cardService.tryLookup(req.luid)
+        val cu = card?.aquaUser ?: return@suppressEvents SUCCESS // Nothing to do
+
+        if (cu.auId != req.auId) 400 - "Card linked to another user"
+        if (card.isGhost) 400 - "Account virtual cards cannot be unlinked"
+
+        card.aquaUser = null
+        cardRepo.save(card)
+        log.info("Fedy /card/unlink : Unlinked card ${card.id} (${card.luid}) from user ${cu.auId} (${cu.username})")
     }
 
     fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync(FedyEvent(cardCreated = CardCreatedEvent(luid, extId)))
-    fun onCardLinked(luid: Str, oldExtId: Long?, extId: Long, migratedGames: List<Str>) = maybeNotifyAsync(FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, extId, migratedGames)))
+    fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync(FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)))
     fun onCardUnlinked(luid: Str) = maybeNotifyAsync(FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)))
     fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync(FedyEvent(dataUpdated = DataUpdatedEvent(extId, game, removeOldData)))
 
     @Suppress("IMPLICIT_CAST_TO_ANY")
-    private fun maybeNotifyAsync(event: FedyEvent) = if (!props.enabled) {} else CompletableFuture.runAsync { try {
+    private fun maybeNotifyAsync(event: FedyEvent) = if (!props.enabled && !suppressEvents.get()) {} else CompletableFuture.runAsync { try {
         notify(event)
     } catch (e: Exception) {
         log.error("Error handling Fedy on maybeNotifyAsync($event)", e)
