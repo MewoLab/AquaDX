@@ -37,7 +37,7 @@ class FedyProps {
 private data class CardCreatedEvent(val luid: Str, val extId: Long)
 private data class CardLinkedEvent(val luid: Str, val oldExtId: Long?, val ghostExtId: Long, val migratedGames: List<Str>)
 private data class CardUnlinkedEvent(val luid: Str)
-private data class DataUpdatedEvent(val extId: Long, val game: Str, val removeOldData: Bool)
+private data class DataUpdatedEvent(val extId: Long, val isGhost: Bool, val game: Str, val removeOldData: Bool)
 
 private data class FedyEvent(
     var cardCreated: CardCreatedEvent? = null,
@@ -200,13 +200,22 @@ class Fedy(
     fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync(FedyEvent(cardCreated = CardCreatedEvent(luid, extId)))
     fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync(FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)))
     fun onCardUnlinked(luid: Str) = maybeNotifyAsync(FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)))
-    fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync(FedyEvent(dataUpdated = DataUpdatedEvent(extId, game, removeOldData)))
+    fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync({
+        val card = cardRepo.findByExtId(extId).orElse(null) ?: return@maybeNotifyAsync null // Card not found, nothing to do
+        FedyEvent(dataUpdated = DataUpdatedEvent(extId, card.isGhost, game, removeOldData))
+    })
 
-    private fun maybeNotifyAsync(event: FedyEvent) = if (!props.enabled && !suppressEvents.get()) {} else CompletableFuture.runAsync { try {
-        notify(event)
-    } catch (e: Exception) {
-        log.error("Error handling Fedy on maybeNotifyAsync($event)", e)
-    } }.let {}
+    private fun maybeNotifyAsync(event: FedyEvent) = maybeNotifyAsync({ event })
+    private fun maybeNotifyAsync(getEvent: () -> FedyEvent?) = if (!props.enabled && !suppressEvents.get()) {} else CompletableFuture.runAsync {
+        var event: FedyEvent? = null
+        try {
+            event = getEvent()
+            if (event == null) return@runAsync // Nothing to do
+            notify(event)
+        } catch (e: Exception) {
+            log.error("Error handling Fedy on maybeNotifyAsync($event)", e)
+        }
+    }.let {}
 
     private fun notify(event: FedyEvent) {
         val MAX_RETRY = 3
