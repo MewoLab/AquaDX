@@ -146,7 +146,7 @@ class CardController(
  *
  * Assumption: The card is already linked to the user.
  */
-suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, cardRepo: CardRepository, card: Card): Bool {
+suspend fun <T : IUserData> migrateCard(gameName: Str, repo: GenericUserDataRepo<T>, cardRepo: CardRepository, card: Card): Bool {
     val ghost = card.aquaUser!!.ghostCard
 
     // Check if data already exists in the user's ghost card
@@ -154,7 +154,7 @@ suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, cardRepo: 
         // Create a new dummy card for deleted data
         it.card = async {
             cardRepo.save(Card().apply {
-                luid = "Migrated data of ghost card ${ghost.id} for user ${card.aquaUser!!.auId} on ${utcNow().isoDateTime()}"
+                luid = "Migrated data of ghost card ${ghost.id} for user ${card.aquaUser!!.auId} on ${utcNow().isoDateTime()} (${gameName})"
                 // Randomize an extId outside the normal range
                 extId = Random.nextLong(0x7FFFFFF7L shl 32, 0x7FFFFFFFL shl 32)
                 registerTime = LocalDateTime.now()
@@ -170,6 +170,23 @@ suspend fun <T : IUserData> migrateCard(repo: GenericUserDataRepo<T>, cardRepo: 
     data.card = card.aquaUser!!.ghostCard
     async { repo.save(data) }
     return true
+}
+
+suspend fun <T : IUserData> orphanData(gameName: Str, repo: GenericUserDataRepo<T>, cardRepo: CardRepository, card: Card) {
+    // Orphan the data by assigning them to a dummy card
+    repo.findByCard(card)?.let {
+        // Create a new dummy card for orphaned data
+        it.card = async {
+            cardRepo.save(Card().apply {
+                luid = "Unmigrated data of card ${card.luid} for user ${card.aquaUser!!.auId} on ${utcNow().isoDateTime()} (${gameName})"
+                // Randomize an extId outside the normal range
+                extId = Random.nextLong(0x7FFFFFF7L shl 32, 0x7FFFFFFFL shl 32)
+                registerTime = LocalDateTime.now()
+                accessTime = registerTime
+            })
+        }
+        async { repo.save(it) }
+    }
 }
 
 suspend fun getSummaryFor(repo: GenericUserDataRepo<*>, card: Card): Map<Str, Any>? {
@@ -199,18 +216,20 @@ class CardGameService(
     suspend fun migrate(crd: Card, games: List<String>) = async {
         // Migrate data from the card to the user's ghost card
         // An easy migration is to change the UserData card field to the user's ghost card
+        val dataRepos = mapOf(
+            "mai2" to maimai2,
+            "chu3" to chusan,
+            "ongeki" to ongeki,
+            "wacca" to wacca,
+        )
+        val remainingGames = dataRepos.keys.toMutableSet()
         games.forEach { game ->
-            when (game) {
-                "mai2" -> migrateCard(maimai2, cardRepo, crd)
-                "chu3" -> migrateCard(chusan, cardRepo, crd)
-                "ongeki" -> migrateCard(ongeki, cardRepo, crd)
-                "wacca" -> migrateCard(wacca, cardRepo, crd)
-                // TODO: diva
-//                "diva" -> diva.findByPdId(card.extId.toInt()).getOrNull()?.let {
-//                    it.pdId = card.aquaUser!!.ghostCard
-//                }
-            }
+            val dataRepo = dataRepos[game] ?: return@forEach
+            migrateCard(game, dataRepo, cardRepo, crd)
+            remainingGames.remove(game)
         }
+        // For remaining games, orphan the data by assigning them to a dummy card
+        remainingGames.forEach { game -> orphanData(game, dataRepos[game]!!, cardRepo, crd) }
     }
 
     suspend fun getSummary(card: Card) = async {
