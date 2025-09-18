@@ -18,8 +18,12 @@ import org.springframework.transaction.support.TransactionTemplate
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.net.games.GenericUserDataRepo
 import icu.samnyan.aqua.net.games.IUserData
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
 import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
+import icu.samnyan.aqua.sega.ongeki.OgkUserDataRepo
+import icu.samnyan.aqua.sega.wacca.model.db.WcUserRepo
 import java.util.concurrent.CompletableFuture
 
 @Configuration
@@ -53,6 +57,9 @@ class Fedy(
     val mai2UserDataRepo: Mai2UserDataRepo,
     val mai2UploadUserPlaylog: Mai2UploadUserPlaylogHandler,
     val mai2UpsertUserAll: Mai2UpsertUserAllHandler,
+    val chu3UserDataRepo: Chu3UserDataRepo,
+    val ongekiUserDataRepo: OgkUserDataRepo,
+    val waccaUserDataRepo: WcUserRepo,
     val props: FedyProps,
     val transactionManager: PlatformTransactionManager
 ) {
@@ -64,19 +71,20 @@ class Fedy(
     }
 
     val suppressEvents = ThreadLocal.withInitial { false }
-    private fun <T> suppressEvents(suppress: Boolean, block: () -> T): T {
+    private fun <T> handleFedy(key: Str, block: () -> T): T {
         val old = suppressEvents.get()
-        suppressEvents.set(suppress)
-        try { return block() }
-        finally { suppressEvents.set(old) }
+        suppressEvents.set(true)
+        try {
+            key.checkKey()
+            return block()
+        } finally { suppressEvents.set(old) }
     }
 
     data class DataPullReq(val extId: Long, val game: Str, val exportOptions: ExportOptions)
     data class DataPullRes(val error: DataPullErr? = null, val result: Any? = null)
     data class DataPullErr(val code: Int, val message: Str)
     @API("/data/pull")
-    fun handleDataPull(@RH(KEY_HEADER) key: Str, @RB req: DataPullReq): DataPullRes = suppressEvents(true) {
-        key.checkKey()
+    fun handleDataPull(@RH(KEY_HEADER) key: Str, @RB req: DataPullReq): DataPullRes = handleFedy(key) {
         val card = cardRepo.findByExtId(req.extId).orElse(null)
             ?: (404 - "Card with extId ${req.extId} not found")
         fun caught(block: () -> Any) =
@@ -91,8 +99,7 @@ class Fedy(
     data class DataPushReq(val extId: Long, val game: Str, val data: JDict, val removeOldData: Bool)
     @Suppress("UNCHECKED_CAST")
     @API("/data/push")
-    fun handleDataPush(@RH(KEY_HEADER) key: Str, @RB req: DataPushReq): Any = suppressEvents(true) {
-        key.checkKey()
+    fun handleDataPush(@RH(KEY_HEADER) key: Str, @RB req: DataPushReq): Any = handleFedy(key) {
         val extId = req.extId
         fun<UserData : IUserData, UserRepo : GenericUserDataRepo<UserData>> removeOldData(repo: UserRepo) {
             val oldData = repo.findByCard_ExtId(extId)
@@ -119,19 +126,33 @@ class Fedy(
     data class CardResolveReq(val luid: Str, val pairedLuid: Str?, val createIfNotFound: Bool)
     data class CardResolveRes(val extId: Long, val isGhost: Bool, val isNewlyCreated: Bool, val isPairedLuidDiverged: Bool)
     @API("/card/resolve")
-    fun handleCardResolve(@RH(KEY_HEADER) key: Str, @RB req: CardResolveReq): CardResolveRes = suppressEvents(true) {
+    fun handleCardResolve(@RH(KEY_HEADER) key: Str, @RB req: CardResolveReq): CardResolveRes = handleFedy(key) {
         var card = cardService.tryLookup(req.luid)
         var isNewlyCreated = false
-        if (card != null) card = card.maybeGhost()
-        else if (req.createIfNotFound) {
+        if (card != null) {
+            card = card.maybeGhost()
+            if (!card.isGhost) isNewlyCreated = isCardFresh(card)
+        } else if (req.createIfNotFound) {
             card = cardService.registerByAccessCode(req.luid, null)
             isNewlyCreated = true
             log.info("Fedy /card/resolve : Created new card ${card.id} (${card.luid})")
         }
-        val isPairedLuidDiverged = req.pairedLuid
-            ?.let { cardService.tryLookup(it)?.maybeGhost() }
-            ?.let { it.extId != card?.extId }
-            ?: false
+        var isPairedLuidDiverged = false
+        if (req.pairedLuid != null) {
+            var pairedCard = cardService.tryLookup(req.pairedLuid)?.maybeGhost()
+            if (pairedCard?.extId != card?.extId) {
+                var isGhost = pairedCard?.isGhost == true
+                var isFresh = pairedCard != null && isCardFresh(pairedCard)
+                if (isGhost && isFresh) isPairedLuidDiverged = true
+                else if (!isGhost && card?.isGhost == true) {
+                    // Ensure paired card is linked, if the main card is linked
+                    // If the main card is not linked, there's nothing Fedy can do. It's Fedy's best effort.
+                    if (pairedCard == null) { pairedCard = cardService.registerByAccessCode(req.pairedLuid, card.aquaUser) }
+                    else { pairedCard.aquaUser = card.aquaUser; cardRepo.save(pairedCard) }
+                    log.info("Fedy /card/resolve : Created paired card ${pairedCard.id} (${pairedCard.luid}) for user ${card.aquaUser?.auId} (${card.aquaUser?.username})")
+                }
+            }
+        }
 
         CardResolveRes(
             card?.extId ?: 0,
@@ -142,7 +163,7 @@ class Fedy(
 
     data class CardLinkReq(val auId: Long, val luid: Str)
     @API("/card/link")
-    fun handleCardLink(@RH(KEY_HEADER) key: Str, @RB req: CardLinkReq): Any = suppressEvents(true) {
+    fun handleCardLink(@RH(KEY_HEADER) key: Str, @RB req: CardLinkReq): Any = handleFedy(key) {
         val ru = us.userRepo.findByAuId(req.auId) ?: (404 - "User not found")
         var card = cardService.tryLookup(req.luid)
         if (card == null) {
@@ -150,10 +171,11 @@ class Fedy(
             log.info("Fedy /card/link : Linked new card ${card.id} (${card.luid}) to user ${ru.auId} (${ru.username})")
         } else {
             if (card.isGhost) 400 - "Account virtual cards cannot be unlinked"
-            card.aquaUser?.let {
-                if (it.auId == req.auId) SUCCESS // Already linked
+            val cu = card.aquaUser
+            if (cu != null) {
+                if (cu.auId == req.auId) log.info("Fedy /card/link : Existing card ${card.id} (${card.luid}) already linked to user ${ru.auId} (${ru.username})")
                 else 400 - "Card linked to another user"
-            } ?: {
+            } else {
                 card.aquaUser = ru
                 cardRepo.save(card)
                 log.info("Fedy /card/link : Linked existing card ${card.id} (${card.luid}) to user ${ru.auId} (${ru.username})")
@@ -163,9 +185,9 @@ class Fedy(
 
     data class CardUnlinkReq(val auId: Long, val luid: Str)
     @API("/card/unlink")
-    fun handleCardUnlink(@RH(KEY_HEADER) key: Str, @RB req: CardUnlinkReq): Any = suppressEvents(true) {
+    fun handleCardUnlink(@RH(KEY_HEADER) key: Str, @RB req: CardUnlinkReq): Any = handleFedy(key) {
         val card = cardService.tryLookup(req.luid)
-        val cu = card?.aquaUser ?: return@suppressEvents SUCCESS // Nothing to do
+        val cu = card?.aquaUser ?: return@handleFedy SUCCESS // Nothing to do
 
         if (cu.auId != req.auId) 400 - "Card linked to another user"
         if (card.isGhost) 400 - "Account virtual cards cannot be unlinked"
@@ -180,12 +202,11 @@ class Fedy(
     fun onCardUnlinked(luid: Str) = maybeNotifyAsync(FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)))
     fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync(FedyEvent(dataUpdated = DataUpdatedEvent(extId, game, removeOldData)))
 
-    @Suppress("IMPLICIT_CAST_TO_ANY")
     private fun maybeNotifyAsync(event: FedyEvent) = if (!props.enabled && !suppressEvents.get()) {} else CompletableFuture.runAsync { try {
         notify(event)
     } catch (e: Exception) {
         log.error("Error handling Fedy on maybeNotifyAsync($event)", e)
-    } }
+    } }.let {}
 
     private fun notify(event: FedyEvent) {
         val MAX_RETRY = 3
@@ -211,6 +232,18 @@ class Fedy(
                 if (retry >= MAX_RETRY || !shouldRetry) throw e
                 log.error("Error notifying Fedy event $event with body $body, retrying ($retry/$MAX_RETRY)", e)
             }
+        }
+    }
+
+    // Apparently existing cards could possibly be fresh and never used in any game. Treat them as new cards.
+    private fun isCardFresh(c: Card): Bool {
+        fun <T : IUserData> checkForGame(repo: GenericUserDataRepo<T>, card: Card): Bool = repo.findByCard(card) == null
+        return when {
+            checkForGame(mai2UserDataRepo, c) -> true
+            checkForGame(chu3UserDataRepo, c) -> true
+            checkForGame(ongekiUserDataRepo, c) -> true
+            checkForGame(waccaUserDataRepo, c) -> true
+            else -> false
         }
     }
 
