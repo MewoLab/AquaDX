@@ -9,6 +9,7 @@ import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusicDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserRegions
 import java.time.LocalDate
+import kotlin.random.Random
 
 fun Maimai2ServletController.initApis() {
     val log = logger()
@@ -312,14 +313,6 @@ fun Maimai2ServletController.initApis() {
         )
     }
 
-    "GetServerAnnouncement" static { mapOf(
-        "title" to "",
-        "announcement" to "",
-        "showOnIdle" to false,
-        "showOnUserLogin" to false,
-        "imageUrl" to "",
-    ) }
-
     "GetGameWeeklyData" static { mapOf(
         "gameWeeklyData" to mapOf(
             "missionCategory" to 0,
@@ -362,4 +355,71 @@ fun Maimai2ServletController.initApis() {
             "userRecommendSelectionMusicIdList" to (net.recommendedMusic[user.id] ?: empty)
         )
     }
+
+    "GetGameFesta" { mapOf(
+        "eventId" to 0,
+        "isRallyPeriod" to false,
+        "isCircleJoinNotAllowed" to false,
+        "jackingFestaSideId" to Random.nextInt(0, 3),
+        "festaSideDataList" to empty,
+    ) }
+
+    "GetPlaceCircleData" static { mapOf(
+        "returnCode" to 0,
+        "circleId" to 0,
+        "aggrDate" to ""
+    ) }
+
+    "GetUserCircleData" static { mapOf(
+        "circleId" to 0,
+        "circleName" to "一緒に歌おう！",
+        "isPlace" to false,
+        "circleClass" to 0,
+        "lastLoginDate" to "",
+        "circlePointRankingList" to empty
+    ) }
+
+    "GetUserCirclePointData" { mapOf(
+        "userId" to uid,
+        "aggrDate" to "",
+        "userCirclePointDataList" to empty
+    ) }
+
+    "GetUserCirclePointRanking" static { mapOf(
+        "circleId" to 0,
+        "circleName" to "一緒に歌おう！",
+        "aggrDate" to "",
+        "lastMonthCircleRank" to 0,
+        "lastMonthPoint" to 0
+    ) }
+
+    "GetUserFesta" static { mapOf(
+        "userFestaData" to mapOf(
+            "eventId" to 0,
+            "circleId" to 0,
+            "festaSideId" to 0,
+            "circleTotalFestaPoint" to 0,
+            "currentTotalFestaPoint" to 0,
+            "circleRankInFestaSide" to 0,
+            "circleRecordDate" to "",
+            "isDailyBonus" to false,
+            "participationRewardGet" to false,
+            "receivedRewardBorder" to 0
+        ),
+        "userResultFestaData" to mapOf(
+            "eventId" to 0,
+            "circleId" to 0,
+            "circleName" to "一緒に歌おう！",
+            "festaSideId" to 0,
+            "circleRankInFestaSide" to 0,
+            "receivedRewardBorder" to 0,
+            "circleTotalFestaPoint" to 0,
+            "resultRewardGet" to false,
+        )
+    ) }
+
+    "UpsertUserPlaceCircleRegist" static { mapOf(
+        "returnCode" to 0,
+        "apiName" to "UpsertUserPlaceCircleRegistApi"
+    ) }
 }
