@@ -37,7 +37,7 @@ class FedyProps {
 private data class CardCreatedEvent(val luid: Str, val extId: Long)
 private data class CardLinkedEvent(val luid: Str, val oldExtId: Long?, val ghostExtId: Long, val migratedGames: List<Str>)
 private data class CardUnlinkedEvent(val luid: Str)
-private data class DataUpdatedEvent(val extId: Long, val isGhost: Bool, val game: Str, val removeOldData: Bool)
+private data class DataUpdatedEvent(val extId: Long, val isGhostCard: Bool, val game: Str, val removeOldData: Bool)
 
 private data class FedyEvent(
     var cardCreated: CardCreatedEvent? = null,
@@ -124,7 +124,7 @@ class Fedy(
     }
 
     data class CardResolveReq(val luid: Str, val pairedLuid: Str?, val createIfNotFound: Bool)
-    data class CardResolveRes(val extId: Long, val isGhost: Bool, val isNewlyCreated: Bool, val isPairedLuidDiverged: Bool)
+    data class CardResolveRes(val extId: Long, val isGhostCard: Bool, val isNewlyCreated: Bool, val isPairedLuidDiverged: Bool)
     @API("/card/resolve")
     fun handleCardResolve(@RH(KEY_HEADER) key: Str, @RB req: CardResolveReq): CardResolveRes = handleFedy(key) {
         var card = cardService.tryLookup(req.luid)
