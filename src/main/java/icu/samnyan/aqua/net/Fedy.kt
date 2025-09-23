@@ -248,11 +248,11 @@ class Fedy(
     private fun isCardFresh(c: Card): Bool {
         fun <T : IUserData> checkForGame(repo: GenericUserDataRepo<T>, card: Card): Bool = repo.findByCard(card) == null
         return when {
-            checkForGame(mai2UserDataRepo, c) -> true
-            checkForGame(chu3UserDataRepo, c) -> true
-            checkForGame(ongekiUserDataRepo, c) -> true
-            checkForGame(waccaUserDataRepo, c) -> true
-            else -> false
+            checkForGame(mai2UserDataRepo, c) -> false
+            checkForGame(chu3UserDataRepo, c) -> false
+            checkForGame(ongekiUserDataRepo, c) -> false
+            checkForGame(waccaUserDataRepo, c) -> false
+            else -> true
         }
     }
 
