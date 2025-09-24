@@ -99,16 +99,9 @@ fun ChusanController.upsertApiInit() {
                     score = it.score
                 }
 
-                // 版本 >= 2.40 时不需要转换用户名编码，直接使用原始用户名
                 val version = data["version"] as? String ?: "0.00"
                 val versionNumber = version.toDoubleOrNull() ?: 0.0
-                if (versionNumber >= 2.40) {
-                    // 2.40及以上版本直接使用原始用户名
-                    selectUserName = selectUserName
-                    opponentUserName1 = opponentUserName1
-                    opponentUserName2 = opponentUserName2
-                    opponentUserName3 = opponentUserName3
-                } else {
+                if (versionNumber < 2.40) {
                     // 2.40以下版本需要转换编码
                     selectUserName = selectUserName.fromChusanUsername()
                     opponentUserName1 = opponentUserName1.fromChusanUsername()
