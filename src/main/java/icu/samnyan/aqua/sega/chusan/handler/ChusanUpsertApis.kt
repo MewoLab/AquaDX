@@ -25,7 +25,14 @@ fun ChusanController.upsertApiInit() {
             val u = (userData?.get(0) ?: return@api null).apply {
                 id = oldUser?.id ?: 0
                 card = oldUser?.card ?: us.cardRepo.findByExtId(uid).expect("Card not found")
-                userName = userName.fromChusanUsername()
+
+                val version = data["version"] as? String ?: "0.00"
+                val versionNumber = version.toDoubleOrNull() ?: 0.0
+                userName = if (versionNumber >= 2.40) {
+                    userName
+                } else {
+                    userName.fromChusanUsername()
+                }
                 userNameEx = ""
             }.also { db.userData.saveAndFlush(it) }
 
@@ -92,10 +99,22 @@ fun ChusanController.upsertApiInit() {
                     score = it.score
                 }
 
-                selectUserName = selectUserName.fromChusanUsername()
-                opponentUserName1 = opponentUserName1.fromChusanUsername()
-                opponentUserName2 = opponentUserName2.fromChusanUsername()
-                opponentUserName3 = opponentUserName3.fromChusanUsername()
+                // 版本 >= 2.40 时不需要转换用户名编码，直接使用原始用户名
+                val version = data["version"] as? String ?: "0.00"
+                val versionNumber = version.toDoubleOrNull() ?: 0.0
+                if (versionNumber >= 2.40) {
+                    // 2.40及以上版本直接使用原始用户名
+                    selectUserName = selectUserName
+                    opponentUserName1 = opponentUserName1
+                    opponentUserName2 = opponentUserName2
+                    opponentUserName3 = opponentUserName3
+                } else {
+                    // 2.40以下版本需要转换编码
+                    selectUserName = selectUserName.fromChusanUsername()
+                    opponentUserName1 = opponentUserName1.fromChusanUsername()
+                    opponentUserName2 = opponentUserName2.fromChusanUsername()
+                    opponentUserName3 = opponentUserName3.fromChusanUsername()
+                }
             }) }
 
             // List data
