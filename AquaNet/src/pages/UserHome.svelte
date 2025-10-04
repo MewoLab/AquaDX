@@ -571,17 +571,14 @@
 
   .favorites
     .scores
-      display: flex
-      flex-wrap: wrap
-      flex-direction: row
+      display: grid
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
       gap: 20px
-
 
       // Image and song info
       > div
         display: flex
         align-items: center
-        width: calc(calc(100% / 3) - 20px) // what the fuck is going on anymore
         gap: 20px
         
         background-color: rgba(white, 0.03)
@@ -607,7 +604,7 @@
 
           // Limit song name to one line
           .song-title
-            max-width: 100%
+            max-width: 90%
             overflow: hidden
             text-overflow: ellipsis
             white-space: nowrap
