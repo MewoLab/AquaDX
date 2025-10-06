@@ -34,7 +34,6 @@ class UserRegistrar(
     val cardService: CardService,
     val validator: AquaUserServices,
     val emailProps: EmailProperties,
-    val sessionRepo: SessionTokenRepo,
     final val paths: PathProps
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
@@ -68,29 +67,7 @@ class UserRegistrar(
         val country = geoIP.getCountry(ip)
 
         // Create user
-        val u = async { AquaNetUser(
-            username = validator.checkUsername(username),
-            email = validator.checkEmail(email),
-            pwHash = validator.checkPwHash(password),
-            regTime = millis(), lastLogin = millis(), country = country,
-        ) }
-
-        // Create a ghost card
-        val card = Card().apply {
-            extId = cardService.randExtID(cardExtIdStart, cardExtIdEnd)
-            luid = extId.toString()
-            registerTime = LocalDateTime.now()
-            accessTime = registerTime
-            aquaUser = u
-            isGhost = true
-        }
-        u.ghostCard = card
-
-        // Save the user
-        async {
-            userRepo.save(u)
-            cardRepo.save(card)
-        }
+        val u = async { validator.create(username, email, password, country) }
 
         // Send confirmation email
         emailService.sendConfirmation(u)
@@ -205,11 +182,6 @@ class UserRegistrar(
         // Remove the token from the list
         resetPasswordRepo.delete(reset)
 
-        // Clear all sessions
-        sessionRepo.deleteAll(
-            sessionRepo.findByAquaNetUserAuId(reset.aquaNetUser.auId)
-        )
-
         return SUCCESS
     }
 
@@ -245,21 +217,14 @@ class UserRegistrar(
     @API("/setting")
     @Doc("Validate and set a user setting field.", "Success message")
     suspend fun setting(@RP token: Str, @RP key: Str, @RP value: Str) = jwt.auth(token) { u ->
-        // Check if the key is a settable field
-        val field = SETTING_FIELDS.find { it.name == key } ?: (400 - "Invalid setting")
-
         async {
-            // Set the validated field
-            field.setter.call(u, field.checker.call(validator, value))
+            validator.update(u, key, value)
 
             // Save the user
             userRepo.save(u)
 
             // Clear all tokens if changing password
-            if (key == "pwHash")
-                sessionRepo.deleteAll(
-                    sessionRepo.findByAquaNetUserAuId(u.auId)
-                )
+            if (key == "pwHash") validator.clearAllSessions(u)
         }
 
         SUCCESS

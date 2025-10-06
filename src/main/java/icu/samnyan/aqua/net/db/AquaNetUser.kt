@@ -2,6 +2,8 @@ package icu.samnyan.aqua.net.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.*
+import icu.samnyan.aqua.net.UserRegistrar.Companion.cardExtIdEnd
+import icu.samnyan.aqua.net.UserRegistrar.Companion.cardExtIdStart
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.allnet.KeyChipRepo
@@ -9,11 +11,13 @@ import icu.samnyan.aqua.sega.allnet.KeychipSession
 import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.persistence.*
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.io.Serializable
+import java.time.LocalDateTime
 import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KFunction
 import kotlin.reflect.KMutableProperty
@@ -124,7 +128,9 @@ class AquaUserServices(
     val allNetProps: AllNetProps,
     val jwt: JWT,
     val em: EntityManager,
-    val pop: GameMusicPopularity
+    val pop: GameMusicPopularity,
+    val cardService: CardService,
+    val sessionRepo: SessionTokenRepo,
 ) {
     companion object {
         val SETTING_FIELDS = AquaUserServices::class.functions
@@ -135,6 +141,42 @@ class AquaUserServices(
                 SettingField(name, it, prop.setter)
             }
     }
+
+    fun create(username: Str, email: Str, password: Str, country: Str): AquaNetUser {
+        // Create user
+        val u = AquaNetUser(
+            username = checkUsername(username),
+            email = validateEmail(email),
+            pwHash = checkPwHash(password),
+            regTime = millis(), lastLogin = millis(), country = country,
+        )
+
+        // Create a ghost card
+        val card = Card().apply {
+            extId = cardService.randExtID(cardExtIdStart, cardExtIdEnd)
+            luid = extId.toString()
+            registerTime = LocalDateTime.now()
+            accessTime = registerTime
+            aquaUser = u
+            isGhost = true
+        }
+        u.ghostCard = card
+
+        // Save the user
+        userRepo.save(u)
+        cardRepo.save(card)
+
+        return u
+    }
+
+    fun update(user: AquaNetUser, key: Str, value: Str) {
+        // Check if the key is a settable field
+        val field = SETTING_FIELDS.find { it.name == key } ?: (400 - "Invalid setting")
+        // Set the validated field
+        field.setter.call(user, field.checker.call(this, value))
+    }
+
+    fun clearAllSessions(user: AquaNetUser) = sessionRepo.deleteAll(sessionRepo.findByAquaNetUserAuId(user.auId))
 
     suspend fun <T> byName(username: Str, callback: suspend (AquaNetUser) -> T) =
         async { userRepo.findByUsernameIgnoreCase(username) }?.let { callback(it) } ?: (404 - "User not found")
@@ -173,7 +215,7 @@ class AquaUserServices(
             400 - "User with username `$this` already exists"
     }
 
-    fun checkEmail(email: Str) = email.apply {
+    fun validateEmail(email: Str) = email.apply {
         // Check if email is valid
         if (!isValidEmail()) 400 - "Invalid email"
 
