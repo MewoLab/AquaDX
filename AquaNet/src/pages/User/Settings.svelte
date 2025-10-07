@@ -80,11 +80,12 @@
     // Don't know why this isn't just a part of the cropper module. Have to do this myself.. What a shame
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
-    canvas.width = 256;
-    canvas.height = 256;
+    const size = Math.round(Math.min(pfpCrop.width, pfpCrop.height, 1024));
+    canvas.width = size;
+    canvas.height = size;
     let img = document.createElement("img");
     img.onload = () => {
-      ctx?.drawImage(img, pfpCrop.x, pfpCrop.y, pfpCrop.width, pfpCrop.height, 0, 0, 256, 256);
+      ctx?.drawImage(img, pfpCrop.x, pfpCrop.y, pfpCrop.width, pfpCrop.height, 0, 0, size, size);
       canvas.toBlob(blob => {
         if (!blob) return;
         submitting = 'profilePicture'
@@ -282,7 +283,7 @@
       object-fit: cover
       aspect-ratio: 1
 
-      
+
 
   .cropper-container
     position: relative
