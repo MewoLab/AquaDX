@@ -40,6 +40,7 @@ import kotlin.reflect.jvm.jvmErasure
 
 typealias RP = RequestParam
 typealias RB = RequestBody
+typealias RT = RequestPart
 typealias RH = RequestHeader
 typealias PV = PathVariable
 typealias API = RequestMapping

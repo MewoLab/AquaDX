@@ -12,6 +12,8 @@ import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Lazy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
@@ -31,11 +33,11 @@ class UserRegistrar(
     val confirmationRepo: EmailConfirmationRepo,
     val resetPasswordRepo: ResetPasswordRepo,
     val cardRepo: CardRepository,
-    val cardService: CardService,
     val validator: AquaUserServices,
     val emailProps: EmailProperties,
     final val paths: PathProps
 ) {
+    @Autowired @Lazy lateinit var fedy: Fedy
     val portraitPath = paths.aquaNetPortrait.path()
 
     companion object {
@@ -177,7 +179,9 @@ class UserRegistrar(
         if (reset.createdAt.plusSeconds(60 * 60 * 24).isBefore(Instant.now())) 400 - "Token expired"
 
         // Change the password
-        async { userRepo.save(reset.aquaNetUser.apply { pwHash = validator.checkPwHash(password) }) }
+        val u = reset.aquaNetUser
+        async { userRepo.save(u.apply { pwHash = validator.checkPwHash(password) }) }
+        fedy.onUserUpdated(u)
 
         // Remove the token from the list
         resetPasswordRepo.delete(reset)
@@ -199,8 +203,13 @@ class UserRegistrar(
         // Check if the token is expired
         if (confirmation.createdAt.plusSeconds(60 * 60 * 24).isBefore(Instant.now())) 400 - "Token expired"
 
+        // Check if the email is already confirmed
+        val u = confirmation.aquaNetUser
+        if (u.emailConfirmed) 400 - "Email already confirmed"
+
         // Confirm the email
-        async { userRepo.save(confirmation.aquaNetUser.apply { emailConfirmed = true }) }
+        async { userRepo.save(u.apply { emailConfirmed = true }) }
+        fedy.onUserUpdated(u, isNew = true)
 
         return SUCCESS
     }
@@ -226,6 +235,7 @@ class UserRegistrar(
             // Clear all tokens if changing password
             if (key == "pwHash") validator.clearAllSessions(u)
         }
+        fedy.onUserUpdated(u)
 
         SUCCESS
     }
@@ -264,6 +274,7 @@ class UserRegistrar(
             (portraitPath / name).writeBytes(bytes)
             userRepo.save(u.apply { profilePicture = name })
         }
+        fedy.onUserUpdated(u)
 
         SUCCESS
     }

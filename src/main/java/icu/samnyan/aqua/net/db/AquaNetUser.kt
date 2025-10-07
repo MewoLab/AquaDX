@@ -142,13 +142,14 @@ class AquaUserServices(
             }
     }
 
-    fun create(username: Str, email: Str, password: Str, country: Str): AquaNetUser {
+    fun create(username: Str, email: Str, password: Str, country: Str, emailConfirmed: Boolean = false): AquaNetUser {
         // Create user
         val u = AquaNetUser(
             username = checkUsername(username),
             email = validateEmail(email),
             pwHash = checkPwHash(password),
             regTime = millis(), lastLogin = millis(), country = country,
+            emailConfirmed = emailConfirmed
         )
 
         // Create a ghost card
