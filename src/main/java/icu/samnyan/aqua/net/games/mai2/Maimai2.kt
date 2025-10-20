@@ -29,7 +29,7 @@ class Maimai2(
     // Only show > S rank
     override val shownRanks = mai2Scores.filter { it.first >= 97 * 10000 }
     override val settableFields: Map<String, (Mai2UserDetail, String) -> Unit> by lazy { mapOf(
-        "userName" to usernameCheck(SEGA_USERNAME_CAHRS),
+        "userName" to usernameCheck(SEGA_USERNAME_CHARS),
         "iconId" to { u, v -> u.iconId = v.int() },
         "plateId" to { u, v -> u.plateId = v.int() },
         "titleId" to { u, v -> u.titleId = v.int() },

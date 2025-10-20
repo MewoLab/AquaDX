@@ -11,7 +11,7 @@ const val LETTERS = "ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳ�
 const val SYMBOLS = "・：；？！～／＋－×÷＝♂♀∀＃＆＊＠☆○◎◇□△▽♪†‡ΣαβγθφψωДё＄（）．＿　"
 const val KANA = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん" +
     "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン"
-const val SEGA_USERNAME_CAHRS = LETTERS + SYMBOLS + KANA
+const val SEGA_USERNAME_CHARS = LETTERS + SYMBOLS + KANA
 const val WACCA_USERNAME_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
     "abcdefghijklmnopqrstuvwxyz" +
     "0123456789" +
