@@ -13,7 +13,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PstdHCtrlHandler : BaseHandler() {
+class PstdHCtrlHandler {
     fun handle(request: BaseRequest) = PstdHCtrlResponse(
         request.cmd,
         request.req_id,

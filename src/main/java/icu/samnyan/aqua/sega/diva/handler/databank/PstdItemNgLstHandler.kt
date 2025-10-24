@@ -11,7 +11,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PstdItemNgLstHandler : BaseHandler() {
+class PstdItemNgLstHandler {
     fun handle(request: BaseRequest) = PstdItemNgLstResponse(
         request.cmd,
         request.req_id,

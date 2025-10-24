@@ -13,7 +13,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class CstmzItmCtlgHandler(private val customizeRepository: DivaCustomizeRepository) : BaseHandler() {
+class CstmzItmCtlgHandler(private val customizeRepository: DivaCustomizeRepository) {
     fun handle(request: BaseRequest): Any {
         val customizeList = customizeRepository.findAll()
 

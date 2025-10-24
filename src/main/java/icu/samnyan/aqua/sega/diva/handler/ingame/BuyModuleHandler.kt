@@ -23,7 +23,7 @@ class BuyModuleHandler(
     private val playerProfileService: PlayerProfileService,
     private val playerModuleService: PlayerModuleService,
     private val gameSessionRepository: GameSessionRepository
-) : BaseHandler() {
+) {
     fun handle(request: BuyModuleRequest): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })

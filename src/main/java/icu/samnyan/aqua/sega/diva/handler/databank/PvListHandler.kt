@@ -16,7 +16,7 @@ import java.util.function.Consumer
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PvListHandler(private val pvEntryRepository: PvEntryRepository) : BaseHandler() {
+class PvListHandler(private val pvEntryRepository: PvEntryRepository) {
     private val df: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     fun handle(request: BaseRequest): Any {

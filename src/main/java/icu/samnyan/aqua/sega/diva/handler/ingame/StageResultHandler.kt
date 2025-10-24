@@ -44,7 +44,7 @@ class StageResultHandler(
     private val playerCustomizeRepository: PlayerCustomizeRepository,
     private val playerInventoryRepository: PlayerInventoryRepository,
     private val divaCalculator: DivaCalculator
-) : BaseHandler() {
+) {
     private var currentProfile: PlayerProfile? = null
     val logger = logger()
 

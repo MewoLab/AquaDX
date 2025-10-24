@@ -11,7 +11,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class RmtWpLstHandler : BaseHandler() {
+class RmtWpLstHandler {
     fun handle(request: BaseRequest) = RmtWpLstResponse(
         request.cmd,
         request.req_id,

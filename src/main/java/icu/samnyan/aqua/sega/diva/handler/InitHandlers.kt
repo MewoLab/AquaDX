@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.handler
 
-import ext.logger
 import icu.samnyan.aqua.sega.diva.model.common.attend.DispersalParameter
 import icu.samnyan.aqua.sega.diva.model.common.attend.EtcParameter
 import icu.samnyan.aqua.sega.diva.model.common.attend.GameBalanceParameter
@@ -41,9 +40,7 @@ class AttendHandler {
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PingHandler(val rp: PropertyEntryRepository) : BaseHandler() {
-    val logger = logger()
-
+class PingHandler(val rp: PropertyEntryRepository) {
     fun handle(request: BaseRequest): Any {
         val news: PropertyEntry = rp.findByPropertyKey("diva_news") ?: PropertyEntry("diva_news", "xxx")
         val warning: PropertyEntry = rp.findByPropertyKey("diva_warning") ?: PropertyEntry("diva_warning", "xxx")

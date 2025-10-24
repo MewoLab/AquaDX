@@ -23,7 +23,7 @@ class BuyCstmzItmHandler(
     private val playerProfileService: PlayerProfileService,
     private val playerCustomizeService: PlayerCustomizeService,
     private val gameSessionRepository: GameSessionRepository
-) : BaseHandler() {
+) {
     fun handle(request: BuyCstmzItmRequest): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow(
             Supplier { ProfileNotFoundException() })

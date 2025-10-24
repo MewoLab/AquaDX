@@ -25,7 +25,7 @@ import java.util.function.Supplier
 class StoreSsHandler(
     private val playerProfileService: PlayerProfileService,
     private val screenShotRepository: PlayerScreenShotRepository
-) : BaseHandler() {
+) {
     val logger = logger()
     fun handle(request: StoreSsRequest, file: MultipartFile): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(

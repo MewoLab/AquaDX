@@ -33,7 +33,7 @@ class EndHandler(
     private val playerProfileService: PlayerProfileService,
     private val playerContestRepository: PlayerContestRepository,
     private val gameSessionRepository: GameSessionRepository
-) : BaseHandler() {
+) {
     fun handle(request: StageResultRequest): Any {
         val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })

@@ -12,7 +12,7 @@ import java.util.function.Supplier
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class SpendCreditHandler(private val playerProfileService: PlayerProfileService) : BaseHandler() {
+class SpendCreditHandler(private val playerProfileService: PlayerProfileService) {
     fun handle(request: SpendCreditRequest): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })

@@ -11,7 +11,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PvNgMdlLstHandler : BaseHandler() {
+class PvNgMdlLstHandler {
     fun handle(request: BaseRequest) = PvNgMdlLstResponse(
         request.cmd,
         request.req_id,

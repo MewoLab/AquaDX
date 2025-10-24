@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class FestaInfoHandler(private val festaRepository: FestaRepository) : BaseHandler() {
+class FestaInfoHandler(private val festaRepository: FestaRepository) {
     fun handle(request: BaseRequest): Any {
         val festaList = festaRepository.findTop2ByEnableOrderByCreateDateDesc(true)
         val collection = FestaCollection(festaList)

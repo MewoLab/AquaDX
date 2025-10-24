@@ -24,7 +24,7 @@ class GetPvPdHandler(
     private val pvRecordRepository: PlayerPvRecordRepository,
     private val pvCustomizeRepository: PlayerPvCustomizeRepository,
     private val playerProfileService: PlayerProfileService
-) : BaseHandler() {
+) {
     fun handle(request: GetPvPdRequest): Any {
         val profileO = playerProfileService.findByPdId(request.pd_id)
         val pd = StringBuilder()

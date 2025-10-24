@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class NgWordHandler : BaseHandler() {
+class NgWordHandler {
     fun handle(request: BaseRequest) = BaseResponse(
         request.cmd,
         request.req_id,

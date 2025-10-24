@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom
 class PreStartHandler(
     private val playerProfileService: PlayerProfileService,
     private val gameSessionRepository: GameSessionRepository
-) : BaseHandler() {
+) {
     var logger = logger()
     fun handle(request: PreStartRequest): Any {
         val profileOptional = playerProfileService.findByPdId(request.aime_id)
