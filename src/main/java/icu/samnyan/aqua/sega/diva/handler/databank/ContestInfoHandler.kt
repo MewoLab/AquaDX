@@ -15,7 +15,7 @@ import kotlin.math.max
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class ContestInfoHandler(private val contestRepository: ContestRepository) : BaseHandler() {
+class ContestInfoHandler(private val contestRepository: ContestRepository) {
     fun handle(request: BaseRequest): Any {
         val contestList = contestRepository.findTop8ByEnable(true)
         var ci_str = "***"

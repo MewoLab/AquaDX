@@ -17,7 +17,7 @@ import java.util.stream.Collectors
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepository) : BaseHandler() {
+class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepository) {
     fun handle(request: PsRankingRequest): Any {
         var edition = Edition.ORIGINAL
         var difficulty = Difficulty.HARD

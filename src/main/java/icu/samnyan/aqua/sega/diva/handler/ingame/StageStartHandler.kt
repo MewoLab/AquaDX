@@ -18,7 +18,7 @@ import java.util.function.Supplier
 class StageStartHandler(
     private val gameSessionRepository: GameSessionRepository,
     private val playerProfileService: PlayerProfileService
-) : BaseHandler() {
+) {
     fun handle(request: StageStartRequest): Any {
         if (request.getPd_id() != -1L) {
             val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(

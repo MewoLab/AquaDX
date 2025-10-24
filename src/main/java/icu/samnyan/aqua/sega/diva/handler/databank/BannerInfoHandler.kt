@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class BannerInfoHandler : BaseHandler() {
+class BannerInfoHandler {
     fun handle(request: BaseRequest) = BannerInfoResponse(
         request.cmd,
         request.req_id,

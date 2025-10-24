@@ -11,7 +11,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class CstmzItmNgMdlListHandler : BaseHandler() {
+class CstmzItmNgMdlListHandler {
     fun handle(request: BaseRequest) = CstmzItmNgMdlListResponse(
         request.cmd,
         request.req_id,

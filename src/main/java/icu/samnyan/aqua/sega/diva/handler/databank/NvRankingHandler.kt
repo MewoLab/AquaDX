@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class NvRankingHandler : BaseHandler() {
+class NvRankingHandler {
     fun handle(request: BaseRequest) = NvRankingResponse(
         request.cmd,
         request.req_id,

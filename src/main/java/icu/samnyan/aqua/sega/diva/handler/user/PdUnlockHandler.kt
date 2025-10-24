@@ -17,7 +17,7 @@ import java.util.function.Supplier
 class PdUnlockHandler(
     private val playerProfileService: PlayerProfileService,
     private val gameSessionRepository: GameSessionRepository
-) : BaseHandler() {
+) {
     fun handle(request: PdUnlockRequest): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })

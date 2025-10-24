@@ -10,7 +10,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class BannerDataHandler : BaseHandler() {
+class BannerDataHandler {
     fun handle(request: BannerDataRequest) = BannerDataResponse(
         request.cmd,
         request.req_id,

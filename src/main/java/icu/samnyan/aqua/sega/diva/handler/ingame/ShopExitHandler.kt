@@ -19,7 +19,7 @@ import java.util.function.Supplier
 class ShopExitHandler(
     private val playerProfileService: PlayerProfileService,
     private val pvCustomizeRepository: PlayerPvCustomizeRepository
-) : BaseHandler() {
+) {
     fun handle(request: ShopExitRequest): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })

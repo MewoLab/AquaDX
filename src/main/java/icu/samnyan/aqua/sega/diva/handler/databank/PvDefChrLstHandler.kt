@@ -13,7 +13,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PvDefChrLstHandler : BaseHandler() {
+class PvDefChrLstHandler {
     fun handle(request: BaseRequest) = PvDefChrLstResponse(
         request.cmd,
         request.req_id,

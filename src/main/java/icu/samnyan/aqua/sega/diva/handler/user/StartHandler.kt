@@ -1,7 +1,8 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
-import icu.samnyan.aqua.sega.diva.*
-import icu.samnyan.aqua.sega.diva.handler.BaseHandler
+import icu.samnyan.aqua.sega.diva.GameSessionRepository
+import icu.samnyan.aqua.sega.diva.PlayerContestRepository
+import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.common.collection.ClearSet
 import icu.samnyan.aqua.sega.diva.model.common.collection.ClearTally
@@ -35,7 +36,7 @@ class StartHandler(
     private val playerModuleService: PlayerModuleService,
     private val playerPvRecordRepository: PlayerPvRecordRepository,
     private val playerContestRepository: PlayerContestRepository
-) : BaseHandler() {
+) {
     fun handle(request: StartRequest): Any {
         val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException>(
             Supplier { ProfileNotFoundException() })

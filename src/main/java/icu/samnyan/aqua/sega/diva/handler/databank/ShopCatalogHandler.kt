@@ -12,7 +12,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class ShopCatalogHandler(private val moduleRepository: DivaModuleRepository) : BaseHandler() {
+class ShopCatalogHandler(private val moduleRepository: DivaModuleRepository) {
     fun handle(request: BaseRequest): Any {
         val moduleList = moduleRepository.findAll()
 

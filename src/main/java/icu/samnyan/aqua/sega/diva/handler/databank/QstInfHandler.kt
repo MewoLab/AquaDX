@@ -11,7 +11,7 @@ import java.time.LocalDateTime
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class QstInfHandler : BaseHandler() {
+class QstInfHandler {
     fun handle(request: BaseRequest) = QstInfResponse(
         request.cmd,
         request.req_id,

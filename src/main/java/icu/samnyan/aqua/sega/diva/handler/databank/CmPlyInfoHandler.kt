@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class CmPlyInfoHandler : BaseHandler() {
+class CmPlyInfoHandler {
     fun handle(request: BaseRequest) = BaseResponse(
         request.cmd,
         request.req_id,

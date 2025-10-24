@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.diva
 
+import ext.JDict
 import ext.MutJDict
 import ext.logger
 import icu.samnyan.aqua.sega.diva.handler.AttendHandler
@@ -83,6 +84,10 @@ class DivaController(
 ) {
     val logger = logger()
     val mapper = DivaMapper()
+
+    fun buildResultMap(map: JDict) =
+        map.filterValues { it != null && !(it is String && it == "") }
+            .map { (k, v) -> "$k=$v" }.joinToString("&")
 
     @PostMapping(value = ["/"], consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
     fun formRequest(request: HttpServletRequest): String? {
