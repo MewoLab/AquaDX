@@ -12,4 +12,4 @@ drop table maimai_user_activity;
 
 drop table maimai_user_data;
 
-
+drop table sega_game_version;

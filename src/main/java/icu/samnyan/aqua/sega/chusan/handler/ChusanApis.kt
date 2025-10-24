@@ -8,7 +8,7 @@ import icu.samnyan.aqua.sega.chusan.model.request.UserCMissionResp
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserItem
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserMusicDetail
 import icu.samnyan.aqua.sega.general.model.CardStatus
-import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
+import icu.samnyan.aqua.sega.general.model.UserRecentRating
 import java.time.format.DateTimeFormatter
 
 @Suppress("UNCHECKED_CAST")

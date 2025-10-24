@@ -4,7 +4,7 @@ import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.Chu3UserAll
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
-import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
+import icu.samnyan.aqua.sega.general.model.UserRecentRating
 
 @Suppress("UNCHECKED_CAST")
 fun ChusanController.upsertApiInit() {

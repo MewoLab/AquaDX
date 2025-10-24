@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.chusan.model.request
 
 import ext.JDict
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
-import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
+import icu.samnyan.aqua.sega.general.model.UserRecentRating
 
 class UserCMissionResp {
     var missionId = 0

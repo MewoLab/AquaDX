@@ -4,7 +4,7 @@ package icu.samnyan.aqua.sega.ongeki
 
 import ext.*
 import icu.samnyan.aqua.sega.general.model.CardStatus
-import icu.samnyan.aqua.sega.general.model.response.UserRecentRating
+import icu.samnyan.aqua.sega.general.model.UserRecentRating
 import icu.samnyan.aqua.sega.ongeki.model.OgkItemType
 import icu.samnyan.aqua.sega.ongeki.model.UserItem
 import org.springframework.data.domain.PageRequest
