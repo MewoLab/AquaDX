@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.model.response.operation;
 
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
-import icu.samnyan.aqua.sega.util.URIEncoder;
+import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import lombok.Getter;
 import lombok.Setter;
 

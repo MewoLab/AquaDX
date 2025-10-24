@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.model.gamedata;
 
 import icu.samnyan.aqua.sega.diva.model.Internalizable;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
-import icu.samnyan.aqua.sega.util.URIEncoder;
+import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;

@@ -1,7 +1,5 @@
 package icu.samnyan.aqua.sega.diva.util;
 
-import icu.samnyan.aqua.sega.util.URIEncoder;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

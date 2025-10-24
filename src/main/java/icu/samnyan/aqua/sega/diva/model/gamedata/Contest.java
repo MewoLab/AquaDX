@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.diva.model.gamedata;
 import icu.samnyan.aqua.sega.diva.model.common.ContestLeague;
 import icu.samnyan.aqua.sega.diva.model.common.ContestNormaType;
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
-import icu.samnyan.aqua.sega.util.URIEncoder;
+import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
