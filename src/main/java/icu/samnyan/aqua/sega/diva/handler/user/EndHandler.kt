@@ -1,10 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
-import icu.samnyan.aqua.sega.diva.ContestRepository
-import icu.samnyan.aqua.sega.diva.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.PlayerContestRepository
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.ContestBorder
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
@@ -13,8 +9,9 @@ import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
-import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.stereotype.Component
 import java.lang.String
 import java.time.LocalDateTime
@@ -27,16 +24,11 @@ import kotlin.math.max
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class EndHandler(
-    private val contestRepository: ContestRepository,
-    private val playerProfileService: PlayerProfileService,
-    private val playerContestRepository: PlayerContestRepository,
-    private val gameSessionRepository: GameSessionRepository
-) {
+class EndHandler(val db: DivaRepos) {
     fun handle(request: StageResultRequest): Any {
-        val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
+        val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })
-        val session = gameSessionRepository.findByPdId(profile)
+        val session = db.gameSession.findByPdId(profile)
             .orElseThrow<SessionNotFoundException?>(Supplier { SessionNotFoundException() })
 
 
@@ -53,7 +45,7 @@ class EndHandler(
         profile.sortMode = SortMode.fromValue(request.getSort_kind())
 
         if (request.getCr_cid() != -1) {
-            val contest = contestRepository.findById(request.getCr_cid()).orElseGet(Supplier { Contest() })
+            val contest = db.g.contest.findById(request.getCr_cid()).orElseGet(Supplier { Contest() })
             val currentResultRank = getContestRank(contest, request.getCr_tv())
             if (request.getCr_if() == 0) {
                 // Do contest is playing
@@ -64,7 +56,7 @@ class EndHandler(
                 profile.contestNowPlayingSpecifier = String.join(",", *request.getCr_sp())
             } else {
                 val contestRecord =
-                    playerContestRepository.findByPdIdAndContestId(profile, request.getCr_cid()).orElseGet(
+                    db.contest.findByPdIdAndContestId(profile, request.getCr_cid()).orElseGet(
                         Supplier { PlayerContest(profile, request.getCr_cid()) })
                 contestRecord.startCount += 1
                 contestRecord.bestValue = max(contestRecord.bestValue, request.getCr_tv())
@@ -73,7 +65,7 @@ class EndHandler(
                 ) currentResultRank else contestRecord.resultRank
                 contestRecord.lastUpdateTime = LocalDateTime.now()
 
-                playerContestRepository.save<PlayerContest?>(contestRecord)
+                db.contest.save<PlayerContest?>(contestRecord)
                 profile.isContestNowPlayingEnable = false
                 profile.contestNowPlayingId = -1
                 profile.contestNowPlayingResultRank = ContestBorder.NONE
@@ -82,9 +74,8 @@ class EndHandler(
             }
         }
 
-        playerProfileService.save(profile)
-        gameSessionRepository.delete(session)
-
+        db.profile.save(profile)
+        db.gameSession.delete(session)
 
         return BaseResponse(
             request.cmd,

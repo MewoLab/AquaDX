@@ -1,10 +1,10 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
-import icu.samnyan.aqua.sega.diva.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.PlayerContestRepository
-import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
+import icu.samnyan.aqua.sega.diva.DivaRepos
+import icu.samnyan.aqua.sega.diva.PlayerCustomizeService
+import icu.samnyan.aqua.sega.diva.PlayerModuleService
+import icu.samnyan.aqua.sega.diva.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.model.common.*
-import icu.samnyan.aqua.sega.diva.model.common.collection.ClearSet
 import icu.samnyan.aqua.sega.diva.model.common.collection.ClearTally
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.StartResponse
@@ -12,9 +12,6 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
-import icu.samnyan.aqua.sega.diva.service.PlayerCustomizeService
-import icu.samnyan.aqua.sega.diva.service.PlayerModuleService
-import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
 import icu.samnyan.aqua.sega.diva.util.PvRecordDataException
 import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
@@ -31,20 +28,18 @@ import java.util.stream.Collectors
 @Component
 class StartHandler(
     private val playerProfileService: PlayerProfileService,
-    private val gameSessionRepository: GameSessionRepository,
     private val playerCustomizeService: PlayerCustomizeService,
     private val playerModuleService: PlayerModuleService,
-    private val playerPvRecordRepository: PlayerPvRecordRepository,
-    private val playerContestRepository: PlayerContestRepository
+    val db: DivaRepos
 ) {
     fun handle(request: StartRequest): Any {
-        val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException>(
+        val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException>(
             Supplier { ProfileNotFoundException() })
-        val session = gameSessionRepository.findByPdId(profile)
+        val session = db.gameSession.findByPdId(profile)
             .orElseThrow(Supplier { SessionNotFoundException() })
 
         session.startMode = StartMode.START
-        gameSessionRepository.save<GameSession>(session)
+        db.gameSession.save<GameSession>(session)
 
         val module_have = playerModuleService.getModuleHaveString(profile)
         val customize_have = playerCustomizeService.getModuleHaveString(profile)
@@ -121,7 +116,7 @@ class StartHandler(
     }
 
     private fun countClearStatus(profile: PlayerProfile): String {
-        val pvRecordList = playerPvRecordRepository.findByPdId(profile)
+        val pvRecordList = db.pvRecord.findByPdId(profile)
         val clearTally = ClearTally()
         pvRecordList.forEach(Consumer { x: PlayerPvRecord ->
             when (x.edition) {
@@ -151,14 +146,12 @@ class StartHandler(
         return clearTally.toInternal()
     }
 
-    private fun getDiff(record: PlayerPvRecord, clearTally: ClearTally): ClearSet {
-        when (record.difficulty) {
-            Difficulty.EASY -> return clearTally.easy
-            Difficulty.NORMAL -> return clearTally.normal
-            Difficulty.HARD -> return clearTally.hard
-            Difficulty.EXTREME -> return clearTally.extreme
-            else -> throw PvRecordDataException("Difficulty data not exist, record id:" + record.id)
-        }
+    private fun getDiff(record: PlayerPvRecord, clearTally: ClearTally) = when (record.difficulty) {
+        Difficulty.EASY -> clearTally.easy
+        Difficulty.NORMAL -> clearTally.normal
+        Difficulty.HARD -> clearTally.hard
+        Difficulty.EXTREME -> clearTally.extreme
+        else -> throw PvRecordDataException("Difficulty data not exist, record id:" + record.id)
     }
 
     private fun getContestResult(profile: PlayerProfile): MutableMap<String, String> {
@@ -167,7 +160,7 @@ class StartHandler(
         val cv_rr: MutableList<Int> = LinkedList<Int>()
         val cv_bv: MutableList<Int> = LinkedList<Int>()
         val cv_bf: MutableList<Int> = LinkedList<Int>()
-        val contestList = playerContestRepository.findTop4ByPdIdOrderByLastUpdateTimeDesc(profile)
+        val contestList = db.contest.findTop4ByPdIdOrderByLastUpdateTimeDesc(profile)
         contestList.forEach(Consumer { x: PlayerContest ->
             cv_cid.add(x.contestId)
             cv_sc.add(x.startCount)

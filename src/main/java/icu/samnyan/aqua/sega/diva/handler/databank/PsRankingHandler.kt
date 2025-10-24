@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
-import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
+import ext.csv
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.collection.PsRankingCollection
@@ -10,13 +11,12 @@ import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
-import java.util.stream.Collectors
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepository) {
+class PsRankingHandler(val db: DivaRepos) {
     fun handle(request: PsRankingRequest): Any {
         var edition = Edition.ORIGINAL
         var difficulty = Difficulty.HARD
@@ -33,7 +33,7 @@ class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepos
         val list = request.rnk_ps_pv_id_lst
         val resultCollections: MutableMap<Int?, PsRankingCollection?> = LinkedHashMap<Int?, PsRankingCollection?>()
         for (i in list) {
-            val records = playerPvRecordRepository.findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(
+            val records = db.pvRecord.findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(
                 i,
                 edition,
                 difficulty
@@ -84,16 +84,16 @@ class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepos
             LocalDateTime.now(),
             LocalDateTime.now(),
             request.rnk_ps_idx,
-            pvIds.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            edition1.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            edition2.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            edition3.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            score1.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            score2.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            score3.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(",")),
-            name1.stream().map<String?> { obj: String? -> obj.toString() }.collect(Collectors.joining(",")),
-            name2.stream().map<String?> { obj: String? -> obj.toString() }.collect(Collectors.joining(",")),
-            name3.stream().map<String?> { obj: String? -> obj.toString() }.collect(Collectors.joining(","))
+            pvIds.csv,
+            edition1.csv,
+            edition2.csv,
+            edition3.csv,
+            score1.csv,
+            score2.csv,
+            score3.csv,
+            name1.csv,
+            name2.csv,
+            name3.csv
         )
     }
 }

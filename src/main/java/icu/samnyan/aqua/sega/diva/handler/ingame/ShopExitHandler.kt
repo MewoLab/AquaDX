@@ -1,13 +1,12 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.csv
-import icu.samnyan.aqua.sega.diva.PlayerPvCustomizeRepository
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.ingame.ShopExitRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.ShopExitResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize
-import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
 import org.springframework.stereotype.Component
 import java.util.function.Supplier
 
@@ -15,14 +14,11 @@ import java.util.function.Supplier
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class ShopExitHandler(
-    private val playerProfileService: PlayerProfileService,
-    private val pvCustomizeRepository: PlayerPvCustomizeRepository
-) {
+class ShopExitHandler(val db: DivaRepos) {
     fun handle(request: ShopExitRequest): Any {
-        val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
+        val profile = db.profile.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })
-        val customize = pvCustomizeRepository.findByPdIdAndPvId(profile, request.ply_pv_id)
+        val customize = db.pvCustomize.findByPdIdAndPvId(profile, request.ply_pv_id)
             .orElseGet(Supplier { PlayerPvCustomize(profile, request.ply_pv_id) })
 
         if (request.use_pv_mdl_eqp == 1) {
@@ -39,8 +35,8 @@ class ShopExitHandler(
         profile.commonCustomizeItems = request.c_itm_eqp_cmn_ary.csv
         profile.moduleSelectItemFlag = request.ms_itm_flg_cmn_ary.csv
 
-        playerProfileService.save(profile)
-        pvCustomizeRepository.save<PlayerPvCustomize?>(customize)
+        db.profile.save(profile)
+        db.pvCustomize.save(customize)
         return ShopExitResponse(
             request.cmd,
             request.req_id,

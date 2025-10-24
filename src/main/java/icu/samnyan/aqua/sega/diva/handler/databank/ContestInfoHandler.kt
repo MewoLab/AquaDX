@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
-import icu.samnyan.aqua.sega.diva.ContestRepository
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.ContestInfoResponse
@@ -14,9 +14,9 @@ import kotlin.math.max
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class ContestInfoHandler(private val contestRepository: ContestRepository) {
+class ContestInfoHandler(val db: DivaRepos) {
     fun handle(request: BaseRequest): Any {
-        val contestList = contestRepository.findTop8ByEnable(true)
+        val contestList = db.g.contest.findTop8ByEnable(true)
         var ci_str = "***"
         if (!contestList.isEmpty()) {
             val sb = StringBuilder()

@@ -27,6 +27,7 @@ class DivaGameRepos(
 @Component
 class DivaRepos(
     val g: DivaGameRepos,
+    val s: DivaServices,
     val gameSession: GameSessionRepository,
     val playLog: PlayLogRepository,
     val contest: PlayerContestRepository,
