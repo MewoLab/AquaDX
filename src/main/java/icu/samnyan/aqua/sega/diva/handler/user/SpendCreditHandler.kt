@@ -1,0 +1,43 @@
+package icu.samnyan.aqua.sega.diva.handler.user
+
+import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.handler.BaseHandler
+import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
+import icu.samnyan.aqua.sega.diva.model.response.user.SpendCreditResponse
+import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Component
+import java.util.function.Supplier
+
+/**
+ * @author samnyan (privateamusement@protonmail.com)
+ */
+@Component
+class SpendCreditHandler(private val playerProfileService: PlayerProfileService) : BaseHandler() {
+    fun handle(request: SpendCreditRequest): Any {
+        val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
+            Supplier { ProfileNotFoundException() })
+
+        val response = SpendCreditResponse(
+            request.cmd,
+            request.req_id,
+            "ok",
+            "-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x",
+            0,
+            profile.vocaloidPoints,
+            profile.levelTitle,
+            profile.plateEffectId,
+            profile.plateId
+        )
+
+        val resp = this.build(mapper.toMap(response))
+        logger.info("Response: {}", resp)
+
+        return resp
+    }
+
+    companion object {
+        private val logger: Logger = LoggerFactory.getLogger(SpendCreditHandler::class.java)
+    }
+}
