@@ -14,22 +14,11 @@ import java.time.LocalDateTime
  */
 @Component
 class PvDefChrLstHandler : BaseHandler() {
-    fun handle(request: BaseRequest): Any {
-        val response = PvDefChrLstResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
-            DivaDateTimeUtil.getString(LocalDateTime.now()),
-            "***"
-        )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(PvDefChrLstHandler::class.java)
-    }
+    fun handle(request: BaseRequest) = PvDefChrLstResponse(
+        request.cmd,
+        request.req_id,
+        "ok",
+        DivaDateTimeUtil.getString(LocalDateTime.now()),
+        "***"
+    )
 }

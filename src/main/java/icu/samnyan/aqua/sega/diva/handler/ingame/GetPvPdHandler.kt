@@ -100,7 +100,7 @@ class GetPvPdHandler(
         pd.deleteCharAt(pd.length - 1)
 
 
-        val response = GetPvPdResponse(
+        return GetPvPdResponse(
             request.cmd,
             request.req_id,
             "ok",
@@ -108,11 +108,6 @@ class GetPvPdHandler(
             false,
             DivaDateTimeUtil.getString(LocalDateTime.now())
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
     }
 
 
@@ -148,9 +143,5 @@ class GetPvPdHandler(
             ) + "," +
             record.rgoPurchased + "," +
             record.rgoPlayed
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(GetPvPdHandler::class.java)
     }
 }

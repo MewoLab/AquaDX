@@ -18,7 +18,7 @@ class FestaInfoHandler(private val festaRepository: FestaRepository) : BaseHandl
         val festaList = festaRepository.findTop2ByEnableOrderByCreateDateDesc(true)
         val collection = FestaCollection(festaList)
 
-        val response = FestaInfoResponse(
+        return FestaInfoResponse(
             request.cmd,
             request.req_id,
             "ok",
@@ -34,14 +34,5 @@ class FestaInfoHandler(private val festaRepository: FestaRepository) : BaseHandl
             collection.ends,
             collection.lastUpdateTime
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(FestaInfoHandler::class.java)
     }
 }

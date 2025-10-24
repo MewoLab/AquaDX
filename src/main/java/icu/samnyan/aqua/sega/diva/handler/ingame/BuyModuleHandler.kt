@@ -37,7 +37,7 @@ class BuyModuleHandler(
 
         val response: BuyModuleResponse?
         if (moduleOptional.isEmpty) {
-            response = BuyModuleResponse(
+            return BuyModuleResponse(
                 request.cmd,
                 request.req_id,
                 "ok",
@@ -45,7 +45,7 @@ class BuyModuleHandler(
             )
         } else {
             if (session.vp < moduleOptional.get().price) {
-                response = BuyModuleResponse(
+                return BuyModuleResponse(
                     request.cmd,
                     request.req_id,
                     "ok",
@@ -56,7 +56,7 @@ class BuyModuleHandler(
                 session.vp = session.vp - moduleOptional.get().price
                 gameSessionRepository.save<GameSession?>(session)
 
-                response = BuyModuleResponse(
+                return BuyModuleResponse(
                     request.cmd,
                     request.req_id,
                     "ok",
@@ -67,14 +67,5 @@ class BuyModuleHandler(
                 )
             }
         }
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(BuyModuleHandler::class.java)
     }
 }
