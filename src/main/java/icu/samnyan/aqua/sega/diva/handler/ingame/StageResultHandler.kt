@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
+import ext.logger
 import icu.samnyan.aqua.sega.diva.dao.gamedata.ContestRepository
 import icu.samnyan.aqua.sega.diva.dao.userdata.*
 import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
@@ -42,6 +43,7 @@ class StageResultHandler(
     private val divaCalculator: DivaCalculator
 ) : BaseHandler() {
     private var currentProfile: PlayerProfile? = null
+    val logger = logger()
 
     fun handle(request: StageResultRequest): Any {
         val response: StageResultResponse?
@@ -210,7 +212,7 @@ class StageResultHandler(
             gameSessionRepository.save<GameSession?>(session)
 
 
-            response = StageResultResponse(
+            return StageResultResponse(
                 request.cmd,
                 request.req_id,
                 "ok",
@@ -260,17 +262,12 @@ class StageResultHandler(
                 "-1,-1,-1,-1,-1"
             )
         } else {
-            response = StageResultResponse(
+            return StageResultResponse(
                 request.cmd,
                 request.req_id,
                 "ok"
             )
         }
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
     }
 
     private fun getLog(request: StageResultRequest, profile: PlayerProfile?, i: Int): PlayLog {
@@ -457,9 +454,5 @@ class StageResultHandler(
             }
         }
         return null
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(StageResultHandler::class.java)
     }
 }

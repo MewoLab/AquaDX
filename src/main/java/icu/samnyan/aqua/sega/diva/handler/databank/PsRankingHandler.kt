@@ -8,8 +8,6 @@ import icu.samnyan.aqua.sega.diva.model.common.collection.PsRankingCollection
 import icu.samnyan.aqua.sega.diva.model.request.databank.PsRankingRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.PsRankingResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
@@ -80,7 +78,7 @@ class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepos
             )
         }
 
-        val response = PsRankingResponse(
+        return PsRankingResponse(
             request.cmd,
             request.req_id,
             "ok",
@@ -98,14 +96,5 @@ class PsRankingHandler(private val playerPvRecordRepository: PlayerPvRecordRepos
             name2.stream().map<String?> { obj: String? -> obj.toString() }.collect(Collectors.joining(",")),
             name3.stream().map<String?> { obj: String? -> obj.toString() }.collect(Collectors.joining(","))
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(PsRankingHandler::class.java)
     }
 }

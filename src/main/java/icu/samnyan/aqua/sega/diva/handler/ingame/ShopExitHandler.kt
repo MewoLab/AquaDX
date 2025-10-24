@@ -44,20 +44,11 @@ class ShopExitHandler(
 
         playerProfileService.save(profile)
         pvCustomizeRepository.save<PlayerPvCustomize?>(customize)
-        val response = ShopExitResponse(
+        return ShopExitResponse(
             request.cmd,
             request.req_id,
             "ok",
             Result.SUCCESS
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(ShopExitHandler::class.java)
     }
 }

@@ -89,16 +89,11 @@ class EndHandler(
         gameSessionRepository.delete(session)
 
 
-        val response = BaseResponse(
+        return BaseResponse(
             request.cmd,
             request.req_id,
             "ok"
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
     }
 
     private fun getContestRank(contest: Contest, value: Int): ContestBorder {
@@ -106,9 +101,5 @@ class EndHandler(
         if (value >= contest.sliverBorders) return ContestBorder.SILVER
         if (value >= contest.bronzeBorders) return ContestBorder.BRONZE
         return ContestBorder.NONE
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(EndHandler::class.java)
     }
 }

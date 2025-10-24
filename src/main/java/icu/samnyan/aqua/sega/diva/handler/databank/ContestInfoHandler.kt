@@ -6,8 +6,6 @@ import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.ContestInfoResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.function.Consumer
@@ -35,9 +33,5 @@ class ContestInfoHandler(private val contestRepository: ContestRepository) : Bas
             LocalDateTime.now(),
             ci_str
         )
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(CmPlyInfoHandler::class.java)
     }
 }

@@ -19,21 +19,12 @@ class CstmzItmCtlgHandler(private val customizeRepository: DivaCustomizeReposito
     fun handle(request: BaseRequest): Any {
         val customizeList = customizeRepository.findAll()
 
-        val response = CstmzItmCtlgResponse(
+        return CstmzItmCtlgResponse(
             request.cmd,
             request.req_id,
             "ok",
             DivaDateTimeUtil.getString(LocalDateTime.now()),
             encode(customizeList.map { it.toInternal() }.joinToString(",") { encode(it) })
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(CstmzItmCtlgHandler::class.java)
     }
 }

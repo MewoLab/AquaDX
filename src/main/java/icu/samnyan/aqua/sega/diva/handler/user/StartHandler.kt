@@ -58,7 +58,7 @@ class StartHandler(
         border = border or ((if (profile.isShowExcellentBorder) 1 else 0) shl 1)
         border = border or ((if (profile.isShowRivalBorder) 1 else 0) shl 2)
 
-        val response = StartResponse(
+        return StartResponse(
             request.cmd,
             request.req_id,
             "ok",
@@ -121,11 +121,6 @@ class StartHandler(
             null,
             null
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
     }
 
     private fun countClearStatus(profile: PlayerProfile?): String? {
@@ -197,9 +192,5 @@ class StartHandler(
         result["cv_bv"] = cv_bv.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
         result["cv_bf"] = cv_bf.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
         return result
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(StartHandler::class.java)
     }
 }

@@ -35,18 +35,13 @@ class PvListHandler(private val pvEntryRepository: PvEntryRepository) : BaseHand
         sb.append(encode(difficultyString(extremeList))).append(",")
         sb.append("%2A%2A%2A")
 
-        val response = PvListResponse(
+        return PvListResponse(
             request.cmd,
             request.req_id,
             "ok",
             LocalDateTime.now(),
             sb.toString()
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
     }
 
     private fun entryString(entry: PvEntry): String {
@@ -64,9 +59,5 @@ class PvListHandler(private val pvEntryRepository: PvEntryRepository) : BaseHand
         list.forEach(Consumer { x: PvEntry? -> sb.append(encode(entryString(x!!))).append(",") })
         if (sb.length > 0) sb.deleteCharAt(sb.length - 1)
         return sb.toString()
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(BannerDataHandler::class.java)
     }
 }

@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
+import ext.logger
 import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerScreenShotRepository
 import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
@@ -8,8 +9,6 @@ import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerScreenShot
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import java.io.IOException
@@ -27,6 +26,7 @@ class StoreSsHandler(
     private val playerProfileService: PlayerProfileService,
     private val screenShotRepository: PlayerScreenShotRepository
 ) : BaseHandler() {
+    val logger = logger()
     fun handle(request: StoreSsRequest, file: MultipartFile): Any {
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })
@@ -46,7 +46,7 @@ class StoreSsHandler(
             )
             screenShotRepository.save<PlayerScreenShot?>(ss)
 
-            response = BaseResponse(
+            return BaseResponse(
                 request.cmd,
                 request.req_id,
                 "ok"
@@ -54,20 +54,11 @@ class StoreSsHandler(
         } catch (e: IOException) {
             logger.error("Screenshot save failed", e)
 
-            response = BaseResponse(
+            return BaseResponse(
                 request.cmd,
                 request.req_id,
                 "0"
             )
         }
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(StoreSsHandler::class.java)
     }
 }

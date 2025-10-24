@@ -28,19 +28,10 @@ class PdUnlockHandler(
 
         gameSessionRepository.delete(session)
 
-        val response = BaseResponse(
+        return BaseResponse(
             request.cmd,
             request.req_id,
             "ok"
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(PdUnlockHandler::class.java)
     }
 }

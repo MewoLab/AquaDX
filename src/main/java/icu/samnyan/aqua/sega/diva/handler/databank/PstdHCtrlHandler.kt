@@ -14,22 +14,11 @@ import java.time.LocalDateTime
  */
 @Component
 class PstdHCtrlHandler : BaseHandler() {
-    fun handle(request: BaseRequest): Any {
-        val response = PstdHCtrlResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
-            DivaDateTimeUtil.getString(LocalDateTime.now()),
-            "***,***"
-        )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(PstdHCtrlHandler::class.java)
-    }
+    fun handle(request: BaseRequest) = PstdHCtrlResponse(
+        request.cmd,
+        request.req_id,
+        "ok",
+        DivaDateTimeUtil.getString(LocalDateTime.now()),
+        "***,***"
+    )
 }

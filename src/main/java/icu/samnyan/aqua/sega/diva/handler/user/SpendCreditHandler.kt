@@ -19,7 +19,7 @@ class SpendCreditHandler(private val playerProfileService: PlayerProfileService)
         val profile = playerProfileService.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
             Supplier { ProfileNotFoundException() })
 
-        val response = SpendCreditResponse(
+        return SpendCreditResponse(
             request.cmd,
             request.req_id,
             "ok",
@@ -30,14 +30,5 @@ class SpendCreditHandler(private val playerProfileService: PlayerProfileService)
             profile.plateEffectId,
             profile.plateId
         )
-
-        val resp = this.build(mapper.toMap(response))
-        logger.info("Response: {}", resp)
-
-        return resp
-    }
-
-    companion object {
-        private val logger: Logger = LoggerFactory.getLogger(SpendCreditHandler::class.java)
     }
 }
