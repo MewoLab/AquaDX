@@ -18,18 +18,11 @@ class CardService(val cardRepo: CardRepository)
 {
     /**
      * Find a card by External ID
-     * @param extId External ID
-     * @return Optional of a Card
-     */
-    fun getCardByExtId(extId: String): Optional<Card> = cardRepo.findByExtId(extId.toLong())
-
-    /**
-     * Find a card by External ID
      *
      * @param extId External ID
      * @return Optional of a Card
      */
-    fun getCardByExtId(extId: Long?): Optional<Card> = cardRepo.findByExtId(extId)
+    fun getCardByExtId(extId: Long): Optional<Card> = cardRepo.findByExtId(extId)
 
     /**
      * Register a new card with access code
