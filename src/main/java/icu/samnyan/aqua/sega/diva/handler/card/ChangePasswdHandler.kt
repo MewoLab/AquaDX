@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.diva.handler.card
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import icu.samnyan.aqua.sega.diva.model.common.PassStat
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.card.ChangePasswdRequest
