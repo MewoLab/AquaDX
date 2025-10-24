@@ -9,6 +9,8 @@ drop table maimai_user_general_data;
 drop table maimai_user_character;
 drop table maimai_user_boss;
 drop table maimai_user_activity;
+drop table maimai_user_item;
+drop table maimai_game_event;
 
 drop table maimai_user_data;
 
@@ -18,7 +20,6 @@ drop table chuni_game_charge;
 drop table chuni_game_event;
 drop table chuni_game_message;
 drop table chuni_game_skill;
-drop table chuni_music;
 drop table chuni_music_level;
 drop table chuni_user_activity;
 drop table chuni_user_character;
@@ -33,6 +34,7 @@ drop table chuni_user_map;
 drop table chuni_user_music_detail;
 drop table chuni_user_playlog;
 
+drop table chuni_music;
 drop table chuni_user_data_ex;
 drop table chuni_user_data;
 
