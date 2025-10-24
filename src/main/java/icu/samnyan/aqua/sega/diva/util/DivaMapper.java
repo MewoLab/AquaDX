@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import icu.samnyan.aqua.sega.util.jackson.BooleanNumberDeserializer;
-import icu.samnyan.aqua.sega.util.jackson.BooleanNumberSerializer;
-import icu.samnyan.aqua.sega.util.jackson.ZonedDateTimeDeserializer;
+import icu.samnyan.aqua.sega.util.BooleanNumberDeserializer;
+import icu.samnyan.aqua.sega.util.BooleanNumberSerializer;
+import icu.samnyan.aqua.sega.util.ZonedDateTimeDeserializer;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

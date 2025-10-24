@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.handler
 import ext.*
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UserPhoto
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import org.springframework.stereotype.Component
 import java.io.IOException
 import java.nio.file.Files

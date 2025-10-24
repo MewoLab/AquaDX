@@ -9,7 +9,7 @@ import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPlaylog
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import icu.samnyan.aqua.spring.Metrics
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component

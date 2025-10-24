@@ -7,7 +7,7 @@ import ext.parsing
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPrintDetail
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime

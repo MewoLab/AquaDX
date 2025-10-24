@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.sega.general.model.Card
-import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
+import icu.samnyan.aqua.sega.util.AccessCodeSerializer
 import jakarta.persistence.*
 import java.time.LocalDate
 import java.time.LocalDateTime

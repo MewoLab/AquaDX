@@ -7,7 +7,7 @@ import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.MeowApi
 import icu.samnyan.aqua.sega.general.RequestContext
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import icu.samnyan.aqua.spring.Metrics
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.RestController

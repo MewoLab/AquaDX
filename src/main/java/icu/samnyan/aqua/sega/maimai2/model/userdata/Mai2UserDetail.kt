@@ -8,7 +8,7 @@ import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.general.model.Card
-import icu.samnyan.aqua.sega.util.jackson.AccessCodeSerializer
+import icu.samnyan.aqua.sega.util.AccessCodeSerializer
 import jakarta.persistence.*
 
 @Entity(name = "Maimai2UserData")

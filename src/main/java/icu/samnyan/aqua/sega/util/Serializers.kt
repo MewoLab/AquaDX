@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.util.jackson
+package icu.samnyan.aqua.sega.util
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser

@@ -5,7 +5,7 @@ import ext.logger
 import ext.long
 import ext.parsing
 import icu.samnyan.aqua.sega.allnet.TokenChecker
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping

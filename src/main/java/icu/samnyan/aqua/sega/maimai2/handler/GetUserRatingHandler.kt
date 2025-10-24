@@ -6,7 +6,7 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.UserRating
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserRate
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserUdemae
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import org.springframework.stereotype.Component
 
 /**

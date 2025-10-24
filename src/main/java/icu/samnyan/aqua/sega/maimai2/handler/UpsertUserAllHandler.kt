@@ -10,7 +10,7 @@ import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.
 import icu.samnyan.aqua.sega.maimai2.model.*
 import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UpsertUserAll
 import icu.samnyan.aqua.sega.maimai2.model.userdata.*
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
 import lombok.AllArgsConstructor
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component

@@ -11,9 +11,9 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserItem
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail
 import icu.samnyan.aqua.sega.ongeki.model.OngekiUpsertUserAll
 import icu.samnyan.aqua.sega.ongeki.model.UserItem
-import icu.samnyan.aqua.sega.util.jackson.BasicMapper
-import icu.samnyan.aqua.sega.util.jackson.IMapper
-import icu.samnyan.aqua.sega.util.jackson.StringMapper
+import icu.samnyan.aqua.sega.util.BasicMapper
+import icu.samnyan.aqua.sega.util.IMapper
+import icu.samnyan.aqua.sega.util.StringMapper
 
 
 abstract class DataBroker(
