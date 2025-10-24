@@ -16,9 +16,9 @@ class PropertyEntry {
     var propertyKey: String = ""
 
     @Column(columnDefinition = "TEXT")
-    var propertyValue: String? = null
+    var propertyValue: String = ""
 
-    constructor(propertyKey: String, propertyValue: String?) {
+    constructor(propertyKey: String, propertyValue: String) {
         this.propertyKey = propertyKey
         this.propertyValue = propertyValue
     }
