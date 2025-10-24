@@ -118,7 +118,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     }
 
     @API("playlog")
-    fun playlog(@RP id: Long): IGenericGamePlaylog = playlogRepo.findById(id).getOrNull() ?: (404 - "Playlog not found")
+    fun playlog(@RP id: Long): IGenericGamePlaylog = playlogRepo.findById(id)() ?: (404 - "Playlog not found")
 
     val userDetailFields by lazy { userDataClass.gettersMap().let { vm ->
         (settableFields.keys.toSet() + gettableFields)

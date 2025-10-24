@@ -14,6 +14,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.*
 import org.springframework.web.bind.annotation.RestController
 import kotlin.reflect.full.declaredMembers
 
+@Suppress("UNCHECKED_CAST")
 @RestController
 @API("api/v2/game/mai2")
 class Mai2Import(
@@ -61,7 +62,7 @@ class Mai2Import(
             }
         },
         Maimai2DataExport::userFavoriteMusicList to { user: Mai2UserDetail, _: ExportOptions ->
-            repos.userGeneralData.findByUserAndPropertyKey(user, "favorite_music").orElse(null)
+            repos.userGeneralData.findByUserAndPropertyKey(user, "favorite_music")
                 ?.propertyValue
                 ?.takeIf { it.isNotEmpty() }
                 ?.split(",")
@@ -78,7 +79,7 @@ class Mai2Import(
             if (favoriteMusicList.isNotEmpty()) {
                 val key = "favorite_music"
                 // This field always imports as incremental, since the userGeneralData field (for backwards compatibility) is processed before this
-                val data = repos.userGeneralData.findByUserAndPropertyKey(user, key).orElse(null)
+                val data = repos.userGeneralData.findByUserAndPropertyKey(user, key)
                     ?: Mai2UserGeneralData().apply { this.user = user; propertyKey = key }
                 repos.userGeneralData.save(data.apply {
                     propertyValue = favoriteMusicList.sortedBy { it.orderId }.map { it.id }.joinToString(",")

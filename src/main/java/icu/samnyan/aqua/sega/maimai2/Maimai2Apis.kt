@@ -16,12 +16,12 @@ fun Maimai2ServletController.initApis() {
 
     "GetUserExtend" { mapOf(
         "userId" to uid,
-        "userExtend" to (db.userExtend.findSingleByUser_Card_ExtId(uid)() ?: (404 - "User not found"))
+        "userExtend" to (db.userExtend.findSingleByUser_Card_ExtId(uid) ?: (404 - "User not found"))
     ) }
 
     "GetUserData" { mapOf(
         "userId" to uid,
-        "userData" to (db.userData.findByCardExtId(uid)() ?: (404 - "User not found")),
+        "userData" to (db.userData.findByCardExtId(uid) ?: (404 - "User not found")),
         "banState" to 0
     ) }
 
@@ -56,7 +56,7 @@ fun Maimai2ServletController.initApis() {
 
     "GetUserOption" { mapOf(
         "userId" to uid,
-        "userOption" to (db.userOption.findSingleByUser_Card_ExtId(uid)() ?: (404 - "User not found"))
+        "userOption" to (db.userOption.findSingleByUser_Card_ExtId(uid) ?: (404 - "User not found"))
     ) }
 
     "CreateToken" static { """{"Bearer":"meow"}""" }
@@ -75,7 +75,7 @@ fun Maimai2ServletController.initApis() {
         )
     } }
 
-    "CMGetUserPreview" { db.userData.findByCardExtId(uid)()?.let {
+    "CMGetUserPreview" { db.userData.findByCardExtId(uid)?.let {
         mapOf(
             "userId" to uid,
             "userName" to it.userName,
@@ -87,8 +87,8 @@ fun Maimai2ServletController.initApis() {
     } ?: (404 - "User not found") }
 
     "GetUserPreview" {
-        val d = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
-        val option = db.userOption.findSingleByUser_Card_ExtId(uid)()
+        val d = db.userData.findByCardExtId(uid) ?: (404 - "User not found")
+        val option = db.userOption.findSingleByUser_Card_ExtId(uid)
 
         val res = mutableMapOf(
             "userId" to uid,
@@ -125,7 +125,7 @@ fun Maimai2ServletController.initApis() {
     }
 
     "UserLogin" {
-        val d = db.userData.findByCardExtId(uid)()
+        val d = db.userData.findByCardExtId(uid)
 
         val res = mutableMapOf(
             "returnCode" to 1, "loginCount" to 1,
@@ -204,7 +204,7 @@ fun Maimai2ServletController.initApis() {
     }
 
     "GetUserIntimate".unpaged {
-        val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
+        val u = db.userData.findByCardExtId(uid) ?: (404 - "User not found")
         db.userIntimate.findByUser(u)
     }
 
@@ -241,7 +241,7 @@ fun Maimai2ServletController.initApis() {
     // Request: {userId}
     // Response: {userId, userKaleidxScopeList}
     "GetUserKaleidxScope".unpaged {
-        val u = db.userData.findByCardExtId(uid)() ?: (404 - "User not found")
+        val u = db.userData.findByCardExtId(uid) ?: (404 - "User not found")
         val lst = db.userKaleidx.findByUser(u)
             .mapApply { isKeyFound = true }.toMutableList()
 
@@ -349,7 +349,7 @@ fun Maimai2ServletController.initApis() {
     ) }
 
     "GetUserRecommendSelectMusic" {
-        val user = db.userData.findByCard_ExtId(uid)() ?: (404 - "User not found")
+        val user = db.userData.findByCard_ExtId(uid) ?: (404 - "User not found")
         mapOf(
             "userId" to uid,
             "userRecommendSelectionMusicIdList" to (net.recommendedMusic[user.id] ?: empty)

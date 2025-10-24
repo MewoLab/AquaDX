@@ -7,7 +7,6 @@ import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
 import org.springframework.stereotype.Component
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -48,7 +47,7 @@ class GetUserItemHandler(
         val kindType = Mai2ItemKind.ALL[kind]?.name
 
         // Aqua Net game unlock feature
-        cardRepo.findByExtId(userId).getOrNull()?.aquaUser?.gameOptions?.let { opt ->
+        cardRepo.findByExtId(userId)?.aquaUser?.gameOptions?.let { opt ->
             val items = when {
                 (kind in 5..8) && opt.unlockMusic -> musicUnlock.getValue(kind)
                 (kind in 1..3 || kind == 11) && opt.unlockCollectables -> itemUnlock[kind]

@@ -165,7 +165,7 @@ class Fedy(
     data class DataPullRes(val error: FedyErr? = null, val result: Any? = null)
     @API("/data/pull")
     fun handleDataPull(@RH(KEY_HEADER) key: Str, @RT(REQ_PART) req: DataPullReq): DataPullRes = handleFedy(key) {
-        val card = cardRepo.findByExtId(req.extId).orElse(null)
+        val card = cardRepo.findByExtId(req.extId)
             ?: (404 - "Card with extId ${req.extId} not found")
         {
             DataPullRes(result = when (req.game) {
@@ -181,10 +181,9 @@ class Fedy(
     fun handleDataPush(@RH(KEY_HEADER) key: Str, @RT(REQ_PART) req: DataPushReq): Any = handleFedy(key) {
         val extId = req.extId
         fun<UserData : IUserData, UserRepo : GenericUserDataRepo<UserData>> removeOldData(repo: UserRepo) {
-            val oldData = repo.findByCard_ExtId(extId)
-            if (oldData.isPresent) {
+            repo.findByCard_ExtId(extId)?.let { oldData ->
                 log.info("Fedy: Deleting old data for $extId (${req.game})")
-                repo.delete(oldData.get());
+                repo.delete(oldData);
                 repo.flush()
             }
         }
@@ -281,7 +280,7 @@ class Fedy(
     fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync(FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)))
     fun onCardUnlinked(luid: Str) = maybeNotifyAsync(FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)))
     fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync({
-        val card = cardRepo.findByExtId(extId).orElse(null) ?: return@maybeNotifyAsync null // Card not found, nothing to do
+        val card = cardRepo.findByExtId(extId) ?: return@maybeNotifyAsync null // Card not found, nothing to do
         FedyEvent(dataUpdated = DataUpdatedEvent(extId, card.isGhost, game, removeOldData))
     })
 

@@ -4,6 +4,7 @@ import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
+import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.model.sensitiveInfo
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
@@ -52,7 +53,7 @@ class BotController(
         secret.checkSecret()
 
         // 1. Find user card
-        val oc = (us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")).maybeGhost()
+        val oc = (us.cardRepo.findByLuid(card) ?: (404 - "Card not found")).maybeGhost()
 
         // 2. Change the status to migrated
         us.cardRepo.save(oc.apply {
@@ -66,7 +67,7 @@ class BotController(
     fun clearMigrateFlag(@RP secret: Str, @RP card: Str): Any {
         secret.checkSecret()
 
-        val oc = (us.cardRepo.findByLuid(card)() ?: (404 - "Card not found")).maybeGhost()
+        val oc = (us.cardRepo.findByLuid(card) ?: (404 - "Card not found")).maybeGhost()
 
         us.cardRepo.save(oc.apply {
             status = CardStatus.NORMAL
@@ -82,14 +83,14 @@ class BotController(
         secret.checkSecret()
 
         // 1. Check if the card exist
-        var cards = listOfNotNull(
-            us.cardRepo.findByLuid(cardId)(),
+        var cards: MutableList<Card> = listOfNotNull(
+            us.cardRepo.findByLuid(cardId),
         ).mut
 
         cardId.toLongOrNull()?.let {
             cards += listOfNotNull(
                 us.cardRepo.findById(it)(),
-                us.cardRepo.findByExtId(it)(),
+                us.cardRepo.findByExtId(it),
             )
 
             cards += listOfNotNull(
@@ -110,8 +111,8 @@ class BotController(
 
         return cards.map { card ->
             // Find all games played by this card
-            val chu3 = chu3Db.userData.findByCard_ExtId(card.extId)()
-            val mai2 = mai2Db.userData.findByCard_ExtId(card.extId)()
+            val chu3 = chu3Db.userData.findByCard_ExtId(card.extId)
+            val mai2 = mai2Db.userData.findByCard_ExtId(card.extId)
             val gamesDict = listOfNotNull(chu3, mai2).map {
                 // Find the keychip owner
                 val keychip = it.lastClientId

@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.aimedb
 
-import ext.invoke
 import ext.logger
 import ext.toHex
 import icu.samnyan.aqua.net.Fedy
@@ -127,7 +126,7 @@ class AimeDB(
         }
     }
 
-    fun getCard(accessCode: String) = us.cardRepo.findByLuid(accessCode)()?.maybeGhost()?.let { card ->
+    fun getCard(accessCode: String) = us.cardRepo.findByLuid(accessCode)?.maybeGhost()?.let { card ->
         // Update card access time and return the extId
         us.cardRepo.save(card.apply { accessTime = LocalDateTime.now() }).extId
     } ?: -1
@@ -198,7 +197,7 @@ class AimeDB(
         var status = 0
         var aimeId = 0L
 
-        if (us.cardRepo.findByLuid(luid).isEmpty) {
+        if (us.cardRepo.findByLuid(luid) == null) {
             val card: Card = cardService.registerByAccessCode(luid)
 
             status = 1

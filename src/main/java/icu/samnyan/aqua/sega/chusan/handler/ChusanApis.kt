@@ -58,7 +58,7 @@ fun ChusanController.chusanInit() {
     "GetUserRecMusic".paged("userRecMusicList") {
         // musicId: int, recMusicList: string
         // musicId cannot be the same with the id in recMusicList
-        val u = db.userData.findByCard_ExtId(uid)() ?: return@paged empty
+        val u = db.userData.findByCard_ExtId(uid) ?: return@paged empty
         val list = (chusan.recommendedMusic[u.id] ?: ls()).filter { it != 1 }
 
         if (list.isEmpty()) empty
@@ -87,8 +87,8 @@ fun ChusanController.chusanInit() {
 
     // Net battle data
     "GetUserNetBattleData" api@ {
-        val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
-        val misc = db.userMisc.findSingleByUser(u)()
+        val u = db.userData.findByCard_ExtId(uid) ?: return@api null
+        val misc = db.userMisc.findSingleByUser(u)
         val recent = db.netBattleLog.findTop20ByUserOrderByIdDesc(u)
         mapOf("userId" to uid, "userNetBattleData" to mapOf(
             "recentNBSelectMusicList" to (misc?.recentNbSelect ?: empty),
@@ -106,7 +106,7 @@ fun ChusanController.chusanInit() {
             )
         }
 
-        db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.run {
+        db.userData.findByCard_ExtId(uid)?.card?.aquaUser?.gameOptions?.run {
             listOf(chusanSymbolChat1, chusanSymbolChat2, chusanSymbolChat3, chusanSymbolChat4)
                 .flatMapIndexed { i, sym -> sym?.makeSymbols(i) ?: empty }
         } ?: empty
@@ -114,10 +114,10 @@ fun ChusanController.chusanInit() {
 
     // User handlers
     "GetUserData" {
-        db.userData.findByCard_ExtId(uid)()?.let{ u -> mapOf("userId" to uid, "userData" to u) }
+        db.userData.findByCard_ExtId(uid)?.let{ u -> mapOf("userId" to uid, "userData" to u) }
     }
     "GetUserOption" {
-        val userGameOption = db.userGameOption.findSingleByUser_Card_ExtId(uid)() ?: (400 - "User not found")
+        val userGameOption = db.userGameOption.findSingleByUser_Card_ExtId(uid) ?: (400 - "User not found")
         mapOf("userId" to uid, "userGameOption" to userGameOption)
     }
 
@@ -141,7 +141,7 @@ fun ChusanController.chusanInit() {
         parsing { UserCMissionResp().apply {
             missionId = parsing { data["missionId"]!!.int }
         } }.apply {
-            db.userCMission.findByUser_Card_ExtIdAndMissionId(uid, missionId)()?.let {
+            db.userCMission.findByUser_Card_ExtIdAndMissionId(uid, missionId)?.let {
                 point = it.point
                 userCMissionProgressList = db.userCMissionProgress.findByUser_Card_ExtIdAndMissionId(uid, missionId)
             }
@@ -151,7 +151,7 @@ fun ChusanController.chusanInit() {
     // Introduced in LMN+
     "GetUserCMissionList" api@ {
         val missions = parsing { (data["userCMissionList"] as List<JDict>).map { it["missionId"]!!.int } }
-        val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
+        val u = db.userData.findByCard_ExtId(uid) ?: return@api null
 
         db.userCMission.findByUserAndMissionIdIn(u, missions).map {
             UserCMissionResp().apply {
@@ -190,7 +190,7 @@ fun ChusanController.chusanInit() {
             val items = db.userItem.findAllByUser_Card_ExtIdAndItemKind(uid, kind).mut
 
             // Check game options
-            db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.let {
+            db.userData.findByCard_ExtId(uid)?.card?.aquaUser?.gameOptions?.let {
                 if (it.chusanInfinitePenguins && kind == 5) {
                     items.removeAll { it.itemId in penguins }
                     items.addAll(penguins.map { Chu3UserItem(kind, it, 999, true) })
@@ -207,7 +207,7 @@ fun ChusanController.chusanInit() {
     "GetUserFavoriteItem".pagedWithKind("userFavoriteItemList") {
         val kind = parsing { data["kind"]!!.int }
         mapOf("kind" to kind) grabs {
-            val misc = db.userMisc.findSingleByUser_Card_ExtId(uid)()
+            val misc = db.userMisc.findSingleByUser_Card_ExtId(uid)
             when (kind) {
                 1 -> misc?.favMusic ?: empty
                 3 -> empty  // TODO: Favorite character
@@ -220,9 +220,9 @@ fun ChusanController.chusanInit() {
         "lastDataVersion,trophyId,classEmblemMedal,classEmblemBase,battleRankId").split(',').toSet()
 
     "GetUserPreview" api@ {
-        val user = db.userData.findByCard_ExtId(uid)() ?: return@api null
+        val user = db.userData.findByCard_ExtId(uid) ?: return@api null
         val chara = db.userCharacter.findByUserAndCharacterId(user, user.characterId)
-        val option = db.userGameOption.findSingleByUser(user)()
+        val option = db.userGameOption.findSingleByUser(user)
         val userDict = user.toJson().jsonMap().filterKeys { it in userPreviewKeys }
 
         val res = mutableMapOf(
@@ -262,7 +262,7 @@ fun ChusanController.chusanInit() {
     }
 
     "GetUserRecentRating".paged("userRecentRatingList") {
-        db.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(uid, "recent_rating_list")()
+        db.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(uid, "recent_rating_list")
             ?.propertyValue?.some
             ?.split(',')?.dropLastWhile { it.isEmpty() }?.map { it.split(':') }
             ?.map { (musicId, level, score) -> UserRecentRating(musicId.int, level.int, "2000001", score.int) }
@@ -278,7 +278,7 @@ fun ChusanController.chusanInit() {
 
     "GetUserTeam" {
         val playDate = parsing { data["playDate"] as String }
-        val team = db.userData.findByCard_ExtId(uid)()?.card?.aquaUser?.gameOptions?.chusanTeamName?.some
+        val team = db.userData.findByCard_ExtId(uid)?.card?.aquaUser?.gameOptions?.chusanTeamName?.some
             ?: props.teamName?.some ?:  "一緒に歌おう！"
 
         mapOf(
@@ -349,7 +349,7 @@ fun ChusanController.chusanInit() {
     // TODO: Test login bonus
     "GameLogin" {
 //        fun process() {
-//            val u = db.userData.findByCard_ExtId(uid)() ?: return
+//            val u = db.userData.findByCard_ExtId(uid) ?: return
 //            db.userData.save(u.apply { lastLoginDate = LocalDateTime.now() })
 //
 //            if (!props.loginBonusEnable) return
@@ -357,7 +357,7 @@ fun ChusanController.chusanInit() {
 //
 //            bonusList.forEach { preset ->
 //                // Check if a user already has some progress and if not, add the login bonus entry
-//                val bonus = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)()
+//                val bonus = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)
 //                    ?: UserLoginBonus(1, uid.int, preset.id).let { db.userLoginBonus.save(it) }
 //                if (bonus.isFinished) return@forEach
 //
@@ -377,10 +377,10 @@ fun ChusanController.chusanInit() {
 //                        if (preset.id < 3000) bCount = 1
 //                        else finished = true
 //                    }
-//                    db.gameLoginBonus.findByRequiredDays(1, preset.id, bCount)()?.let {
+//                    db.gameLoginBonus.findByRequiredDays(1, preset.id, bCount)?.let {
 //                        db.userItem.save(UserItem(6, it.presentId, it.itemNum).apply { user = u })
 //                    }
-//                    val toSave = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)()
+//                    val toSave = db.userLoginBonus.findLoginBonus(uid.int, 1, preset.id)
 //                        ?: UserLoginBonus().apply { user = uid.int; presetId = preset.id; version = 1 }
 //
 //                    db.userLoginBonus.save(toSave.apply {
@@ -394,7 +394,7 @@ fun ChusanController.chusanInit() {
 //        }
 //        process()
 
-        val user = db.userData.findByCard_ExtId(uid)()
+        val user = db.userData.findByCard_ExtId(uid)
 
         if (user?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
             """{"returnCode":"0"}"""

@@ -29,7 +29,7 @@ class GetUserPortraitHandler(
 
         val uid = (request["userId"] as Number).toLong()
         val list = ArrayList<Mai2UserPortrait>()
-        val profilePicture = cardRepo.findByExtId(uid)()?.aquaUser?.profilePicture?.ifBlank { null }
+        val profilePicture = cardRepo.findByExtId(uid)?.aquaUser?.profilePicture?.ifBlank { null }
             ?: return """{"length":0,"userPortraitList":[]}"""
 
         try {

@@ -14,7 +14,6 @@ import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.io.path.Path
 import kotlin.io.path.writeText
 import kotlin.reflect.KClass
@@ -43,7 +42,7 @@ interface IExportClass<UserModel: IUserData> {
 @NoRepositoryBean
 interface IUserRepo<UserModel, ThisModel>: JpaRepository<ThisModel, Long> {
     fun findByUser(user: UserModel): List<ThisModel>
-    fun findSingleByUser(user: UserModel): Optional<ThisModel>
+    fun findSingleByUser(user: UserModel): ThisModel?
 }
 
 /**
@@ -89,7 +88,7 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         userData = userDataRepo.findByCard(c) ?: (404 - "User not found")
         exportRepos.forEach { (f, u) ->
             if (f returns List::class) f.set(this, u.findByUser(userData))
-            else u.findSingleByUser(userData)()?.let { f.set(this, it) }
+            else u.findSingleByUser(userData)?.let { f.set(this, it) }
         }
         customExporters.forEach { (f, exporter) ->
             exporter(userData, options)?.let { f.set(this, it) }

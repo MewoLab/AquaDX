@@ -1,10 +1,8 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
-import ext.invoke
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component("Maimai2GetUserFavoriteItemHandler")
 class GetUserFavoriteItemHandler(val repos: Mai2Repos) : BaseHandler {
@@ -15,8 +13,8 @@ class GetUserFavoriteItemHandler(val repos: Mai2Repos) : BaseHandler {
         val items = when (kind) {
             1 -> repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "favorite_music")
             2 -> repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "favorite_rival")
-            else -> Optional.empty()
-        }()?.let { fav ->
+            else -> null
+        }?.let { fav ->
             val v = fav.propertyValue
             if (v.isNotBlank()) v.split(",").filter { it.isNotEmpty() }.mapIndexed { i, record ->
                 mapOf("id" to record.toInt(), "orderId" to i) }

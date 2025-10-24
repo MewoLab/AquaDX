@@ -25,7 +25,7 @@ class UpsertUserPrintHandler(
 
     override fun handle(request: Map<String, Any>): Any? {
         val userId = parsing { request["userId"]!!.long }
-        val userData = db.userData.findByCardExtId(userId)() ?: return null
+        val userData = db.userData.findByCardExtId(userId) ?: return null
 
         val userPrint = parsing { mapper.convert(request["userPrintDetail"]!!, Mai2UserPrintDetail::class.java) }
         val newCard = userPrint.userCard ?: return null
@@ -33,7 +33,7 @@ class UpsertUserPrintHandler(
         newCard.user = userData
         newCard.startDate = LocalDateTime.now().format(formatter)
         newCard.endDate = LocalDateTime.now().plusDays(expirationTime).format(formatter)
-        newCard.id = db.userCard.findByUserAndCardId(newCard.user, newCard.cardId)()?.id ?: 0
+        newCard.id = db.userCard.findByUserAndCardId(newCard.user, newCard.cardId)?.id ?: 0
         db.userCard.save(newCard)
 
         userPrint.user = userData

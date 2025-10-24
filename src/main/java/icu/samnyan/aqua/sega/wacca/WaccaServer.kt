@@ -155,7 +155,7 @@ fun WaccaServer.init() {
         if (user(uid) != null) 404 - "User already exists"
 
         val u = rp.user.save(WaccaUser().apply {
-            card = cardRepo.findByExtId(uid.uint32())() ?: (404 - "Card not found")
+            card = cardRepo.findByExtId(uid.uint32()) ?: (404 - "Card not found")
             userName = name.toString()
         })
 

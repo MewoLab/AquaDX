@@ -63,9 +63,9 @@ class Maimai2(
             us.jwt.auth(t) { u ->
                 if (u.username == username) return@auth null
                 us.cardByName(u.username) { myCard ->
-                    val user = repos.userData.findByCardExtId(card.extId).orElse(null) ?: (404 - "User not found")
-                    val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival")
-                        .map { it.propertyValue.split(',') }.orElse(emptyList()).filter { it.isNotEmpty() }.map { it.long() }
+                    val user = repos.userData.findByCardExtId(card.extId) ?: (404 - "User not found")
+                    val myRival = (repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival")?.propertyValue?.split(',') ?: emptyList())
+                        .filter { it.isNotEmpty() }.map { it.long() }
                     myRival.contains(user.id)
                 }
             }
@@ -137,7 +137,7 @@ class Maimai2(
             if (loginBonus.none { it.bonusId == bonusId }) {
                 // create one
                 val newBonus = Mai2UserLoginBonus().apply {
-                    user = repos.userData.findByCardExtId(card.extId).orElse(null) ?: (404 - "User not found")
+                    user = repos.userData.findByCardExtId(card.extId) ?: (404 - "User not found")
                     this.bonusId = bonusId
                     isCurrent = true
                 }
@@ -159,10 +159,10 @@ class Maimai2(
     suspend fun setRival(@RP token: String, @RP rivalUserName: String, @RP isAdd: Boolean) = us.jwt.auth(token) { u ->
         us.cardByName(u.username) { myCard ->
             val rivalCard = us.cardByName(rivalUserName) { it }
-            val rivalUser = repos.userData.findByCardExtId(rivalCard.extId).orElse(null) ?: (404 - "User not found")
-            val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival").orElse(null)
+            val rivalUser = repos.userData.findByCardExtId(rivalCard.extId) ?: (404 - "User not found")
+            val myRival = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(myCard.extId, "favorite_rival")
                 ?: Mai2UserGeneralData().apply {
-                    user = repos.userData.findByCardExtId(myCard.extId).orElse(null) ?: (404 - "User not found")
+                    user = repos.userData.findByCardExtId(myCard.extId) ?: (404 - "User not found")
                     propertyKey = "favorite_rival"
                 }
             val myRivalList = myRival.propertyValue.split(',').filter { it.isNotEmpty() }.mut

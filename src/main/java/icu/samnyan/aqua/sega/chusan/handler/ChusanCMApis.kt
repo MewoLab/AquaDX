@@ -14,20 +14,20 @@ fun ChusanController.cmApiInit() {
 
     // CardMaker (TODO: Somebody test this, I don't have a card maker)
     "CMGetUserData" {
-        val user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
+        val user = db.userData.findByCard_ExtId(uid) ?: (400 - "User not found")
         user.userEmoney = UserEmoney()
         mapOf("userId" to uid, "userData" to user, "userEmoney" to user.userEmoney)
     }
 
     "CMGetUserPreview" {
-        val user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
+        val user = db.userData.findByCard_ExtId(uid) ?: (400 - "User not found")
         mapOf("userName" to user.userName, "level" to user.level, "medal" to user.medal, "lastDataVersion" to user.lastDataVersion, "isLogin" to false)
     }
 
     "CMUpsertUserGacha" api@ {
         val (gachaId, placeId) = parsing { data["gachaId"]!!.int to data["placeId"]!!.int }
 
-        val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
+        val u = db.userData.findByCard_ExtId(uid) ?: return@api null
         val upsertUserGacha = parsing { mapper.convert<UpsertUserGacha>(data["cmUpsertUserGacha"]!!) }
 
         upsertUserGacha.gameGachaCardList?.let { lst ->
@@ -99,7 +99,7 @@ fun ChusanController.cmApiInit() {
         val userCardPrintState = cmMapper.convert<UserCardPrintState>(parsing { data["userCardPrintState"]!! })
         val userItemList = cmMapper.convert<List<Chu3UserItem>>(parsing { data["userItemList"]!! })
 
-        val u = db.userData.findByCard_ExtId(uid)() ?: return@api null
+        val u = db.userData.findByCard_ExtId(uid) ?: return@api null
 
         db.userItem.saveAll(
             userItemList.mapApply {

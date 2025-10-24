@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 fun OngekiController.cmApiInit() {
     "CMGetUserData" {
-        val user = db.data.findByCard_ExtId(uid)() ?: (400 - "User not found")
+        val user = db.data.findByCard_ExtId(uid) ?: (400 - "User not found")
         mapOf("userId" to uid, "userData" to user)
     }
 
@@ -25,7 +25,7 @@ fun OngekiController.cmApiInit() {
 
         // Check if user have infinite kaika
         if (kind == OgkItemType.KaikaItem.ordinal) {
-            val u = db.data.findByCard_ExtId(uid)()
+            val u = db.data.findByCard_ExtId(uid)
             u?.card?.aquaUser?.gameOptions?.let {
                 if (it.ongekiInfiniteKaika) {
                     dat = listOf(UserItem().apply {
@@ -67,7 +67,7 @@ fun OngekiController.cmApiInit() {
         val (gachaId, tmpTimes) = parsing { data["gachaId"]!!.long to data["times"]!!.int }
         var times = tmpTimes
 
-        val user = db.data.findByCard_ExtId(uid)() ?: (400 - "User not found")
+        val user = db.data.findByCard_ExtId(uid) ?: (400 - "User not found")
         val foundGacha = gdb.gacha.findById(gachaId)() ?: (404 - "Gacha not found")
 
         val foundUserGacha = db.gacha.findByUserAndGachaId(user, gachaId)
@@ -111,10 +111,10 @@ fun OngekiController.cmApiInit() {
         val earnedSelectPoints = parsing { data["selectPoint"]!!.int }
 
         // User data
-        val oldUser = db.data.findByCard_ExtId(uid)()
+        val oldUser = db.data.findByCard_ExtId(uid)
         val u: UserData = all.userData?.get(0)?.apply {
             id = oldUser?.id ?: 0
-            card = oldUser?.card ?: us.cardRepo.findByExtId(uid)() ?: (404 - "Card not found")
+            card = oldUser?.card ?: us.cardRepo.findByExtId(uid) ?: (404 - "Card not found")
 
             // Set eventWatchedDate with lastPlayDate, because client doesn't update it
             cmEventWatchedDate = oldUser?.lastPlayDate ?: ""
@@ -171,21 +171,21 @@ fun OngekiController.cmApiInit() {
             // UserCharacterList
             userCharacterList?.let { list ->
                 db.character.saveAll(list.distinctBy { it.characterId }.mapApply {
-                    id = db.character.findByUserAndCharacterId(u, characterId)()?.id ?: 0
+                    id = db.character.findByUserAndCharacterId(u, characterId)?.id ?: 0
                 })
             }
 
             // UserCardList
             userCardList?.let { list ->
                 db.card.saveAll(list.distinctBy { it.cardId }.mapApply {
-                    id = db.card.findByUserAndCardId(u, cardId)()?.id ?: 0
+                    id = db.card.findByUserAndCardId(u, cardId)?.id ?: 0
                 })
             }
 
             // UserItemList
             userItemList?.let { list ->
                 db.item.saveAll(list.distinctBy { it.itemKind to it.itemId }.mapApply {
-                    id = db.item.findByUserAndItemKindAndItemId(u, itemKind, itemId)()?.id ?: 0
+                    id = db.item.findByUserAndItemKindAndItemId(u, itemKind, itemId)?.id ?: 0
                 })
             }
         }
@@ -197,10 +197,10 @@ fun OngekiController.cmApiInit() {
         val all: OngekiCMUpsertAll = mapper.convert(data["cmUpsertUserAll"]!!)
 
         // User data
-        val oldUser = db.data.findByCard_ExtId(uid)()
+        val oldUser = db.data.findByCard_ExtId(uid)
         val u: UserData = all.userData?.get(0)?.apply {
             id = oldUser?.id ?: 0
-            card = oldUser?.card ?: us.cardRepo.findByExtId(uid)() ?: (404 - "Card not found")
+            card = oldUser?.card ?: us.cardRepo.findByExtId(uid) ?: (404 - "Card not found")
 
             // Set eventWatchedDate with lastPlayDate, because client doesn't update it
             cmEventWatchedDate = oldUser?.lastPlayDate ?: ""
@@ -216,7 +216,7 @@ fun OngekiController.cmApiInit() {
             // UserActivityList
             userActivityList?.let { list ->
                 db.activity.saveAll(list.distinctBy { it.activityId to it.kind }.mapApply {
-                    id = db.activity.findByUserAndKindAndActivityId(u, kind, activityId)()?.id ?: 0
+                    id = db.activity.findByUserAndKindAndActivityId(u, kind, activityId)?.id ?: 0
                 })
             }
 
@@ -224,21 +224,21 @@ fun OngekiController.cmApiInit() {
             // UserCharacterList
             userCharacterList?.let { list ->
                 db.character.saveAll(list.distinctBy { it.characterId }.mapApply {
-                    id = db.character.findByUserAndCharacterId(u, characterId)()?.id ?: 0
+                    id = db.character.findByUserAndCharacterId(u, characterId)?.id ?: 0
                 })
             }
 
             // UserCardList
             userCardList?.let { list ->
                 db.card.saveAll(list.distinctBy { it.cardId }.mapApply {
-                    id = db.card.findByUserAndCardId(u, cardId)()?.id ?: 0
+                    id = db.card.findByUserAndCardId(u, cardId)?.id ?: 0
                 })
             }
 
             // UserItemList
             userItemList?.let { list ->
                 db.item.saveAll(list.distinctBy { it.itemKind to it.itemId }.mapApply {
-                    id = db.item.findByUserAndItemKindAndItemId(u, itemKind, itemId)()?.id ?: 0
+                    id = db.item.findByUserAndItemKindAndItemId(u, itemKind, itemId)?.id ?: 0
                 })
             }
         }
@@ -251,10 +251,10 @@ fun OngekiController.cmApiInit() {
         val selectLog:List<OngekiCMSelectGachaLog> = mapper.convert(data["selectGachaLogList"]!!)
 
         // User data
-        val oldUser = db.data.findByCard_ExtId(uid)()
+        val oldUser = db.data.findByCard_ExtId(uid)
         val u: UserData = all.userData?.get(0)?.apply {
             id = oldUser?.id ?: 0
-            card = oldUser?.card ?: us.cardRepo.findByExtId(uid)() ?: (404 - "Card not found")
+            card = oldUser?.card ?: us.cardRepo.findByExtId(uid) ?: (404 - "Card not found")
 
             // Set eventWatchedDate with lastPlayDate, because client doesn't update it
             cmEventWatchedDate = oldUser?.lastPlayDate ?: ""
@@ -291,7 +291,7 @@ fun OngekiController.cmApiInit() {
                 // UserCharacterList
                 userCharacterList?.let { list ->
                     db.character.saveAll(list.distinctBy { it.characterId }.mapApply {
-                        id = db.character.findByUserAndCharacterId(u, characterId)()?.id ?: 0
+                        id = db.character.findByUserAndCharacterId(u, characterId)?.id ?: 0
                     })
                 }
             }
@@ -300,7 +300,7 @@ fun OngekiController.cmApiInit() {
                 // UserCardList
                 userCardList?.let { list ->
                     db.card.saveAll(list.distinctBy { it.cardId }.mapApply {
-                        id = db.card.findByUserAndCardId(u, cardId)()?.id ?: 0
+                        id = db.card.findByUserAndCardId(u, cardId)?.id ?: 0
                     })
                 }
             }

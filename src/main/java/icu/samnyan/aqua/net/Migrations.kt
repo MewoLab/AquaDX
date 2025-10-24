@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.net
 
 import ext.JACKSON
-import ext.invoke
 import ext.logger
 import ext.parse
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
@@ -24,7 +23,7 @@ class Migrations(
 
     @PostConstruct
     fun migrate() {
-        val db = props.findByPropertyKey("migrations")() ?: PropertyEntry("migrations", "[]")
+        val db = props.findByPropertyKey("migrations") ?: PropertyEntry("migrations", "[]")
         val p = JACKSON.parse<ArrayList<String>>(db.propertyValue)
         val old = p.size
 
@@ -47,7 +46,7 @@ class Migrations(
             if (c.extId > max) {
                 var new = c.extId and max
                 log.info("Removing signed bit: {${c.extId} -> $new} for ${c.luid}")
-                while (cardRepo.findByExtId(new).isPresent) {
+                while (cardRepo.findByExtId(new) != null) {
                     log.error("> Conflicting card found for ${c.luid}: $new")
                     new++
                 }

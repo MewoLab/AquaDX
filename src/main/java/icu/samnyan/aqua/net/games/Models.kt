@@ -125,7 +125,7 @@ open class BaseEntity(
 @NoRepositoryBean
 interface GenericUserDataRepo<T : IUserData> : JpaRepository<T, Long> {
     fun findByCard(card: Card): T?
-    fun findByCard_ExtId(extId: Long): Optional<T>
+    fun findByCard_ExtId(extId: Long): T?
 
     @Query("select e from #{#entityName} e where e.card.rankingBanned = false")
     fun findAllNonBanned(): List<T>

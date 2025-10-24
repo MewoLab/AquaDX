@@ -10,5 +10,5 @@ import java.util.*
  */
 @Repository
 interface PropertyEntryRepository : JpaRepository<PropertyEntry, Long> {
-    fun findByPropertyKey(key: String): Optional<PropertyEntry>
+    fun findByPropertyKey(key: String): PropertyEntry?
 }

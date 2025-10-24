@@ -14,10 +14,10 @@ import java.time.format.DateTimeFormatter
 
 
 fun OngekiController.initUser() {
-    "GetUserData" { mapOf("userId" to uid, "userData" to db.data.findByCard_ExtId(uid)()) }
+    "GetUserData" { mapOf("userId" to uid, "userData" to db.data.findByCard_ExtId(uid)) }
 
-    "GetUserOption" { mapOf("userId" to uid, "userOption" to db.option.findSingleByUser_Card_ExtId(uid)()) }
-    "GetUserEventMap" { mapOf("userId" to uid, "userEventMap" to db.eventMap.findSingleByUser_Card_ExtId(uid)()) }
+    "GetUserOption" { mapOf("userId" to uid, "userOption" to db.option.findSingleByUser_Card_ExtId(uid)) }
+    "GetUserEventMap" { mapOf("userId" to uid, "userEventMap" to db.eventMap.findSingleByUser_Card_ExtId(uid)) }
 
     "GetUserTechEvent".unpaged { db.techEvent.findByUser_Card_ExtId(uid) }
     "GetUserBoss".unpaged { db.boss.findByUser_Card_ExtId(uid) }
@@ -91,7 +91,7 @@ fun OngekiController.initUser() {
 
         // Check if user have infinite kaika
         if (kind == OgkItemType.KaikaItem.ordinal) {
-            val u = db.data.findByCard_ExtId(uid)()
+            val u = db.data.findByCard_ExtId(uid)
             u?.card?.aquaUser?.gameOptions?.let {
                 if (it.ongekiInfiniteKaika) {
                     dat = listOf(UserItem().apply {
@@ -115,7 +115,7 @@ fun OngekiController.initUser() {
     }
 
     "GetUserPreview" api@ {
-	    val u = db.data.findByCard_ExtId(uid)() ?: return@api mapOf(
+	    val u = db.data.findByCard_ExtId(uid) ?: return@api mapOf(
 		    "userId" to uid,
 		    "isLogin" to false,
 		    "lastLoginDate" to "0000-00-00 00:00:00",
@@ -138,7 +138,7 @@ fun OngekiController.initUser() {
 		    "banStatus" to 0,
 		    "isWarningConfirmed" to true
 	    )
-        val o = db.option.findSingleByUser(u)()
+        val o = db.option.findSingleByUser(u)
 
         val res = mutableMapOf(
             "userId" to uid, "isLogin" to false,
@@ -173,7 +173,7 @@ fun OngekiController.initUser() {
     }
 
     "GameLogin" {
-        val user = db.data.findByCard_ExtId(uid)()
+        val user = db.data.findByCard_ExtId(uid)
 
         if (user?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
             """{"returnCode":"0"}"""
@@ -184,7 +184,7 @@ fun OngekiController.initUser() {
     }
 
     "GetUserRecentRating".unpaged {
-        db.generalData.findByUser_Card_ExtIdAndPropertyKey(uid, "recent_rating_list")()?.let { recent ->
+        db.generalData.findByUser_Card_ExtIdAndPropertyKey(uid, "recent_rating_list")?.let { recent ->
             recent.propertyValue.split(',').dropLastWhile { it.isEmpty() }.map {
                 val (m, d, s) = it.split(':').map { it.int }
                 UserRecentRating(m, d, "1000000", s)

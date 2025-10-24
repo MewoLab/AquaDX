@@ -184,7 +184,7 @@ class AquaUserServices(
 
     suspend fun cardByName(username: Str) =
         if (username.startsWith("user")) username.substring(4).toLongOrNull()
-            ?.let { cardRepo.findById(it).getOrNull() } ?: (404 - "Card not found")
+            ?.let { cardRepo.findById(it)() } ?: (404 - "Card not found")
         else byName(username) { it.ghostCard }
 
     suspend fun <T> cardByName(username: Str, callback: suspend (Card) -> T) = callback(cardByName(username))

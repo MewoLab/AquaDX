@@ -7,7 +7,6 @@ import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
 import org.springframework.stereotype.Component
-import kotlin.jvm.optionals.getOrNull
 
 @Component("Maimai2GetUserCharacterHandler")
 class GetUserCharacterHandler(
@@ -30,7 +29,7 @@ class GetUserCharacterHandler(
         val userId = (request["userId"] as Number).toLong()
 
         // Aqua Net game unlock feature
-        cardRepo.findByExtId(userId).getOrNull()?.aquaUser?.gameOptions?.let { opt ->
+        cardRepo.findByExtId(userId)?.aquaUser?.gameOptions?.let { opt ->
             if (!opt.unlockChara or itemUnlock.isNullOrEmpty()) return@let
 
             logger.info("Response: ${itemUnlock!!.size} Characters - All unlock")

@@ -23,25 +23,25 @@ class GetUserRatingHandler(
 
         val ur = UserRating()
 
-        repos.userData.findByCardExtId(userId)()?.let {
+        repos.userData.findByCardExtId(userId)?.let {
             ur.rating = it.playerRating
         }
 
         // Old charts (standard) = 25
-        ur.ratingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating")()
+        ur.ratingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating")
             ?.let { loadRateData(it.propertyValue) } ?: empty
 
         // New charts (DX) = 15
-        ur.newRatingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_new")()
+        ur.newRatingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_new")
             ?.let { loadRateData(it.propertyValue) } ?: empty
 
-        ur.nextRatingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_next")()
+        ur.nextRatingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_next")
             ?.let { loadRateData(it.propertyValue) } ?: empty
 
-        ur.nextNewRatingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_next_new")()
+        ur.nextNewRatingList = repos.userGeneralData.findByUser_Card_ExtIdAndPropertyKey(userId, "recent_rating_next_new")
             ?.let { loadRateData(it.propertyValue) } ?: empty
 
-        ur.udemae = repos.userUdemae.findSingleByUser_Card_ExtId(userId)() ?: Mai2UserUdemae()
+        ur.udemae = repos.userUdemae.findSingleByUser_Card_ExtId(userId) ?: Mai2UserUdemae()
 
         return mapOf(
             "userId" to userId,
