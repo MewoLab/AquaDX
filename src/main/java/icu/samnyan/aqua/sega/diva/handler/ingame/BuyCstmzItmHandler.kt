@@ -2,8 +2,8 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import icu.samnyan.aqua.sega.diva.DivaCustomizeRepository
 import icu.samnyan.aqua.sega.diva.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.ingame.BuyCstmzItmRequest

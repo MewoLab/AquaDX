@@ -14,6 +14,9 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.service.PlayerCustomizeService
 import icu.samnyan.aqua.sega.diva.service.PlayerModuleService
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.util.PvRecordDataException
+import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*

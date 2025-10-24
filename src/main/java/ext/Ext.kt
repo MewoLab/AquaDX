@@ -212,6 +212,8 @@ val <K, V> Map<K, V>.mut get() = toMutableMap()
 val <T> Set<T>.mut get() = toMutableSet()
 
 fun <T> List<T>.unique(fn: (T) -> Any) = distinctBy(fn).ifEmpty { null }
+val <T> Collection<T>.csv get() = joinToString(",")
+val IntArray.csv get() = joinToString(",")
 
 // Optionals
 operator fun <T> Optional<T>.invoke(): T? = orElse(null)
