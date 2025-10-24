@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.allnet
 import ext.*
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.sega.allnet.AllNetBillingDecoder.decodeAllNet
-import icu.samnyan.aqua.sega.util.AquaConst
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.boot.context.properties.ConfigurationProperties
@@ -14,7 +13,6 @@ import java.io.InputStream
 import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.time.LocalDateTime
-import java.util.*
 
 @Configuration
 @ConfigurationProperties(prefix = "allnet.server")
@@ -84,7 +82,7 @@ class AllNet(
 
         logger.info("AllNet /DownloadOrder : $reqMap")
 
-        val serial = reqMap["serial"] ?: AquaConst.DEFAULT_KEYCHIP_ID
+        val serial = reqMap["serial"] ?: "A69E01A8888"
         val resp = mapOf(
             "stat" to "1",
             "serial" to serial
