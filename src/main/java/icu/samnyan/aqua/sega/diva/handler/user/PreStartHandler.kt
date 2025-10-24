@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.diva.handler.user
 
 import ext.logger
 import icu.samnyan.aqua.sega.diva.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.PreStartResult
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest

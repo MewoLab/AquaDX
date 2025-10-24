@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
 import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.SpendCreditResponse
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService

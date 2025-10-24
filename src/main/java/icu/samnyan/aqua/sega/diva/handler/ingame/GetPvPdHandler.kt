@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import icu.samnyan.aqua.sega.diva.PlayerPvCustomizeRepository
 import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
-import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.request.ingame.GetPvPdRequest

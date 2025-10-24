@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
 import icu.samnyan.aqua.sega.diva.PvEntryRepository
-import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.gamedata.PvEntry
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
