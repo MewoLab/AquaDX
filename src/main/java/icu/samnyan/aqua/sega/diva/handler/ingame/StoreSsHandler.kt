@@ -4,7 +4,6 @@ import ext.csv
 import ext.logger
 import icu.samnyan.aqua.sega.diva.PlayerScreenShotRepository
 import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StoreSsRequest
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerScreenShot

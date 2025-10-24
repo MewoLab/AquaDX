@@ -6,7 +6,6 @@ import ext.logger
 import icu.samnyan.aqua.sega.diva.handler.AttendHandler
 import icu.samnyan.aqua.sega.diva.handler.GameInitHandler
 import icu.samnyan.aqua.sega.diva.handler.PingHandler
-import icu.samnyan.aqua.sega.diva.handler.buildResultMap
 import icu.samnyan.aqua.sega.diva.handler.card.*
 import icu.samnyan.aqua.sega.diva.handler.databank.*
 import icu.samnyan.aqua.sega.diva.handler.ingame.*
