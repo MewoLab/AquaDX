@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
-import icu.samnyan.aqua.sega.diva.dao.gamedata.ContestRepository
+import icu.samnyan.aqua.sega.diva.ContestRepository
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest

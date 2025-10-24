@@ -8,6 +8,7 @@ import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
+import icu.samnyan.aqua.sega.diva.PlayerProfileRepository
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
@@ -19,7 +20,6 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
-import kotlin.jvm.optionals.getOrNull
 import kotlin.random.Random
 
 @RestController
@@ -204,7 +204,7 @@ class CardGameService(
     val chusan: Chu3UserDataRepo,
     val wacca: WcUserRepo,
     val ongeki: OgkUserDataRepo,
-    val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
+    val diva: PlayerProfileRepository,
     val safety: AquaNetSafetyService,
     val cardRepo: CardRepository,
     val em: EntityManager

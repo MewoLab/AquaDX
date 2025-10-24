@@ -228,6 +228,7 @@ fun Str.fromChusanUsername() = String(this.toByteArray(StandardCharsets.ISO_8859
 fun Str.truncate(len: Int) = if (this.length > len) this.take(len) + "..." else this
 val Str.some get() = ifBlank { null }
 val ByteArray.hexStr get() = toHexString()
+operator fun StringBuilder.plusAssign(other: String) { this.append(other) }
 
 // Coroutine
 suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }

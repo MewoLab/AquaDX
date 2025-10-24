@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.card
 
-import icu.samnyan.aqua.sega.diva.dao.DivaRepos
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import icu.samnyan.aqua.sega.diva.model.request.card.CardProcedureRequest

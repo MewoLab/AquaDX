@@ -1,12 +1,10 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
-import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.ProfileNotFoundException
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.SpendCreditResponse
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.util.function.Supplier
 

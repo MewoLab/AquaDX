@@ -1,14 +1,12 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
-import icu.samnyan.aqua.sega.diva.dao.gamedata.PvEntryRepository
+import icu.samnyan.aqua.sega.diva.PvEntryRepository
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.gamedata.PvEntry
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.PvListResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -54,10 +52,10 @@ class PvListHandler(private val pvEntryRepository: PvEntryRepository) : BaseHand
             df.format(entry.playableEnd)
     }
 
-    private fun difficultyString(list: MutableList<PvEntry?>): String {
+    private fun difficultyString(list: MutableList<PvEntry>): String {
         val sb = StringBuilder()
-        list.forEach(Consumer { x: PvEntry? -> sb.append(encode(entryString(x!!))).append(",") })
-        if (sb.length > 0) sb.deleteCharAt(sb.length - 1)
+        list.forEach(Consumer { sb.append(encode(entryString(it))).append(",") })
+        if (sb.isNotEmpty()) sb.deleteCharAt(sb.length - 1)
         return sb.toString()
     }
 }
