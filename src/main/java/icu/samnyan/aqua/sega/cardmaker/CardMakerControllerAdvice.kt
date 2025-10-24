@@ -14,6 +14,7 @@ import java.nio.charset.StandardCharsets
 @RestControllerAdvice(basePackages = ["icu.samnyan.aqua.sega.cardmaker"])
 class CardMakerControllerAdvice {
     val logger = logger()
+    val mapper = ObjectMapper()
 
     /**
      * Get the map object from json string
@@ -25,7 +26,6 @@ class CardMakerControllerAdvice {
         val src = request.inputStream.readAllBytes()
         val outputString = String(src, StandardCharsets.UTF_8).trim { it <= ' ' }
         logger.info("Request ${request.requestURI}: $outputString")
-        val mapper = ObjectMapper()
         return mapper.readValue(outputString, object : TypeReference<MutableMap<String, Any>>() {})
     }
 }
