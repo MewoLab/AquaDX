@@ -3,14 +3,19 @@ package icu.samnyan.aqua.net.games.mai2
 import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
-import icu.samnyan.aqua.net.utils.*
+import icu.samnyan.aqua.net.utils.SUCCESS
+import icu.samnyan.aqua.net.utils.mai2Scores
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPhotoHandler
-import icu.samnyan.aqua.sega.maimai2.model.*
-import icu.samnyan.aqua.sega.maimai2.model.userdata.*
+import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserMusicDetailRepo
+import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserGeneralData
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserLoginBonus
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
 
 @RestController
 @API("api/v2/game/mai2")

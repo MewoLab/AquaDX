@@ -3,11 +3,7 @@ package icu.samnyan.aqua.net.components
 import ext.Bool
 import ext.Str
 import ext.logger
-import icu.samnyan.aqua.net.db.AquaNetUser
-import icu.samnyan.aqua.net.db.EmailConfirmation
-import icu.samnyan.aqua.net.db.EmailConfirmationRepo
-import icu.samnyan.aqua.net.db.ResetPassword
-import icu.samnyan.aqua.net.db.ResetPasswordRepo
+import icu.samnyan.aqua.net.db.*
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.springsupport.SimpleJavaMailSpringSupport

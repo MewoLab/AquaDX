@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.aimedb
 
-import ext.*
+import ext.invoke
+import ext.logger
+import ext.toHex
 import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.sega.allnet.AllNetProps

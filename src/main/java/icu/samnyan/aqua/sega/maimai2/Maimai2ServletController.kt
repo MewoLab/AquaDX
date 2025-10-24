@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.sega.maimai2
 
 import ext.*
+import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.games.mai2.Maimai2
 import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.net.utils.simpleDescribe
@@ -9,15 +10,15 @@ import icu.samnyan.aqua.sega.general.*
 import icu.samnyan.aqua.sega.maimai2.handler.*
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.spring.Metrics
-import io.ktor.client.request.*
 import jakarta.servlet.http.HttpServletRequest
-import org.springframework.web.bind.annotation.*
-import java.time.format.DateTimeFormatter
-import kotlin.reflect.full.declaredMemberProperties
-import icu.samnyan.aqua.net.Fedy
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
-import org.springframework.beans.factory.ObjectProvider
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import java.time.format.DateTimeFormatter
+import kotlin.reflect.full.declaredMemberProperties
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

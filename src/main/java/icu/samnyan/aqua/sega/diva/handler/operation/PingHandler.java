@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.diva.handler.operation;
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler;
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.operation.PingResponse;
-import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository;
 import icu.samnyan.aqua.sega.general.model.PropertyEntry;
 import lombok.AllArgsConstructor;

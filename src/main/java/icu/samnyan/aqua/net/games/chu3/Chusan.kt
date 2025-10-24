@@ -3,8 +3,11 @@ package icu.samnyan.aqua.net.games.chu3
 import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
-import icu.samnyan.aqua.net.utils.*
-import icu.samnyan.aqua.sega.chusan.model.*
+import icu.samnyan.aqua.net.utils.chu3Scores
+import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserMusicDetailRepo
+import icu.samnyan.aqua.sega.chusan.model.Chu3UserPlaylogRepo
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
 import org.springframework.web.bind.annotation.RestController
 

@@ -7,9 +7,11 @@ import ext.unique
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.playBacklog
-import icu.samnyan.aqua.sega.maimai2.model.*
+import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.request.Mai2UpsertUserAll
-import icu.samnyan.aqua.sega.maimai2.model.userdata.*
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserGeneralData
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserRate
 import icu.samnyan.aqua.sega.util.BasicMapper
 import lombok.AllArgsConstructor
 import org.slf4j.LoggerFactory

@@ -6,7 +6,6 @@ import icu.samnyan.aqua.sega.diva.model.common.collection.FestaCollection;
 import icu.samnyan.aqua.sega.diva.model.gamedata.Festa;
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.databank.FestaInfoResponse;
-import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

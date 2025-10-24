@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.io.Serializable
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 fun getTokenExpiry() = Instant.now().plusSeconds(7 * 86400)
 

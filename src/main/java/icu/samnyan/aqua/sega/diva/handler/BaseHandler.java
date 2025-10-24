@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler;
 
 import icu.samnyan.aqua.sega.diva.util.DivaMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

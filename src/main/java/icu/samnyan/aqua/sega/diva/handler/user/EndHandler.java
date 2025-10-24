@@ -17,7 +17,6 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService;
-import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

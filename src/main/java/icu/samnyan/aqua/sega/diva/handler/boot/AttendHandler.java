@@ -6,7 +6,6 @@ import icu.samnyan.aqua.sega.diva.model.common.attend.EtcParameter;
 import icu.samnyan.aqua.sega.diva.model.common.attend.GameBalanceParameter;
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest;
 import icu.samnyan.aqua.sega.diva.model.response.boot.AttendResponse;
-import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

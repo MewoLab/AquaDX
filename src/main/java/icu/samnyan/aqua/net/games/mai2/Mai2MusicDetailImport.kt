@@ -1,6 +1,9 @@
 package icu.samnyan.aqua.net.games.mai2
 
-import ext.*
+import ext.API
+import ext.RB
+import ext.RP
+import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos

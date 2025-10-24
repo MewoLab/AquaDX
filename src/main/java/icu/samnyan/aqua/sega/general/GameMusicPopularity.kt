@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.general
 
 import ext.*
-import icu.samnyan.aqua.net.db.AquaUserServices
 import jakarta.persistence.EntityManager
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component

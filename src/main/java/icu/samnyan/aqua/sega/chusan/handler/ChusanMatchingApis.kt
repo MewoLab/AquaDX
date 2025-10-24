@@ -9,15 +9,6 @@ import ext.parsing
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.MatchingWaitState
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3MatchingMemberReq
-import kotlin.collections.MutableList
-import kotlin.collections.find
-import kotlin.collections.indices
-import kotlin.collections.listOf
-import kotlin.collections.map
-import kotlin.collections.mapOf
-import kotlin.collections.mutableListOf
-import kotlin.collections.mutableMapOf
-import kotlin.collections.set
 
 
 fun ChusanController.matchingApiInit() {

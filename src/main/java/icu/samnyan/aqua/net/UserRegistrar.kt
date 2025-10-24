@@ -2,14 +2,14 @@ package icu.samnyan.aqua.net
 
 import ext.*
 import icu.samnyan.aqua.net.components.*
-import icu.samnyan.aqua.net.db.*
-import icu.samnyan.aqua.net.db.AquaUserServices.Companion.SETTING_FIELDS
+import icu.samnyan.aqua.net.db.AquaNetUserRepo
+import icu.samnyan.aqua.net.db.AquaUserServices
+import icu.samnyan.aqua.net.db.EmailConfirmationRepo
+import icu.samnyan.aqua.net.db.ResetPasswordRepo
 import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.dao.CardRepository
-import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.model.CardStatus
-import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import java.time.Instant
-import java.time.LocalDateTime
 import kotlin.io.path.writeBytes
 
 @RestController

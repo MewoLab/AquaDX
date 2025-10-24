@@ -3,8 +3,8 @@ package icu.samnyan.aqua.sega.chusan.model.request
 import com.fasterxml.jackson.annotation.JsonProperty
 import icu.samnyan.aqua.sega.chusan.model.GameGachaCard
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
-import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserItem
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserGacha
 import java.io.Serializable
 
 class UpsertUserGacha : Serializable {

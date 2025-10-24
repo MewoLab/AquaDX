@@ -3,7 +3,7 @@ package icu.samnyan.aqua.net.games.ongeki
 import ext.API
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
-import icu.samnyan.aqua.net.utils.*
+import icu.samnyan.aqua.net.utils.ongekiScores
 import icu.samnyan.aqua.sega.ongeki.OgkUserDataRepo
 import icu.samnyan.aqua.sega.ongeki.OgkUserGeneralDataRepo
 import icu.samnyan.aqua.sega.ongeki.OgkUserMusicDetailRepo

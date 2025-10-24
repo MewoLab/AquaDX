@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.diva.handler.databank;
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler;
 import icu.samnyan.aqua.sega.diva.model.request.databank.BannerDataRequest;
 import icu.samnyan.aqua.sega.diva.model.response.databank.BannerDataResponse;
-import icu.samnyan.aqua.sega.diva.util.DivaMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

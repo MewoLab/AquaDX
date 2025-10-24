@@ -1,6 +1,9 @@
 package icu.samnyan.aqua.net.games.wacca
 
-import ext.*
+import ext.API
+import ext.RP
+import ext.isoDate
+import ext.utc
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.net.utils.waccaScores
