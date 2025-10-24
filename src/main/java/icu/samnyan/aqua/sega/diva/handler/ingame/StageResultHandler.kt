@@ -1,21 +1,14 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.logger
-import icu.samnyan.aqua.sega.diva.ContestRepository
-import icu.samnyan.aqua.sega.diva.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.PlayLogRepository
-import icu.samnyan.aqua.sega.diva.PlayerContestRepository
-import icu.samnyan.aqua.sega.diva.PlayerCustomizeRepository
-import icu.samnyan.aqua.sega.diva.PlayerInventoryRepository
-import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.*
-import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Component
 import java.lang.String
@@ -33,26 +26,16 @@ import kotlin.math.max
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class StageResultHandler(
-    private val gameSessionRepository: GameSessionRepository,
-    private val pvRecordRepository: PlayerPvRecordRepository,
-    private val playerProfileService: PlayerProfileService,
-    private val playLogRepository: PlayLogRepository,
-    private val contestRepository: ContestRepository,
-    private val playerContestRepository: PlayerContestRepository,
-    private val playerCustomizeRepository: PlayerCustomizeRepository,
-    private val playerInventoryRepository: PlayerInventoryRepository,
-    private val divaCalculator: DivaCalculator
-) {
+class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
     private var currentProfile: PlayerProfile? = null
     val logger = logger()
 
     fun handle(request: StageResultRequest): Any {
         val response: StageResultResponse?
         if (request.getPd_id() != -1L) {
-            val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
+            val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
                 Supplier { ProfileNotFoundException() })
-            val session = gameSessionRepository.findByPdId(profile)
+            val session = db.gameSession.findByPdId(profile)
                 .orElseThrow<SessionNotFoundException?>(Supplier { SessionNotFoundException() })
 
             currentProfile = profile
@@ -77,7 +60,7 @@ class StageResultHandler(
             val log = getLog(request, profile, stageIndex)
             logger.debug("Stage Result Object: {}", log.toString())
 
-            val record = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(
+            val record = db.pvRecord.findByPdIdAndPvIdAndEditionAndDifficulty(
                 profile,
                 log.pvId,
                 log.edition,
@@ -114,7 +97,7 @@ class StageResultHandler(
             session.lastPvId = log.pvId
             session.lastUpdateTime = LocalDateTime.now()
 
-            val levelInfo = divaCalculator.getLevelInfo(profile)
+            val levelInfo = calc.getLevelInfo(profile)
             session.oldLevelNumber = session.levelNumber
             session.oldLevelExp = session.levelExp
             session.levelNumber = levelInfo.levelNumber
@@ -139,10 +122,10 @@ class StageResultHandler(
                 contestSpecifier = getContestSpecifier(progress)
 
                 // Check if the contest info exist
-                val contestOptional = contestRepository.findById(contestId)
+                val contestOptional = db.g.contest.findById(contestId)
                 if (contestOptional.isPresent) {
                     val contest = contestOptional.get()
-                    val playerContestOptional = playerContestRepository.findByPdIdAndContestId(profile, contestId)
+                    val playerContestOptional = db.contest.findByPdIdAndContestId(profile, contestId)
 
                     // Contest Entry Reward
                     // Check if this is first stage
@@ -209,9 +192,9 @@ class StageResultHandler(
                 }
             }
 
-            pvRecordRepository.save<PlayerPvRecord?>(record)
-            playLogRepository.save<PlayLog?>(log)
-            gameSessionRepository.save<GameSession?>(session)
+            db.pvRecord.save<PlayerPvRecord?>(record)
+            db.playLog.save<PlayLog?>(log)
+            db.gameSession.save<GameSession?>(session)
 
 
             return StageResultResponse(
@@ -368,7 +351,7 @@ class StageResultHandler(
         borders: Int,
         reward: kotlin.String?
     ): MutableMap<kotlin.String?, kotlin.String?>? {
-        if (currentValue > borders && previousValue < borders) {
+        if (borders in (previousValue + 1)..<currentValue) {
             if (StringUtils.isNotBlank(reward)) {
                 val rewardValue: Array<kotlin.String?> =
                     reward!!.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -383,7 +366,7 @@ class StageResultHandler(
                     }
 
                     "1" -> {
-                        if (playerInventoryRepository.findByPdIdAndTypeAndValue(currentProfile!!, "SKIN", rewardValue[1]!!)
+                        if (db.inventory.findByPdIdAndTypeAndValue(currentProfile!!, "SKIN", rewardValue[1]!!)
                                 .isPresent
                         ) {
                             result["type"] = "-1"
@@ -391,7 +374,7 @@ class StageResultHandler(
                             result["string1"] = "***"
                             result["string2"] = "***"
                         } else {
-                            playerInventoryRepository.save<PlayerInventory?>(
+                            db.inventory.save<PlayerInventory?>(
                                 PlayerInventory(
                                     null,
                                     currentProfile,
@@ -407,7 +390,7 @@ class StageResultHandler(
                     }
 
                     "2" -> {
-                        if (playerInventoryRepository.findByPdIdAndTypeAndValue(currentProfile!!, "PLATE", rewardValue[1]!!)
+                        if (db.inventory.findByPdIdAndTypeAndValue(currentProfile!!, "PLATE", rewardValue[1]!!)
                                 .isPresent
                         ) {
                             result.put("type", "-1")
@@ -415,7 +398,7 @@ class StageResultHandler(
                             result.put("string1", "***")
                             result.put("string2", "***")
                         } else {
-                            playerInventoryRepository.save<PlayerInventory?>(
+                            db.inventory.save<PlayerInventory?>(
                                 PlayerInventory(
                                     null,
                                     currentProfile,
@@ -431,7 +414,7 @@ class StageResultHandler(
                     }
 
                     "3" -> {
-                        if (playerCustomizeRepository.findByPdIdAndCustomizeId(currentProfile!!, rewardValue[1]!!.toInt())
+                        if (db.customize.findByPdIdAndCustomizeId(currentProfile!!, rewardValue[1]!!.toInt())
                                 .isPresent
                         ) {
                             result.put("type", "-1")
@@ -439,7 +422,7 @@ class StageResultHandler(
                             result.put("string1", "***")
                             result.put("string2", "***")
                         } else {
-                            playerCustomizeRepository.save(
+                            db.customize.save(
                                 PlayerCustomize(
                                     currentProfile,
                                     rewardValue[1]!!.toInt()

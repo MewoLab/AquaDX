@@ -1,14 +1,12 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
-import icu.samnyan.aqua.sega.diva.PlayerPvCustomizeRepository
-import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.request.ingame.GetPvPdRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.GetPvPdResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
-import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component
@@ -19,13 +17,9 @@ import java.util.function.Supplier
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class GetPvPdHandler(
-    private val pvRecordRepository: PlayerPvRecordRepository,
-    private val pvCustomizeRepository: PlayerPvCustomizeRepository,
-    private val playerProfileService: PlayerProfileService
-) {
+class GetPvPdHandler(val db: DivaRepos) {
     fun handle(request: GetPvPdRequest): Any {
-        val profileO = playerProfileService.findByPdId(request.pd_id)
+        val profileO = db.profile.findByPdId(request.pd_id)
         val pd = StringBuilder()
 
         for (pvId in request.pd_pv_id_lst) {
@@ -40,7 +34,7 @@ class GetPvPdHandler(
                     val difficulty = Difficulty.fromValue(diff)
 
                     // Myself
-                    val edition0 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(
+                    val edition0 = db.pvRecord.findByPdIdAndPvIdAndEditionAndDifficulty(
                         profile,
                         pvId,
                         Edition.ORIGINAL,
@@ -48,7 +42,7 @@ class GetPvPdHandler(
                     )
                         .orElseGet(Supplier { PlayerPvRecord(pvId, Edition.ORIGINAL) })
 
-                    val edition1 = pvRecordRepository.findByPdIdAndPvIdAndEditionAndDifficulty(
+                    val edition1 = db.pvRecord.findByPdIdAndPvIdAndEditionAndDifficulty(
                         profile,
                         pvId,
                         Edition.EXTRA,
@@ -60,7 +54,7 @@ class GetPvPdHandler(
                     val rivalEdition0: PlayerPvRecord?
                     val rivalEdition1: PlayerPvRecord?
                     if (profile.rivalPdId != -1L) {
-                        rivalEdition0 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(
+                        rivalEdition0 = db.pvRecord.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(
                             profile.rivalPdId,
                             pvId,
                             Edition.ORIGINAL,
@@ -68,7 +62,7 @@ class GetPvPdHandler(
                         )
                             .orElseGet(Supplier { PlayerPvRecord(pvId, Edition.ORIGINAL) })
 
-                        rivalEdition1 = pvRecordRepository.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(
+                        rivalEdition1 = db.pvRecord.findByPdId_PdIdAndPvIdAndEditionAndDifficulty(
                             profile.rivalPdId,
                             pvId,
                             Edition.EXTRA,
@@ -80,7 +74,7 @@ class GetPvPdHandler(
                         rivalEdition1 = PlayerPvRecord(pvId, Edition.EXTRA)
                     }
 
-                    val customize = pvCustomizeRepository.findByPdIdAndPvId(profile, pvId)
+                    val customize = db.pvCustomize.findByPdIdAndPvId(profile, pvId)
                         .orElseGet(Supplier { PlayerPvCustomize(profile, pvId) })
 
                     val str = getString(
@@ -89,7 +83,6 @@ class GetPvPdHandler(
                         rivalEdition0,
                         profile.rivalPdId
                     ) + "," + getString(edition1, customize, rivalEdition1, profile.rivalPdId)
-                    //                logger.info(str);
                     pd.append(encode(str)).append(",")
                 }
             }
@@ -132,7 +125,7 @@ class GetPvPdHandler(
             rivalRecord.maxScore + "," +
             rivalRecord.maxAttain + "," +
             "-1,-1," +
-            pvRecordRepository.rankByPvIdAndPdIdAndEditionAndDifficulty(
+            db.pvRecord.rankByPvIdAndPdIdAndEditionAndDifficulty(
                 record.pvId,
                 record.pdId,
                 record.edition,

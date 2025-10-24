@@ -1,13 +1,12 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
 import ext.logger
-import icu.samnyan.aqua.sega.diva.GameSessionRepository
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.PreStartResult
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.PreStartResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.GameSession
-import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.concurrent.ThreadLocalRandom
@@ -16,13 +15,10 @@ import java.util.concurrent.ThreadLocalRandom
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PreStartHandler(
-    private val playerProfileService: PlayerProfileService,
-    private val gameSessionRepository: GameSessionRepository
-) {
+class PreStartHandler(val db: DivaRepos) {
     var logger = logger()
     fun handle(request: PreStartRequest): Any {
-        val profileOptional = playerProfileService.findByPdId(request.aime_id)
+        val profileOptional = db.profile.findByPdId(request.aime_id)
         if (profileOptional.isEmpty) {
             return PreStartResponse(
                 request.cmd,
@@ -33,7 +29,7 @@ class PreStartHandler(
         } else {
             val profile = profileOptional.get()
 
-            val sessionOptional = gameSessionRepository.findByPdId(profile)
+            val sessionOptional = db.gameSession.findByPdId(profile)
             if (sessionOptional.isPresent) {
                 val session = sessionOptional.get()
                 if (!session.lastUpdateTime
@@ -46,7 +42,7 @@ class PreStartHandler(
                         PreStartResult.ALREADY_PLAYING
                     )
                 } else {
-                    gameSessionRepository.delete(session)
+                    db.gameSession.delete(session)
                 }
             }
 
@@ -66,7 +62,7 @@ class PreStartHandler(
                 profile.vocaloidPoints
             )
 
-            gameSessionRepository.save(session)
+            db.gameSession.save(session)
 
             return PreStartResponse(
                 request.cmd,
