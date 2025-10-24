@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva.util;
 
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvRecordRepository;
+import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository;
 import icu.samnyan.aqua.sega.diva.model.common.Edition;
 import icu.samnyan.aqua.sega.diva.model.common.LevelInfo;
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile;

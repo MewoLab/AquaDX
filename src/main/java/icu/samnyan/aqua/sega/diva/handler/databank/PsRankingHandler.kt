@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvRecordRepository
+import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition

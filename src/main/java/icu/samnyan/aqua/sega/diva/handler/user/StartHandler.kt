@@ -1,11 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
-import icu.samnyan.aqua.sega.diva.dao.userdata.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerContestRepository
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvRecordRepository
-import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.exception.PvRecordDataException
-import icu.samnyan.aqua.sega.diva.exception.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.*
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.common.collection.ClearSet
@@ -19,8 +14,6 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.service.PlayerCustomizeService
 import icu.samnyan.aqua.sega.diva.service.PlayerModuleService
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
@@ -41,13 +34,13 @@ class StartHandler(
     private val playerContestRepository: PlayerContestRepository
 ) : BaseHandler() {
     fun handle(request: StartRequest): Any {
-        val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
+        val profile = playerProfileService.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException>(
             Supplier { ProfileNotFoundException() })
         val session = gameSessionRepository.findByPdId(profile)
             .orElseThrow(Supplier { SessionNotFoundException() })
 
         session.startMode = StartMode.START
-        gameSessionRepository.save<GameSession?>(session)
+        gameSessionRepository.save<GameSession>(session)
 
         val module_have = playerModuleService.getModuleHaveString(profile)
         val customize_have = playerCustomizeService.getModuleHaveString(profile)
@@ -123,18 +116,18 @@ class StartHandler(
         )
     }
 
-    private fun countClearStatus(profile: PlayerProfile?): String? {
+    private fun countClearStatus(profile: PlayerProfile): String {
         val pvRecordList = playerPvRecordRepository.findByPdId(profile)
         val clearTally = ClearTally()
-        pvRecordList.forEach(Consumer { x: PlayerPvRecord? ->
-            when (x!!.edition) {
+        pvRecordList.forEach(Consumer { x: PlayerPvRecord ->
+            when (x.edition) {
                 Edition.ORIGINAL -> {
                     when (x.result) {
-                        ClearResult.CHEAP -> getDiff(x, clearTally)!!.addClear()
-                        ClearResult.STANDARD -> getDiff(x, clearTally)!!.addClear()
-                        ClearResult.GREAT -> getDiff(x, clearTally)!!.addGreat()
-                        ClearResult.EXCELLENT -> getDiff(x, clearTally)!!.addExcellent()
-                        ClearResult.PERFECT -> getDiff(x, clearTally)!!.addPerfect()
+                        ClearResult.CHEAP -> getDiff(x, clearTally).addClear()
+                        ClearResult.STANDARD -> getDiff(x, clearTally).addClear()
+                        ClearResult.GREAT -> getDiff(x, clearTally).addGreat()
+                        ClearResult.EXCELLENT -> getDiff(x, clearTally).addExcellent()
+                        ClearResult.PERFECT -> getDiff(x, clearTally).addPerfect()
                         else -> {}
                     }
                 }
@@ -154,7 +147,7 @@ class StartHandler(
         return clearTally.toInternal()
     }
 
-    private fun getDiff(record: PlayerPvRecord, clearTally: ClearTally): ClearSet? {
+    private fun getDiff(record: PlayerPvRecord, clearTally: ClearTally): ClearSet {
         when (record.difficulty) {
             Difficulty.EASY -> return clearTally.easy
             Difficulty.NORMAL -> return clearTally.normal
@@ -164,15 +157,15 @@ class StartHandler(
         }
     }
 
-    private fun getContestResult(profile: PlayerProfile?): MutableMap<String?, String?> {
-        val cv_cid: MutableList<Int?> = LinkedList<Int?>()
-        val cv_sc: MutableList<Int?> = LinkedList<Int?>()
-        val cv_rr: MutableList<Int?> = LinkedList<Int?>()
-        val cv_bv: MutableList<Int?> = LinkedList<Int?>()
-        val cv_bf: MutableList<Int?> = LinkedList<Int?>()
+    private fun getContestResult(profile: PlayerProfile): MutableMap<String, String> {
+        val cv_cid: MutableList<Int> = LinkedList<Int>()
+        val cv_sc: MutableList<Int> = LinkedList<Int>()
+        val cv_rr: MutableList<Int> = LinkedList<Int>()
+        val cv_bv: MutableList<Int> = LinkedList<Int>()
+        val cv_bf: MutableList<Int> = LinkedList<Int>()
         val contestList = playerContestRepository.findTop4ByPdIdOrderByLastUpdateTimeDesc(profile)
-        contestList.forEach(Consumer { x: PlayerContest? ->
-            cv_cid.add(x!!.contestId)
+        contestList.forEach(Consumer { x: PlayerContest ->
+            cv_cid.add(x.contestId)
             cv_sc.add(x.startCount)
             cv_rr.add(x.resultRank.value)
             cv_bv.add(x.bestValue)
@@ -185,12 +178,12 @@ class StartHandler(
             cv_bv.add(-1)
             cv_bf.add(-1)
         }
-        val result: MutableMap<String?, String?> = HashMap<String?, String?>()
-        result["cv_cid"] = cv_cid.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
-        result["cv_sc"] = cv_sc.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
-        result["cv_rr"] = cv_rr.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
-        result["cv_bv"] = cv_bv.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
-        result["cv_bf"] = cv_bf.stream().map<String?> { obj: Int? -> obj.toString() }.collect(Collectors.joining(","))
+        val result: MutableMap<String, String> = HashMap<String, String>()
+        result["cv_cid"] = cv_cid.stream().map { it.toString() }.collect(Collectors.joining(","))
+        result["cv_sc"] = cv_sc.stream().map { it.toString() }.collect(Collectors.joining(","))
+        result["cv_rr"] = cv_rr.stream().map { it.toString() }.collect(Collectors.joining(","))
+        result["cv_bv"] = cv_bv.stream().map { it.toString() }.collect(Collectors.joining(","))
+        result["cv_bf"] = cv_bf.stream().map { it.toString() }.collect(Collectors.joining(","))
         return result
     }
 }

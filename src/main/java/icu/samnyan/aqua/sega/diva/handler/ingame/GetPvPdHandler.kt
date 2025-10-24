@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvCustomizeRepository
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerPvRecordRepository
+import icu.samnyan.aqua.sega.diva.PlayerPvCustomizeRepository
+import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
@@ -12,8 +12,6 @@ import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.function.Supplier

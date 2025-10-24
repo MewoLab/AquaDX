@@ -1,10 +1,15 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.logger
-import icu.samnyan.aqua.sega.diva.dao.gamedata.ContestRepository
-import icu.samnyan.aqua.sega.diva.dao.userdata.*
-import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.exception.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.ContestRepository
+import icu.samnyan.aqua.sega.diva.GameSessionRepository
+import icu.samnyan.aqua.sega.diva.PlayLogRepository
+import icu.samnyan.aqua.sega.diva.PlayerContestRepository
+import icu.samnyan.aqua.sega.diva.PlayerCustomizeRepository
+import icu.samnyan.aqua.sega.diva.PlayerInventoryRepository
+import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
+import icu.samnyan.aqua.sega.diva.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.SessionNotFoundException
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
@@ -13,8 +18,6 @@ import icu.samnyan.aqua.sega.diva.model.userdata.*
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
 import org.apache.commons.lang3.StringUtils
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.lang.String
 import java.time.LocalDateTime
@@ -340,7 +343,7 @@ class StageResultHandler(
                     )
                 )
             }
-            i = i + 6
+            i += 6
         }
         return result
     }
@@ -374,20 +377,20 @@ class StageResultHandler(
                 when (rewardValue[0]) {
                     "-1" -> return null
                     "0" -> {
-                        result.put("type", rewardValue[0])
-                        result.put("value", rewardValue[1])
-                        result.put("string1", "***")
-                        result.put("string2", "***")
+                        result["type"] = rewardValue[0]
+                        result["value"] = rewardValue[1]
+                        result["string1"] = "***"
+                        result["string2"] = "***"
                     }
 
                     "1" -> {
-                        if (playerInventoryRepository.findByPdIdAndTypeAndValue(currentProfile, "SKIN", rewardValue[1])
+                        if (playerInventoryRepository.findByPdIdAndTypeAndValue(currentProfile!!, "SKIN", rewardValue[1]!!)
                                 .isPresent
                         ) {
-                            result.put("type", "-1")
-                            result.put("value", "-1")
-                            result.put("string1", "***")
-                            result.put("string2", "***")
+                            result["type"] = "-1"
+                            result["value"] = "-1"
+                            result["string1"] = "***"
+                            result["string2"] = "***"
                         } else {
                             playerInventoryRepository.save<PlayerInventory?>(
                                 PlayerInventory(
@@ -405,7 +408,7 @@ class StageResultHandler(
                     }
 
                     "2" -> {
-                        if (playerInventoryRepository.findByPdIdAndTypeAndValue(currentProfile, "PLATE", rewardValue[1])
+                        if (playerInventoryRepository.findByPdIdAndTypeAndValue(currentProfile!!, "PLATE", rewardValue[1]!!)
                                 .isPresent
                         ) {
                             result.put("type", "-1")
@@ -429,7 +432,7 @@ class StageResultHandler(
                     }
 
                     "3" -> {
-                        if (playerCustomizeRepository.findByPdIdAndCustomizeId(currentProfile, rewardValue[1]!!.toInt())
+                        if (playerCustomizeRepository.findByPdIdAndCustomizeId(currentProfile!!, rewardValue[1]!!.toInt())
                                 .isPresent
                         ) {
                             result.put("type", "-1")
@@ -437,7 +440,7 @@ class StageResultHandler(
                             result.put("string1", "***")
                             result.put("string2", "***")
                         } else {
-                            playerCustomizeRepository.save<PlayerCustomize?>(
+                            playerCustomizeRepository.save(
                                 PlayerCustomize(
                                     currentProfile,
                                     rewardValue[1]!!.toInt()

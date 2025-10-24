@@ -1,10 +1,10 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
-import icu.samnyan.aqua.sega.diva.dao.gamedata.ContestRepository
-import icu.samnyan.aqua.sega.diva.dao.userdata.GameSessionRepository
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerContestRepository
-import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.exception.SessionNotFoundException
+import icu.samnyan.aqua.sega.diva.ContestRepository
+import icu.samnyan.aqua.sega.diva.GameSessionRepository
+import icu.samnyan.aqua.sega.diva.PlayerContestRepository
+import icu.samnyan.aqua.sega.diva.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.SessionNotFoundException
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.ContestBorder
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
@@ -16,8 +16,6 @@ import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.service.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.lang.String
 import java.time.LocalDateTime
@@ -69,7 +67,7 @@ class EndHandler(
                 val contestRecord =
                     playerContestRepository.findByPdIdAndContestId(profile, request.getCr_cid()).orElseGet(
                         Supplier { PlayerContest(profile, request.getCr_cid()) })
-                contestRecord.startCount = contestRecord.startCount + 1
+                contestRecord.startCount += 1
                 contestRecord.bestValue = max(contestRecord.bestValue, request.getCr_tv())
                 contestRecord.resultRank = if (currentResultRank.value > contestRecord.resultRank
                         .value

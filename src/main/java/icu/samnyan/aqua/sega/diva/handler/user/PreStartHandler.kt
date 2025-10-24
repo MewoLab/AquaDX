@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
 import ext.logger
-import icu.samnyan.aqua.sega.diva.dao.userdata.GameSessionRepository
+import icu.samnyan.aqua.sega.diva.GameSessionRepository
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.common.PreStartResult
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
@@ -24,7 +24,6 @@ class PreStartHandler(
     var logger = logger()
     fun handle(request: PreStartRequest): Any {
         val profileOptional = playerProfileService.findByPdId(request.aime_id)
-        val response: PreStartResponse?
         if (profileOptional.isEmpty) {
             return PreStartResponse(
                 request.cmd,
@@ -68,7 +67,7 @@ class PreStartHandler(
                 profile.vocaloidPoints
             )
 
-            gameSessionRepository.save<GameSession?>(session)
+            gameSessionRepository.save(session)
 
             return PreStartResponse(
                 request.cmd,

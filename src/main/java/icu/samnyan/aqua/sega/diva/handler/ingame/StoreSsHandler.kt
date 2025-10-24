@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.logger
-import icu.samnyan.aqua.sega.diva.dao.userdata.PlayerScreenShotRepository
-import icu.samnyan.aqua.sega.diva.exception.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.PlayerScreenShotRepository
+import icu.samnyan.aqua.sega.diva.ProfileNotFoundException
 import icu.samnyan.aqua.sega.diva.handler.BaseHandler
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StoreSsRequest
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
