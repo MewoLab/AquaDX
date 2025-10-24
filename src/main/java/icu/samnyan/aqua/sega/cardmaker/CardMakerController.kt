@@ -60,11 +60,8 @@ class CardMakerController(
         return json
     }
 
-    fun gameConnect(modelKind: Int, modelVersion: Int, url: String) = mapOf(
-        "modelKind" to modelKind,
-        "modelVersion" to modelVersion,
-        "url" to url
-    )
+    fun gameConnect(modelKind: Int, modelVersion: Int, url: String) =
+        mapOf("modelKind" to modelKind, "modelVersion" to modelVersion, "url" to url)
 
     @API("GetGameConnectApi")
     fun getGameConnect(@ModelAttribute request: MutableMap<String, Any>): Any? {
