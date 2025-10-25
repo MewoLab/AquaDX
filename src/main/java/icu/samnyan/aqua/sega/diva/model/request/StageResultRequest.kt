@@ -13,8 +13,11 @@ open class BaseRequest {
     var time_stamp: ZonedDateTime = ZonedDateTime.now() // Timestamp
 }
 
-class StageResultRequest : BaseRequest() {
+open class PdRequest : BaseRequest() {
     var pd_id: Long = 0
+}
+
+class StageResultRequest : PdRequest() {
     var hp_vol: Int = 0
     var btn_se_vol: Boolean = false
     var btn_se_vol2: Int = 0
@@ -68,27 +71,22 @@ class StageResultRequest : BaseRequest() {
     var cr_sp: Array<String?> = arrayOf()
 }
 
-class StageStartRequest : BaseRequest() {
-    var pd_id: Long = 0
+class StageStartRequest : PdRequest() {
     var stg_ply_pv_id: IntArray = intArrayOf()
 }
 
-class StartRequest : BaseRequest() {
-    var pd_id: Long = 0
+class StartRequest : PdRequest() {
 }
 
-class StoreSsRequest : BaseRequest() {
-    var pd_id: Long = 0
+class StoreSsRequest : PdRequest() {
     var ss_mdl_id: IntArray = intArrayOf()
     var ss_c_itm_id: IntArray = intArrayOf()
 }
 
-class SpendCreditRequest : BaseRequest() {
-    var pd_id: Long = 0
+class SpendCreditRequest : PdRequest() {
 }
 
-class ShopExitRequest : BaseRequest() {
-    var pd_id: Long = 0
+class ShopExitRequest : PdRequest() {
     var use_pv_mdl_eqp = 0
     var ply_pv_id = 0
     var mdl_eqp_cmn_ary: IntArray = intArrayOf()
@@ -115,23 +113,19 @@ class PreStartRequest : BaseRequest() {
     var aime_id: Long = 0
 }
 
-class PdUnlockRequest : BaseRequest() {
-    var pd_id: Long = 0
+class PdUnlockRequest : PdRequest() {
 }
 
-class GetPvPdRequest : BaseRequest() {
-    var pd_id: Long = 0
+class GetPvPdRequest : PdRequest() {
     var difficulty = 0
     var pd_pv_id_lst: IntArray = intArrayOf()
 }
 
-class ChangePasswdRequest : BaseRequest() {
-    var pd_id: Long = 0
+class ChangePasswdRequest : PdRequest() {
     var new_passwd: String = ""
 }
 
-class ChangeNameRequest : BaseRequest() {
-    var pd_id: Long = 0
+class ChangeNameRequest : PdRequest() {
     var player_name: String = ""
 }
 
@@ -139,12 +133,10 @@ class CardProcedureRequest : BaseRequest() {
     var aime_id: Long = 0
 }
 
-class BuyModuleRequest : BaseRequest() {
-    var pd_id: Long = 0
+class BuyModuleRequest : PdRequest() {
     var mdl_id = 0
 }
 
-class BuyCstmzItmRequest : BaseRequest() {
-    var pd_id: Long = 0
+class BuyCstmzItmRequest : PdRequest() {
     var cstmz_itm_id = 0
 }
