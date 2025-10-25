@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
-import icu.samnyan.aqua.sega.diva.PvEntryRepository
+import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.gamedata.PvEntry
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
@@ -15,16 +15,16 @@ import java.util.function.Consumer
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class PvListHandler(private val pvEntryRepository: PvEntryRepository) {
+class PvListHandler(val db: DivaRepos) {
     private val df: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     fun handle(request: BaseRequest): Any {
         val sb = StringBuilder()
 
-        val easyList = pvEntryRepository.findByDifficulty(Difficulty.EASY)
-        val normalList = pvEntryRepository.findByDifficulty(Difficulty.NORMAL)
-        val hardList = pvEntryRepository.findByDifficulty(Difficulty.HARD)
-        val extremeList = pvEntryRepository.findByDifficulty(Difficulty.EXTREME)
+        val easyList = db.g.pvEntry.findByDifficulty(Difficulty.EASY)
+        val normalList = db.g.pvEntry.findByDifficulty(Difficulty.NORMAL)
+        val hardList = db.g.pvEntry.findByDifficulty(Difficulty.HARD)
+        val extremeList = db.g.pvEntry.findByDifficulty(Difficulty.EXTREME)
 
         sb.append(encode(difficultyString(easyList))).append(",")
         sb.append(encode(difficultyString(normalList))).append(",")

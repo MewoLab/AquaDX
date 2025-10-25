@@ -36,9 +36,6 @@ class AttendHandler {
     )
 }
 
-/**
- * @author samnyan (privateamusement@protonmail.com)
- */
 @Component
 class PingHandler(val rp: PropertyEntryRepository) {
     fun handle(request: BaseRequest): Any {

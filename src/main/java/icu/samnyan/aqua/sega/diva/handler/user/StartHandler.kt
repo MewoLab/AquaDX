@@ -1,9 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.PlayerCustomizeService
-import icu.samnyan.aqua.sega.diva.PlayerModuleService
-import icu.samnyan.aqua.sega.diva.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.common.collection.ClearTally
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
@@ -26,12 +23,7 @@ import java.util.stream.Collectors
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Component
-class StartHandler(
-    private val playerProfileService: PlayerProfileService,
-    private val playerCustomizeService: PlayerCustomizeService,
-    private val playerModuleService: PlayerModuleService,
-    val db: DivaRepos
-) {
+class StartHandler(val db: DivaRepos) {
     fun handle(request: StartRequest): Any {
         val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException>(
             Supplier { ProfileNotFoundException() })
@@ -41,8 +33,8 @@ class StartHandler(
         session.startMode = StartMode.START
         db.gameSession.save<GameSession>(session)
 
-        val module_have = playerModuleService.getModuleHaveString(profile)
-        val customize_have = playerCustomizeService.getModuleHaveString(profile)
+        val module_have = db.s.module.getModuleHaveString(profile)
+        val customize_have = db.s.customize.getModuleHaveString(profile)
 
         val contestResult = getContestResult(profile)
 
@@ -86,11 +78,11 @@ class StartHandler(
             profile.nextPvId,
             profile.nextDifficulty,
             profile.nextEdition,
-            contestResult.get("cv_cid"),  // contest progress
-            contestResult.get("cv_sc"),
-            contestResult.get("cv_rr"),
-            contestResult.get("cv_bv"),
-            contestResult.get("cv_bf"),
+            contestResult["cv_cid"],  // contest progress
+            contestResult["cv_sc"],
+            contestResult["cv_rr"],
+            contestResult["cv_bv"],
+            contestResult["cv_bf"],
             if (profile.isContestNowPlayingEnable) profile.contestNowPlayingId else -1,
             profile.contestNowPlayingValue,
             profile.contestNowPlayingResultRank,
@@ -99,8 +91,7 @@ class StartHandler(
             profile.myList1,
             profile.myList2,
             null,
-            null,  //                getDummyString("-1", 40),
-            //                getDummyString("-1", 40),
+            null,
             border.toString(),
             profile.isShowInterimRanking,
             profile.isShowClearStatus,

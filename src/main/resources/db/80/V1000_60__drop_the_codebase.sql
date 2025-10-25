@@ -40,3 +40,5 @@ drop table chuni_user_data;
 
 drop table sega_game_version;
 
+drop table diva_ng_words;
+
