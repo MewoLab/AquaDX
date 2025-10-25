@@ -6,7 +6,7 @@ import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.collection.PsRankingCollection
 import icu.samnyan.aqua.sega.diva.model.PsRankingRequest
-import icu.samnyan.aqua.sega.diva.model.response.databank.PsRankingResponse
+import icu.samnyan.aqua.sega.diva.model.PsRankingResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime

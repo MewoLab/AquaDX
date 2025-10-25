@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.handler
 
 import ext.csv
 import icu.samnyan.aqua.sega.diva.model.BaseRequest
-import icu.samnyan.aqua.sega.diva.model.response.operation.PingResponse
+import icu.samnyan.aqua.sega.diva.model.PingResponse
 import icu.samnyan.aqua.sega.general.dao.PropertyEntryRepository
 import icu.samnyan.aqua.sega.general.model.PropertyEntry
 import org.springframework.stereotype.Component

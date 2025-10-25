@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
 import icu.samnyan.aqua.sega.diva.model.BaseRequest
-import icu.samnyan.aqua.sega.diva.model.response.databank.NvRankingResponse
+import icu.samnyan.aqua.sega.diva.model.NvRankingResponse
 import org.springframework.stereotype.Component
 
 /**

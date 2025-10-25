@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.diva.handler.databank
 import icu.samnyan.aqua.sega.diva.FestaRepository
 import icu.samnyan.aqua.sega.diva.model.common.collection.FestaCollection
 import icu.samnyan.aqua.sega.diva.model.BaseRequest
-import icu.samnyan.aqua.sega.diva.model.response.databank.FestaInfoResponse
+import icu.samnyan.aqua.sega.diva.model.FestaInfoResponse
 import org.springframework.stereotype.Component
 
 /**

@@ -2,10 +2,10 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.logger
 import icu.samnyan.aqua.sega.diva.DivaRepos
+import icu.samnyan.aqua.sega.diva.model.StageResultRequest
+import icu.samnyan.aqua.sega.diva.model.StageResultResponse
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.db.userdata.*
-import icu.samnyan.aqua.sega.diva.model.StageResultRequest
-import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Component
@@ -138,8 +138,8 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
 
                     // Only if this is the first time reach this value
                     val previousValue = progress.stream().limit((progress.size - 1).toLong())
-                        .mapToInt { obj: ContestProgress? -> obj!!.getScores() }.sum()
-                    val currentValue = progress.stream().mapToInt { obj: ContestProgress? -> obj!!.getScores() }.sum()
+                        .mapToInt { it.scores }.sum()
+                    val currentValue = progress.stream().mapToInt { it.scores }.sum()
 
                     // Bronze Reward
                     val bronze = updateReward(
@@ -319,11 +319,11 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
     private fun getContestSpecifier(progresses: MutableList<ContestProgress>): kotlin.String {
         val result: MutableList<kotlin.String?> = LinkedList<kotlin.String?>()
         for (x in progresses) {
-            result.add(x.getHardness().toString())
-            result.add(x.getEdition().toString())
-            result.add(x.getStars().toString())
-            result.add(x.getScores().toString())
-            result.add(x.getVersion().toString())
+            result.add(x.hardness.toString())
+            result.add(x.edition.toString())
+            result.add(x.stars.toString())
+            result.add(x.scores.toString())
+            result.add(x.version.toString())
         }
         while (result.size < 60) {
             result.add("-1")

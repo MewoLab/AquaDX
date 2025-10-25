@@ -4,7 +4,7 @@ import ext.csv
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.ShopExitRequest
-import icu.samnyan.aqua.sega.diva.model.response.ingame.ShopExitResponse
+import icu.samnyan.aqua.sega.diva.model.ShopExitResponse
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvCustomize
 import org.springframework.stereotype.Component
 import java.util.function.Supplier

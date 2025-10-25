@@ -4,7 +4,7 @@ import ext.invoke
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.BuyCstmzItmRequest
-import icu.samnyan.aqua.sega.diva.model.response.ingame.BuyCstmzItmResponse
+import icu.samnyan.aqua.sega.diva.model.BuyCstmzItmResponse
 import org.springframework.stereotype.Component
 
 /**
