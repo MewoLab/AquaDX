@@ -5,8 +5,8 @@ import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.request.ingame.GetPvPdRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.GetPvPdResponse
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvCustomize
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.util.DivaTime
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component

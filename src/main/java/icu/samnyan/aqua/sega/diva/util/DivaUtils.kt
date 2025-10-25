@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.LevelInfo
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
 import org.springframework.stereotype.Component
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets

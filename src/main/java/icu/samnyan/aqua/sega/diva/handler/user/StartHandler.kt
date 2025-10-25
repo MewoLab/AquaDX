@@ -3,12 +3,12 @@ package icu.samnyan.aqua.sega.diva.handler.user
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.common.collection.ClearTally
+import icu.samnyan.aqua.sega.diva.model.db.userdata.GameSession
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerContest
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.StartResponse
-import icu.samnyan.aqua.sega.diva.model.userdata.GameSession
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.util.PvRecordDataException
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -32,9 +32,9 @@ class StartHandler(val db: DivaRepos) {
 
         val contestResult = getContestResult(profile)
 
-        var border = if (profile.isShowGreatBorder) 1 else 0
-        border = border or ((if (profile.isShowExcellentBorder) 1 else 0) shl 1)
-        border = border or ((if (profile.isShowRivalBorder) 1 else 0) shl 2)
+        var border = if (profile.showGreatBorder) 1 else 0
+        border = border or ((if (profile.showExcellentBorder) 1 else 0) shl 1)
+        border = border or ((if (profile.showRivalBorder) 1 else 0) shl 2)
 
         return StartResponse(
             profile.pdId,
@@ -43,7 +43,7 @@ class StartHandler(val db: DivaRepos) {
             session.acceptId,
             profile.playerName,
             profile.headphoneVolume,
-            profile.isButtonSeOn,
+            profile.buttonSeOn,
             profile.buttonSeVolume,
             profile.sliderSeVolume,
             profile.sortMode,
@@ -58,13 +58,13 @@ class StartHandler(val db: DivaRepos) {
             LocalDateTime.now(),
             module_have,
             customize_have,
-            profile.isPreferPerPvModule,
-            profile.isPreferCommonModule,
-            profile.isUsePerPvSkin,
-            profile.isUsePerPvButtonSe,
-            profile.isUsePerPvSliderSe,
-            profile.isUsePerPvChainSliderSe,
-            profile.isUsePerPvTouchSliderSe,
+            profile.preferPerPvModule,
+            profile.preferCommonModule,
+            profile.usePerPvSkin,
+            profile.usePerPvButtonSe,
+            profile.usePerPvSliderSe,
+            profile.usePerPvChainSliderSe,
+            profile.usePerPvTouchSliderSe,
             profile.vocaloidPoints,
             profile.nextPvId,
             profile.nextDifficulty,
@@ -74,7 +74,7 @@ class StartHandler(val db: DivaRepos) {
             contestResult["cv_rr"],
             contestResult["cv_bv"],
             contestResult["cv_bf"],
-            if (profile.isContestNowPlayingEnable) profile.contestNowPlayingId else -1,
+            if (profile.contestNowPlayingEnable) profile.contestNowPlayingId else -1,
             profile.contestNowPlayingValue,
             profile.contestNowPlayingResultRank,
             profile.contestNowPlayingSpecifier,
@@ -84,10 +84,10 @@ class StartHandler(val db: DivaRepos) {
             null,
             null,
             border.toString(),
-            profile.isShowInterimRanking,
-            profile.isShowClearStatus,
+            profile.showInterimRanking,
+            profile.showClearStatus,
             countClearStatus(profile),
-            profile.isShowRgoSetting,
+            profile.showRgoSetting,
             null,  // Currently quest not working
             null,
             null,

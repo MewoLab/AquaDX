@@ -60,21 +60,9 @@ class PsRankingHandler(val db: DivaRepos) {
             score1.add(obj.first.maxScore)
             score2.add(obj.second.maxScore)
             score3.add(obj.third.maxScore)
-            name1.add(
-                encode(
-                    if (obj.first.pdId != null) obj.first.pdId.playerName else "xxx"
-                )
-            )
-            name2.add(
-                encode(
-                    if (obj.second.pdId != null) obj.second.pdId.playerName else "xxx"
-                )
-            )
-            name3.add(
-                encode(
-                    if (obj.third.pdId != null) obj.third.pdId.playerName else "xxx"
-                )
-            )
+            name1.add(encode(obj.first.pdId?.playerName ?: "xxx"))
+            name2.add(encode(obj.second.pdId?.playerName ?: "xxx"))
+            name3.add(encode(obj.third.pdId?.playerName ?: "xxx"))
         }
 
         return PsRankingResponse(
