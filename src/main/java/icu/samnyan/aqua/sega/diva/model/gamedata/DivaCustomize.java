@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.model.gamedata;
 
 import icu.samnyan.aqua.sega.diva.model.Internalizable;
-import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
+import icu.samnyan.aqua.sega.diva.util.DivaTime;
 import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -43,8 +43,8 @@ public class DivaCustomize implements Serializable, Internalizable {
         return id + ",0," +
             URIEncoder.encode(name) + "," +
             price + "," +
-            DivaDateTimeUtil.format(releaseDate) + "," +
-            DivaDateTimeUtil.format(endDate) + "," +
+            DivaTime.format(releaseDate) + "," +
+            DivaTime.format(endDate) + "," +
             sortOrder;
     }
 }

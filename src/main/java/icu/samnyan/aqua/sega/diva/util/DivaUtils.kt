@@ -19,10 +19,11 @@ object DivaStringUtils {
     fun getDummyString(content: String, length: Int) = "$content,".repeat(length).removeSuffix(",")
 }
 
-object DivaDateTimeUtil {
+object DivaTime {
+    val now get() = getString(LocalDateTime.now())
+
     @JvmStatic
-    fun getString(time: LocalDateTime) =
-        URIEncoder.encode(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0").format(time))
+    fun getString(time: LocalDateTime) = URIEncoder.encode(format(time))
 
     @JvmStatic
     fun format(time: LocalDateTime) = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0").format(time)
@@ -30,7 +31,7 @@ object DivaDateTimeUtil {
 
 class DivaDateTimeSerializer(t: Class<LocalDateTime>? = null) : StdSerializer<LocalDateTime>(t) {
     override fun serialize(value: LocalDateTime, gen: JsonGenerator, provider: SerializerProvider) {
-        gen.writeString(DivaDateTimeUtil.getString(value))
+        gen.writeString(DivaTime.getString(value))
     }
 }
 

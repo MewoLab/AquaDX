@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.model.common.collection;
 
 import icu.samnyan.aqua.sega.diva.model.gamedata.Festa;
-import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
+import icu.samnyan.aqua.sega.diva.util.DivaTime;
 import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import lombok.Data;
 
@@ -66,14 +66,14 @@ public class FestaCollection {
     }
 
     public String getStarts() {
-        return DivaDateTimeUtil.getString(this.firstFesta.getStart()) + "," + DivaDateTimeUtil.getString(this.secondFesta.getStart());
+        return DivaTime.getString(this.firstFesta.getStart()) + "," + DivaTime.getString(this.secondFesta.getStart());
     }
 
     public String getEnds() {
-        return DivaDateTimeUtil.getString(this.firstFesta.getEnd()) + "," + DivaDateTimeUtil.getString(this.secondFesta.getEnd());
+        return DivaTime.getString(this.firstFesta.getEnd()) + "," + DivaTime.getString(this.secondFesta.getEnd());
     }
 
     public String getLastUpdateTime() {
-        return DivaDateTimeUtil.getString(this.firstFesta.getCreateDate().isBefore(this.secondFesta.getCreateDate()) ? this.firstFesta.getCreateDate() : this.secondFesta.getCreateDate());
+        return DivaTime.getString(this.firstFesta.getCreateDate().isBefore(this.secondFesta.getCreateDate()) ? this.firstFesta.getCreateDate() : this.secondFesta.getCreateDate());
     }
 }

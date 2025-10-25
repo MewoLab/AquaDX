@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.model.gamedata;
 
 import icu.samnyan.aqua.sega.diva.model.common.ContestLeague;
 import icu.samnyan.aqua.sega.diva.model.common.ContestNormaType;
-import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil;
+import icu.samnyan.aqua.sega.diva.util.DivaTime;
 import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -85,8 +85,8 @@ public class Contest implements Serializable {
     public String getString() {
         List<Object> list = new LinkedList<>();
         list.add(this.id); // Contest ID
-        list.add(DivaDateTimeUtil.format(this.startTime)); // Start time
-        list.add(DivaDateTimeUtil.format(this.endTime)); // End time
+        list.add(DivaTime.format(this.startTime)); // Start time
+        list.add(DivaTime.format(this.endTime)); // End time
         list.add(URIEncoder.encode(this.name)); // Contest name
         list.add(URIEncoder.encode(this.description)); // Contest description
         list.add(this.league.getValue()); // Contest league

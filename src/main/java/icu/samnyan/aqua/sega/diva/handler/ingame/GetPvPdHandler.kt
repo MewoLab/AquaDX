@@ -7,10 +7,9 @@ import icu.samnyan.aqua.sega.diva.model.request.ingame.GetPvPdRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.GetPvPdResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
-import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil
+import icu.samnyan.aqua.sega.diva.util.DivaTime
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
 import java.util.function.Supplier
 
 /**
@@ -93,7 +92,7 @@ class GetPvPdHandler(val db: DivaRepos) {
         return GetPvPdResponse(
             pd.toString(),
             false,
-            DivaDateTimeUtil.getString(LocalDateTime.now())
+            DivaTime.now
         )
     }
 
