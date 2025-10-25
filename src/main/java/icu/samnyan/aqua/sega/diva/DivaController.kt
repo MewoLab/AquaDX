@@ -5,7 +5,6 @@ import ext.MutJDict
 import ext.emptyMap
 import ext.logger
 import icu.samnyan.aqua.sega.diva.handler.AttendHandler
-import icu.samnyan.aqua.sega.diva.handler.GameInitHandler
 import icu.samnyan.aqua.sega.diva.handler.PingHandler
 import icu.samnyan.aqua.sega.diva.handler.card.CardProcedureHandler
 import icu.samnyan.aqua.sega.diva.handler.card.ChangeNameHandler
@@ -27,6 +26,7 @@ import icu.samnyan.aqua.sega.diva.model.request.user.PdUnlockRequest
 import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest
 import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
+import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil
 import icu.samnyan.aqua.sega.diva.util.DivaMapper
 import jakarta.servlet.http.HttpServletRequest
 import lombok.AllArgsConstructor
@@ -38,9 +38,11 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
+import java.time.LocalDateTime
 
 val DIVA_BAD = mapOf("stat" to "0")
 val DIVA_OK = emptyMap
+val DIVA_INIT = mapOf("db_close" to "0,0", "retry_time" to "FFFF")
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -49,7 +51,6 @@ val DIVA_OK = emptyMap
 @RequestMapping("/g/diva")
 @AllArgsConstructor
 class DivaController(
-    val gameInitHandler: GameInitHandler,
     val attendHandler: AttendHandler,
     val cardProcedureHandler: CardProcedureHandler,
     val changeNameHandler: ChangeNameHandler,
@@ -59,15 +60,12 @@ class DivaController(
     val bannerDataHandler: BannerDataHandler,
     val contestInfoHandler: ContestInfoHandler,
     val cstmzItmCtlgHandler: CstmzItmCtlgHandler,
-    val cstmzItmNgMdlListHandler: CstmzItmNgMdlListHandler,
     val festaInfoHandler: FestaInfoHandler,
     val nvRankingHandler: NvRankingHandler,
     val psRankingHandler: PsRankingHandler,
     val pstdHCtrlHandler: PstdHCtrlHandler,
     val pstdItemNgLstHandler: PstdItemNgLstHandler,
-    val pvDefChrLstHandler: PvDefChrLstHandler,
     val pvListHandler: PvListHandler,
-    val pvNgMdlLstHandler: PvNgMdlLstHandler,
     val qstInfHandler: QstInfHandler,
     val rmtWpLstHandler: RmtWpLstHandler,
     val shopCatalogHandler: ShopCatalogHandler,
@@ -101,9 +99,9 @@ class DivaController(
 
         logger.info("{}: {}", command, body)
         val respObj = when (command) {
-            "game_init" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest::class.java))
+            "game_init" -> DIVA_INIT
             "attend" -> attendHandler.handle(mapper.convert(body, GameInitRequest::class.java))
-            "test" -> gameInitHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "test" -> DIVA_INIT
             "nv_ranking" -> nvRankingHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "ps_ranking" -> psRankingHandler.handle(mapper.convert(body, PsRankingRequest::class.java))
 
@@ -112,9 +110,9 @@ class DivaController(
             "rmt_wp_list" -> rmtWpLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "festa_info" -> festaInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "contest_info" -> contestInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "pv_def_chr_list" -> pvDefChrLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "pv_ng_mdl_list" -> pvNgMdlLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "cstmz_itm_ng_mdl_list" -> cstmzItmNgMdlListHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "pv_def_chr_list" -> mapOf("pdcl_lut" to DivaDateTimeUtil.getString(LocalDateTime.now()), "pdc_lst" to "***")
+            "pv_ng_mdl_list" ->  mapOf("pnml_lut" to DivaDateTimeUtil.getString(LocalDateTime.now()), "pnm_lst" to "***")
+            "cstmz_itm_ng_mdl_list" -> mapOf("cinml_lut" to DivaDateTimeUtil.getString(LocalDateTime.now()), "cinm_lst" to "***")
 
             "banner_info" -> bannerInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "banner_data" -> bannerDataHandler.handle(mapper.convert(body, BannerDataRequest::class.java))
@@ -141,7 +139,7 @@ class DivaController(
             "pd_unlock" -> pdUnlockHandler.handle(mapper.convert(body, PdUnlockRequest::class.java))
             "spend_credit" -> spendCreditHandler.handle(mapper.convert(body, SpendCreditRequest::class.java))
 
-            "no_card_end" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest::class.java))
+            "no_card_end" -> DIVA_INIT
             "end" -> endHandler.handle(mapper.convert(body, StageResultRequest::class.java))
             "get_pv_pd" -> getPvPdHandler.handle(mapper.convert(body, GetPvPdRequest::class.java))
             "buy_module" -> buyModuleHandler.handle(mapper.convert(body, BuyModuleRequest::class.java))
@@ -153,7 +151,7 @@ class DivaController(
 
             "stage_result" -> stageResultHandler.handle(mapper.convert(body, StageResultRequest::class.java))
 
-            "store_ss" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest::class.java))
+            "store_ss" -> DIVA_INIT
             else -> DIVA_BAD
         }
         val resp = respObj as? String
@@ -171,7 +169,7 @@ class DivaController(
 
         val respObj = when (command) {
             "ping" -> pingHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "investigate" -> gameInitHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "investigate" -> DIVA_INIT
             "store_ss" -> storeSsHandler.handle(mapper.convert(body, StoreSsRequest::class.java), bin)
             else -> "stat=1"
         }
