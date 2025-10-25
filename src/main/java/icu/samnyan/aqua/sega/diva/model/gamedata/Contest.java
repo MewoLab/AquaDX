@@ -126,18 +126,18 @@ public class Contest implements Serializable {
                     String[] ids = groups[i - 1].split(":");
                     list.add(ids[0]);
                     list.add(ids[1]);
-                    if(StringUtils.isBlank(pvDiffList) || !pvDiffList.contains(":")) {
+                    if (StringUtils.isBlank(pvDiffList) || !pvDiffList.contains(":")) {
                         list.add(this.minComplexity);
                         list.add(this.maxComplexity);
                         list.add(-1);
                     } else {
                         String[] diffList = pvDiffList.split(",");
-                        if(diffList.length < i) {
+                        if (diffList.length < i) {
                             list.add(this.minComplexity);
                             list.add(this.maxComplexity);
                             list.add(-1);
                         } else {
-                            String[] diff = diffList[i-1].split(":");
+                            String[] diff = diffList[i - 1].split(":");
                             list.add(diff[1]);
                             list.add(diff[2]);
                             list.add(diff[0]);

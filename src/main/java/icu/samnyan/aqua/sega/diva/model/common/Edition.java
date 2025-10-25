@@ -10,7 +10,7 @@ public enum Edition {
     EXTRA(1);
 
 
-    private int value;
+    private final int value;
 
     Edition(int i) {
         this.value = i;
@@ -18,7 +18,7 @@ public enum Edition {
 
     public static Edition fromValue(int i) {
         for (Edition edition :
-                Edition.values()) {
+            Edition.values()) {
             if (edition.getValue() == i) return edition;
         }
         return Edition.ORIGINAL;

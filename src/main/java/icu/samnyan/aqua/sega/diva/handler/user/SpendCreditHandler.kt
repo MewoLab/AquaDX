@@ -1,12 +1,9 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
 import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.SpendCreditResponse
-import icu.samnyan.aqua.sega.diva.PlayerProfileService
 import org.springframework.stereotype.Component
-import java.util.function.Supplier
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

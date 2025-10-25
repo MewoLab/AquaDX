@@ -74,6 +74,6 @@ public class FestaCollection {
     }
 
     public String getLastUpdateTime() {
-        return DivaDateTimeUtil.getString(this.firstFesta.getCreateDate().compareTo(this.secondFesta.getCreateDate()) < 0 ? this.firstFesta.getCreateDate() : this.secondFesta.getCreateDate());
+        return DivaDateTimeUtil.getString(this.firstFesta.getCreateDate().isBefore(this.secondFesta.getCreateDate()) ? this.firstFesta.getCreateDate() : this.secondFesta.getCreateDate());
     }
 }

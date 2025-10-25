@@ -14,7 +14,7 @@ public enum SortMode {
     MY_LIST_C(5);
 
 
-    private int value;
+    private final int value;
 
     SortMode(int i) {
         this.value = i;
@@ -22,7 +22,7 @@ public enum SortMode {
 
     public static SortMode fromValue(int i) {
         for (SortMode sortMode :
-                SortMode.values()) {
+            SortMode.values()) {
             if (sortMode.getValue() == i) return sortMode;
         }
         return SortMode.RELEASE_DATE;

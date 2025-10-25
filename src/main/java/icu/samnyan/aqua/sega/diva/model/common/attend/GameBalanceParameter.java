@@ -19,76 +19,76 @@ public class GameBalanceParameter implements Internalizable {
 
     private int name_change_price = 100;
     private GameBalanceTrialBidSet easy_trials = new GameBalanceTrialBidSet(
-            new GameBalanceTrialBid(5, 10),
-            new GameBalanceTrialBid(10, 25),
-            new GameBalanceTrialBid(20, 50),
-            new GameBalanceTrialBid(30, 90)
+        new GameBalanceTrialBid(5, 10),
+        new GameBalanceTrialBid(10, 25),
+        new GameBalanceTrialBid(20, 50),
+        new GameBalanceTrialBid(30, 90)
     );
     private GameBalanceTrialBidSet normal_trials = new GameBalanceTrialBidSet(
-            new GameBalanceTrialBid(5, 10),
-            new GameBalanceTrialBid(10, 25),
-            new GameBalanceTrialBid(20, 50),
-            new GameBalanceTrialBid(30, 90)
+        new GameBalanceTrialBid(5, 10),
+        new GameBalanceTrialBid(10, 25),
+        new GameBalanceTrialBid(20, 50),
+        new GameBalanceTrialBid(30, 90)
     );
     private GameBalanceTrialBidSet hard_trials = new GameBalanceTrialBidSet(
-            new GameBalanceTrialBid(5, 10),
-            new GameBalanceTrialBid(10, 25),
-            new GameBalanceTrialBid(20, 50),
-            new GameBalanceTrialBid(30, 90)
+        new GameBalanceTrialBid(5, 10),
+        new GameBalanceTrialBid(10, 25),
+        new GameBalanceTrialBid(20, 50),
+        new GameBalanceTrialBid(30, 90)
     );
     private GameBalanceTrialBidSet extreme_trials = new GameBalanceTrialBidSet(
-            new GameBalanceTrialBid(5, 10),
-            new GameBalanceTrialBid(10, 25),
-            new GameBalanceTrialBid(20, 50),
-            new GameBalanceTrialBid(30, 90)
+        new GameBalanceTrialBid(5, 10),
+        new GameBalanceTrialBid(10, 25),
+        new GameBalanceTrialBid(20, 50),
+        new GameBalanceTrialBid(30, 90)
     );
     private GameBalanceTrialBidSet extra_extreme_trials = new GameBalanceTrialBidSet(
-            new GameBalanceTrialBid(5, 10),
-            new GameBalanceTrialBid(10, 25),
-            new GameBalanceTrialBid(20, 50),
-            new GameBalanceTrialBid(30, 90)
+        new GameBalanceTrialBid(5, 10),
+        new GameBalanceTrialBid(10, 25),
+        new GameBalanceTrialBid(20, 50),
+        new GameBalanceTrialBid(30, 90)
     );
 
     @Override
     public String toInternal() {
         Integer[] arr = new Integer[]{
-                this.name_change_price,
-                0, // unkn
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                2,
-                3,
-                4, // unkn
-                1,
-                1,
-                1,
-                3,
-                4,
-                5, // unkn
-                1,
-                1,
-                1,
-                4,
-                5,
-                6, // unkn
-                1,
-                1,
-                1,
-                5,
-                6,
-                7, // unkn
-                4,
-                4,
-                4,
-                9,
-                10,
-                14 // unkn
+            this.name_change_price,
+            0, // unkn
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            3,
+            4, // unkn
+            1,
+            1,
+            1,
+            3,
+            4,
+            5, // unkn
+            1,
+            1,
+            1,
+            4,
+            5,
+            6, // unkn
+            1,
+            1,
+            1,
+            5,
+            6,
+            7, // unkn
+            4,
+            4,
+            4,
+            9,
+            10,
+            14 // unkn
         };
         List<Integer> list = new LinkedList<>(Arrays.asList(arr));
         list.addAll(easy_trials.getArr());

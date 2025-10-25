@@ -10,7 +10,7 @@ public enum ContestStageLimit {
     LIMITED(1);
 
 
-    private int value;
+    private final int value;
 
     ContestStageLimit(int i) {
         this.value = i;

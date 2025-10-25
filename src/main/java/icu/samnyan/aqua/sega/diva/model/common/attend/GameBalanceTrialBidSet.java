@@ -20,14 +20,14 @@ public class GameBalanceTrialBidSet {
 
     public List<Integer> getArr() {
         Integer[] arr = new Integer[]{
-                clear.getPay(),
-                clear.getWin(),
-                great.getPay(),
-                great.getWin(),
-                excellent.getPay(),
-                excellent.getWin(),
-                perfect.getPay(),
-                perfect.getWin(),
+            clear.getPay(),
+            clear.getWin(),
+            great.getPay(),
+            great.getWin(),
+            excellent.getPay(),
+            excellent.getWin(),
+            perfect.getPay(),
+            perfect.getWin(),
         };
         return new LinkedList<>(Arrays.asList(arr));
     }

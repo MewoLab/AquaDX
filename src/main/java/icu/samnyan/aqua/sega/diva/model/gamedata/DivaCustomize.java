@@ -41,10 +41,10 @@ public class DivaCustomize implements Serializable, Internalizable {
     @Override
     public String toInternal() {
         return id + ",0," +
-                URIEncoder.encode(name) + "," +
-                price + "," +
-                DivaDateTimeUtil.format(releaseDate) + "," +
-                DivaDateTimeUtil.format(endDate) + "," +
-                sortOrder;
+            URIEncoder.encode(name) + "," +
+            price + "," +
+            DivaDateTimeUtil.format(releaseDate) + "," +
+            DivaDateTimeUtil.format(endDate) + "," +
+            sortOrder;
     }
 }
