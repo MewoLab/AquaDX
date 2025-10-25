@@ -15,7 +15,6 @@ import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.AccessCodeSerializer
 import jakarta.persistence.*
 import kotlinx.io.IOException
-import lombok.NoArgsConstructor
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -33,7 +32,6 @@ class FlexibleDateTimeDeserializer : JsonDeserializer<LocalDateTime?>() {
 
 @Entity(name = "ChusanUserData")
 @Table(name = "chusan_user_data")
-@NoArgsConstructor
 class Chu3UserData : BaseEntity(), IUserData {
     @JsonSerialize(using = AccessCodeSerializer::class)
     @JsonProperty(value = "accessCode", access = JsonProperty.Access.READ_ONLY)

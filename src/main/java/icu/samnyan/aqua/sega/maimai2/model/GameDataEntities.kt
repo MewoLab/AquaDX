@@ -5,9 +5,8 @@ import icu.samnyan.aqua.net.games.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
-import lombok.Data
 
-@Data @Entity
+@Entity
 @Table(name = "maimai2_game_event")
 class Mai2GameEvent : BaseEntity() {
     @JsonIgnore(false)
@@ -22,7 +21,7 @@ class Mai2GameEvent : BaseEntity() {
     var disableArea = ""
 }
 
-@Data @Entity
+@Entity
 @Table(name = "maimai2_game_charge")
 class Mai2GameCharge : BaseEntity() {
     @Column(unique = true)
@@ -33,7 +32,7 @@ class Mai2GameCharge : BaseEntity() {
     val endDate: String? = null
 }
 
-@Data @Entity
+@Entity
 @Table(name = "maimai2_game_selling_card")
 class Mai2GameSellingCard : BaseEntity() {
     var cardId = 0L

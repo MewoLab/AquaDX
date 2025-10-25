@@ -7,14 +7,12 @@ plugins {
     val ktVer = "2.1.10"
 
     java
-    kotlin("plugin.lombok") version ktVer
     kotlin("jvm") version ktVer
     kotlin("plugin.spring") version ktVer
     kotlin("plugin.jpa") version ktVer
     kotlin("plugin.serialization") version ktVer
     kotlin("plugin.allopen") version ktVer
     kotlin("kapt") version ktVer
-    id("io.freefair.lombok") version "8.6"
     id("org.springframework.boot") version "3.2.3"
     id("com.github.ben-manes.versions") version "0.51.0"
     id("org.hibernate.orm") version "6.4.4.Final"
