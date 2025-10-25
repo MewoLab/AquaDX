@@ -6,7 +6,6 @@ import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StoreSsRequest
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerScreenShot
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import java.io.IOException
@@ -14,7 +13,6 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import java.util.function.Supplier
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -23,14 +21,11 @@ import java.util.function.Supplier
 class StoreSsHandler(val db: DivaRepos) {
     val logger = logger()
     fun handle(request: StoreSsRequest, file: MultipartFile): Any {
-        val profile = db.profile.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
-            Supplier { ProfileNotFoundException() })
+        val profile = db.profile(request.pd_id)
 
-        var response: BaseResponse?
         try {
-            val filename =
-                request.pd_id.toString() + "-" + LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) + ".jpg"
-            Files.write(Paths.get("data/" + filename), file.bytes)
+            val filename = "${request.pd_id}-${LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)}.jpg"
+            Files.write(Paths.get("data/$filename"), file.bytes)
 
             val ss = PlayerScreenShot(
                 profile,
@@ -39,7 +34,7 @@ class StoreSsHandler(val db: DivaRepos) {
                 request.ss_mdl_id.csv,
                 request.ss_c_itm_id.csv
             )
-            db.screenShot.save<PlayerScreenShot?>(ss)
+            db.screenShot.save(ss)
 
             return BaseResponse(
                 request.cmd,

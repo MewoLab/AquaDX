@@ -56,7 +56,7 @@ class CardProcedureHandler(val db: DivaRepos) {
                     profile.vocaloidPoints
                 )
 
-                db.gameSession.save<GameSession?>(session)
+                db.gameSession.save(session)
                 return CardProcedureResponse(
                     request.cmd,
                     request.req_id,

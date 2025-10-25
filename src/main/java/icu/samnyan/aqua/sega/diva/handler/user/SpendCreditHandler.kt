@@ -14,8 +14,7 @@ import java.util.function.Supplier
 @Component
 class SpendCreditHandler(val db: DivaRepos) {
     fun handle(request: SpendCreditRequest): Any {
-        val profile = db.profile.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
-            Supplier { ProfileNotFoundException() })
+        val profile = db.profile(request.pd_id)
 
         return SpendCreditResponse(
             request.cmd,

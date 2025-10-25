@@ -33,10 +33,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
     fun handle(request: StageResultRequest): Any {
         val response: StageResultResponse?
         if (request.getPd_id() != -1L) {
-            val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
-                Supplier { ProfileNotFoundException() })
-            val session = db.gameSession.findByPdId(profile)
-                .orElseThrow<SessionNotFoundException?>(Supplier { SessionNotFoundException() })
+            val (profile, session) = db.session(request.pd_id)
 
             currentProfile = profile
             // Get the last played index
@@ -192,9 +189,9 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                 }
             }
 
-            db.pvRecord.save<PlayerPvRecord?>(record)
-            db.playLog.save<PlayLog?>(log)
-            db.gameSession.save<GameSession?>(session)
+            db.pvRecord.save(record)
+            db.playLog.save(log)
+            db.gameSession.save(session)
 
 
             return StageResultResponse(
@@ -374,7 +371,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                             result["string1"] = "***"
                             result["string2"] = "***"
                         } else {
-                            db.inventory.save<PlayerInventory?>(
+                            db.inventory.save(
                                 PlayerInventory(
                                     null,
                                     currentProfile,
@@ -398,7 +395,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                             result.put("string1", "***")
                             result.put("string2", "***")
                         } else {
-                            db.inventory.save<PlayerInventory?>(
+                            db.inventory.save(
                                 PlayerInventory(
                                     null,
                                     currentProfile,

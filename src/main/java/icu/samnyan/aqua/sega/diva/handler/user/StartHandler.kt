@@ -9,14 +9,11 @@ import icu.samnyan.aqua.sega.diva.model.userdata.GameSession
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvRecord
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
 import icu.samnyan.aqua.sega.diva.util.PvRecordDataException
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.*
 import java.util.function.Consumer
-import java.util.function.Supplier
 import java.util.stream.Collectors
 
 /**
@@ -25,10 +22,7 @@ import java.util.stream.Collectors
 @Component
 class StartHandler(val db: DivaRepos) {
     fun handle(request: StartRequest): Any {
-        val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException>(
-            Supplier { ProfileNotFoundException() })
-        val session = db.gameSession.findByPdId(profile)
-            .orElseThrow(Supplier { SessionNotFoundException() })
+        val (profile, session) = db.session(request.pd_id)
 
         session.startMode = StartMode.START
         db.gameSession.save<GameSession>(session)
