@@ -4,8 +4,6 @@ import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.gamedata.*
 import icu.samnyan.aqua.sega.diva.model.userdata.*
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -20,7 +18,6 @@ class DivaGameRepos(
     val module: DivaModuleRepository,
     val pv: DivaPvRepository,
     val festa: FestaRepository,
-    val ngWords: NgWordsRepository,
     val pvEntry: PvEntryRepository
 )
 
@@ -59,9 +56,6 @@ interface FestaRepository : JpaRepository<Festa, Int> {
 }
 
 @Repository
-interface NgWordsRepository : JpaRepository<NgWords, Int>
-
-@Repository
 interface PvEntryRepository : JpaRepository<PvEntry, Int> {
     fun findByDifficulty(difficulty: Difficulty): MutableList<PvEntry>
 }
@@ -81,8 +75,6 @@ interface GameSessionRepository : JpaRepository<GameSession, Long> {
 interface PlayerCustomizeRepository : JpaRepository<PlayerCustomize, Long> {
     fun findByPdId(profile: PlayerProfile): MutableList<PlayerCustomize>
 
-    fun findByPdId_PdId(pdId: Long, page: Pageable): Page<PlayerCustomize>
-
     fun findByPdIdAndCustomizeId(currentProfile: PlayerProfile, parseInt: Int): Optional<PlayerCustomize>
 }
 
@@ -99,8 +91,6 @@ interface PlayerProfileRepository : JpaRepository<PlayerProfile, Long> {
 @Repository
 interface PlayerPvCustomizeRepository : JpaRepository<PlayerPvCustomize, Long> {
     fun findByPdIdAndPvId(profile: PlayerProfile, pvId: Int): Optional<PlayerPvCustomize>
-
-    fun findByPdId_PdIdAndPvId(pdId: Long, pvId: Int): Optional<PlayerPvCustomize>
 }
 
 @Repository
@@ -134,8 +124,6 @@ interface PlayerPvRecordRepository : JpaRepository<PlayerPvRecord, Long> {
 
     fun findByPdId(profile: PlayerProfile): MutableList<PlayerPvRecord>
 
-    fun findByIdAndPdId_PdId(id: Long, pdId: Long): Optional<PlayerPvRecord>
-
     fun findByPdIdAndEdition(profile: PlayerProfile, edition: Edition): MutableList<PlayerPvRecord>
 
     fun findTop3ByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(
@@ -143,32 +131,14 @@ interface PlayerPvRecordRepository : JpaRepository<PlayerPvRecord, Long> {
         edition: Edition,
         difficulty: Difficulty
     ): MutableList<PlayerPvRecord>
-
-    fun findByPvIdAndEditionAndDifficultyOrderByMaxScoreDesc(
-        pvId: Int,
-        edition: Edition,
-        difficulty: Difficulty,
-        page: Pageable
-    ): Page<PlayerPvRecord>
-
-    fun findByPdId_PdIdOrderByPvId(pdId: Long, page: Pageable): Page<PlayerPvRecord>
-
-    fun findByPdId_PdIdAndPvId(pdId: Long, pvId: Int): MutableList<PlayerPvRecord>
 }
 
-interface PlayerScreenShotRepository : JpaRepository<PlayerScreenShot, Long> {
-    fun findByPdId_PdId(pdId: Long): MutableList<PlayerScreenShot>
-    fun findByFileName(fileName: String): Optional<PlayerScreenShot>
-}
+interface PlayerScreenShotRepository : JpaRepository<PlayerScreenShot, Long>
 
 @Repository
-interface PlayLogRepository : JpaRepository<PlayLog, Long> {
-    fun findByPdId_PdIdOrderByDateTimeDesc(pdId: Long, page: Pageable): Page<PlayLog>
-}
+interface PlayLogRepository : JpaRepository<PlayLog, Long>
 
 @Repository
 interface PlayerModuleRepository : JpaRepository<PlayerModule, Long> {
     fun findByPdId(profile: PlayerProfile): MutableList<PlayerModule>
-
-    fun findByPdId_PdId(pdId: Long, pageable: Pageable): Page<PlayerModule>
 }
