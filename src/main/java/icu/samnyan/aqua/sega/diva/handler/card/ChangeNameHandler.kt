@@ -1,9 +1,9 @@
 package icu.samnyan.aqua.sega.diva.handler.card
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.ChangeNameRequest
 import icu.samnyan.aqua.sega.diva.model.ChangeNameResponse
+import icu.samnyan.aqua.sega.diva.model.common.Result
 import org.springframework.stereotype.Component
 
 /**

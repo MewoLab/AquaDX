@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.model.common.collection
 
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvRecord
-import lombok.Data
+
 
 class PsRankingCollection(pvId: Int, edition: Edition, list: MutableList<PlayerPvRecord>) {
     var first: PlayerPvRecord
