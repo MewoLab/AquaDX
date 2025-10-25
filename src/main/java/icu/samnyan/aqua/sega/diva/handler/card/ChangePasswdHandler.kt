@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.diva.handler.card
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.PassStat
 import icu.samnyan.aqua.sega.diva.model.common.Result
-import icu.samnyan.aqua.sega.diva.model.request.ChangePasswdRequest
+import icu.samnyan.aqua.sega.diva.model.ChangePasswdRequest
 import icu.samnyan.aqua.sega.diva.model.response.card.ChangePasswdResponse
 import org.springframework.stereotype.Component
 

@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Result
-import icu.samnyan.aqua.sega.diva.model.request.BuyModuleRequest
+import icu.samnyan.aqua.sega.diva.model.BuyModuleRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.BuyModuleResponse
 import org.springframework.stereotype.Component
 

@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.emptyMap
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.request.StageStartRequest
+import icu.samnyan.aqua.sega.diva.model.StageStartRequest
 import org.springframework.stereotype.Component
 
 /**
