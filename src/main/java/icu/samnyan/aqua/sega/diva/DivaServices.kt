@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.diva
 
-import icu.samnyan.aqua.sega.diva.model.request.RegistrationRequest
+import icu.samnyan.aqua.sega.diva.model.RegistrationRequest
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerCustomize
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerModule
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile

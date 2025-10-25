@@ -4,7 +4,7 @@ import ext.logger
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.*
 import icu.samnyan.aqua.sega.diva.model.db.userdata.*
-import icu.samnyan.aqua.sega.diva.model.request.StageResultRequest
+import icu.samnyan.aqua.sega.diva.model.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
 import org.apache.commons.lang3.StringUtils

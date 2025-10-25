@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
 import icu.samnyan.aqua.sega.diva.DivaModuleRepository
-import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
+import icu.samnyan.aqua.sega.diva.model.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.ShopCatalogResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component

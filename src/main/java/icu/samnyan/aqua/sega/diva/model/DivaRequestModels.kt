@@ -1,4 +1,4 @@
-package icu.samnyan.aqua.sega.diva.model.request
+package icu.samnyan.aqua.sega.diva.model
 
 import java.time.ZonedDateTime
 

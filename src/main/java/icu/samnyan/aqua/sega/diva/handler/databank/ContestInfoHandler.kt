@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.handler.databank
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.db.gamedata.Contest
-import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
+import icu.samnyan.aqua.sega.diva.model.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.ContestInfoResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component
