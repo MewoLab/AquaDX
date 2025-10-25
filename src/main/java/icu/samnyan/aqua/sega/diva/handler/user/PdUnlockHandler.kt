@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.handler.user
 
 import icu.samnyan.aqua.sega.diva.DIVA_OK
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.request.user.PdUnlockRequest
+import icu.samnyan.aqua.sega.diva.model.request.PdUnlockRequest
 import org.springframework.stereotype.Component
 
 @Component

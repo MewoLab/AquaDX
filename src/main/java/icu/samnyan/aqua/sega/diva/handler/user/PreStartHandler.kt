@@ -5,7 +5,7 @@ import ext.logger
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.PreStartResult
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
-import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest
+import icu.samnyan.aqua.sega.diva.model.request.PreStartRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.PreStartResponse
 import icu.samnyan.aqua.sega.diva.model.db.userdata.GameSession
 import org.springframework.stereotype.Component

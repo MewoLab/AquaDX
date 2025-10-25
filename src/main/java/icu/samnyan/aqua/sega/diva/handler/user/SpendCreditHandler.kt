@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
+import icu.samnyan.aqua.sega.diva.model.request.SpendCreditRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.SpendCreditResponse
 import org.springframework.stereotype.Component
 

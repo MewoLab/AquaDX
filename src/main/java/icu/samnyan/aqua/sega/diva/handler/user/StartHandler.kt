@@ -7,7 +7,7 @@ import icu.samnyan.aqua.sega.diva.model.db.userdata.GameSession
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvRecord
-import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
+import icu.samnyan.aqua.sega.diva.model.request.StartRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.StartResponse
 import icu.samnyan.aqua.sega.diva.util.PvRecordDataException
 import org.springframework.stereotype.Component

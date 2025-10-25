@@ -5,7 +5,7 @@ import ext.logger
 import icu.samnyan.aqua.sega.diva.DIVA_BAD
 import icu.samnyan.aqua.sega.diva.DIVA_OK
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.request.ingame.StoreSsRequest
+import icu.samnyan.aqua.sega.diva.model.request.StoreSsRequest
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerScreenShot
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
