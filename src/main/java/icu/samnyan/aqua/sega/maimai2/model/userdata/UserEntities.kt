@@ -16,9 +16,6 @@ import icu.samnyan.aqua.net.games.IGenericUserMusic
 import icu.samnyan.aqua.net.games.IUserEntity
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import jakarta.persistence.*
-import lombok.AllArgsConstructor
-import lombok.Data
-import lombok.NoArgsConstructor
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,7 +30,7 @@ open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
 
 
 @Table(name = "maimai2_user_npc_encount")
-@Data @Entity
+@Entity
 class Mai2MapEncountNpc : Mai2UserEntity() {
 
     var npcId = 0
@@ -46,7 +43,7 @@ class Mai2MapEncountNpc : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_activity")
-@Data @Entity
+@Entity
 class Mai2UserAct : Mai2UserEntity() {
     var kind = 0
 
@@ -61,7 +58,7 @@ class Mai2UserAct : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_card")
-@Data @Entity
+@Entity
 class Mai2UserCard : Mai2UserEntity() {
     var cardId: Int = 0
     var cardTypeId: Int = 0
@@ -72,7 +69,7 @@ class Mai2UserCard : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_character")
-@Data @Entity
+@Entity
 class Mai2UserCharacter : Mai2UserEntity() {
     var characterId = 0
 
@@ -101,7 +98,7 @@ class Mai2UserCharacter : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_charge", uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "charge_id"])])
-@Data @Entity
+@Entity
 class Mai2UserCharge : Mai2UserEntity() {
     @Column(name = "charge_id")
     var chargeId = 0
@@ -111,7 +108,7 @@ class Mai2UserCharge : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_course")
-@Data @Entity
+@Entity
 class Mai2UserCourse : Mai2UserEntity() {
     var courseId = 0
     var isLastClear = false
@@ -128,7 +125,7 @@ class Mai2UserCourse : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_extend")
-@Data @Entity
+@Entity
 class Mai2UserExtend : Mai2UserEntity() {
     var selectMusicId = 0
     var selectDifficultyId = 0
@@ -153,7 +150,7 @@ class Mai2UserExtend : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_favorite")
-@Data @Entity
+@Entity
 class Mai2UserFavorite : Mai2UserEntity() {
     @JsonProperty("userId")
     var favUserId: Long = 0
@@ -164,7 +161,7 @@ class Mai2UserFavorite : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_friend_season_ranking")
-@Data @Entity
+@Entity
 class Mai2UserFriendSeasonRanking : Mai2UserEntity() {
     var seasonId = 0
     var point = 0
@@ -181,7 +178,7 @@ class Mai2UserFriendSeasonRanking : Mai2UserEntity() {
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Table(name = "maimai2_user_general_data")
-@Data @Entity
+@Entity
 class Mai2UserGeneralData : Mai2UserEntity() {
     var propertyKey = ""
 
@@ -189,9 +186,6 @@ class Mai2UserGeneralData : Mai2UserEntity() {
     var propertyValue = ""
 }
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 class Mai2UserGhost {
     var name: String = ""
     var iconId = 0
@@ -215,7 +209,7 @@ class Mai2UserGhost {
 }
 
 @Table(name = "maimai2_user_item")
-@Data @Entity
+@Entity
 class Mai2UserItem : Mai2UserEntity() {
     var itemKind = 0
     var itemId = 0
@@ -243,7 +237,7 @@ enum class Mai2ItemKind(val id: Int) {
 }
 
 @Table(name = "maimai2_user_login_bonus")
-@Data @Entity
+@Entity
 class Mai2UserLoginBonus : Mai2UserEntity() {
     var bonusId = 0
     var point = 0
@@ -252,7 +246,7 @@ class Mai2UserLoginBonus : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_map")
-@Data @Entity
+@Entity
 class Mai2UserMap : Mai2UserEntity() {
     var mapId = 0
     var distance = 0
@@ -262,7 +256,7 @@ class Mai2UserMap : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_music_detail")
-@Data @Entity
+@Entity
 class Mai2UserMusicDetail : Mai2UserEntity(), IGenericUserMusic {
 
     override var musicId = 0
@@ -277,7 +271,7 @@ class Mai2UserMusicDetail : Mai2UserEntity(), IGenericUserMusic {
 }
 
 @Table(name = "maimai2_user_option")
-@Data @Entity
+@Entity
 class Mai2UserOption : Mai2UserEntity() {
     var optionKind = 0
     var noteSpeed = 0
@@ -330,7 +324,7 @@ class Mai2UserOption : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_playlog")
-@Data @Entity
+@Entity
 class Mai2UserPlaylog : Mai2UserEntity(), IGenericGamePlaylog {
     var orderId = 0
     var playlogId: Long = 0
@@ -464,7 +458,7 @@ fun main(args: Array<String>) {
 }
 
 @Table(name = "maimai2_user_print_detail")
-@Data @Entity
+@Entity
 class Mai2UserPrintDetail : Mai2UserEntity() {
     var orderId: Long = 0
     var printNumber = 0
@@ -500,7 +494,7 @@ data class Mai2UserRate(
 )
 
 @Table(name = "maimai2_user_udemae")
-@Data @Entity
+@Entity
 class Mai2UserUdemae : Mai2UserEntity() {
     var rate = 0
     var maxRate = 0
@@ -521,7 +515,7 @@ class Mai2UserUdemae : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_kaleidx")
-@Data @Entity
+@Entity
 class Mai2UserKaleidx : Mai2UserEntity() {
     var gateId = 1
     var isGateFound = true
@@ -545,7 +539,7 @@ class Mai2UserKaleidx : Mai2UserEntity() {
 }
 
 @Table(name = "maimai2_user_intimate")
-@Data @Entity
+@Entity
 class Mai2UserIntimate : Mai2UserEntity() {
     var partnerId = 1;
     var intimateLevel = 0;

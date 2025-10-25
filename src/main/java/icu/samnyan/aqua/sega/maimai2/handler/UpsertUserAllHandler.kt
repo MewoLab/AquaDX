@@ -13,14 +13,12 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserGeneralData
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserRate
 import icu.samnyan.aqua.sega.util.BasicMapper
-import lombok.AllArgsConstructor
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
-@AllArgsConstructor
 @Component("Maimai2UpsertUserAllHandler")
 class UpsertUserAllHandler(
     val mapper: BasicMapper,
