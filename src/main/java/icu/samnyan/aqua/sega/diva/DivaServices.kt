@@ -1,9 +1,9 @@
 package icu.samnyan.aqua.sega.diva
 
 import icu.samnyan.aqua.sega.diva.model.request.card.RegistrationRequest
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerCustomize
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerModule
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerProfile
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerCustomize
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerModule
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service

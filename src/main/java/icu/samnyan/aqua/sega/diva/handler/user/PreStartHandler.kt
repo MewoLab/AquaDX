@@ -7,7 +7,7 @@ import icu.samnyan.aqua.sega.diva.model.common.PreStartResult
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest
 import icu.samnyan.aqua.sega.diva.model.response.user.PreStartResponse
-import icu.samnyan.aqua.sega.diva.model.userdata.GameSession
+import icu.samnyan.aqua.sega.diva.model.db.userdata.GameSession
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.concurrent.ThreadLocalRandom

@@ -2,7 +2,7 @@ package icu.samnyan.aqua.sega.diva.handler.databank
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
-import icu.samnyan.aqua.sega.diva.model.gamedata.PvEntry
+import icu.samnyan.aqua.sega.diva.model.db.gamedata.PvEntry
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.PvListResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode

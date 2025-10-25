@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.diva.handler.databank
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
+import icu.samnyan.aqua.sega.diva.model.db.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
 import icu.samnyan.aqua.sega.diva.model.response.databank.ContestInfoResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
@@ -20,7 +20,7 @@ class ContestInfoHandler(val db: DivaRepos) {
         var ci_str = "***"
         if (!contestList.isEmpty()) {
             val sb = StringBuilder()
-            contestList.forEach(Consumer { x: Contest? -> sb.append(encode(x!!.getString())).append(",") })
+            contestList.forEach(Consumer { x: Contest? -> sb.append(encode(x!!.string)).append(",") })
             sb.append("%2A%2A%2A,".repeat(max(0, 8 - contestList.size)))
             sb.deleteCharAt(sb.length - 1)
             ci_str = sb.toString()

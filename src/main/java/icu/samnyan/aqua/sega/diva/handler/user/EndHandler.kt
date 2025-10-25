@@ -6,9 +6,9 @@ import icu.samnyan.aqua.sega.diva.model.common.ContestBorder
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.SortMode
-import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
+import icu.samnyan.aqua.sega.diva.model.db.gamedata.Contest
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
-import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
 import org.springframework.stereotype.Component
 import java.lang.String
@@ -27,7 +27,7 @@ class EndHandler(val db: DivaRepos) {
         val (profile, session) = db.session(request.pd_id)
 
         profile.headphoneVolume = request.getHp_vol()
-        profile.isButtonSeOn = request.isBtn_se_vol
+        profile.buttonSeOn = request.isBtn_se_vol
         profile.buttonSeVolume = request.getBtn_se_vol2()
         profile.sliderSeVolume = request.getSldr_se_vol2()
         profile.vocaloidPoints = session.vp
@@ -43,7 +43,7 @@ class EndHandler(val db: DivaRepos) {
             val currentResultRank = getContestRank(contest, request.getCr_tv())
             if (request.getCr_if() == 0) {
                 // Do contest is playing
-                profile.isContestNowPlayingEnable = true
+                profile.contestNowPlayingEnable = true
                 profile.contestNowPlayingId = request.getCr_cid()
                 profile.contestNowPlayingResultRank = currentResultRank
                 profile.contestNowPlayingValue = request.getCr_tv()
@@ -60,7 +60,7 @@ class EndHandler(val db: DivaRepos) {
                 contestRecord.lastUpdateTime = LocalDateTime.now()
 
                 db.contest.save(contestRecord)
-                profile.isContestNowPlayingEnable = false
+                profile.contestNowPlayingEnable = false
                 profile.contestNowPlayingId = -1
                 profile.contestNowPlayingResultRank = ContestBorder.NONE
                 profile.contestNowPlayingValue = -1

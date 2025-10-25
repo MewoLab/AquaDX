@@ -3,9 +3,13 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 import ext.logger
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.*
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayLog
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerCustomize
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerInventory
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvRecord
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse
-import icu.samnyan.aqua.sega.diva.model.userdata.*
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Component
@@ -242,7 +246,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
         }
     }
 
-    private fun getLog(request: StageResultRequest, profile: PlayerProfile?, i: Int): PlayLog {
+    private fun getLog(request: StageResultRequest, profile: PlayerProfile, i: Int): PlayLog {
         return PlayLog(
             profile,
             request.getStg_ply_pv_id()[i],
@@ -363,9 +367,8 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                         } else {
                             db.inventory.save(
                                 PlayerInventory(
-                                    null,
-                                    currentProfile,
-                                    rewardValue[1],
+                                    currentProfile!!,
+                                    rewardValue[1]!!,
                                     "SKIN"
                                 )
                             )
@@ -387,9 +390,8 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                         } else {
                             db.inventory.save(
                                 PlayerInventory(
-                                    null,
-                                    currentProfile,
-                                    rewardValue[1],
+                                    currentProfile!!,
+                                    rewardValue[1]!!,
                                     "PLATE"
                                 )
                             )
@@ -411,7 +413,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                         } else {
                             db.customize.save(
                                 PlayerCustomize(
-                                    currentProfile,
+                                    currentProfile!!,
                                     rewardValue[1]!!.toInt()
                                 )
                             )
