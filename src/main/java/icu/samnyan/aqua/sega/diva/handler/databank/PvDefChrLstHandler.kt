@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class PvDefChrLstHandler {
     fun handle(request: BaseRequest) = PvDefChrLstResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         "***"
     )

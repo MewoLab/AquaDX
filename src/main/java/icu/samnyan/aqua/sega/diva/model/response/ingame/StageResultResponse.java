@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.response.ingame;
 
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-public class StageResultResponse extends BaseResponse {
+public class StageResultResponse {
 
     private int chllng_kind;
     private int lv_num_old;
@@ -58,12 +57,9 @@ public class StageResultResponse extends BaseResponse {
     private String my_ccd_r_hnd;
     private String my_ccd_r_vp;
 
-    public StageResultResponse(String cmd, String req_id, String stat) {
-        super(cmd, req_id, stat);
-    }
+    public StageResultResponse() {}
 
-    public StageResultResponse(String cmd, String req_id, String stat, int chllng_kind, int lv_num_old, int lv_pnt_old, int lv_num, int lv_pnt, String lv_str, int lv_efct_id, int lv_plt_id, int vcld_pts, int prsnt_vcld_pts, int cnp_cid, int cnp_val, String cnp_sp, String crwd_kind, String crwd_value, String crwd_str_0, String crwd_str_1, int cerwd_kind, int cerwd_value, String cerwd_str_0, String cerwd_str_1, String ttl_str_ary, String ttl_plt_id_ary, String ttl_desc_ary, String skin_id_ary, String skin_name_ary, String skin_illust_ary, String skin_desc_ary, int pdddt_flg, LocalDateTime pdddt_tm, int nblss_ltt_stts, int nblss_ltt_tckt, int nblss_ltt_is_opn, int nblss_ltt_prz, int nblss_ltt_nxt_stts, int nblss_ltt_nxt_tckt, String my_qst_id, String my_qst_r_qid, String my_qst_r_knd, String my_qst_r_vl, String my_qst_r_nflg, String my_ccd_r_qid, String my_ccd_r_hnd, String my_ccd_r_vp) {
-        super(cmd, req_id, stat);
+    public StageResultResponse(int chllng_kind, int lv_num_old, int lv_pnt_old, int lv_num, int lv_pnt, String lv_str, int lv_efct_id, int lv_plt_id, int vcld_pts, int prsnt_vcld_pts, int cnp_cid, int cnp_val, String cnp_sp, String crwd_kind, String crwd_value, String crwd_str_0, String crwd_str_1, int cerwd_kind, int cerwd_value, String cerwd_str_0, String cerwd_str_1, String ttl_str_ary, String ttl_plt_id_ary, String ttl_desc_ary, String skin_id_ary, String skin_name_ary, String skin_illust_ary, String skin_desc_ary, int pdddt_flg, LocalDateTime pdddt_tm, int nblss_ltt_stts, int nblss_ltt_tckt, int nblss_ltt_is_opn, int nblss_ltt_prz, int nblss_ltt_nxt_stts, int nblss_ltt_nxt_tckt, String my_qst_id, String my_qst_r_qid, String my_qst_r_knd, String my_qst_r_vl, String my_qst_r_nflg, String my_ccd_r_qid, String my_ccd_r_hnd, String my_ccd_r_vp) {
         this.chllng_kind = chllng_kind;
         this.lv_num_old = lv_num_old;
         this.lv_pnt_old = lv_pnt_old;

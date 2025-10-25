@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
+import ext.invoke
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.ingame.BuyCstmzItmRequest
@@ -14,32 +15,20 @@ class BuyCstmzItmHandler(val db: DivaRepos) {
     fun handle(request: BuyCstmzItmRequest): Any {
         val (profile, session) = db.session(request.pd_id)
 
-        val customizeOptional = db.g.customize.findById(request.cstmz_itm_id)
+        val customize = db.g.customize.findById(request.cstmz_itm_id)() ?: return BuyCstmzItmResponse(
+            Result.FAILED
+        )
 
-        if (customizeOptional.isEmpty) {
+        if (session.vp < customize.price) {
             return BuyCstmzItmResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
-                Result.FAILED
-            )
-        }
-        if (session.vp < customizeOptional.get().price) {
-            return BuyCstmzItmResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 Result.FAILED
             )
         }
         db.s.customize.buy(profile, request.cstmz_itm_id)
-        session.vp -= customizeOptional.get().price
+        session.vp -= customize.price
         db.gameSession.save(session)
 
         return BuyCstmzItmResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             Result.SUCCESS,
             request.cstmz_itm_id,
             db.s.customize.getModuleHaveString(profile),

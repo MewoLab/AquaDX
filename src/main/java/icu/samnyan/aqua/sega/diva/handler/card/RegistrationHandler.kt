@@ -14,18 +14,12 @@ class RegistrationHandler(val service: PlayerProfileService) {
     fun handle(request: RegistrationRequest) =
         if (service.findByPdId(request.aime_id).isPresent) {
             RegistrationResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 Result.FAILED,
                 -1
             )
         } else {
             val profile = service.register(request)
             RegistrationResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 Result.SUCCESS,
                 profile.pdId
             )

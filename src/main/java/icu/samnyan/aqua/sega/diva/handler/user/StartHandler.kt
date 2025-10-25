@@ -37,9 +37,6 @@ class StartHandler(val db: DivaRepos) {
         border = border or ((if (profile.isShowRivalBorder) 1 else 0) shl 2)
 
         return StartResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             profile.pdId,
             Result.SUCCESS,
             session.acceptId,

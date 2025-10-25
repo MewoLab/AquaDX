@@ -91,9 +91,6 @@ class GetPvPdHandler(val db: DivaRepos) {
 
 
         return GetPvPdResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             pd.toString(),
             false,
             DivaDateTimeUtil.getString(LocalDateTime.now())

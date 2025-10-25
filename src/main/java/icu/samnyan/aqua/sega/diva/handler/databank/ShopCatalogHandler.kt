@@ -16,9 +16,6 @@ class ShopCatalogHandler(private val moduleRepository: DivaModuleRepository) {
         val moduleList = moduleRepository.findAll()
 
         return ShopCatalogResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             LocalDateTime.now(),
             encode(moduleList.map { it.toInternal() }.joinToString(",") { encode(it) })
         )

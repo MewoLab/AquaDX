@@ -2,7 +2,6 @@ package icu.samnyan.aqua.sega.diva.model.response.card;
 
 import icu.samnyan.aqua.sega.diva.model.common.PassStat;
 import icu.samnyan.aqua.sega.diva.model.common.Result;
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class CardProcedureResponse extends BaseResponse {
+public class CardProcedureResponse {
     private Result cd_adm_result;
     private int chg_name_price = 100;
     private int accept_idx;
@@ -25,8 +24,7 @@ public class CardProcedureResponse extends BaseResponse {
     private Integer vcld_pts;
     private PassStat passwd_stat;
 
-    public CardProcedureResponse(String cmd, String req_id, String stat, Result cd_adm_result, int chg_name_price, int accept_idx, long pd_id, String player_name, Integer lv_num, Integer lv_pnt, String lv_str, Integer lv_efct_id, Integer lv_plt_id, Integer vcld_pts, PassStat passwd_stat) {
-        super(cmd, req_id, stat);
+    public CardProcedureResponse(Result cd_adm_result, int chg_name_price, int accept_idx, long pd_id, String player_name, Integer lv_num, Integer lv_pnt, String lv_str, Integer lv_efct_id, Integer lv_plt_id, Integer vcld_pts, PassStat passwd_stat) {
         this.cd_adm_result = cd_adm_result;
         this.chg_name_price = chg_name_price;
         this.accept_idx = accept_idx;
@@ -41,8 +39,7 @@ public class CardProcedureResponse extends BaseResponse {
         this.passwd_stat = passwd_stat;
     }
 
-    public CardProcedureResponse(String cmd, String req_id, String stat, Result cd_adm_result) {
-        super(cmd, req_id, stat);
+    public CardProcedureResponse(Result cd_adm_result) {
         this.cd_adm_result = cd_adm_result;
     }
 }

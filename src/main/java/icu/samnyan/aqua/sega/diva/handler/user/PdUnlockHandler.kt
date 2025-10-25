@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
+import icu.samnyan.aqua.sega.diva.DIVA_OK
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.request.user.PdUnlockRequest
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import org.springframework.stereotype.Component
 
 @Component
@@ -12,10 +12,6 @@ class PdUnlockHandler(val db: DivaRepos) {
 
         db.gameSession.delete(session)
 
-        return BaseResponse(
-            request.cmd,
-            request.req_id,
-            "ok"
-        )
+        return DIVA_OK
     }
 }

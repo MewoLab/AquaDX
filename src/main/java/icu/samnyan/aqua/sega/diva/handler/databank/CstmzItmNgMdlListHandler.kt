@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class CstmzItmNgMdlListHandler {
     fun handle(request: BaseRequest) = CstmzItmNgMdlListResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         "***"
     )

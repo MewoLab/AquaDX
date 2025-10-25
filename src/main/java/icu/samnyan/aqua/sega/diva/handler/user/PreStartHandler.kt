@@ -21,9 +21,6 @@ class PreStartHandler(val db: DivaRepos) {
         val profileOptional = db.profile.findByPdId(request.aime_id)
         if (profileOptional.isEmpty) {
             return PreStartResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 PreStartResult.NEW_REGISTRATION
             )
         } else {
@@ -36,9 +33,6 @@ class PreStartHandler(val db: DivaRepos) {
                         .isBefore(LocalDateTime.now().minusMinutes(5)) && session.startMode == StartMode.START
                 ) {
                     return PreStartResponse(
-                        request.cmd,
-                        request.req_id,
-                        "ok",
                         PreStartResult.ALREADY_PLAYING
                     )
                 } else {
@@ -65,9 +59,6 @@ class PreStartHandler(val db: DivaRepos) {
             db.gameSession.save(session)
 
             return PreStartResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 PreStartResult.SUCCESS,
                 session.acceptId,
                 profile.pdId,

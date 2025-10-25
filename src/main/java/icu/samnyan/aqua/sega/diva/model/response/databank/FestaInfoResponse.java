@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.response.databank;
 
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class FestaInfoResponse extends BaseResponse {
+public class FestaInfoResponse {
     private String fi_id;
     private String fi_name;
     private String fi_kind;
@@ -22,8 +21,7 @@ public class FestaInfoResponse extends BaseResponse {
     private String fi_et;
     private String fi_lut;
 
-    public FestaInfoResponse(String cmd, String req_id, String stat, String fi_id, String fi_name, String fi_kind, String fi_difficulty, String fi_pv_id_lst, String fi_attr, String fi_add_vp, String fi_mul_vp, String fi_st, String fi_et, String fi_lut) {
-        super(cmd, req_id, stat);
+    public FestaInfoResponse(String fi_id, String fi_name, String fi_kind, String fi_difficulty, String fi_pv_id_lst, String fi_attr, String fi_add_vp, String fi_mul_vp, String fi_st, String fi_et, String fi_lut) {
         this.fi_id = fi_id;
         this.fi_name = fi_name;
         this.fi_kind = fi_kind;

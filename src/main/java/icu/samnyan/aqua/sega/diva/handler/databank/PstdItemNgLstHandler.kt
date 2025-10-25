@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class PstdItemNgLstHandler {
     fun handle(request: BaseRequest) = PstdItemNgLstResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         "***",
         "***"

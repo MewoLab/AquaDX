@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class QstInfHandler {
     fun handle(request: BaseRequest) = QstInfResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         null,
         null

@@ -19,9 +19,6 @@ class ChangeNameHandler(val db: DivaRepos) {
         db.gameSession.delete(session)
 
         return ChangeNameResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             Result.SUCCESS,
             session.acceptId,
             profile.pdId,

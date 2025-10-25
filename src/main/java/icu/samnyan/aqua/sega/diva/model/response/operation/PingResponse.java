@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.response.operation;
 
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import icu.samnyan.aqua.sega.diva.util.URIEncoder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PingResponse extends BaseResponse {
+public class PingResponse {
     private String ping_b_msg = URIEncoder.encode("Server Running                  No other news");
     private String ping_m_msg = URIEncoder.encode("Network Service Running");
     private String atnd_lut;
@@ -50,12 +49,9 @@ public class PingResponse extends BaseResponse {
     private String nblss_ltt_st_tm;
     private String nblss_ltt_ed_tm;
 
-    public PingResponse(String cmd, String req_id, String stat) {
-        super(cmd, req_id, stat);
-    }
+    
 
-    public PingResponse(String cmd, String req_id, String stat, String ping_b_msg, String ping_m_msg) {
-        super(cmd, req_id, stat);
+    public PingResponse(String ping_b_msg, String ping_m_msg) {
         this.ping_b_msg = ping_b_msg;
         this.ping_m_msg = ping_m_msg;
     }

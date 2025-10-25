@@ -17,9 +17,6 @@ class CstmzItmCtlgHandler(private val customizeRepository: DivaCustomizeReposito
         val customizeList = customizeRepository.findAll()
 
         return CstmzItmCtlgResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             DivaDateTimeUtil.getString(LocalDateTime.now()),
             encode(customizeList.map { it.toInternal() }.joinToString(",") { encode(it) })
         )

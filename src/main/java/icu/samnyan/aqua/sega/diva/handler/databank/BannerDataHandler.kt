@@ -11,9 +11,6 @@ import java.time.LocalDateTime
 @Component
 class BannerDataHandler {
     fun handle(request: BannerDataRequest) = BannerDataResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         LocalDateTime.now(),
         "***",
         "***",

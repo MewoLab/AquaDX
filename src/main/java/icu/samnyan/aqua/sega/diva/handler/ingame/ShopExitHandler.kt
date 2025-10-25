@@ -36,9 +36,6 @@ class ShopExitHandler(val db: DivaRepos) {
         db.profile.save(profile)
         db.pvCustomize.save(customize)
         return ShopExitResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             Result.SUCCESS
         )
     }

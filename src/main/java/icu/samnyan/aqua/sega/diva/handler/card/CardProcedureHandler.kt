@@ -19,9 +19,6 @@ class CardProcedureHandler(val db: DivaRepos) {
         val profileOptional = db.profile.findByPdId(request.aime_id)
         if (profileOptional.isEmpty) {
             return CardProcedureResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 Result.FAILED
             )
         } else {
@@ -34,9 +31,6 @@ class CardProcedureHandler(val db: DivaRepos) {
                     db.gameSession.delete(session)
                 }
                 return CardProcedureResponse(
-                    request.cmd,
-                    request.req_id,
-                    "ok",
                     Result.FAILED
                 )
             } else {
@@ -58,9 +52,6 @@ class CardProcedureHandler(val db: DivaRepos) {
 
                 db.gameSession.save(session)
                 return CardProcedureResponse(
-                    request.cmd,
-                    request.req_id,
-                    "ok",
                     Result.SUCCESS,
                     100,
                     session.acceptId,

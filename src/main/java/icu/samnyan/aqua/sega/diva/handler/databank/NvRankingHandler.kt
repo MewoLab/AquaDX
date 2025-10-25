@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component
 @Component
 class NvRankingHandler {
     fun handle(request: BaseRequest) = NvRankingResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         null,
         null,
         null,

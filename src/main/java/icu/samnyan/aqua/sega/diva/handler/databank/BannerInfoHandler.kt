@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component
 @Component
 class BannerInfoHandler {
     fun handle(request: BaseRequest) = BannerInfoResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         null,
         null,
         null,

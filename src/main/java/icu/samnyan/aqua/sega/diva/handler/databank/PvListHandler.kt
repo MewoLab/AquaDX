@@ -33,9 +33,6 @@ class PvListHandler(val db: DivaRepos) {
         sb.append("%2A%2A%2A")
 
         return PvListResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             LocalDateTime.now(),
             sb.toString()
         )

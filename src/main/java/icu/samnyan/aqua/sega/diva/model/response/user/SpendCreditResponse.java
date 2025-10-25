@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.response.user;
 
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SpendCreditResponse extends BaseResponse {
+public class SpendCreditResponse {
     private String cmpgn_rslt;
     private int cmpgn_rslt_num;
     private int vcld_pts;
@@ -17,8 +16,7 @@ public class SpendCreditResponse extends BaseResponse {
     private int lv_efct_id;
     private int lv_plt_id;
 
-    public SpendCreditResponse(String cmd, String req_id, String stat, String cmpgn_rslt, int cmpgn_rslt_num, int vcld_pts, String lv_str, int lv_efct_id, int lv_plt_id) {
-        super(cmd, req_id, stat);
+    public SpendCreditResponse(String cmpgn_rslt, int cmpgn_rslt_num, int vcld_pts, String lv_str, int lv_efct_id, int lv_plt_id) {
         this.cmpgn_rslt = cmpgn_rslt;
         this.cmpgn_rslt_num = cmpgn_rslt_num;
         this.vcld_pts = vcld_pts;

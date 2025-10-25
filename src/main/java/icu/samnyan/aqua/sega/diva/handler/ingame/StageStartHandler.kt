@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.diva.handler.ingame
 
+import ext.emptyMap
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageStartRequest
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import org.springframework.stereotype.Component
 
 /**
@@ -32,10 +32,6 @@ class StageStartHandler(val db: DivaRepos) {
             db.gameSession.save(session)
         }
 
-        return BaseResponse(
-            request.cmd,
-            request.req_id,
-            "ok"
-        )
+        return emptyMap
     }
 }

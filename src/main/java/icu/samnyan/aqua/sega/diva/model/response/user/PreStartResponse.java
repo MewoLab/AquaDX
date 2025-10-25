@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.diva.model.response.user;
 import icu.samnyan.aqua.sega.diva.model.common.PassStat;
 import icu.samnyan.aqua.sega.diva.model.common.PreStartResult;
 import icu.samnyan.aqua.sega.diva.model.common.SortMode;
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-public class PreStartResponse extends BaseResponse {
+public class PreStartResponse {
 
     private PreStartResult ps_result;
     private Integer accept_idx;
@@ -40,13 +39,11 @@ public class PreStartResponse extends BaseResponse {
     private Integer vcld_pts;
     private PassStat passwd_stat;
 
-    public PreStartResponse(String cmd, String req_id, String stat, PreStartResult ps_result) {
-        super(cmd, req_id, stat);
+    public PreStartResponse(PreStartResult ps_result) {
         this.ps_result = ps_result;
     }
 
-    public PreStartResponse(String cmd, String req_id, String stat, PreStartResult ps_result, Integer accept_idx, long pd_id, String player_name, SortMode sort_kind, Integer lv_num, Integer lv_pnt, String lv_str, Integer lv_efct_id, Integer lv_plt_id, String mdl_eqp_ary, LocalDateTime mdl_eqp_tm, Integer skn_eqp, Integer btn_se_eqp, Integer sld_se_eqp, Integer chn_sld_se_eqp, Integer sldr_tch_se_eqp, Integer vcld_pts, PassStat passwd_stat) {
-        super(cmd, req_id, stat);
+    public PreStartResponse(PreStartResult ps_result, Integer accept_idx, long pd_id, String player_name, SortMode sort_kind, Integer lv_num, Integer lv_pnt, String lv_str, Integer lv_efct_id, Integer lv_plt_id, String mdl_eqp_ary, LocalDateTime mdl_eqp_tm, Integer skn_eqp, Integer btn_se_eqp, Integer sld_se_eqp, Integer chn_sld_se_eqp, Integer sldr_tch_se_eqp, Integer vcld_pts, PassStat passwd_stat) {
         this.ps_result = ps_result;
         this.accept_idx = accept_idx;
         this.nblss_ltt_stts = -1;

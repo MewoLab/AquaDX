@@ -2,9 +2,10 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 
 import ext.csv
 import ext.logger
+import icu.samnyan.aqua.sega.diva.DIVA_BAD
+import icu.samnyan.aqua.sega.diva.DIVA_OK
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StoreSsRequest
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerScreenShot
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
@@ -36,19 +37,10 @@ class StoreSsHandler(val db: DivaRepos) {
             )
             db.screenShot.save(ss)
 
-            return BaseResponse(
-                request.cmd,
-                request.req_id,
-                "ok"
-            )
+            return DIVA_OK
         } catch (e: IOException) {
             logger.error("Screenshot save failed", e)
-
-            return BaseResponse(
-                request.cmd,
-                request.req_id,
-                "0"
-            )
+            return DIVA_BAD
         }
     }
 }
