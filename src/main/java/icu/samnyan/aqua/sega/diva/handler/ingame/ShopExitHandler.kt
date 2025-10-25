@@ -6,7 +6,6 @@ import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.ingame.ShopExitRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.ShopExitResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerPvCustomize
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
 import org.springframework.stereotype.Component
 import java.util.function.Supplier
 
@@ -16,8 +15,7 @@ import java.util.function.Supplier
 @Component
 class ShopExitHandler(val db: DivaRepos) {
     fun handle(request: ShopExitRequest): Any {
-        val profile = db.profile.findByPdId(request.pd_id).orElseThrow<ProfileNotFoundException?>(
-            Supplier { ProfileNotFoundException() })
+        val profile = db.profile(request.pd_id)
         val customize = db.pvCustomize.findByPdIdAndPvId(profile, request.ply_pv_id)
             .orElseGet(Supplier { PlayerPvCustomize(profile, request.ply_pv_id) })
 

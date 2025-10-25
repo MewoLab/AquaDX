@@ -26,11 +26,7 @@ import kotlin.math.max
 @Component
 class EndHandler(val db: DivaRepos) {
     fun handle(request: StageResultRequest): Any {
-        val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
-            Supplier { ProfileNotFoundException() })
-        val session = db.gameSession.findByPdId(profile)
-            .orElseThrow<SessionNotFoundException?>(Supplier { SessionNotFoundException() })
-
+        val (profile, session) = db.session(request.pd_id)
 
         profile.headphoneVolume = request.getHp_vol()
         profile.isButtonSeOn = request.isBtn_se_vol
@@ -65,7 +61,7 @@ class EndHandler(val db: DivaRepos) {
                 ) currentResultRank else contestRecord.resultRank
                 contestRecord.lastUpdateTime = LocalDateTime.now()
 
-                db.contest.save<PlayerContest?>(contestRecord)
+                db.contest.save(contestRecord)
                 profile.isContestNowPlayingEnable = false
                 profile.contestNowPlayingId = -1
                 profile.contestNowPlayingResultRank = ContestBorder.NONE

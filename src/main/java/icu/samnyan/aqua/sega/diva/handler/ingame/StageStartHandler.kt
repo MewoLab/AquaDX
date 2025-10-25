@@ -3,11 +3,7 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageStartRequest
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
-import icu.samnyan.aqua.sega.diva.model.userdata.GameSession
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.stereotype.Component
-import java.util.function.Supplier
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
@@ -16,10 +12,7 @@ import java.util.function.Supplier
 class StageStartHandler(val db: DivaRepos) {
     fun handle(request: StageStartRequest): Any {
         if (request.getPd_id() != -1L) {
-            val profile = db.profile.findByPdId(request.getPd_id()).orElseThrow<ProfileNotFoundException?>(
-                Supplier { ProfileNotFoundException() })
-            val session = db.gameSession.findByPdId(profile)
-                .orElseThrow<SessionNotFoundException?>(Supplier { SessionNotFoundException() })
+            val (_, session) = db.session(request.pd_id)
 
             val stageArr = request.getStg_ply_pv_id()
             var stageIndex = 0
@@ -36,7 +29,7 @@ class StageStartHandler(val db: DivaRepos) {
                 stageIndex = 3
             }
             session.stageIndex = stageIndex
-            db.gameSession.save<GameSession?>(session)
+            db.gameSession.save(session)
         }
 
         return BaseResponse(

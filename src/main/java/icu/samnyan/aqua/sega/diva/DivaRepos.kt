@@ -1,9 +1,12 @@
 package icu.samnyan.aqua.sega.diva
 
+import ext.invoke
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.gamedata.*
 import icu.samnyan.aqua.sega.diva.model.userdata.*
+import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
+import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -34,8 +37,11 @@ class DivaRepos(
     val profile: PlayerProfileRepository,
     val pvCustomize: PlayerPvCustomizeRepository,
     val pvRecord: PlayerPvRecordRepository,
-    val screenShot: PlayerScreenShotRepository
-)
+    val screenShot: PlayerScreenShotRepository,
+) {
+    fun profile(id: Long) = profile.findByPdId(id)() ?: throw ProfileNotFoundException()
+    fun session(id: Long) = profile(id).let { it to (gameSession.findByPdId(it)() ?: throw SessionNotFoundException()) }
+}
 
 @Repository
 interface ContestRepository : JpaRepository<Contest, Int> {
