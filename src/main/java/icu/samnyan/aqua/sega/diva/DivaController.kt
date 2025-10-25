@@ -13,28 +13,11 @@ import icu.samnyan.aqua.sega.diva.handler.card.RegistrationHandler
 import icu.samnyan.aqua.sega.diva.handler.databank.*
 import icu.samnyan.aqua.sega.diva.handler.ingame.*
 import icu.samnyan.aqua.sega.diva.handler.user.*
-import icu.samnyan.aqua.sega.diva.model.BaseRequest
-import icu.samnyan.aqua.sega.diva.model.BuyCstmzItmRequest
-import icu.samnyan.aqua.sega.diva.model.BuyModuleRequest
-import icu.samnyan.aqua.sega.diva.model.CardProcedureRequest
-import icu.samnyan.aqua.sega.diva.model.ChangeNameRequest
-import icu.samnyan.aqua.sega.diva.model.ChangePasswdRequest
-import icu.samnyan.aqua.sega.diva.model.GetPvPdRequest
-import icu.samnyan.aqua.sega.diva.model.RegistrationRequest
-import icu.samnyan.aqua.sega.diva.model.ShopExitRequest
-import icu.samnyan.aqua.sega.diva.model.StageResultRequest
-import icu.samnyan.aqua.sega.diva.model.StageStartRequest
-import icu.samnyan.aqua.sega.diva.model.StoreSsRequest
-import icu.samnyan.aqua.sega.diva.model.PsRankingRequest
-import icu.samnyan.aqua.sega.diva.model.PdUnlockRequest
-import icu.samnyan.aqua.sega.diva.model.PreStartRequest
-import icu.samnyan.aqua.sega.diva.model.SpendCreditRequest
-import icu.samnyan.aqua.sega.diva.model.StartRequest
+import icu.samnyan.aqua.sega.diva.model.*
 import icu.samnyan.aqua.sega.diva.util.DivaMapper
 import icu.samnyan.aqua.sega.diva.util.DivaTime
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import jakarta.servlet.http.HttpServletRequest
-import lombok.AllArgsConstructor
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -53,7 +36,6 @@ val DIVA_INIT = mapOf("db_close" to "0,0", "retry_time" to "FFFF")
  */
 @RestController
 @RequestMapping("/g/diva")
-@AllArgsConstructor
 class DivaController(
     val attendHandler: AttendHandler,
     val cardProcedureHandler: CardProcedureHandler,

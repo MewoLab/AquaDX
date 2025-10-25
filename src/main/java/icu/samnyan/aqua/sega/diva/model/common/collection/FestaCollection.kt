@@ -3,7 +3,6 @@ package icu.samnyan.aqua.sega.diva.model.common.collection
 import icu.samnyan.aqua.sega.diva.model.db.gamedata.Festa
 import icu.samnyan.aqua.sega.diva.util.DivaTime.getString
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
-import lombok.Data
 
 class FestaCollection {
     var firstFesta = Festa()

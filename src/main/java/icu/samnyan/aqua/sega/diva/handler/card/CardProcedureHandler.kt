@@ -1,10 +1,10 @@
 package icu.samnyan.aqua.sega.diva.handler.card
 
 import icu.samnyan.aqua.sega.diva.DivaRepos
-import icu.samnyan.aqua.sega.diva.model.common.Result
-import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import icu.samnyan.aqua.sega.diva.model.CardProcedureRequest
 import icu.samnyan.aqua.sega.diva.model.CardProcedureResponse
+import icu.samnyan.aqua.sega.diva.model.common.Result
+import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import icu.samnyan.aqua.sega.diva.model.db.userdata.GameSession
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
