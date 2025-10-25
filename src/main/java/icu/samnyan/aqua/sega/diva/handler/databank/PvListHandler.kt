@@ -4,7 +4,7 @@ import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.db.gamedata.PvEntry
 import icu.samnyan.aqua.sega.diva.model.BaseRequest
-import icu.samnyan.aqua.sega.diva.model.response.databank.PvListResponse
+import icu.samnyan.aqua.sega.diva.model.PvListResponse
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
