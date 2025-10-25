@@ -1,9 +1,9 @@
 package icu.samnyan.aqua.sega.diva.handler.card
 
+import icu.samnyan.aqua.sega.diva.PlayerProfileService
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.card.RegistrationRequest
 import icu.samnyan.aqua.sega.diva.model.response.card.RegistrationResponse
-import icu.samnyan.aqua.sega.diva.PlayerProfileService
 import org.springframework.stereotype.Component
 
 /**

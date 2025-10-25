@@ -7,8 +7,6 @@ import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.*
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Component
 import java.lang.String
@@ -31,7 +29,6 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
     val logger = logger()
 
     fun handle(request: StageResultRequest): Any {
-        val response: StageResultResponse?
         if (request.getPd_id() != -1L) {
             val (profile, session) = db.session(request.pd_id)
 

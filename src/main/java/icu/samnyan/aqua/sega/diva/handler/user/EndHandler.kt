@@ -10,8 +10,6 @@ import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
-import icu.samnyan.aqua.sega.diva.util.ProfileNotFoundException
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.stereotype.Component
 import java.lang.String
 import java.time.LocalDateTime

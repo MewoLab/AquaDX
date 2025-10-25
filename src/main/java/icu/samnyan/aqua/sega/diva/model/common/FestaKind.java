@@ -10,7 +10,7 @@ public enum FestaKind {
     GREEN_FESTA(1);
 
 
-    private int value;
+    private final int value;
 
     FestaKind(int i) {
         this.value = i;

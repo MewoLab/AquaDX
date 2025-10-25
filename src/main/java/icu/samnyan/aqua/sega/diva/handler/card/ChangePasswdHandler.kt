@@ -5,9 +5,7 @@ import icu.samnyan.aqua.sega.diva.model.common.PassStat
 import icu.samnyan.aqua.sega.diva.model.common.Result
 import icu.samnyan.aqua.sega.diva.model.request.card.ChangePasswdRequest
 import icu.samnyan.aqua.sega.diva.model.response.card.ChangePasswdResponse
-import icu.samnyan.aqua.sega.diva.util.SessionNotFoundException
 import org.springframework.stereotype.Component
-import java.util.function.Supplier
 
 /**
  * @author samnyan (privateamusement@protonmail.com)

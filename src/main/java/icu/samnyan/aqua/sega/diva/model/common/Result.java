@@ -10,7 +10,7 @@ public enum Result {
     SUCCESS(1);
 
 
-    private int value;
+    private final int value;
 
     Result(int i) {
         this.value = i;

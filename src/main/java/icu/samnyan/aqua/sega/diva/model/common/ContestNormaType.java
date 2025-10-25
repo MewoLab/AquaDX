@@ -11,7 +11,7 @@ public enum ContestNormaType {
     COOL_PERCENTAGE(2);
 
 
-    private int value;
+    private final int value;
 
     ContestNormaType(int i) {
         this.value = i;

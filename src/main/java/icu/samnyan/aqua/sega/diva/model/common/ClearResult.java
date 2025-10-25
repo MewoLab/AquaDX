@@ -15,7 +15,7 @@ public enum ClearResult implements ValueEnum {
     PERFECT(5);
 
 
-    private int value;
+    private final int value;
 
     ClearResult(int i) {
         this.value = i;
@@ -23,7 +23,7 @@ public enum ClearResult implements ValueEnum {
 
     public static ClearResult fromValue(int i) {
         for (ClearResult clearResult :
-                ClearResult.values()) {
+            ClearResult.values()) {
             if (clearResult.getValue() == i) return clearResult;
         }
         return ClearResult.NO_CLEAR;

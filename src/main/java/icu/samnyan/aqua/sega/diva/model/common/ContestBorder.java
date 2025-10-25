@@ -12,7 +12,7 @@ public enum ContestBorder {
     GOLD(2);
 
 
-    private int value;
+    private final int value;
 
     ContestBorder(int i) {
         this.value = i;

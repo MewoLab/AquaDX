@@ -9,15 +9,14 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * @author  samnyan (privateamusement@protonmail.com)
+ * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "DivaPvInfo")
 @Table(name = "diva_pv_info")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pv implements Serializable
-{
+public class Pv implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

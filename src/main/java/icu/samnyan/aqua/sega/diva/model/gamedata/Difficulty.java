@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author  samnyan (privateamusement@protonmail.com)
+ * @author samnyan (privateamusement@protonmail.com)
  */
 @Entity(name = "DivaPvLevel")
 @Table(name = "diva_pv_info_level")

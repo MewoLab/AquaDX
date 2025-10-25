@@ -14,7 +14,7 @@ public enum ChallengeKind {
     COMPLETED(4);
 
 
-    private int value;
+    private final int value;
 
     ChallengeKind(int i) {
         this.value = i;
@@ -22,7 +22,7 @@ public enum ChallengeKind {
 
     public static ChallengeKind fromValue(int i) {
         for (ChallengeKind challengeKind :
-                ChallengeKind.values()) {
+            ChallengeKind.values()) {
             if (challengeKind.getValue() == i) return challengeKind;
         }
         return ChallengeKind.UNDEFINED;

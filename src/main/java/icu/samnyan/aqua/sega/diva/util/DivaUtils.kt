@@ -23,6 +23,7 @@ object DivaDateTimeUtil {
     @JvmStatic
     fun getString(time: LocalDateTime) =
         URIEncoder.encode(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0").format(time))
+
     @JvmStatic
     fun format(time: LocalDateTime) = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0").format(time)
 }

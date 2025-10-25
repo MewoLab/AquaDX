@@ -12,7 +12,7 @@ public enum PassStat {
     REISSUE(3);
 
 
-    private int value;
+    private final int value;
 
     PassStat(int i) {
         this.value = i;

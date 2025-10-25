@@ -13,7 +13,7 @@ public enum Difficulty {
     EXTREME(3);
 
 
-    private int value;
+    private final int value;
 
     Difficulty(int i) {
         this.value = i;
@@ -21,7 +21,7 @@ public enum Difficulty {
 
     public static Difficulty fromValue(int i) {
         for (Difficulty difficulty :
-                Difficulty.values()) {
+            Difficulty.values()) {
             if (difficulty.getValue() == i) return difficulty;
         }
         return Difficulty.UNDEFINED;

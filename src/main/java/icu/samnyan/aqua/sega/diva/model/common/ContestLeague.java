@@ -12,7 +12,7 @@ public enum ContestLeague {
     PROFESSIONAL(3);
 
 
-    private int value;
+    private final int value;
 
     ContestLeague(int i) {
         this.value = i;

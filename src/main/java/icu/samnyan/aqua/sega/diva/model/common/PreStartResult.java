@@ -14,7 +14,7 @@ public enum PreStartResult {
     CARD_BANNED(-4);
 
 
-    private int value;
+    private final int value;
 
     PreStartResult(int i) {
         this.value = i;
