@@ -19,15 +19,15 @@ import icu.samnyan.aqua.sega.diva.model.request.card.CardProcedureRequest
 import icu.samnyan.aqua.sega.diva.model.request.card.ChangeNameRequest
 import icu.samnyan.aqua.sega.diva.model.request.card.ChangePasswdRequest
 import icu.samnyan.aqua.sega.diva.model.request.card.RegistrationRequest
-import icu.samnyan.aqua.sega.diva.model.request.databank.BannerDataRequest
 import icu.samnyan.aqua.sega.diva.model.request.databank.PsRankingRequest
 import icu.samnyan.aqua.sega.diva.model.request.ingame.*
 import icu.samnyan.aqua.sega.diva.model.request.user.PdUnlockRequest
 import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest
 import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
 import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
-import icu.samnyan.aqua.sega.diva.util.DivaDateTimeUtil
 import icu.samnyan.aqua.sega.diva.util.DivaMapper
+import icu.samnyan.aqua.sega.diva.util.DivaTime
+import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
 import jakarta.servlet.http.HttpServletRequest
 import lombok.AllArgsConstructor
 import org.springframework.http.MediaType
@@ -38,7 +38,6 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
-import java.time.LocalDateTime
 
 val DIVA_BAD = mapOf("stat" to "0")
 val DIVA_OK = emptyMap
@@ -56,18 +55,11 @@ class DivaController(
     val changeNameHandler: ChangeNameHandler,
     val changePasswdHandler: ChangePasswdHandler,
     val registrationHandler: RegistrationHandler,
-    val bannerInfoHandler: BannerInfoHandler,
-    val bannerDataHandler: BannerDataHandler,
     val contestInfoHandler: ContestInfoHandler,
-    val cstmzItmCtlgHandler: CstmzItmCtlgHandler,
     val festaInfoHandler: FestaInfoHandler,
     val nvRankingHandler: NvRankingHandler,
     val psRankingHandler: PsRankingHandler,
-    val pstdHCtrlHandler: PstdHCtrlHandler,
-    val pstdItemNgLstHandler: PstdItemNgLstHandler,
     val pvListHandler: PvListHandler,
-    val qstInfHandler: QstInfHandler,
-    val rmtWpLstHandler: RmtWpLstHandler,
     val shopCatalogHandler: ShopCatalogHandler,
     val buyCstmzItmHandler: BuyCstmzItmHandler,
     val buyModuleHandler: BuyModuleHandler,
@@ -82,6 +74,7 @@ class DivaController(
     val preStartHandler: PreStartHandler,
     val spendCreditHandler: SpendCreditHandler,
     val startHandler: StartHandler,
+    val db: DivaRepos
 ) {
     val logger = logger()
     val mapper = DivaMapper()
@@ -107,23 +100,26 @@ class DivaController(
 
             "pv_list" -> pvListHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "ng_word" -> DIVA_OK
-            "rmt_wp_list" -> rmtWpLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "rmt_wp_list" -> mapOf("rwl_lut" to DivaTime.now, "rw_lst" to "***")
             "festa_info" -> festaInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "contest_info" -> contestInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "pv_def_chr_list" -> mapOf("pdcl_lut" to DivaDateTimeUtil.getString(LocalDateTime.now()), "pdc_lst" to "***")
-            "pv_ng_mdl_list" ->  mapOf("pnml_lut" to DivaDateTimeUtil.getString(LocalDateTime.now()), "pnm_lst" to "***")
-            "cstmz_itm_ng_mdl_list" -> mapOf("cinml_lut" to DivaDateTimeUtil.getString(LocalDateTime.now()), "cinm_lst" to "***")
+            "pv_def_chr_list" -> mapOf("pdcl_lut" to DivaTime.now, "pdc_lst" to "***")
+            "pv_ng_mdl_list" ->  mapOf("pnml_lut" to DivaTime.now, "pnm_lst" to "***")
+            "cstmz_itm_ng_mdl_list" -> mapOf("cinml_lut" to DivaTime.now, "cinm_lst" to "***")
 
-            "banner_info" -> bannerInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "banner_data" -> bannerDataHandler.handle(mapper.convert(body, BannerDataRequest::class.java))
+            "banner_info" -> listOf("bi_lut", "bi_id", "bi_st", "bi_et", "bi_ut").associateWith { null }
+            "banner_data" -> mapOf("bd_ut" to DivaTime.now, "bd_ti" to "***", "bd_hs" to "***", "bd_id" to body["bd_id"])
 
             "cm_ply_info" -> emptyMap
-            "qst_inf" -> qstInfHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "pstd_h_ctrl" -> pstdHCtrlHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "pstd_item_ng_lst" -> pstdItemNgLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "qst_inf" -> mapOf("qi_lut" to DivaTime.now, "qhi_str" to null, "qrai_str" to null)
+            "pstd_h_ctrl" -> mapOf("p_std_hc_lut" to DivaTime.now, "p_std_hc_str" to "***,***")
+            "pstd_item_ng_lst" -> mapOf("p_std_i_n_lut" to DivaTime.now, "p_std_i_ie_n_lst" to "***", "p_std_i_se_n_lst" to "***")
 
             "shop_catalog" -> shopCatalogHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "cstmz_itm_ctlg" -> cstmzItmCtlgHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "cstmz_itm_ctlg" -> mapOf(
+                "cstmz_itm_ctlg_lut" to DivaTime.now,
+                "cstmz_itm_ctlg" to encode(db.g.customize.findAll().map { it.toInternal() }.joinToString(",") { encode(it) })
+            )
             "card_procedure" -> cardProcedureHandler.handle(mapper.convert(body, CardProcedureRequest::class.java))
 
             "registration" -> registrationHandler.handle(mapper.convert(body, RegistrationRequest::class.java))
