@@ -21,9 +21,6 @@ class ChangePasswdHandler(val db: DivaRepos) {
         db.gameSession.delete(session)
 
         return ChangePasswdResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             Result.SUCCESS,
             session.acceptId,
             profile.pdId

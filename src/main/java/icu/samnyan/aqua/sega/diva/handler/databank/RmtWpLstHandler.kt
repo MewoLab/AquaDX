@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class RmtWpLstHandler {
     fun handle(request: BaseRequest) = RmtWpLstResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         "***"
     )

@@ -78,9 +78,6 @@ class PsRankingHandler(val db: DivaRepos) {
         }
 
         return PsRankingResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             LocalDateTime.now(),
             LocalDateTime.now(),
             request.rnk_ps_idx,

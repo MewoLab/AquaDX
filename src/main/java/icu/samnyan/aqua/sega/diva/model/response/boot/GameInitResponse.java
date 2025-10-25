@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.response.boot;
 
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,12 +8,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class GameInitResponse extends BaseResponse {
+public class GameInitResponse {
     private String db_close;
     private String retry_time;
 
-    public GameInitResponse(String cmd, String req_id, String stat, String db_close, String retry_time) {
-        super(cmd, req_id, stat);
+    public GameInitResponse(String db_close, String retry_time) {
         this.db_close = db_close;
         this.retry_time = retry_time;
     }

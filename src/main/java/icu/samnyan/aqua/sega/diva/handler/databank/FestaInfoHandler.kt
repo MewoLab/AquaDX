@@ -16,9 +16,6 @@ class FestaInfoHandler(private val festaRepository: FestaRepository) {
         val collection = FestaCollection(festaList)
 
         return FestaInfoResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             collection.ids,
             collection.names,
             collection.kinds,

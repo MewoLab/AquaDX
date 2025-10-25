@@ -26,9 +26,6 @@ class ContestInfoHandler(val db: DivaRepos) {
             ci_str = sb.toString()
         }
         return ContestInfoResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             LocalDateTime.now(),
             ci_str
         )

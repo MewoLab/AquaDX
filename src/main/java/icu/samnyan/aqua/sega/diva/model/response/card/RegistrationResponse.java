@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.diva.model.response.card;
 
 import icu.samnyan.aqua.sega.diva.model.common.Result;
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,12 +9,11 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RegistrationResponse extends BaseResponse {
+public class RegistrationResponse {
     private Result cd_adm_result;
     private long pd_id;
 
-    public RegistrationResponse(String cmd, String req_id, String stat, Result cd_adm_result, long pd_id) {
-        super(cmd, req_id, stat);
+    public RegistrationResponse(Result cd_adm_result, long pd_id) {
         this.cd_adm_result = cd_adm_result;
         this.pd_id = pd_id;
     }

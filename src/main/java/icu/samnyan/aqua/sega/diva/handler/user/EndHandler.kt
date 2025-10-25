@@ -1,5 +1,6 @@
 package icu.samnyan.aqua.sega.diva.handler.user
 
+import icu.samnyan.aqua.sega.diva.DIVA_OK
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.ContestBorder
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
@@ -7,7 +8,6 @@ import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.SortMode
 import icu.samnyan.aqua.sega.diva.model.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse
 import icu.samnyan.aqua.sega.diva.model.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
 import org.springframework.stereotype.Component
@@ -71,11 +71,7 @@ class EndHandler(val db: DivaRepos) {
         db.profile.save(profile)
         db.gameSession.delete(session)
 
-        return BaseResponse(
-            request.cmd,
-            request.req_id,
-            "ok"
-        )
+        return DIVA_OK
     }
 
     private fun getContestRank(contest: Contest, value: Int): ContestBorder {

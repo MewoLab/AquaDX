@@ -2,11 +2,15 @@ package icu.samnyan.aqua.sega.diva
 
 import ext.JDict
 import ext.MutJDict
+import ext.emptyMap
 import ext.logger
 import icu.samnyan.aqua.sega.diva.handler.AttendHandler
 import icu.samnyan.aqua.sega.diva.handler.GameInitHandler
 import icu.samnyan.aqua.sega.diva.handler.PingHandler
-import icu.samnyan.aqua.sega.diva.handler.card.*
+import icu.samnyan.aqua.sega.diva.handler.card.CardProcedureHandler
+import icu.samnyan.aqua.sega.diva.handler.card.ChangeNameHandler
+import icu.samnyan.aqua.sega.diva.handler.card.ChangePasswdHandler
+import icu.samnyan.aqua.sega.diva.handler.card.RegistrationHandler
 import icu.samnyan.aqua.sega.diva.handler.databank.*
 import icu.samnyan.aqua.sega.diva.handler.ingame.*
 import icu.samnyan.aqua.sega.diva.handler.user.*
@@ -35,6 +39,9 @@ import org.springframework.web.multipart.MultipartFile
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
 
+val DIVA_BAD = mapOf("stat" to "0")
+val DIVA_OK = emptyMap
+
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
@@ -47,16 +54,13 @@ class DivaController(
     val cardProcedureHandler: CardProcedureHandler,
     val changeNameHandler: ChangeNameHandler,
     val changePasswdHandler: ChangePasswdHandler,
-    val initPasswdHandler: InitPasswdHandler,
     val registrationHandler: RegistrationHandler,
     val bannerInfoHandler: BannerInfoHandler,
     val bannerDataHandler: BannerDataHandler,
-    val cmPlyInfoHandler: CmPlyInfoHandler,
     val contestInfoHandler: ContestInfoHandler,
     val cstmzItmCtlgHandler: CstmzItmCtlgHandler,
     val cstmzItmNgMdlListHandler: CstmzItmNgMdlListHandler,
     val festaInfoHandler: FestaInfoHandler,
-    val ngWordHandler: NgWordHandler,
     val nvRankingHandler: NvRankingHandler,
     val psRankingHandler: PsRankingHandler,
     val pstdHCtrlHandler: PstdHCtrlHandler,
@@ -104,7 +108,7 @@ class DivaController(
             "ps_ranking" -> psRankingHandler.handle(mapper.convert(body, PsRankingRequest::class.java))
 
             "pv_list" -> pvListHandler.handle(mapper.convert(body, BaseRequest::class.java))
-            "ng_word" -> ngWordHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "ng_word" -> DIVA_OK
             "rmt_wp_list" -> rmtWpLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "festa_info" -> festaInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "contest_info" -> contestInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
@@ -115,7 +119,7 @@ class DivaController(
             "banner_info" -> bannerInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "banner_data" -> bannerDataHandler.handle(mapper.convert(body, BannerDataRequest::class.java))
 
-            "cm_ply_info" -> cmPlyInfoHandler.handle(mapper.convert(body, BaseRequest::class.java))
+            "cm_ply_info" -> emptyMap
             "qst_inf" -> qstInfHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "pstd_h_ctrl" -> pstdHCtrlHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "pstd_item_ng_lst" -> pstdItemNgLstHandler.handle(mapper.convert(body, BaseRequest::class.java))
@@ -126,7 +130,7 @@ class DivaController(
 
             "registration" -> registrationHandler.handle(mapper.convert(body, RegistrationRequest::class.java))
 
-            "init_passwd" -> initPasswdHandler.handle(mapper.convert(body, GameInitRequest::class.java))
+            "init_passwd" -> DIVA_BAD
 
             "change_passwd" -> changePasswdHandler.handle(mapper.convert(body, ChangePasswdRequest::class.java))
 
@@ -150,9 +154,10 @@ class DivaController(
             "stage_result" -> stageResultHandler.handle(mapper.convert(body, StageResultRequest::class.java))
 
             "store_ss" -> gameInitHandler.handle(mapper.convert(body, GameInitRequest::class.java))
-            else -> "stat=0"
+            else -> DIVA_BAD
         }
-        val resp = respObj as? String ?: buildResultMap(mapper.toMap(respObj))
+        val resp = respObj as? String
+            ?: buildResultMap(mapOf("cmd" to command, "req_id" to body["req_id"], "stat" to "ok") + mapper.toMap(respObj))
         logger.info("Response: {}", resp)
         return resp
     }

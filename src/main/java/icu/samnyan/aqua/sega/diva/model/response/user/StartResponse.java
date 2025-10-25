@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.diva.model.response.user;
 
 import icu.samnyan.aqua.sega.diva.model.common.*;
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +14,7 @@ import static icu.samnyan.aqua.sega.diva.model.common.Const.ALL_NOT_HAVE;
  */
 @Getter
 @Setter
-public class StartResponse extends BaseResponse {
+public class StartResponse {
 
     private long pd_id;
     private Result start_result = Result.SUCCESS;
@@ -85,8 +84,7 @@ public class StartResponse extends BaseResponse {
     private String p_std_ie_have = ALL_NOT_HAVE;
     private String p_std_se_have = ALL_NOT_HAVE;
 
-    public StartResponse(String cmd, String req_id, String stat, long pd_id, Result start_result, int accept_idx, int start_idx, String player_name, int hp_vol, boolean btn_se_vol, int btn_se_vol2, int sldr_se_vol2, SortMode sort_kind, int lv_num, int lv_pnt, String lv_str, int lv_efct_id, int lv_plt_id, String mdl_eqp_ary, String c_itm_eqp_ary, String ms_itm_flg_ary, LocalDateTime mdl_eqp_tm, String mdl_have, String cstmz_itm_have, boolean use_pv_mdl_eqp, boolean use_mdl_pri, boolean use_pv_skn_eqp, boolean use_pv_btn_se_eqp, boolean use_pv_sld_se_eqp, boolean use_pv_chn_sld_se_eqp, boolean use_pv_sldr_tch_se_eqp, int vcld_pts, int nxt_pv_id, Difficulty nxt_dffclty, Edition nxt_edtn, String cv_cid, String cv_sc, String cv_rr, String cv_bv, String cv_bf, int cnp_cid, int cnp_val, ContestBorder cnp_rr, String cnp_sp, String my_lst_0, String my_lst_1, String my_lst_2, String my_lst_3, String my_lst_4, String dsp_clr_brdr, boolean dsp_intrm_rnk, boolean dsp_clr_sts, String clr_sts, boolean rgo_sts, String my_qst_id, String my_qst_sts, String my_qst_prgrs, String my_qst_et, String p_std_ie_have, String p_std_se_have) {
-        super(cmd, req_id, stat);
+    public StartResponse(long pd_id, Result start_result, int accept_idx, int start_idx, String player_name, int hp_vol, boolean btn_se_vol, int btn_se_vol2, int sldr_se_vol2, SortMode sort_kind, int lv_num, int lv_pnt, String lv_str, int lv_efct_id, int lv_plt_id, String mdl_eqp_ary, String c_itm_eqp_ary, String ms_itm_flg_ary, LocalDateTime mdl_eqp_tm, String mdl_have, String cstmz_itm_have, boolean use_pv_mdl_eqp, boolean use_mdl_pri, boolean use_pv_skn_eqp, boolean use_pv_btn_se_eqp, boolean use_pv_sld_se_eqp, boolean use_pv_chn_sld_se_eqp, boolean use_pv_sldr_tch_se_eqp, int vcld_pts, int nxt_pv_id, Difficulty nxt_dffclty, Edition nxt_edtn, String cv_cid, String cv_sc, String cv_rr, String cv_bv, String cv_bf, int cnp_cid, int cnp_val, ContestBorder cnp_rr, String cnp_sp, String my_lst_0, String my_lst_1, String my_lst_2, String my_lst_3, String my_lst_4, String dsp_clr_brdr, boolean dsp_intrm_rnk, boolean dsp_clr_sts, String clr_sts, boolean rgo_sts, String my_qst_id, String my_qst_sts, String my_qst_prgrs, String my_qst_et, String p_std_ie_have, String p_std_se_have) {
         this.pd_id = pd_id;
         this.start_result = start_result;
         this.accept_idx = accept_idx;

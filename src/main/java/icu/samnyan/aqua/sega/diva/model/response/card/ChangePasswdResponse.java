@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.diva.model.response.card;
 
 import icu.samnyan.aqua.sega.diva.model.common.Result;
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,20 +9,18 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ChangePasswdResponse extends BaseResponse {
+public class ChangePasswdResponse {
     private Result cd_adm_result;
     private int accept_idx;
     private long pd_id;
 
-    public ChangePasswdResponse(String cmd, String req_id, String stat, Result cd_adm_result, int accept_idx, long pd_id) {
-        super(cmd, req_id, stat);
+    public ChangePasswdResponse(Result cd_adm_result, int accept_idx, long pd_id) {
         this.cd_adm_result = cd_adm_result;
         this.accept_idx = accept_idx;
         this.pd_id = pd_id;
     }
 
-    public ChangePasswdResponse(String cmd, String req_id, String stat, Result cd_adm_result) {
-        super(cmd, req_id, stat);
+    public ChangePasswdResponse(Result cd_adm_result) {
         this.cd_adm_result = cd_adm_result;
     }
 }

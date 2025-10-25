@@ -14,9 +14,6 @@ class SpendCreditHandler(val db: DivaRepos) {
         val profile = db.profile(request.pd_id)
 
         return SpendCreditResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             "-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x,-1,-1,x,-1,-1,x,x,-1,x",
             0,
             profile.vocaloidPoints,

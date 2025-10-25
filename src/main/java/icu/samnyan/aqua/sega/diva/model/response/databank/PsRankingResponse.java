@@ -1,6 +1,5 @@
 package icu.samnyan.aqua.sega.diva.model.response.databank;
 
-import icu.samnyan.aqua.sega.diva.model.response.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-public class PsRankingResponse extends BaseResponse {
+public class PsRankingResponse {
     private LocalDateTime rnk_ps_lut;
     private LocalDateTime rnk_ps_ts;
     private int rnk_ps_dffclty;
@@ -26,8 +25,7 @@ public class PsRankingResponse extends BaseResponse {
     private String rnk_ps_nm2;
     private String rnk_ps_nm3;
 
-    public PsRankingResponse(String cmd, String req_id, String stat, LocalDateTime rnk_ps_lut, LocalDateTime rnk_ps_ts, int rnk_ps_dffclty, String rnk_ps_pv_id, String rnk_ps_edtn1, String rnk_ps_edtn2, String rnk_ps_edtn3, String rnk_ps_scr1, String rnk_ps_scr2, String rnk_ps_scr3, String rnk_ps_nm1, String rnk_ps_nm2, String rnk_ps_nm3) {
-        super(cmd, req_id, stat);
+    public PsRankingResponse(LocalDateTime rnk_ps_lut, LocalDateTime rnk_ps_ts, int rnk_ps_dffclty, String rnk_ps_pv_id, String rnk_ps_edtn1, String rnk_ps_edtn2, String rnk_ps_edtn3, String rnk_ps_scr1, String rnk_ps_scr2, String rnk_ps_scr3, String rnk_ps_nm1, String rnk_ps_nm2, String rnk_ps_nm3) {
         this.rnk_ps_lut = rnk_ps_lut;
         this.rnk_ps_ts = rnk_ps_ts;
         this.rnk_ps_dffclty = rnk_ps_dffclty;

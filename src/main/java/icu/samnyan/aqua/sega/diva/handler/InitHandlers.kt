@@ -15,9 +15,6 @@ import java.time.LocalDateTime
 @Component
 class GameInitHandler {
     fun handle(request: BaseRequest) = GameInitResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         "0,0",
         "FFFF"
     )
@@ -26,9 +23,6 @@ class GameInitHandler {
 @Component
 class AttendHandler {
     fun handle(request: BaseRequest) = AttendResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         EtcParameter().toInternal(),
         DispersalParameter().toInternal(),
         GameBalanceParameter().toInternal(),
@@ -43,9 +37,6 @@ class PingHandler(val rp: PropertyEntryRepository) {
         val warning: PropertyEntry = rp.findByPropertyKey("diva_warning") ?: PropertyEntry("diva_warning", "xxx")
 
         return PingResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             news.propertyValue,
             warning.propertyValue
         )

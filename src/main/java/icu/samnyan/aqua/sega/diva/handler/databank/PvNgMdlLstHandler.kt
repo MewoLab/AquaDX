@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class PvNgMdlLstHandler {
     fun handle(request: BaseRequest) = PvNgMdlLstResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         "***"
     )

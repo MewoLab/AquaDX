@@ -192,9 +192,6 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
 
 
             return StageResultResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 ChallengeKind.UNDEFINED.value,
                 session.oldLevelNumber,
                 session.oldLevelExp,
@@ -241,11 +238,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                 "-1,-1,-1,-1,-1"
             )
         } else {
-            return StageResultResponse(
-                request.cmd,
-                request.req_id,
-                "ok"
-            )
+            return StageResultResponse()
         }
     }
 

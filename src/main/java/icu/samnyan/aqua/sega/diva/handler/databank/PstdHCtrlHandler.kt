@@ -12,9 +12,6 @@ import java.time.LocalDateTime
 @Component
 class PstdHCtrlHandler {
     fun handle(request: BaseRequest) = PstdHCtrlResponse(
-        request.cmd,
-        request.req_id,
-        "ok",
         DivaDateTimeUtil.getString(LocalDateTime.now()),
         "***,***"
     )

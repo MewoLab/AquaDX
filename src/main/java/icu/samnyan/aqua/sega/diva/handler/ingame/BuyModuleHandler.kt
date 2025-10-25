@@ -17,17 +17,11 @@ class BuyModuleHandler(val db: DivaRepos) {
 
         if (moduleOptional.isEmpty) {
             return BuyModuleResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 Result.FAILED
             )
         }
         if (session.vp < moduleOptional.get().price) {
             return BuyModuleResponse(
-                request.cmd,
-                request.req_id,
-                "ok",
                 Result.FAILED
             )
         }
@@ -36,9 +30,6 @@ class BuyModuleHandler(val db: DivaRepos) {
         db.gameSession.save(session)
 
         return BuyModuleResponse(
-            request.cmd,
-            request.req_id,
-            "ok",
             Result.SUCCESS,
             request.mdl_id,
             db.s.module.getModuleHaveString(profile),
