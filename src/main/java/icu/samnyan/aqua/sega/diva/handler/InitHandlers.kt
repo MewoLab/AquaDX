@@ -52,7 +52,7 @@ fun EtcParameter(): String {
 
 @Component
 class AttendHandler {
-    fun handle(request: BaseRequest) = mapOf(
+    fun handle() = mapOf(
         "atnd_prm1" to EtcParameter(),
         "atnd_prm2" to mapOf(
             "max_pd_items" to 30, "" to 1, "max_ps_rankings" to 100,

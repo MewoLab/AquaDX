@@ -14,17 +14,22 @@ import icu.samnyan.aqua.sega.diva.handler.databank.*
 import icu.samnyan.aqua.sega.diva.handler.ingame.*
 import icu.samnyan.aqua.sega.diva.handler.user.*
 import icu.samnyan.aqua.sega.diva.model.request.BaseRequest
-import icu.samnyan.aqua.sega.diva.model.request.boot.GameInitRequest
-import icu.samnyan.aqua.sega.diva.model.request.card.CardProcedureRequest
-import icu.samnyan.aqua.sega.diva.model.request.card.ChangeNameRequest
-import icu.samnyan.aqua.sega.diva.model.request.card.ChangePasswdRequest
-import icu.samnyan.aqua.sega.diva.model.request.card.RegistrationRequest
-import icu.samnyan.aqua.sega.diva.model.request.databank.PsRankingRequest
-import icu.samnyan.aqua.sega.diva.model.request.ingame.*
-import icu.samnyan.aqua.sega.diva.model.request.user.PdUnlockRequest
-import icu.samnyan.aqua.sega.diva.model.request.user.PreStartRequest
-import icu.samnyan.aqua.sega.diva.model.request.user.SpendCreditRequest
-import icu.samnyan.aqua.sega.diva.model.request.user.StartRequest
+import icu.samnyan.aqua.sega.diva.model.request.BuyCstmzItmRequest
+import icu.samnyan.aqua.sega.diva.model.request.BuyModuleRequest
+import icu.samnyan.aqua.sega.diva.model.request.CardProcedureRequest
+import icu.samnyan.aqua.sega.diva.model.request.ChangeNameRequest
+import icu.samnyan.aqua.sega.diva.model.request.ChangePasswdRequest
+import icu.samnyan.aqua.sega.diva.model.request.GetPvPdRequest
+import icu.samnyan.aqua.sega.diva.model.request.RegistrationRequest
+import icu.samnyan.aqua.sega.diva.model.request.ShopExitRequest
+import icu.samnyan.aqua.sega.diva.model.request.StageResultRequest
+import icu.samnyan.aqua.sega.diva.model.request.StageStartRequest
+import icu.samnyan.aqua.sega.diva.model.request.StoreSsRequest
+import icu.samnyan.aqua.sega.diva.model.request.PsRankingRequest
+import icu.samnyan.aqua.sega.diva.model.request.PdUnlockRequest
+import icu.samnyan.aqua.sega.diva.model.request.PreStartRequest
+import icu.samnyan.aqua.sega.diva.model.request.SpendCreditRequest
+import icu.samnyan.aqua.sega.diva.model.request.StartRequest
 import icu.samnyan.aqua.sega.diva.util.DivaMapper
 import icu.samnyan.aqua.sega.diva.util.DivaTime
 import icu.samnyan.aqua.sega.diva.util.URIEncoder.encode
@@ -93,7 +98,7 @@ class DivaController(
         logger.info("{}: {}", command, body)
         val respObj = when (command) {
             "game_init" -> DIVA_INIT
-            "attend" -> attendHandler.handle(mapper.convert(body, GameInitRequest::class.java))
+            "attend" -> attendHandler.handle()
             "test" -> DIVA_INIT
             "nv_ranking" -> nvRankingHandler.handle(mapper.convert(body, BaseRequest::class.java))
             "ps_ranking" -> psRankingHandler.handle(mapper.convert(body, PsRankingRequest::class.java))

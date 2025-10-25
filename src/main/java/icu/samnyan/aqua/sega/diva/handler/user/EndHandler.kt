@@ -8,7 +8,7 @@ import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.SortMode
 import icu.samnyan.aqua.sega.diva.model.db.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerContest
-import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
+import icu.samnyan.aqua.sega.diva.model.request.StageResultRequest
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
 import org.springframework.stereotype.Component
 import java.lang.String
@@ -26,34 +26,34 @@ class EndHandler(val db: DivaRepos) {
     fun handle(request: StageResultRequest): Any {
         val (profile, session) = db.session(request.pd_id)
 
-        profile.headphoneVolume = request.getHp_vol()
-        profile.buttonSeOn = request.isBtn_se_vol
-        profile.buttonSeVolume = request.getBtn_se_vol2()
-        profile.sliderSeVolume = request.getSldr_se_vol2()
+        profile.headphoneVolume = request.hp_vol
+        profile.buttonSeOn = request.btn_se_vol
+        profile.buttonSeVolume = request.btn_se_vol2
+        profile.sliderSeVolume = request.sldr_se_vol2
         profile.vocaloidPoints = session.vp
         profile.level = session.levelNumber
         profile.levelExp = session.levelExp
-        profile.nextPvId = request.getNxt_pv_id()
-        profile.nextDifficulty = Difficulty.fromValue(request.getNxt_dffclty())
-        profile.nextEdition = Edition.fromValue(request.getNxt_edtn())
-        profile.sortMode = SortMode.fromValue(request.getSort_kind())
+        profile.nextPvId = request.nxt_pv_id
+        profile.nextDifficulty = Difficulty.fromValue(request.nxt_dffclty)
+        profile.nextEdition = Edition.fromValue(request.nxt_edtn)
+        profile.sortMode = SortMode.fromValue(request.sort_kind)
 
-        if (request.getCr_cid() != -1) {
-            val contest = db.g.contest.findById(request.getCr_cid()).orElseGet(Supplier { Contest() })
-            val currentResultRank = getContestRank(contest, request.getCr_tv())
-            if (request.getCr_if() == 0) {
+        if (request.cr_cid != -1) {
+            val contest = db.g.contest.findById(request.cr_cid).orElseGet(Supplier { Contest() })
+            val currentResultRank = getContestRank(contest, request.cr_tv)
+            if (request.cr_if == 0) {
                 // Do contest is playing
                 profile.contestNowPlayingEnable = true
-                profile.contestNowPlayingId = request.getCr_cid()
+                profile.contestNowPlayingId = request.cr_cid
                 profile.contestNowPlayingResultRank = currentResultRank
-                profile.contestNowPlayingValue = request.getCr_tv()
-                profile.contestNowPlayingSpecifier = String.join(",", *request.getCr_sp())
+                profile.contestNowPlayingValue = request.cr_tv
+                profile.contestNowPlayingSpecifier = String.join(",", *request.cr_sp)
             } else {
                 val contestRecord =
-                    db.contest.findByPdIdAndContestId(profile, request.getCr_cid()).orElseGet(
-                        Supplier { PlayerContest(profile, request.getCr_cid()) })
+                    db.contest.findByPdIdAndContestId(profile, request.cr_cid).orElseGet(
+                        Supplier { PlayerContest(profile, request.cr_cid) })
                 contestRecord.startCount += 1
-                contestRecord.bestValue = max(contestRecord.bestValue, request.getCr_tv())
+                contestRecord.bestValue = max(contestRecord.bestValue, request.cr_tv)
                 contestRecord.resultRank = if (currentResultRank.value > contestRecord.resultRank
                         .value
                 ) currentResultRank else contestRecord.resultRank

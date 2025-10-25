@@ -3,12 +3,8 @@ package icu.samnyan.aqua.sega.diva.handler.ingame
 import ext.logger
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.common.*
-import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayLog
-import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerCustomize
-import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerInventory
-import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
-import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerPvRecord
-import icu.samnyan.aqua.sega.diva.model.request.ingame.StageResultRequest
+import icu.samnyan.aqua.sega.diva.model.db.userdata.*
+import icu.samnyan.aqua.sega.diva.model.request.StageResultRequest
 import icu.samnyan.aqua.sega.diva.model.response.ingame.StageResultResponse
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
 import org.apache.commons.lang3.StringUtils
@@ -33,13 +29,12 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
     val logger = logger()
 
     fun handle(request: StageResultRequest): Any {
-        if (request.getPd_id() != -1L) {
+        if (request.pd_id != -1L) {
             val (profile, session) = db.session(request.pd_id)
 
             currentProfile = profile
             // Get the last played index
-            request.getStg_ply_pv_id()
-            val stageArr = request.getStg_ply_pv_id()
+            val stageArr = request.stg_ply_pv_id
             var stageIndex = 0
             if (stageArr[0] != -1) {
                 stageIndex = 0
@@ -67,7 +62,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                 .orElseGet(Supplier { PlayerPvRecord(profile, log.pvId, log.edition, log.difficulty) })
 
             // Not save personal record in no fail mode
-            if (request.getGame_type() != 1) {
+            if (request.game_type != 1) {
                 // Only update personal record when using rhythm game option
                 if (log.rhythmGameOptions == "0,0,0") {
                     // Update pvRecord field
@@ -105,7 +100,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
 
             // Calculate reward
             // Contest reward
-            var contestSpecifier = String.join(",", *request.getCr_sp())
+            var contestSpecifier = String.join(",", *request.cr_sp)
             val contestRewardType = arrayOf<kotlin.String?>("-1", "-1", "-1")
             val contestRewardValue = arrayOf<kotlin.String?>("-1", "-1", "-1")
             val contestRewardString1 = arrayOf<kotlin.String?>("***", "***", "***")
@@ -114,9 +109,9 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
             var contestEntryRewardValue = -1
             var contestEntryRewardString1: kotlin.String? = "***"
             var contestEntryRewardString2: kotlin.String? = "***"
-            val contestId = request.getCr_cid()
+            val contestId = request.cr_cid
             if (contestId != -1) {
-                val progress = getContestProgress(request.getCr_sp())
+                val progress = getContestProgress(request.cr_sp)
                 contestSpecifier = getContestSpecifier(progress)
 
                 // Check if the contest info exist
@@ -206,8 +201,8 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                 profile.plateId,
                 session.vp,
                 0,
-                request.getCr_cid(),
-                request.getCr_tv(),
+                request.cr_cid,
+                request.cr_tv,
                 contestSpecifier,
                 String.join(",", *contestRewardType),
                 String.join(",", *contestRewardValue),
@@ -249,42 +244,42 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
     private fun getLog(request: StageResultRequest, profile: PlayerProfile, i: Int): PlayLog {
         return PlayLog(
             profile,
-            request.getStg_ply_pv_id()[i],
-            Difficulty.fromValue(request.getStg_difficulty()[i]),
-            Edition.fromValue(request.getStg_edtn()[i]),
-            request.getStg_scrpt_ver()[i],
-            request.getStg_score()[i],
-            ChallengeKind.fromValue(request.getStg_chllng_kind()[i]),
-            request.getStg_chllng_result()[i],
-            ClearResult.fromValue(request.getStg_clr_kind()[i]),
-            request.getStg_vcld_pts()[i],
-            request.getStg_cool_cnt()[i],
-            request.getStg_cool_pct()[i],
-            request.getStg_fine_cnt()[i],
-            request.getStg_fine_pct()[i],
-            request.getStg_safe_cnt()[i],
-            request.getStg_safe_pct()[i],
-            request.getStg_sad_cnt()[i],
-            request.getStg_sad_pct()[i],
-            request.getStg_wt_wg_cnt()[i],
-            request.getStg_wt_wg_pct()[i],
-            request.getStg_max_cmb()[i],
-            request.getStg_chance_tm()[i],
-            request.getStg_sm_hl()[i],
-            request.getStg_atn_pnt()[i],
-            request.getStg_skin_id()[i],
-            request.getStg_btn_se()[i],
-            request.getStg_btn_se_vol()[i],
-            request.getStg_sld_se()[i],
-            request.getStg_chn_sld_se()[i],
-            request.getStg_sldr_tch_se()[i],
-            slice(request.getStg_mdl_id(), 3, i),
-            request.getStg_cpt_rslt()[i],
-            request.getStg_sld_scr()[i],
-            request.getStg_vcl_chg()[i],
-            slice(request.getStg_c_itm_id(), 12, i),
-            slice(request.getStg_rgo(), 3, i),
-            request.getStg_ss_num()[i],
+            request.stg_ply_pv_id[i],
+            Difficulty.fromValue(request.stg_difficulty[i]),
+            Edition.fromValue(request.stg_edtn[i]),
+            request.stg_scrpt_ver[i],
+            request.stg_score[i],
+            ChallengeKind.fromValue(request.stg_chllng_kind[i]),
+            request.stg_chllng_result[i],
+            ClearResult.fromValue(request.stg_clr_kind[i]),
+            request.stg_vcld_pts[i],
+            request.stg_cool_cnt[i],
+            request.stg_cool_pct[i],
+            request.stg_fine_cnt[i],
+            request.stg_fine_pct[i],
+            request.stg_safe_cnt[i],
+            request.stg_safe_pct[i],
+            request.stg_sad_cnt[i],
+            request.stg_sad_pct[i],
+            request.stg_wt_wg_cnt[i],
+            request.stg_wt_wg_pct[i],
+            request.stg_max_cmb[i],
+            request.stg_chance_tm[i],
+            request.stg_sm_hl[i],
+            request.stg_atn_pnt[i],
+            request.stg_skin_id[i],
+            request.stg_btn_se[i],
+            request.stg_btn_se_vol[i],
+            request.stg_sld_se[i],
+            request.stg_chn_sld_se[i],
+            request.stg_sldr_tch_se[i],
+            slice(request.stg_mdl_id, 3, i),
+            request.stg_cpt_rslt[i],
+            request.stg_sld_scr[i],
+            request.stg_vcl_chg[i],
+            slice(request.stg_c_itm_id, 12, i),
+            slice(request.stg_rgo, 3, i),
+            request.stg_ss_num[i],
             request.time_stamp.toLocalDateTime()
         )
     }
