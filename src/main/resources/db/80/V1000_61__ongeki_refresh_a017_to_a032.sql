@@ -13,7 +13,6 @@ INSERT INTO `ongeki_game_music` (id, artist_name, boss_card_id, boss_level, genr
 (1077, '提供', '100070', 15, 'オンゲキ', '4', '8', '12', 14, 0, 'Never Ending Adventure', 'NEVERENDINGADVENTURE'),
 (1078, 'brz1128', '100762', 40, 'オンゲキ', '4', '9', '12', 14, 0, 'ALLNIGHT_DANCER', 'ALLNIGHTDANCER'),
 (1079, '7mai', '101571', 63, 'オンゲキ', '6', '9', '12', 14, 0, 'Nýx', 'NYX'),
-(1079, '7mai', '101571', 63, 'オンゲキ', '6', '9', '12', 14, 0, 'Nýx', 'NYX'),
 (1080, 'Aoi', '100785', 80, 'オンゲキ', '7', '10', '13', 15, 0, 'Sargasso', 'SARGASSO'),
 (1083, 'Artifact vs. Dualcast', '100001', 43, 'チュウマイ', '4', '9', '12', 14, 0, 'Energizing Flame', 'ENERGIZINGFLAME'),
 (1084, 'owl＊tree feat.nie＊tree', '100064', 44, 'チュウマイ', '4', '9', '12', 14, 0, 'QuiQ', 'QUIQ'),
@@ -56,7 +55,6 @@ INSERT INTO `ongeki_game_music` (id, artist_name, boss_card_id, boss_level, genr
 (8177, 'オルタンシア「Re:ステージ！プリズムステップ」', '100915', 50, 'POPS＆ANIME', '0', '0', '0', 0, 14, '君とインフィニティ -2021-', 'キミトインフイニテイ2021'),
 (8178, 'aran', '3', 40, 'オンゲキ', '0', '0', '0', 0, 0, 'Random Access Emotions', 'RANDOMACCESSEMOTIONS'),
 (8185, 'Tanchiky', '100476', 41, 'VARIETY', '0', '0', '0', 0, 0, 'ENERGY SYNERGY MATRIX', 'ENERGYSYNERGYMATRIX'),
-(8186, 'HiTECH NINJA', '100031', 10, 'オンゲキ', '0', '0', '0', 0, 14, 'Dolphika', 'DOLPHIKA'),
 (8186, 'HiTECH NINJA', '100031', 10, 'オンゲキ', '0', '0', '0', 0, 14, 'Dolphika', 'DOLPHIKA'),
 (8187, '曲：アオワイファイ／歌：オンゲキシューターズ', '100236', 50, 'オンゲキ', '0', '0', '0', 0, 14, 'WakeUP MakeUP FEVER!', 'WAKEUPMAKEUPFEVER'),
 (8188, 'LOVE☆MAXガールズ「ゴシックは魔法乙女」', '100816', 55, 'POPS＆ANIME', '0', '0', '0', 0, 14, 'わたしたち魔法乙女です☆', 'ワタシタチマホウオトメテス');
