@@ -179,7 +179,7 @@ INSERT IGNORE INTO `ongeki_game_event` (`id`) VALUES
 ('1500931801'),
 ('1501051801'),
 ('1501051802');
-INSERT INTO `ongeki_game_card` (id, name, nick_name, attribute, chara_id, school, gakunen, rarity, level_param, skill_id, cho_kaika_skill_id, card_number, version) VALUES
+INSERT IGNORE INTO `ongeki_game_card` (id, name, nick_name, attribute, chara_id, school, gakunen, rarity, level_param, skill_id, cho_kaika_skill_id, card_number, version) VALUES
 (100048, '【SSR】藍原 椿[サディスティック・スマイル]', 'サディスティック・スマイル', 'Leaf', 1005, '奏坂学園', '高校1年生', 'SSR', '60,257,280,295,307,317,0,0,0,322', 100106, 100107, '[O.N.G.E.K.I.]1.00-0057', '1.00'),
 (102036, '【SSR】三角 葵[夏宵スターマイン]', '夏宵スターマイン', 'Aqua', 1002, 'プロモーション', '高校2年生', 'SSR', '60,257,280,295,307,317,0,0,0,322', 105020, 105021, '[O.N.G.E.K.I.]Special Card', '1.45'),
 (102037, '【SSR】藍原 椿[夏宵スターマイン]', '夏宵スターマイン', 'Leaf', 1005, 'プロモーション', '高校1年生', 'SSR', '60,257,280,295,307,317,0,0,0,322', 105020, 105021, '[O.N.G.E.K.I.]Special Card', '1.45'),
