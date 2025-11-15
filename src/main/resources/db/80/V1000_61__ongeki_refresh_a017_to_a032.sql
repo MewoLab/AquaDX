@@ -58,7 +58,7 @@ INSERT IGNORE INTO `ongeki_game_music` (id, artist_name, boss_card_id, boss_leve
 (8186, 'HiTECH NINJA', '100031', 10, 'オンゲキ', '0', '0', '0', 0, 14, 'Dolphika', 'DOLPHIKA'),
 (8187, '曲：アオワイファイ／歌：オンゲキシューターズ', '100236', 50, 'オンゲキ', '0', '0', '0', 0, 14, 'WakeUP MakeUP FEVER!', 'WAKEUPMAKEUPFEVER'),
 (8188, 'LOVE☆MAXガールズ「ゴシックは魔法乙女」', '100816', 55, 'POPS＆ANIME', '0', '0', '0', 0, 14, 'わたしたち魔法乙女です☆', 'ワタシタチマホウオトメテス');
-INSERT INTO `ongeki_game_event` (`id`) VALUES
+INSERT IGNORE INTO `ongeki_game_event` (`id`) VALUES
 ('1500430101'),
 ('1500431601'),
 ('1500432001'),
