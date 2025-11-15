@@ -1,4 +1,4 @@
-INSERT INTO `ongeki_game_music` (id, artist_name, boss_card_id, boss_level, genre, level0, level1, level2, level3, level4, name, sort_name) VALUES
+INSERT IGNORE INTO `ongeki_game_music` (id, artist_name, boss_card_id, boss_level, genre, level0, level1, level2, level3, level4, name, sort_name) VALUES
 (337, 'LOVE☆MAXガールズ「ゴシックは魔法乙女」', '100816', 15, 'POPS＆ANIME', '4', '6', '9', 12, 0, 'わたしたち魔法乙女です☆', 'ワタシタチマホウオトメテス'),
 (591, 'TJ.hangneil', '101557', 80, 'オンゲキ', '6', '10', '13', 15, 0, 'Apollo', 'APOLLO'),
 (945, '柊かえ（CV:立花芽恵夢）「Re:ステージ！プリズムステップ」', '100915', 40, 'POPS＆ANIME', '4', '8', '12', 14, 0, 'ガジェットはプリンセス', 'カシエツトハフリンセス'),
