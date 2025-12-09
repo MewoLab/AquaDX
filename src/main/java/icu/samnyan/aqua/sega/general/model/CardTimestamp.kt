@@ -21,8 +21,8 @@ class CardTimestamp(
 
     var game: Str,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "card_id", unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id")
     var card: Card? = null,
 )
 
