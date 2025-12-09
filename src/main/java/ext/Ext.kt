@@ -15,6 +15,7 @@ import kotlinx.coroutines.withContext
 import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
+import org.springframework.context.ApplicationContext
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity.BodyBuilder
@@ -264,3 +265,6 @@ val <S> Pair<*, S>.r get() = component2()
 val Query.exec get() = resultList.map { (it as Array<*>).toList() }
 fun List<List<Any?>>.numCsv(vararg head: Str) = head.joinToString(",") + "\n" +
     joinToString("\n") { it.joinToString(",") }
+
+// DI
+inline fun <reified T> ApplicationContext.lazy() = lazy { getBean(T::class.java) }

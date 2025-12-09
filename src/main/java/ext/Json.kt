@@ -21,15 +21,15 @@ val JSON_FUZZY_BOOLEAN = SimpleModule().addDeserializer(Boolean::class.java, obj
         else -> 400 - "Invalid boolean value ${parser.text}"
     }
 })
-val JSON_DATETIME = SimpleModule().addDeserializer(java.time.LocalDateTime::class.java, object : JsonDeserializer<java.time.LocalDateTime>() {
+val JSON_DATETIME = SimpleModule().addDeserializer(java.time.LocalDateTime::class.java, object : JsonDeserializer<LocalDateTime>() {
     override fun deserialize(parser: JsonParser, context: DeserializationContext) =
         // First try standard formats via asDateTime() method
-        parser.text.asDateTime() ?: try {
+        parser.text.takeIf { it.isNotEmpty() }?.run { asDateTime() ?: try {
             // Try maimai2 format (yyyy-MM-dd HH:mm:ss.0)
             LocalDateTime.parse(parser.text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0"))
         } catch (e: Exception) {
             400 - "Invalid date time value ${parser.text}"
-        }
+        } }
 })
 val JACKSON = jacksonObjectMapper().apply {
     setSerializationInclusion(JsonInclude.Include.NON_NULL)

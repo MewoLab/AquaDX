@@ -110,6 +110,7 @@ class Maimai2(
             val user = userDataRepo.findByCard(card) ?: (404 - "User not found")
             user.userName = newNameFull
             userDataRepo.save(user)
+            cardService.updateCardTimestamp(card, "mai2")
         }
         mapOf("newName" to newNameFull)
     }
@@ -139,6 +140,7 @@ class Maimai2(
                 loginBonus.add(newBonus)
             }
             repos.userLoginBonus.saveAll(loginBonus)
+            cardService.updateCardTimestamp(card, "mai2")
         }
         SUCCESS
     }
@@ -172,6 +174,7 @@ class Maimai2(
 
             myRival.propertyValue = myRivalList.joinToString(",")
             repos.userGeneralData.save(myRival)
+            cardService.updateCardTimestamp(myCard, "mai2")
         }
         SUCCESS
     }

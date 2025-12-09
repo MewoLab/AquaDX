@@ -3,6 +3,7 @@ package icu.samnyan.aqua.net.games.mai2
 import ext.*
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
+import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserMusicDetail
 import org.springframework.web.bind.annotation.PostMapping
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class Mai2MusicDetailImport(
     val us: AquaUserServices,
     val repos: Mai2Repos,
+    val cardService: CardService,
 ) {
     @PostMapping("import-music-detail")
     suspend fun importMusicDetail(@RP token: String, @RB data: List<Mai2UserMusicDetail>) = us.jwt.auth(token) { u ->
@@ -39,6 +41,7 @@ class Mai2MusicDetailImport(
                 }
             }
             repos.userMusicDetail.saveAll(data)
+            cardService.updateCardTimestamp(card, "mai2")
             SUCCESS
         }
     }

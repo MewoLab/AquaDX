@@ -14,6 +14,7 @@ fun ChusanController.upsertApiInit() {
         charge.user = db.userData.findByCard_ExtId(uid)() ?: (400 - "User not found")
         charge.id = db.userCharge.findByUser_Card_ExtIdAndChargeId(uid, charge.chargeId)?.id ?: 0
         db.userCharge.save(charge)
+        charge.user.card?.let { cardService.updateCardTimestamp(it, "chu3") }
         """{"returnCode":"1"}"""
     }
 
@@ -192,6 +193,8 @@ fun ChusanController.upsertApiInit() {
                         }.also { db.userCMissionProgress.save(it) }
                 }
             }
+
+            u.card?.let { cardService.updateCardTimestamp(it, "chu3") }
         }
 
         """{"returnCode":1}"""

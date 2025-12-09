@@ -19,7 +19,7 @@ import kotlin.reflect.full.declaredMembers
 class Mai2Import(
     val repos: Mai2Repos,
 ) : ImportController<Maimai2DataExport, Mai2UserDetail>(
-    "SDEZ", Maimai2DataExport::class,
+    "SDEZ", "mai2", Maimai2DataExport::class,
     exportFields = Maimai2DataExport::class.vars().associateBy {
         it.name.replace("List", "").lowercase()
     },

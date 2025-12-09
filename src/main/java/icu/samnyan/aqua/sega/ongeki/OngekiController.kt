@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.MeowApi
 import icu.samnyan.aqua.sega.general.RequestContext
+import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
 import icu.samnyan.aqua.spring.Metrics
 import jakarta.servlet.http.HttpServletRequest
@@ -22,6 +23,7 @@ class OngekiController(
     val gdb: OngekiGameRepos,
     val us: AquaUserServices,
     val pop: GameMusicPopularity,
+    val cardService: CardService,
 ): MeowApi({ _, resp -> if (resp is String) resp else mapper.write(resp) }) {
 
     val log = logger()

@@ -28,7 +28,6 @@ class UpsertUserAllHandler(
     val cardService: CardService,
     val repos: Mai2Repos
 ) : BaseHandler {
-
     fun String.isValidUsername() = isNotBlank() && length <= 8
 
     @Throws(JsonProcessingException::class)
@@ -171,6 +170,8 @@ class UpsertUserAllHandler(
                     propertyValue = news.map { it.id }.joinToString(",")
                 })
             }
+
+        u.card?.let { cardService.updateCardTimestamp(it, "mai2") }
 
         return SUCCESS
     }

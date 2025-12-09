@@ -209,6 +209,8 @@ fun OngekiController.initUpsertAll() {
                     id = db.kop.findByUserAndKopIdAndAreaId(u, kopId, areaId)()?.id ?: 0 }) }
         }
 
+        u.card?.let { cardService.updateCardTimestamp(it, "ongeki") }
+
         null
     }
 }

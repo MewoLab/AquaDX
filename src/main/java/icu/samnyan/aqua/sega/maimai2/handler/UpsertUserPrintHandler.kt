@@ -5,6 +5,7 @@ import ext.logger
 import ext.long
 import ext.parsing
 import icu.samnyan.aqua.sega.general.BaseHandler
+import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPrintDetail
 import icu.samnyan.aqua.sega.util.jackson.BasicMapper
@@ -18,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom
 class UpsertUserPrintHandler(
     val mapper: BasicMapper,
     val db: Mai2Repos,
+    val cardService: CardService,
     @param:Value("\${game.cardmaker.card.expiration:15}") val expirationTime: Long,
 ) : BaseHandler {
     val log = logger()
@@ -42,6 +44,8 @@ class UpsertUserPrintHandler(
             append(String.format("%010d", ThreadLocalRandom.current().nextLong(0L, 9999999999L)))
         }
         db.userPrintDetail.save(userPrint)
+
+        userData.card?.let { cardService.updateCardTimestamp(it, "mai2") }
 
         return mapOf(
             "returnCode" to 1,

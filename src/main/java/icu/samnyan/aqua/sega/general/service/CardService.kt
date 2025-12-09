@@ -1,10 +1,16 @@
 package icu.samnyan.aqua.sega.general.service
 
+import ext.Bool
+import ext.Str
 import ext.minus
+import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.model.CardTimestamp
+import icu.samnyan.aqua.sega.general.model.CardTimestampRepo
 import org.springframework.stereotype.Service
+import java.time.Instant
 import java.time.LocalDateTime
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
@@ -14,7 +20,7 @@ import kotlin.jvm.optionals.getOrNull
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Service
-class CardService(val cardRepo: CardRepository)
+class CardService(val cardRepo: CardRepository, val cardTimestampRepo: CardTimestampRepo, val fedy: Fedy)
 {
     /**
      * Find a card by External ID
@@ -105,5 +111,14 @@ class CardService(val cardRepo: CardRepository)
             eid = ThreadLocalRandom.current().nextLong(lower, upper)
         }
         return eid
+    }
+
+    fun getCardTimestamp(card: Card, game: Str, now: Instant = Instant.now()) =
+        cardTimestampRepo.findByCardIdAndGame(card.id, game) ?: CardTimestamp(game = game, card = card, createdAt = now, updatedAt = now);
+
+    fun updateCardTimestamp(card: Card, game: Str, now: Instant = Instant.now(), resetCreatedAt: Bool = false) {
+        cardTimestampRepo.save(getCardTimestamp(card, game, now).apply { updatedAt = now }
+            .apply { if (resetCreatedAt) createdAt = now });
+        fedy.onDataUpdated(card.extId, game, resetCreatedAt)
     }
 }

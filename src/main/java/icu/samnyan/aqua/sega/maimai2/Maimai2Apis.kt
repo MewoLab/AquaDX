@@ -143,6 +143,7 @@ fun Maimai2ServletController.initApis() {
                 regionId = region
             }
             db.userRegions.save(region)
+            // d.card?.let { cardService.updateCardTimestamp(it, "mai2") } // TODO: why save regions on login?
         }
 
         res

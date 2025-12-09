@@ -17,7 +17,7 @@ import kotlin.reflect.full.declaredMembers
 class Chu3Import(
     val repos: Chu3Repos,
 ) : ImportController<Chu3DataExport, Chu3UserData>(
-    "SDHD", Chu3DataExport::class,
+    "SDHD", "chu3", Chu3DataExport::class,
     exportFields = Chu3DataExport::class.vars().associateBy {
         it.name.replace("List", "").lowercase()
     },

@@ -197,6 +197,8 @@ fun OngekiController.cmApiInit() {
             }
         }
 
+        u.card?.let { cardService.updateCardTimestamp(it, "ongeki") }
+
         null
     }
 
@@ -249,6 +251,8 @@ fun OngekiController.cmApiInit() {
                 })
             }
         }
+
+        u.card?.let { cardService.updateCardTimestamp(it, "ongeki") }
 
         null
     }
@@ -312,6 +316,8 @@ fun OngekiController.cmApiInit() {
                 }
             }
         }
+
+        u.card?.let { cardService.updateCardTimestamp(it, "ongeki") }
 
         null
     }

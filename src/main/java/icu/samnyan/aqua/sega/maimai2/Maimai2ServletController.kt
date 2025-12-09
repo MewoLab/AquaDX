@@ -40,9 +40,6 @@ class Maimai2ServletController(
     val db: Mai2Repos,
     val net: Maimai2,
 ): MeowApi(serialize = { _, resp -> if (resp is String) resp else resp.toJson() }) {
-
-    @Autowired @Lazy lateinit var fedy: Fedy
-
     companion object {
         private val log = logger()
         private val empty = listOf<Any>()
@@ -95,7 +92,6 @@ class Maimai2ServletController(
                 val ctx = RequestContext(req, data.mut)
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     log.info("$token : $api > ${it.truncate(500)}")
-                    if (api == "UpsertUserAllApi") { data["userId"]?.long?.let { fedy.onDataUpdated(it, "mai2", false) } }
                 }
             }
         } catch (e: Exception) {

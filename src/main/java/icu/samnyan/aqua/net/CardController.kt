@@ -101,8 +101,7 @@ class CardController(
         val games = migrate.split(',')
         cardGameService.migrate(card, games)
 
-        fedy.onCardLinked(card.luid, oldExtId = card.extId, ghostExtId = u.ghostCard.extId,
-                          games.map { Fedy.getGameName(it) }.filterNotNull())
+        fedy.onCardLinked(card.luid, oldExtId = card.extId, ghostExtId = u.ghostCard.extId, games)
 
         log.info("Net /card/link : Linked card ${card.id} to user ${u.username} and migrated data to ${games.joinToString()}")
 
@@ -207,7 +206,8 @@ class CardGameService(
     val diva: icu.samnyan.aqua.sega.diva.dao.userdata.PlayerProfileRepository,
     val safety: AquaNetSafetyService,
     val cardRepo: CardRepository,
-    val em: EntityManager
+    val em: EntityManager,
+    val cardService: CardService
 ) {
     companion object {
         val log = logger()
@@ -225,7 +225,9 @@ class CardGameService(
         val remainingGames = dataRepos.keys.toMutableSet()
         games.forEach { game ->
             val dataRepo = dataRepos[game] ?: return@forEach
-            migrateCard(game, dataRepo, cardRepo, crd)
+            if (migrateCard(game, dataRepo, cardRepo, crd))
+                // Update timestamp for the ghost card (data migrated in)
+                cardService.updateCardTimestamp(crd.aquaUser!!.ghostCard, game, resetCreatedAt = true)
             remainingGames.remove(game)
         }
         // For remaining games, orphan the data by assigning them to a dummy card

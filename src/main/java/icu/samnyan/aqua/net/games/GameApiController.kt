@@ -5,6 +5,7 @@ import icu.samnyan.aqua.net.BotProps
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.model.Card
+import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,6 +29,8 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     abstract val shownRanks: List<Pair<Int, String>>
     abstract val settableFields: Map<String, (T, String) -> Unit>
     open val gettableFields: Set<String> = setOf()
+
+    @Autowired lateinit var cardService: CardService
 
     @API("trend")
     abstract suspend fun trend(@RP username: String): List<TrendOut>
@@ -138,6 +141,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             val user = async { userDataRepo.findByCard(u.ghostCard) } ?: (404 - "User not found")
             prop(user, value)
             async { userDataRepo.save(user) }
+            cardService.updateCardTimestamp(u.ghostCard, name)
             SUCCESS
         }
     }
