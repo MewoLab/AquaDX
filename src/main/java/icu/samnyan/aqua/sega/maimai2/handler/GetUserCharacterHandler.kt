@@ -1,11 +1,13 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
+import ext.int
 import ext.logger
 import icu.samnyan.aqua.net.games.mai2.Maimai2
 import icu.samnyan.aqua.sega.general.BaseHandler
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserCharacter
 import org.springframework.stereotype.Component
 import kotlin.jvm.optionals.getOrNull
 
@@ -15,34 +17,25 @@ class GetUserCharacterHandler(
     val maimai2: Maimai2,
     val cardRepo: CardRepository,
 ) : BaseHandler {
-    val itemUnlock = maimai2.itemMapping[Mai2ItemKind.chara.name]?.map { mapOf(
-        "characterId" to it.key,
-        "level" to 9999,
-        "awakening" to 1,
-        "useCount" to 0
-    ) }
+    val charaIds = maimai2.itemMapping[Mai2ItemKind.chara.name]?.map { it.key.int() } ?: emptyList()
 
     init {
-        if (itemUnlock.isNullOrEmpty()) logger.warn("Mai2 item info is empty")
+        if (charaIds.isEmpty()) logger.warn("Mai2 item info is empty")
     }
 
     override fun handle(request: Map<String, Any>): Any {
         val userId = (request["userId"] as Number).toLong()
-
-        // Aqua Net game unlock feature
-        cardRepo.findByExtId(userId).getOrNull()?.aquaUser?.gameOptions?.let { opt ->
-            if (!opt.unlockChara or itemUnlock.isNullOrEmpty()) return@let
-
-            logger.info("Response: ${itemUnlock!!.size} Characters - All unlock")
-            return mapOf(
-                "userId" to userId,
-                "userCharacterList" to itemUnlock
-            )
-        }
+        val gameOptions = cardRepo.findByExtId(userId).getOrNull()?.aquaUser?.gameOptions
+        val userCharacterList = repos.userCharacter.findByUser_Card_ExtId(userId)
+            .let { if (gameOptions?.mai2UnlockChara != true) it else (
+                       charaIds.associateWith { Mai2UserCharacter().apply { characterId = it; level = 1 } } +
+                       it.associateBy { it.characterId }
+                   ).values }
+            .let { if (gameOptions?.mai2UnlockCharaMaxLevel != true) it else it.map { it.apply { level = 9999 } } }
 
         return mapOf(
             "userId" to userId,
-            "userCharacterList" to repos.userCharacter.findByUser_Card_ExtId(userId)
+            "userCharacterList" to userCharacterList
         )
     }
 

@@ -50,10 +50,11 @@ class GetUserItemHandler(
         // Aqua Net game unlock feature
         cardRepo.findByExtId(userId).getOrNull()?.aquaUser?.gameOptions?.let { opt ->
             val items = when {
-                (kind in 5..8) && opt.unlockMusic -> musicUnlock.getValue(kind)
-                (kind in 1..3 || kind == 11) && opt.unlockCollectables -> itemUnlock[kind]
-                (kind == 12) && opt.unlockTickets -> itemUnlock[kind]
-                (kind in 9..10) && opt.unlockChara -> itemUnlock[kind]
+                (kind in 5..8) && opt.mai2UnlockMusic -> musicUnlock.getValue(kind)
+                (kind in 1..3 || kind == 11) && opt.mai2UnlockCollectables -> itemUnlock[kind]
+                (kind == 12) && opt.mai2UnlockTickets -> itemUnlock[kind]
+                (kind == 9) && opt.mai2UnlockChara -> itemUnlock[kind]
+                (kind == 10) && opt.mai2UnlockPartners -> itemUnlock[kind]
                 else -> emptyList()
             }
 

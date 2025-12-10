@@ -205,19 +205,19 @@ fun WaccaServer.init() {
         val go = u.card?.aquaUser?.gameOptions ?: AquaGameOptions()
 
         // All unlock
-        if (go.unlockMusic && wacca.musicMapping.isNotEmpty()) {
+        if (go.waccaUnlockMusic && wacca.musicMapping.isNotEmpty()) {
             items[MUSIC_UNLOCK()] = wacca.musicMapping.map { (id, v) -> MUSIC_UNLOCK(u, id, p1 = v.notes.size.long() - 1) }
         }
-        if (go.unlockTickets) {
+        if (go.waccaUnlockTickets) {
             var i = 0
             items[TICKET()] = enabledTickets.flatMap { (1..5).map { TICKET(u, it).apply { id = (i++).toLong() } } }
         }
-        if (go.unlockChara) {
+        if (go.waccaUnlockPlates) {
             wacca.itemMapping["plates"]?.let { items[USER_PLATE()] = it.map { (k, _) -> USER_PLATE(u, k.int()) } }
         }
-        if (go.unlockCollectables) {
+        if (go.waccaUnlockCollectables) {
             // TODO: Add titles
-            mapOf("icon" to ICON, "plates" to USER_PLATE, "trophy" to TROPHY).map { (name, type) ->
+            mapOf("icon" to ICON, "trophy" to TROPHY).map { (name, type) ->
                 wacca.itemMapping[name]?.let { items[type()] = it.map { (k, _) -> type(u, k.int()) } }
             }
         }
