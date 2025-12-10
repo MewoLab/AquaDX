@@ -14,7 +14,8 @@ import kotlin.reflect.jvm.jvmErasure
 class SettingsApi(
     val us: AquaUserServices,
     val userRepo: AquaNetUserRepo,
-    val goRepo: AquaGameOptionsRepo
+    val goRepo: AquaGameOptionsRepo,
+    val fedy: Fedy
 ) {
     // Get all params with SettingField annotation
     val fields = AquaGameOptions::class.vars()
@@ -41,6 +42,6 @@ class SettingsApi(
         }
         // Check field type
         field.setCast(options, value)
-        goRepo.save(options)
+        goRepo.save(options).also { fedy.onUserUpdated(u) }
     }
 }

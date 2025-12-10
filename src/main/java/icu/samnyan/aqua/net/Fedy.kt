@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.security.MessageDigest
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.net.components.JWT
+import icu.samnyan.aqua.net.db.AquaGameOptions
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.mai2.Mai2Import
@@ -47,7 +48,7 @@ data class UserProfilePicture(val url: Str, val updatedAtMs: Long)
 data class UserBasicInfo(
     val auId: Long, val ghostExtId: Long, val registrationTimeMs: Long,
     val username: Str, val displayName: Str, val email: Str, val passwordHash: Str, val profileBio: Str,
-    val profilePicture: UserProfilePicture?,
+    val profilePicture: UserProfilePicture?, val gameOptions: Map<Str, Any?>?,
 )
 
 private data class UserUpdatedEvent(val user: UserBasicInfo, val isNewlyCreated: Bool)
@@ -131,7 +132,7 @@ class Fedy(
         } caught { UserRegisterRes(error = it) }
     }
 
-    data class UserUpdateReq(val auId: Long, val fields: Map<Str, Str?>?)
+    data class UserUpdateReq(val auId: Long, val fields: Map<Str, Str?>?, val gameOptions: Map<Str, Any?>?)
     data class UserUpdateRes(val error: FedyErr? = null, val user: UserBasicInfo? = null)
     @API("/user/update")
     fun handleUserUpdate(@RH(KEY_HEADER) key: Str, @RT(REQ_PART) req: UserUpdateReq, @RT(PFP_PART) pfpFile: MultipartFile?): UserUpdateRes = handleFedy(key) {
@@ -142,11 +143,15 @@ class Fedy(
                 if (k == "email") { ru.email = us.validateEmail(v) }
                 else us.update(ru, k, v)
             }
-            pfpFile?.run {
+            pfpFile?.apply {
                 val mime = TIKA.detect(pfpFile.bytes).takeIf { it.startsWith("image/") } ?: (400 - "Invalid file type")
                 val name = "${ru.auId}${MIMES.forName(mime)?.extension ?: ".jpg"}"
                 (paths.aquaNetPortrait.path() / name).writeBytes(bytes)
                 ru.profilePicture = name
+            }
+            req.gameOptions?.apply {
+                val options = ru.gameOptions ?: AquaGameOptions().also { ru.gameOptions = it }
+                forEach { (k, v) -> v?.let { GAME_OPTIONS_FIELDS[k]?.set(options, it) } }
             }
             us.userRepo.save(ru)
             if (fields.containsKey("pwHash") ?: false) { us.clearAllSessions(ru) }
@@ -162,7 +167,8 @@ class Fedy(
             ?.let { UserProfilePicture(
                 url = "/uploads/net/portrait/${profilePicture}",
                 updatedAtMs = it.getLastModifiedTime().toMillis()
-            ) }
+            ) },
+        gameOptions?.let { o -> GAME_OPTIONS_FIELDS.mapValues { it.value.get(o) } }
     )
 
     data class DataPullReq(val extId: Long, val game: Str, val createdAtMs: Long, val updatedAtMs: Long, val exportOptions: ExportOptions)
@@ -286,17 +292,16 @@ class Fedy(
         log.info("Fedy /card/unlink : Unlinked card ${card.id} (${card.luid}) from user ${cu.auId} (${cu.username})")
     }
 
-    fun onUserUpdated(u: AquaNetUser, isNew: Bool = false) = maybeNotifyAsync(FedyEvent(userUpdated = UserUpdatedEvent(u.fedyBasicInfo(), isNew)))
-    fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync(FedyEvent(cardCreated = CardCreatedEvent(luid, extId)))
-    fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync(FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)))
-    fun onCardUnlinked(luid: Str) = maybeNotifyAsync(FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)))
-    fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync({
+    fun onUserUpdated(u: AquaNetUser, isNew: Bool = false) = maybeNotifyAsync { FedyEvent(userUpdated = UserUpdatedEvent(u.fedyBasicInfo(), isNew)) }
+    fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync { FedyEvent(cardCreated = CardCreatedEvent(luid, extId)) }
+    fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync { FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)) }
+    fun onCardUnlinked(luid: Str) = maybeNotifyAsync { FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)) }
+    fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync {
         val card = cardRepo.findByExtId(extId).orElse(null) ?: return@maybeNotifyAsync null // Card not found, nothing to do
         FedyEvent(dataUpdated = DataUpdatedEvent(extId, card.isGhost, game, removeOldData))
-    })
+    }
 
-    private fun maybeNotifyAsync(event: FedyEvent) = maybeNotifyAsync({ event })
-    private fun maybeNotifyAsync(getEvent: () -> FedyEvent?) = if (!props.enabled && !suppressEvents.get()) {} else CompletableFuture.runAsync {
+    private fun maybeNotifyAsync(getEvent: () -> FedyEvent?) = if (!props.enabled || suppressEvents.get()) {} else CompletableFuture.runAsync {
         var event: FedyEvent? = null
         try {
             event = getEvent()
@@ -355,6 +360,12 @@ class Fedy(
         const val KEY_HEADER = "X-Fedy-Key"
         const val REQ_PART = "request"
         const val PFP_PART = "profilePicture"
+        @Suppress("UNCHECKED_CAST")
+        val GAME_OPTIONS_FIELDS = listOf(
+            O::mai2UnlockMusic, O::mai2UnlockChara, O::mai2UnlockCharaMaxLevel, O::mai2UnlockPartners, O::mai2UnlockCollectables, O::mai2UnlockTickets
+        ).map { it as Var<O, Any?> }.associateBy { it.name }
         val log = logger()
     }
 }
+
+typealias O = AquaGameOptions
