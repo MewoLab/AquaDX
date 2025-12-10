@@ -224,12 +224,16 @@ fun Maimai2ServletController.initApis() {
     // Kaleidoscope, added on 1.50
     // [{gateId, phaseId}]
     "GetGameKaleidxScope" { mapOf("gameKaleidxScopeList" to ls(
-        mapOf("gateId" to 1, "phaseId" to findPhase(LocalDate.of(2025, 1, 18))),
-        mapOf("gateId" to 2, "phaseId" to 2),
-        mapOf("gateId" to 3, "phaseId" to 2),
-        mapOf("gateId" to 4, "phaseId" to findPhase(LocalDate.of(2025, 2, 25))),
-        mapOf("gateId" to 5, "phaseId" to 2),
-        mapOf("gateId" to 6, "phaseId" to 2),
+        mapOf("gateId" to 1, "phaseId" to 6),
+        mapOf("gateId" to 2, "phaseId" to 6),
+        mapOf("gateId" to 3, "phaseId" to 6),
+        mapOf("gateId" to 4, "phaseId" to 6),
+        mapOf("gateId" to 5, "phaseId" to 6),
+        mapOf("gateId" to 6, "phaseId" to 6),
+        mapOf("gateId" to 7, "phaseId" to 6),
+        mapOf("gateId" to 8, "phaseId" to 6),
+        mapOf("gateId" to 9, "phaseId" to 6),
+        mapOf("gateId" to 10, "phaseId" to 13),
     )) }
     // Request: {userId}
     // Response: {userId, userKaleidxScopeList}
