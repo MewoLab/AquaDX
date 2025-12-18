@@ -137,7 +137,7 @@
         if (!musicItem) continue;
         let difficulty = null;
 
-        if (score.musicid >= 10000) { // DX difficulty
+        if (score.musicId >= 10000) { // DX difficulty
           difficulty = DX_DIFFICULTY_MAP[score.level];
         } else {
           difficulty = ST_DIFFICULTY_MAP[score.level];
