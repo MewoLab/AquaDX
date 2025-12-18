@@ -134,6 +134,7 @@
     if (data && "userPlaylogList" in data) {
       for (let score of data.userPlaylogList) {
         const musicItem = musicData[score.musicId as string];
+        if (!musicItem) continue;
         const songTitle = musicItem.name;
         const version = parseInt(musicItem["ver"]);
         let difficulty = null;
