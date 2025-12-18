@@ -135,11 +135,9 @@
       for (let score of data.userPlaylogList) {
         const musicItem = musicData[score.musicId as string];
         if (!musicItem) continue;
-        const songTitle = musicItem.name;
-        const version = parseInt(musicItem["ver"]);
         let difficulty = null;
 
-        if (musicid >= 10000) { // DX difficulty
+        if (score.musicid >= 10000) { // DX difficulty
           difficulty = DX_DIFFICULTY_MAP[score.level];
         } else {
           difficulty = ST_DIFFICULTY_MAP[score.level];
@@ -185,8 +183,8 @@
         output.scores.push({
           "percent": percent,
           "lamp": lamp,
-          "matchType": "songTitle",
-          "identifier": songTitle,
+          "matchType": "inGameID",
+          "identifier": score.musicId.toString(),
           "difficulty": difficulty,
           "timeAchieved": new Date(score.userPlayDate).getTime(),
           "judgements": judgements,
