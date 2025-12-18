@@ -37,7 +37,7 @@
   }
   async function exportBatchManual() {
     submitting = "batchExport"
-    const ST_DIFFICULTY_MAP: Record<number, string> = {
+    const DIFFICULTY_MAP: Record<number, string> = {
       0: "Basic",
       1: "Advanced",
       2: "Expert",
@@ -45,13 +45,6 @@
       4: "Re:Master"
     }
 
-    const DX_DIFFICULTY_MAP: Record<number, string> = {
-      0: "DX Basic",
-      1: "DX Advanced",
-      2: "DX Expert",
-      3: "DX Master",
-      4: "DX Re:Master"
-    }
     const DAN_MAP: Record<number, string> = {
       1: "DAN_1",
       2: "DAN_2",
@@ -137,11 +130,11 @@
         if (!musicItem) continue;
         let difficulty = null;
 
-        if (score.musicId >= 10000) { // DX difficulty
-          difficulty = DX_DIFFICULTY_MAP[score.level];
-        } else {
-          difficulty = ST_DIFFICULTY_MAP[score.level];
-        }
+        if (!(score.level in DIFFICULTY_MAP))
+          continue;
+
+        const isDX = score.musicId >= 10000;
+        difficulty = isDX ? `DX ${DIFFICULTY_MAP[score.level]}` : DIFFICULTY_MAP[score.level];
 
         const percent = score.achievement/10000;
 
