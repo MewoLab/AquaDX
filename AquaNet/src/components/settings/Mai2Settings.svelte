@@ -139,7 +139,7 @@
         const version = parseInt(musicItem["ver"]);
         let difficulty = null;
 
-        if (version >= 20000) { // DX difficulty
+        if (musicid >= 10000) { // DX difficulty
           difficulty = DX_DIFFICULTY_MAP[score.level];
         } else {
           difficulty = ST_DIFFICULTY_MAP[score.level];
