@@ -126,6 +126,9 @@
     }
     if (data && "userPlaylogList" in data) {
       for (let score of data.userPlaylogList) {
+        if(score.musicId > 100000){
+          continue; // UTAGE charts are not supported
+        }
         const musicItem = musicData[score.musicId as string];
         if (!musicItem) continue;
         let difficulty = null;
