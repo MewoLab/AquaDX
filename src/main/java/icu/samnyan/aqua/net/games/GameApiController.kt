@@ -5,7 +5,7 @@ import icu.samnyan.aqua.net.BotProps
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.model.Card
-import icu.samnyan.aqua.sega.general.model.CardStatus
+import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -27,8 +27,11 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     abstract val playlogRepo: GenericPlaylogRepo<*>
     abstract val userMusicRepo: GenericUserMusicRepo<*>
     abstract val shownRanks: List<Pair<Int, String>>
+
     abstract val settableFields: Map<String, (T, String) -> Unit>
     open val gettableFields: Set<String> = setOf()
+
+    @Autowired lateinit var cardService: CardService
 
     @API("trend")
     abstract suspend fun trend(@RP username: String): List<TrendOut>
@@ -56,7 +59,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
 
         val reqUser = token?.let { us.jwt.auth(it) }?.let { u ->
             // Optimization: If the user is not banned, we don't need to process user information
-            if (!u.ghostCard.rankingBanned && !u.cards.any { it.rankingBanned } && u.ghostCard.status == CardStatus.NORMAL) null
+            if (!u.ghostCard.rankingBanned && !u.cards.any { it.rankingBanned } && u.ghostCard.status.isNormal) null
             else u
         }
 
@@ -124,13 +127,11 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
         (settableFields.keys.toSet() + gettableFields)
             .associateWith { k -> (vm[k] ?: error("Field $k not found")) }
     } }
-
     @API("user-detail")
     suspend fun userDetail(@RP username: String) = us.cardByName(username) { card ->
         val u = userDataRepo.findByCard(card) ?: (404 - "User not found")
         userDetailFields.toList().associate { (k, f) -> k to f.invoke(u) }
     }
-
     @API("user-detail-set")
     suspend fun userDetailSet(@RP token: String, @RP field: String, @RP value: String): Any {
         val prop = settableFields[field] ?: (400 - "Invalid field $field")
@@ -139,9 +140,15 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             val user = async { userDataRepo.findByCard(u.ghostCard) } ?: (404 - "User not found")
             prop(user, value)
             async { userDataRepo.save(user) }
+            cardService.updateCardTimestamp(u.ghostCard, name)
             SUCCESS
         }
     }
+
+    @API("user-option")
+    open suspend fun userOption(@RP token: String): Any? = 400 - "Unsupported by this game"
+    @API("user-option-set")
+    open suspend fun userOptionSet(@RP token: String, @RP field: String, @RP value: Int): Any = 400 - "Unsupported by this game"
 
     @API("user-music-from-list")
     suspend fun userMusicFromList(@RP username: Str, @RB musicList: List<Int>) = us.cardByName(username) { card ->

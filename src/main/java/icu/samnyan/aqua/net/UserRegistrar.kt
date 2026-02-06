@@ -12,8 +12,6 @@ import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.CardStatus
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Lazy
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
@@ -27,6 +25,7 @@ class UserRegistrar(
     val hasher: PasswordEncoder,
     val turnstileService: TurnstileService,
     val emailService: EmailService,
+    val fedy: Fedy,
     val geoIP: GeoIP,
     val jwt: JWT,
     val confirmationRepo: EmailConfirmationRepo,
@@ -36,7 +35,6 @@ class UserRegistrar(
     val emailProps: EmailProperties,
     final val paths: PathProps
 ) {
-    @Autowired @Lazy lateinit var fedy: Fedy
     val portraitPath = paths.aquaNetPortrait.path()
 
     companion object {
@@ -91,8 +89,6 @@ class UserRegistrar(
         val user = async { userRepo.findByEmailIgnoreCase(email) ?: userRepo.findByUsernameIgnoreCase(email) }
             ?: (400 - "User not found")
         if (!hasher.matches(password, user.pwHash)) 400 - "Invalid password"
-
-        if (user.ghostCard.status == CardStatus.MIGRATED_TO_MINATO) 400 - "Login not allowed: Card has been migrated to Minato."
 
         // Check if email is verified
         if (!user.emailConfirmed && emailProps.enable) {

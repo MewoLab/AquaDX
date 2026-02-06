@@ -10,6 +10,7 @@ import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
 import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.MeowApi
 import icu.samnyan.aqua.sega.general.RequestContext
+import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.util.BasicMapper
 import icu.samnyan.aqua.sega.util.StringMapper
 import icu.samnyan.aqua.spring.Metrics
@@ -28,6 +29,7 @@ class ChusanController(
     val cmMapper: BasicMapper,
     val db: Chu3Repos,
     val us: AquaUserServices,
+    val cardService: CardService,
     val versionHelper: ChusanVersionHelper,
     val props: ChusanProps,
     val pop: GameMusicPopularity,

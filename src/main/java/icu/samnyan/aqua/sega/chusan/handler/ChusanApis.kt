@@ -236,9 +236,7 @@ fun ChusanController.chusanInit() {
         ) + userDict
 
         if (user.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            res["userName"] = "JiaQQqun / ChangeDNS"
-            res["rating"] = 0
-            res["playerLevel"] = 0
+            res["userName"] = "${res["userName"]}＠ＡｑｕａＤＸ"
         }
 
         res
@@ -394,13 +392,6 @@ fun ChusanController.chusanInit() {
 //        }
 //        process()
 
-        val user = db.userData.findByCard_ExtId(uid)
-
-        if (user?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            """{"returnCode":"0"}"""
-        }
-        else {
-            """{"returnCode":"1"}"""
-        }
+        """{"returnCode":"1"}"""
     }
 }

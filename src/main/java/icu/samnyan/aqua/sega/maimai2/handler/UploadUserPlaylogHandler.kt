@@ -6,6 +6,7 @@ import ext.millis
 import ext.parsing
 import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.BaseHandler
+import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserDataRepo
 import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPlaylog
@@ -21,7 +22,8 @@ import org.springframework.stereotype.Component
 class UploadUserPlaylogHandler(
     private val userDataRepository: Mai2UserDataRepo,
     private val playlogRepo: Mai2UserPlaylogRepo,
-    private val mapper: BasicMapper
+    private val mapper: BasicMapper,
+    private val cardService: CardService
 ) : BaseHandler {
     data class BacklogEntry(val time: Long, val playlog: Mai2UserPlaylog)
     companion object {

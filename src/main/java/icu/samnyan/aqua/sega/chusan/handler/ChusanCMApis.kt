@@ -75,6 +75,8 @@ fun ChusanController.cmApiInit() {
             )
         }
 
+        u.card?.let { cardService.updateCardTimestamp(it, "chu3") }
+
         mapOf(
             "returnCode" to 1,
             "apiName" to "CMUpsertUserGachaApi",
@@ -85,12 +87,14 @@ fun ChusanController.cmApiInit() {
     "CMUpsertUserPrintCancel" {
         val orderIdList: List<Long> = cmMapper.convert<List<Long>>(parsing { data["orderIdList"]!! })
 
-        db.userCardPrintState.saveAll(orderIdList.mapNotNull {
+        val states = db.userCardPrintState.saveAll(orderIdList.mapNotNull {
             // TODO: The original code by Eori writes findById but I don't think that is correct...
             db.userCardPrintState.findById(it)()?.apply {
                 hasCompleted = true
             }
         })
+
+        states.firstOrNull()?.user?.card?.let { cardService.updateCardTimestamp(it, "chu3") }
 
         mapOf("returnCode" to 1, "apiName" to "CMUpsertUserPrintCancelApi")
     }
@@ -113,6 +117,8 @@ fun ChusanController.cmApiInit() {
             hasCompleted = true
             db.userCardPrintState.save(this)
         }
+
+        u.card?.let { cardService.updateCardTimestamp(it, "chu3") }
 
         mapOf("returnCode" to 1, "apiName" to "CMUpsertUserPrintSubtractApi")
     }

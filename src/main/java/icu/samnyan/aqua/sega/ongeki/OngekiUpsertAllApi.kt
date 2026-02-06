@@ -4,6 +4,7 @@ import ext.int
 import ext.invoke
 import ext.mapApply
 import ext.minus
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.ongeki.model.OngekiUpsertUserAll
 import icu.samnyan.aqua.sega.ongeki.model.UserData
 import icu.samnyan.aqua.sega.ongeki.model.UserGeneralData
@@ -47,6 +48,12 @@ fun OngekiController.initUpsertAll() {
                 regionId = region
             }
             db.regions.save(region)
+        }
+
+        // If the user was previously migrated to Minato, saving would mark them "migrated and then cleared".
+        if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            u.card?.status = CardStatus.NORMAL_MIGRATED_TO_MINATO_AND_THEN_CLEARED
+            us.cardRepo.save(u.card!!)
         }
 
         all.run {
@@ -201,6 +208,8 @@ fun OngekiController.initUpsertAll() {
                 db.kop.saveAll(list.distinctBy { it.kopId to it.areaId }.mapApply {
                     id = db.kop.findByUserAndKopIdAndAreaId(u, kopId, areaId)?.id ?: 0 }) }
         }
+
+        u.card?.let { cardService.updateCardTimestamp(it, "ongeki") }
 
         null
     }

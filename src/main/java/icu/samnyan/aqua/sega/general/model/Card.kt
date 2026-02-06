@@ -9,7 +9,7 @@ enum class CardStatus {
     NORMAL,
 
     // Reserved for future use
-    NORMAL_RESERVED_1,
+    NORMAL_MIGRATED_TO_MINATO_AND_THEN_CLEARED,
     NORMAL_RESERVED_2,
     NORMAL_RESERVED_3,
     NORMAL_RESERVED_4,
@@ -22,7 +22,12 @@ enum class CardStatus {
     // Deleted statuses
     OVERWRITTEN,
     DELETED,
-    MIGRATED_TO_MINATO,
+    MIGRATED_TO_MINATO;
+
+    /**
+     * Returns true if card status is in any NORMAL state
+     */
+    val isNormal get() = this.ordinal in NORMAL.ordinal..NORMAL_RESERVED_9.ordinal
 }
 
 /**

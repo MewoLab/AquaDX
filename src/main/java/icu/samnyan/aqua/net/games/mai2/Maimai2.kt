@@ -13,9 +13,13 @@ import icu.samnyan.aqua.sega.maimai2.model.Mai2UserPlaylogRepo
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserGeneralData
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserLoginBonus
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserOption
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
+import kotlin.jvm.optionals.getOrNull
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.full.memberProperties
 
 @RestController
 @API("api/v2/game/mai2")
@@ -115,6 +119,7 @@ class Maimai2(
             val user = userDataRepo.findByCard(card) ?: (404 - "User not found")
             user.userName = newNameFull
             userDataRepo.save(user)
+            cardService.updateCardTimestamp(card, "mai2")
         }
         mapOf("newName" to newNameFull)
     }
@@ -144,8 +149,27 @@ class Maimai2(
                 loginBonus.add(newBonus)
             }
             repos.userLoginBonus.saveAll(loginBonus)
+            cardService.updateCardTimestamp(card, "mai2")
         }
         SUCCESS
+    }
+
+    @API("user-option")
+    override suspend fun userOption(@RP token: String) = us.jwt.auth(token) { u ->
+        repos.userOption.findByUser_Card_ExtId(u.ghostCard.extId).getOrNull(0)
+    }
+    @API("user-option-set")
+    override suspend fun userOptionSet(@RP token: String, @RP field: String, @RP value: Int): Any = us.jwt.auth(token) { u ->
+        val gameOptions = repos.userOption.findSingleByUser_Card_ExtId(u.ghostCard.extId)
+        val property = Mai2UserOption::class.memberProperties.filterIsInstance<KMutableProperty1<Any, Any?>>().find{ it.name == field }
+
+        if (property != null && gameOptions != null) {
+            property.setter.call(gameOptions, value)
+            repos.userOption.save(gameOptions)
+            200 - "Success"
+        } else
+            400 - "Invalid parameters"
+
     }
 
     @API("owned-items")
@@ -177,6 +201,7 @@ class Maimai2(
 
             myRival.propertyValue = myRivalList.joinToString(",")
             repos.userGeneralData.save(myRival)
+            cardService.updateCardTimestamp(myCard, "mai2")
         }
         SUCCESS
     }

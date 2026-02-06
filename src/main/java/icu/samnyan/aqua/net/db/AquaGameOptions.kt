@@ -2,10 +2,7 @@ package icu.samnyan.aqua.net.db
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ext.SettingField
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import org.springframework.data.jpa.repository.JpaRepository
 
 @Entity
@@ -14,21 +11,29 @@ class AquaGameOptions(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    @SettingField("general")
-    var unlockMusic: Boolean = false,
-
-    @SettingField("general")
-    var unlockChara: Boolean = false,
-
-    @SettingField("general")
-    var unlockCollectables: Boolean = false,
-
-    @SettingField("general")
-    var unlockTickets: Boolean = false,
+    @SettingField("mai2") @Column(name = "mai2_unlock_music")
+    var mai2UnlockMusic: Boolean = false,
+    @SettingField("mai2") @Column(name = "mai2_unlock_chara")
+    var mai2UnlockChara: Boolean = false,
+    @SettingField("mai2") @Column(name = "mai2_unlock_chara_max_level")
+    var mai2UnlockCharaMaxLevel: Boolean = false,
+    @SettingField("mai2") @Column(name = "mai2_unlock_partners")
+    var mai2UnlockPartners: Boolean = false,
+    @SettingField("mai2") @Column(name = "mai2_unlock_collectables")
+    var mai2UnlockCollectables: Boolean = false,
+    @SettingField("mai2") @Column(name = "mai2_unlock_tickets")
+    var mai2UnlockTickets: Boolean = false,
 
     @SettingField("wacca")
+    var waccaUnlockMusic: Boolean = false,
+    @SettingField("wacca")
+    var waccaUnlockPlates: Boolean = false,
+    @SettingField("wacca")
+    var waccaUnlockCollectables: Boolean = false,
+    @SettingField("wacca")
+    var waccaUnlockTickets: Boolean = false,
+    @SettingField("wacca")
     var waccaInfiniteWp: Boolean = false,
-
     @SettingField("wacca")
     var waccaAlwaysVip: Boolean = false,
 

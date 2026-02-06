@@ -4,6 +4,7 @@ import ext.*
 import icu.samnyan.aqua.sega.chusan.ChusanController
 import icu.samnyan.aqua.sega.chusan.model.request.Chu3UserAll
 import icu.samnyan.aqua.sega.chusan.model.userdata.*
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.model.UserRecentRating
 
 @Suppress("UNCHECKED_CAST")
@@ -13,6 +14,7 @@ fun ChusanController.upsertApiInit() {
         charge.user = db.userData.findByCard_ExtId(uid) ?: (400 - "User not found")
         charge.id = db.userCharge.findByUser_Card_ExtIdAndChargeId(uid, charge.chargeId)?.id ?: 0
         db.userCharge.save(charge)
+        charge.user.card?.let { cardService.updateCardTimestamp(it, "chu3") }
         """{"returnCode":"1"}"""
     }
 
@@ -35,6 +37,12 @@ fun ChusanController.upsertApiInit() {
                 }
                 userNameEx = ""
             }.also { db.userData.saveAndFlush(it) }
+
+            // If the user was previously migrated to Minato, saving would mark them "migrated and then cleared".
+            if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+                u.card?.status = CardStatus.NORMAL_MIGRATED_TO_MINATO_AND_THEN_CLEARED
+                us.cardRepo.save(u.card!!)
+            }
 
             // Only save if it is a valid region and the user has played at least a song
             req.userPlaylogList?.firstOrNull()?.regionId?.let { rid ->
@@ -185,6 +193,8 @@ fun ChusanController.upsertApiInit() {
                         }.also { db.userCMissionProgress.save(it) }
                 }
             }
+
+            u.card?.let { cardService.updateCardTimestamp(it, "chu3") }
         }
 
         """{"returnCode":1}"""

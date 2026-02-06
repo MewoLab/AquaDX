@@ -3,6 +3,7 @@ package icu.samnyan.aqua.net
 import ext.*
 import icu.samnyan.aqua.net.components.EmailProperties
 import icu.samnyan.aqua.net.components.JWT
+import icu.samnyan.aqua.net.db.AquaGameOptions
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.games.ExportOptions
@@ -24,7 +25,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.support.TransactionTemplate
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.context.ApplicationContext
 import org.springframework.web.multipart.MultipartFile
+import java.time.Instant
 import java.security.MessageDigest
 import java.util.concurrent.CompletableFuture
 import kotlin.io.path.getLastModifiedTime
@@ -41,11 +44,11 @@ class FedyProps {
     var remote: String = ""
 }
 
-data class UserProfilePicture(val url: Str, val lastUpdatedMs: Long)
+data class UserProfilePicture(val url: Str, val updatedAtMs: Long)
 data class UserBasicInfo(
     val auId: Long, val ghostExtId: Long, val registrationTimeMs: Long,
     val username: Str, val displayName: Str, val email: Str, val passwordHash: Str, val profileBio: Str,
-    val profilePicture: UserProfilePicture?,
+    val profilePicture: UserProfilePicture?, val gameOptions: Map<Str, Any?>?,
 )
 
 private data class UserUpdatedEvent(val user: UserBasicInfo, val isNewlyCreated: Bool)
@@ -66,21 +69,23 @@ private data class FedyEvent(
 @API("/api/v2/fedy", consumes = ["multipart/form-data"])
 class Fedy(
     val jwt: JWT,
-    val us: AquaUserServices,
     val emailProps: EmailProperties,
     val cardRepo: CardRepository,
-    val cardService: CardService,
-    val mai2Import: Mai2Import,
     val mai2UserDataRepo: Mai2UserDataRepo,
-    val mai2UploadUserPlaylog: Mai2UploadUserPlaylogHandler,
-    val mai2UpsertUserAll: Mai2UpsertUserAllHandler,
     val chu3UserDataRepo: Chu3UserDataRepo,
     val ongekiUserDataRepo: OgkUserDataRepo,
     val waccaUserDataRepo: WcUserRepo,
     val props: FedyProps,
     val paths: PathProps,
-    val transactionManager: PlatformTransactionManager
+    val transactionManager: PlatformTransactionManager,
+    ctx: ApplicationContext
 ) {
+    val us by ctx.lazy<AquaUserServices>()
+    val cardService by ctx.lazy<CardService>()
+    val mai2Import by ctx.lazy<Mai2Import>()
+    val mai2UploadUserPlaylog by ctx.lazy<Mai2UploadUserPlaylogHandler>()
+    val mai2UpsertUserAll by ctx.lazy<Mai2UpsertUserAllHandler>()
+
     val transaction by lazy { TransactionTemplate(transactionManager) }
 
     private fun Str.checkKey() {
@@ -127,7 +132,7 @@ class Fedy(
         } caught { UserRegisterRes(error = it) }
     }
 
-    data class UserUpdateReq(val auId: Long, val fields: Map<Str, Str?>?)
+    data class UserUpdateReq(val auId: Long, val fields: Map<Str, Str?>?, val gameOptions: Map<Str, Any?>?)
     data class UserUpdateRes(val error: FedyErr? = null, val user: UserBasicInfo? = null)
     @API("/user/update")
     fun handleUserUpdate(@RH(KEY_HEADER) key: Str, @RT(REQ_PART) req: UserUpdateReq, @RT(PFP_PART) pfpFile: MultipartFile?): UserUpdateRes = handleFedy(key) {
@@ -138,11 +143,15 @@ class Fedy(
                 if (k == "email") { ru.email = us.validateEmail(v) }
                 else us.update(ru, k, v)
             }
-            pfpFile?.run {
+            pfpFile?.apply {
                 val mime = TIKA.detect(pfpFile.bytes).takeIf { it.startsWith("image/") } ?: (400 - "Invalid file type")
                 val name = "${ru.auId}${MIMES.forName(mime)?.extension ?: ".jpg"}"
                 (paths.aquaNetPortrait.path() / name).writeBytes(bytes)
                 ru.profilePicture = name
+            }
+            req.gameOptions?.apply {
+                val options = ru.gameOptions ?: AquaGameOptions().also { ru.gameOptions = it }
+                forEach { (k, v) -> v?.let { GAME_OPTIONS_FIELDS[k]?.set(options, it) } }
             }
             us.userRepo.save(ru)
             if (fields.containsKey("pwHash") ?: false) { us.clearAllSessions(ru) }
@@ -157,25 +166,31 @@ class Fedy(
             ?.let { paths.aquaNetPortrait.path() / it }?.takeIf { it.isRegularFile() }
             ?.let { UserProfilePicture(
                 url = "/uploads/net/portrait/${profilePicture}",
-                lastUpdatedMs = it.getLastModifiedTime().toMillis()
-            ) }
+                updatedAtMs = it.getLastModifiedTime().toMillis()
+            ) },
+        gameOptions?.let { o -> GAME_OPTIONS_FIELDS.mapValues { it.value.get(o) } }
     )
 
-    data class DataPullReq(val extId: Long, val game: Str, val exportOptions: ExportOptions)
-    data class DataPullRes(val error: FedyErr? = null, val result: Any? = null)
+    data class DataPullReq(val extId: Long, val game: Str, val createdAtMs: Long, val updatedAtMs: Long, val exportOptions: ExportOptions)
+    data class DataPullResult(val data: Any?, val createdAtMs: Long, val updatedAtMs: Long, val isRebased: Bool)
+    data class DataPullRes(val error: FedyErr? = null, val result: DataPullResult? = null)
     @API("/data/pull")
     fun handleDataPull(@RH(KEY_HEADER) key: Str, @RT(REQ_PART) req: DataPullReq): DataPullRes = handleFedy(key) {
         val card = cardRepo.findByExtId(req.extId)
             ?: (404 - "Card with extId ${req.extId} not found")
+        val cardTimestamp = cardService.getCardTimestamp(card, req.game)
+        if (cardTimestamp.updatedAt.toEpochMilli() == req.updatedAtMs) return@handleFedy DataPullRes(error = null, result = null) // No changes
+        val isRebased = req.createdAtMs > 0 && cardTimestamp.createdAt.toEpochMilli() > req.createdAtMs
+        val exportOptions = if (!isRebased) { req.exportOptions } else { req.exportOptions.copy(playlogAfter = null) }
         {
-            DataPullRes(result = when (req.game) {
-                "mai2" -> mai2Import.export(card, req.exportOptions)
+            DataPullRes(result = DataPullResult(data = when (req.game) {
+                "mai2" -> mai2Import.export(card, exportOptions)
                 else -> 406 - "Unsupported game"
-            })
+            }, createdAtMs = cardTimestamp.createdAt.toEpochMilli(), updatedAtMs = cardTimestamp.updatedAt.toEpochMilli(), isRebased = isRebased))
         } caught { DataPullRes(error = it) }
     }
 
-    data class DataPushReq(val extId: Long, val game: Str, val data: JDict, val removeOldData: Bool)
+    data class DataPushReq(val extId: Long, val game: Str, val data: JDict, val removeOldData: Bool, val updatedAtMs: Long)
     @Suppress("UNCHECKED_CAST")
     @API("/data/push")
     fun handleDataPush(@RH(KEY_HEADER) key: Str, @RT(REQ_PART) req: DataPushReq): Any = handleFedy(key) {
@@ -187,6 +202,7 @@ class Fedy(
                 repo.flush()
             }
         }
+        val card = cardRepo.findByExtId(extId) ?: (404 - "Card not found")
         transaction.execute { when (req.game) {
             "mai2" -> {
                 if (req.removeOldData) { removeOldData(mai2UserDataRepo) }
@@ -197,7 +213,7 @@ class Fedy(
             }
             else -> 406 - "Unsupported game"
         } }
-
+        cardService.updateCardTimestamp(card, req.game, now = Instant.ofEpochMilli(req.updatedAtMs), resetCreatedAt = req.removeOldData)
         SUCCESS
     }
 
@@ -220,9 +236,9 @@ class Fedy(
             var pairedCard = cardService.tryLookup(req.pairedLuid)?.maybeGhost()
             if (pairedCard?.extId != card?.extId) {
                 var isGhost = pairedCard?.isGhost == true
-                var isFresh = pairedCard != null && isCardFresh(pairedCard)
-                if (isGhost && isFresh) isPairedLuidDiverged = true
-                else if (!isGhost && card?.isGhost == true) {
+                var isNonFresh = pairedCard != null && !isCardFresh(pairedCard)
+                if (isGhost || isNonFresh) isPairedLuidDiverged = true
+                else if (card?.isGhost == true) {
                     // Ensure paired card is linked, if the main card is linked
                     // If the main card is not linked, there's nothing Fedy can do. It's Fedy's best effort.
                     if (pairedCard == null) { pairedCard = cardService.registerByAccessCode(req.pairedLuid, card.aquaUser) }
@@ -275,17 +291,16 @@ class Fedy(
         log.info("Fedy /card/unlink : Unlinked card ${card.id} (${card.luid}) from user ${cu.auId} (${cu.username})")
     }
 
-    fun onUserUpdated(u: AquaNetUser, isNew: Bool = false) = maybeNotifyAsync(FedyEvent(userUpdated = UserUpdatedEvent(u.fedyBasicInfo(), isNew)))
-    fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync(FedyEvent(cardCreated = CardCreatedEvent(luid, extId)))
-    fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync(FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)))
-    fun onCardUnlinked(luid: Str) = maybeNotifyAsync(FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)))
-    fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync({
+    fun onUserUpdated(u: AquaNetUser, isNew: Bool = false) = maybeNotifyAsync { FedyEvent(userUpdated = UserUpdatedEvent(u.fedyBasicInfo(), isNew)) }
+    fun onCardCreated(luid: Str, extId: Long) = maybeNotifyAsync { FedyEvent(cardCreated = CardCreatedEvent(luid, extId)) }
+    fun onCardLinked(luid: Str, oldExtId: Long?, ghostExtId: Long, migratedGames: List<Str>) = maybeNotifyAsync { FedyEvent(cardLinked = CardLinkedEvent(luid, oldExtId, ghostExtId, migratedGames)) }
+    fun onCardUnlinked(luid: Str) = maybeNotifyAsync { FedyEvent(cardUnlinked = CardUnlinkedEvent(luid)) }
+    fun onDataUpdated(extId: Long, game: Str, removeOldData: Bool) = maybeNotifyAsync {
         val card = cardRepo.findByExtId(extId) ?: return@maybeNotifyAsync null // Card not found, nothing to do
         FedyEvent(dataUpdated = DataUpdatedEvent(extId, card.isGhost, game, removeOldData))
-    })
+    }
 
-    private fun maybeNotifyAsync(event: FedyEvent) = maybeNotifyAsync({ event })
-    private fun maybeNotifyAsync(getEvent: () -> FedyEvent?) = if (!props.enabled && !suppressEvents.get()) {} else CompletableFuture.runAsync {
+    private fun maybeNotifyAsync(getEvent: () -> FedyEvent?) = if (!props.enabled || suppressEvents.get()) {} else CompletableFuture.runAsync {
         var event: FedyEvent? = null
         try {
             event = getEvent()
@@ -325,7 +340,7 @@ class Fedy(
 
     // Apparently existing cards could possibly be fresh and never used in any game. Treat them as new cards.
     private fun isCardFresh(c: Card): Bool {
-        fun <T : IUserData> checkForGame(repo: GenericUserDataRepo<T>, card: Card): Bool = repo.findByCard(card) == null
+        fun <T : IUserData> checkForGame(repo: GenericUserDataRepo<T>, card: Card): Bool = repo.findByCard(card) != null
         return when {
             checkForGame(mai2UserDataRepo, c) -> false
             checkForGame(chu3UserDataRepo, c) -> false
@@ -344,18 +359,12 @@ class Fedy(
         const val KEY_HEADER = "X-Fedy-Key"
         const val REQ_PART = "request"
         const val PFP_PART = "profilePicture"
+        @Suppress("UNCHECKED_CAST")
+        val GAME_OPTIONS_FIELDS = listOf(
+            O::mai2UnlockMusic, O::mai2UnlockChara, O::mai2UnlockCharaMaxLevel, O::mai2UnlockPartners, O::mai2UnlockCollectables, O::mai2UnlockTickets
+        ).map { it as Var<O, Any?> }.associateBy { it.name }
         val log = logger()
-
-        fun getGameName(gameId: Str) = when (gameId) {
-            "mai2" -> "mai2"
-            "SDEZ" -> "mai2"
-            "chu3" -> "chu3"
-            "SDHD" -> "chu3"
-            "ongeki" -> "mu3"
-            "SDDT" -> "mu3"
-            "wacca" -> "wacca"
-            "SDFE" -> "wacca"
-            else -> null // Not supported
-        }
     }
 }
+
+typealias O = AquaGameOptions

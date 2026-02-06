@@ -5,6 +5,7 @@ import ext.mapApply
 import ext.minus
 import ext.unique
 import icu.samnyan.aqua.sega.general.BaseHandler
+import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.service.CardService
 import icu.samnyan.aqua.sega.maimai2.handler.UploadUserPlaylogHandler.Companion.playBacklog
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
@@ -25,7 +26,6 @@ class UpsertUserAllHandler(
     val cardService: CardService,
     val repos: Mai2Repos
 ) : BaseHandler {
-
     fun String.isValidUsername() = isNotBlank() && length <= 8
 
     @Throws(JsonProcessingException::class)
@@ -58,6 +58,12 @@ class UpsertUserAllHandler(
                 }
             }
         })
+
+        // If the user was previously migrated to Minato, saving would mark them "migrated and then cleared".
+        if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
+            u.card?.status = CardStatus.NORMAL_MIGRATED_TO_MINATO_AND_THEN_CLEARED
+            cardService.cardRepo.save(u.card!!)
+        }
 
         // Check playlog backlog
         if (playBacklog.containsKey(userId)) playBacklog.remove(userId)?.forEach {
@@ -162,6 +168,8 @@ class UpsertUserAllHandler(
                     propertyValue = news.map { it.id }.joinToString(",")
                 })
             }
+
+        u.card?.let { cardService.updateCardTimestamp(it, "mai2") }
 
         return SUCCESS
     }

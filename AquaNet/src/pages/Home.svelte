@@ -10,7 +10,6 @@
   import { t } from "../libs/i18n";
   import ImportDataAction from "./Home/ImportDataAction.svelte";
   import Communities from "./Home/Communities.svelte";
-  import MigrateAction from "./Home/MigrateAction.svelte";
 
   USER.ensureLoggedIn();
 
@@ -59,9 +58,6 @@
       </ActionCard>
 
       <ImportDataAction/>
-      {#if me}
-        <MigrateAction username={me.username}/>
-      {/if}
     </div>
   {:else if tab === 1}
     <div out:fade={FADE_OUT} in:fade={FADE_IN}>

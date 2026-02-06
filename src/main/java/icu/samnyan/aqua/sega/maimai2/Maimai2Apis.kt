@@ -115,10 +115,7 @@ fun Maimai2ServletController.initApis() {
         )
 
         if (d.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            res["userName"] = "JiaQQqun / ChangeDNS"
-            res["dispRate"] = 1
-            res["playerRating"] = 66564
-            res["totalAwake"] = 7114
+            res["userName"] = "${res["userName"]}＠ＡｑｕａＤＸ"
         }
 
         res
@@ -134,10 +131,6 @@ fun Maimai2ServletController.initApis() {
             "Bearer" to "meow", "bearer" to "meow"
         )
 
-        if (d?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            res["returnCode"] = 0
-        }
-
         // Get regionId from request
         val region = data["regionId"] as? Int
 
@@ -150,6 +143,7 @@ fun Maimai2ServletController.initApis() {
                 regionId = region
             }
             db.userRegions.save(region)
+            // d.card?.let { cardService.updateCardTimestamp(it, "mai2") } // TODO: why save regions on login?
         }
 
         res
@@ -231,12 +225,16 @@ fun Maimai2ServletController.initApis() {
     // Kaleidoscope, added on 1.50
     // [{gateId, phaseId}]
     "GetGameKaleidxScope" { mapOf("gameKaleidxScopeList" to ls(
-        mapOf("gateId" to 1, "phaseId" to findPhase(LocalDate.of(2025, 1, 18))),
-        mapOf("gateId" to 2, "phaseId" to 2),
-        mapOf("gateId" to 3, "phaseId" to 2),
-        mapOf("gateId" to 4, "phaseId" to findPhase(LocalDate.of(2025, 2, 25))),
-        mapOf("gateId" to 5, "phaseId" to 2),
-        mapOf("gateId" to 6, "phaseId" to 2),
+        mapOf("gateId" to 1, "phaseId" to 6),
+        mapOf("gateId" to 2, "phaseId" to 6),
+        mapOf("gateId" to 3, "phaseId" to 6),
+        mapOf("gateId" to 4, "phaseId" to 6),
+        mapOf("gateId" to 5, "phaseId" to 6),
+        mapOf("gateId" to 6, "phaseId" to 6),
+        mapOf("gateId" to 7, "phaseId" to 6),
+        mapOf("gateId" to 8, "phaseId" to 6),
+        mapOf("gateId" to 9, "phaseId" to 6),
+        mapOf("gateId" to 10, "phaseId" to 13),
     )) }
     // Request: {userId}
     // Response: {userId, userKaleidxScopeList}

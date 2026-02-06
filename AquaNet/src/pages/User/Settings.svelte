@@ -23,7 +23,7 @@
   let error: string;
   let submitting = ""
   let tab = 0
-  let tabs = [ 'profile', 'game' ]
+  let tabs = ['profile']
 
   const profileFields = [
     [ 'displayName', t('settings.profile.name') ],
@@ -45,18 +45,11 @@
     me = m
 
     CARD.userGames(m.username).then(games => {
-      if (games.chu3 && !tabs.includes('chu3')) {
-        tabs = [...tabs, 'chu3']
-      }
-      if (games.mai2 && !tabs.includes('mai2')) {
-        tabs = [...tabs, 'mai2']
-      }
-      if (games.wacca && !tabs.includes('wacca')) {
-        tabs = [...tabs, 'wacca']
-      }
-      if (games.ongeki && !tabs.includes('ongeki')) {
-        tabs = [...tabs, 'ongeki']
-      }
+      tabs = [
+        ...tabs, 
+        ...['chu3', 'mai2','wacca', 'ongeki'].filter(v => games[v as keyof typeof games]), // :xdx:
+        'global'
+      ]
     })
   }).catch(e => error = e.message)
   getMe()
@@ -217,7 +210,7 @@
     <WaccaSettings />
   {:else if tabs[tab] === 'ongeki'}
     <OngekiSettings />
-  {:else if tabs[tab] === 'game'}
+  {:else if tabs[tab] === 'global'}
     <GeneralGameSettings />
   {/if}
 

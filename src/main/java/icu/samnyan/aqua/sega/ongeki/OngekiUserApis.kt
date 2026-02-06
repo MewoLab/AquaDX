@@ -162,26 +162,13 @@ fun OngekiController.initUser() {
         )
 
         if (u.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            res["userName"] = "JiaQQqun / ChangeDNS"
-            res["level"] = 0
-            res["exp"] = 0
-            res["playerRating"] = 0
-            res["newPlayerRating"] = 0
+            res["userName"] = "${res["userName"]}＠ＡｑｕａＤＸ"
         }
 
         res
     }
 
-    "GameLogin" {
-        val user = db.data.findByCard_ExtId(uid)
-
-        if (user?.card?.status == CardStatus.MIGRATED_TO_MINATO) {
-            """{"returnCode":"0"}"""
-        }
-        else {
-            """{"returnCode":"1"}"""
-        }
-    }
+    "GameLogin" { """{"returnCode":"1"}""" }
 
     "GetUserRecentRating".unpaged {
         db.generalData.findByUser_Card_ExtIdAndPropertyKey(uid, "recent_rating_list")?.let { recent ->

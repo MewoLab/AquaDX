@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { title } from "../libs/ui";
   import { GAME } from "../libs/sdk";
   import type { GenericRanking } from "../libs/generalTypes";
@@ -8,6 +9,7 @@
   import { t } from "../libs/i18n";
   import UserCard from "../components/UserCard.svelte";
   import Tooltip from "../components/Tooltip.svelte";
+  import Pagination from "../components/Pagination.svelte";
 
   export let game: GameName = 'mai2';
 
@@ -15,15 +17,45 @@
 
   let d: { users: GenericRanking[] };
   let error: string | null;
+
+  let page = 1
+  const perPage = 50
+  let totalPages = 1
+
+  function handleUpdatePage(event: CustomEvent<number>) {
+    page = event.detail;
+    const url = new URL(window.location.toString())
+    url.searchParams.set('page', page.toString())
+    history.pushState({}, '', url.toString())
+    window.scrollTo(0, 0)
+  }
+
+  onMount(() => {
+    const url = new URL(window.location.toString())
+    const pageParam = url.searchParams.get('page')
+    if (pageParam) {
+      page = parseInt(pageParam, 10) || 1
+    }
+
+    window.addEventListener('popstate', () => {
+      const url = new URL(window.location.toString())
+      const pageParam = url.searchParams.get('page')
+      page = parseInt(pageParam, 10) || 1
+      window.scrollTo(0, 0)
+    })
+  })
+
   Promise.all([GAME.ranking(game)])
     .then(([users]) => {
-      console.log(users)
-      d = { users };
+      d = { users }
+      totalPages = Math.ceil(users.length / perPage)
     })
     .catch((e) => error = e.message);
 
   let hoveringUser = "";
   let hoverLoading = false;
+
+  $: paginatedUsers = d ? d.users.slice((page - 1) * perPage, page * perPage) : []
 </script>
 
 <main class="content leaderboard">
@@ -37,8 +69,12 @@
   </div>
 
   {#if d}
+    {#if page > 1}
+      <Pagination {page} {totalPages} on:updatePage={handleUpdatePage} />
+    {/if}
+
     <div class="leaderboard-container">
-      <div class="lb-user" on:mouseenter={() => hoveringUser = d.users[0].username} role="heading" aria-level="2">
+      <div class="lb-user" on:mouseenter={() => hoveringUser = paginatedUsers[0]?.username} role="heading" aria-level="2">
         <span class="rank">{t("Leaderboard.Rank")}</span>
         <span class="name"></span>
         <span class="rating">{t("Leaderboard.Rating")}</span>
@@ -46,7 +82,7 @@
         <span class="fc">{t("Leaderboard.FC")}</span>
         <span class="ap">{t("Leaderboard.AP")}</span>
       </div>
-      {#each d.users as user, i (user.rank)}
+      {#each paginatedUsers as user, i (user.rank)}
         <div class="lb-user" class:alternate={i % 2 === 1} role="listitem"
           on:mouseover={() => hoveringUser = user.username} on:focus={() => {}}>
 
@@ -69,6 +105,8 @@
         </div>
       {/each}
     </div>
+
+    <Pagination {page} {totalPages} on:updatePage={handleUpdatePage} />
 
     <Tooltip triggeredBy=".name" loading={hoverLoading}>
       <UserCard username={hoveringUser} {game} setLoading={l => hoverLoading = l} />
@@ -131,6 +169,5 @@
 
     &.alternate
       background-color: vars.$ov-light
-
 
 </style>

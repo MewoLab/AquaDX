@@ -15,6 +15,7 @@ import kotlinx.coroutines.withContext
 import org.apache.tika.Tika
 import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
+import org.springframework.context.ApplicationContext
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity.BodyBuilder
@@ -34,8 +35,10 @@ import java.util.concurrent.locks.Lock
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.isSubclassOf
 import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
 import kotlin.reflect.jvm.jvmErasure
 
 typealias RP = RequestParam
@@ -80,7 +83,9 @@ annotation class SettingField(
 
 // Reflection
 @Suppress("UNCHECKED_CAST")
-fun <T : Any> KClass<T>.vars() = memberProperties.mapNotNull { it as? Var<T, Any> }
+fun <T : Any> KClass<T>.ownVars() = declaredMemberProperties.sortedBy { it.javaField?.declaringClass?.declaredFields?.indexOf(it.javaField) ?: Int.MAX_VALUE }.mapNotNull { it as? Var<T, Any> }
+@Suppress("UNCHECKED_CAST")
+fun <T : Any> KClass<T>.vars(): List<Var<T, Any>> = supertypes.mapNotNull { it.classifier as? KClass<*> }.filter { !it.java.isInterface }.flatMap{ it.vars() as List<Var<T, Any>> } + ownVars()
 fun <T : Any> KClass<T>.varsMap() = vars().associateBy { it.name }
 fun <T : Any> KClass<T>.getters() = java.methods.filter { it.name.startsWith("get") }
 fun <T : Any> KClass<T>.gettersMap() = getters().associateBy { it.name.removePrefix("get").firstCharLower() }
@@ -268,3 +273,6 @@ val <S> Pair<*, S>.r get() = component2()
 val Query.exec get() = resultList.map { (it as Array<*>).toList() }
 fun List<List<Any?>>.numCsv(vararg head: Str) = head.joinToString(",") + "\n" +
     joinToString("\n") { it.joinToString(",") }
+
+// DI
+inline fun <reified T> ApplicationContext.lazy() = lazy { getBean(T::class.java) }

@@ -9,7 +9,12 @@ import icu.samnyan.aqua.sega.chusan.model.Chu3UserDataRepo
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserMusicDetailRepo
 import icu.samnyan.aqua.sega.chusan.model.Chu3UserPlaylogRepo
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserGameOption
 import org.springframework.web.bind.annotation.RestController
+import kotlin.jvm.optionals.getOrNull
+import kotlin.reflect.KMutableProperty1
+import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.memberProperties
 
 @RestController
 @API("api/v2/game/chu3")
@@ -36,6 +41,7 @@ class Chusan(
         "trophyIdSub2" to { u, v -> u.trophyIdSub2 = v.int },
         "mapIconId" to { u, v -> u.mapIconId = v.int },
         "voiceId" to { u, v -> u.voiceId = v.int },
+        "characterId" to { u, v -> u.characterId = v.int },
         "avatarWear" to { u, v -> u.avatarWear = v.int },
         "avatarHead" to { u, v -> u.avatarHead = v.int },
         "avatarFace" to { u, v -> u.avatarFace = v.int },
@@ -47,7 +53,7 @@ class Chusan(
         "lastRomVersion" to { u, v -> u.lastRomVersion = v },
         "lastDataVersion" to { u, v -> u.lastDataVersion = v },
     ) }
-    override val gettableFields: Set<String> = setOf("level", "playerRating", "characterId")
+    override val gettableFields: Set<String> = setOf("level", "playerRating")
 
     override suspend fun userSummary(@RP username: Str, @RP token: String?) = us.cardByName(username) { card ->
         // Summary values: total plays, player rating, server-wide ranking
@@ -95,6 +101,23 @@ class Chusan(
             "recent10" to recent10,
             "musicList" to userMusicList,
         )
+    }
+
+    @API("user-option")
+    override suspend fun userOption(@RP token: String): Any? = us.jwt.auth(token) { u ->
+        rp.userGameOption.findByUser_Card_ExtId(u.ghostCard.extId).getOrNull(0)
+    }
+    @API("user-option-set")
+    override suspend fun userOptionSet(@RP token: String, @RP field: String, @RP value: Int): Any = us.jwt.auth(token) { u ->
+        val gameOptions = rp.userGameOption.findSingleByUser_Card_ExtId(u.ghostCard.extId)
+        val property = UserGameOption::class.memberProperties.filterIsInstance<KMutableProperty1<Any, Any?>>().find{ it.name == field }
+
+        if (property != null && gameOptions != null) {
+            property.setter.call(gameOptions, value)
+            rp.userGameOption.save(gameOptions)
+            200 - "Success"
+        } else
+            400 - "Invalid parameters"
     }
 
     // UserBox related APIs

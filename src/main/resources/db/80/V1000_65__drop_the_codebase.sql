@@ -1,4 +1,3 @@
-# there are 0 profiles here so should be fine.
 drop table maimai_user_web_option;
 drop table maimai_user_survival;
 drop table maimai_user_present_event;
@@ -14,7 +13,6 @@ drop table maimai_game_event;
 
 drop table maimai_user_data;
 
-# there are 30 profiles in chuni, so make sure to back up before upgrading!
 drop table chuni_game_character;
 drop table chuni_game_charge;
 drop table chuni_game_event;

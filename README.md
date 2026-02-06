@@ -45,8 +45,8 @@ Check out these docs for more information.
 * [Game specific notes](docs/game_specific_notes.md)
 * [Frequently asked questions](docs/frequently_asked_questions.md)
 
-> [!TIP]  
-> Some games may require additional patches and these will not be provided in this project and repository. You already found this, so you know where to find related resources too.
+> [!WARNING]  
+> CHUNITHM pre-NEW!! and maimai pre-DX are no longer supported after February 6th, 2026 and all associated data will be removed.
 
 ## Usage
 If you own a cab or controller and just want to play the game, follow the instructions below:
@@ -59,7 +59,7 @@ If you own a cab or controller and just want to play the game, follow the instru
 5. Pet your cat 🐱
 6. Link your card on the website. 
 
-If you encounter any issue, please report in the [issue tracker](https://MewoLab/AquaDX/issues).
+If you encounter any issue, please report in the [issue tracker](https://github.com/MewoLab/AquaDX/issues).
 
 > [!TIP]  
 > If you don't know your card ID, there's always a button on the login screen of the game that can read a card's access code.
