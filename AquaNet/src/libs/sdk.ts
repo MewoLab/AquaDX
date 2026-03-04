@@ -227,8 +227,8 @@ export const GAME = {
     post(`/api/v2/game/mai2/my-photo`, { }),
   userSummary: (username: string, game: GameName): Promise<GenericGameSummary> =>
     post(`/api/v2/game/${game}/user-summary`, { username }),
-  ranking: (game: GameName): Promise<GenericRanking[]> =>
-    post(`/api/v2/game/${game}/ranking`, { }),
+  ranking: (game: GameName, page?: number): Promise<GenericRanking[]> =>
+    post(`/api/v2/game/${game}/ranking`, typeof page === "number" ? { page } : {}),
   changeName: (game: GameName, newName: string): Promise<{ newName: string }> =>
     post(`/api/v2/game/${game}/change-name`, { newName }),
   export: (game: GameName): Promise<Record<string, any>> =>

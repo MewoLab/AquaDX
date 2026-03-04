@@ -81,6 +81,7 @@ const zhLeaderboard: typeof EN_REF_LEADERBOARD = {
   'Leaderboard.Accuracy': '准确率',
   'Leaderboard.FC': 'FC',
   'Leaderboard.AP': 'AP',
+  'Leaderboard.Loading': '请等一下。'
 }
 
 const zhGeneral: typeof EN_REF_GENERAL = {

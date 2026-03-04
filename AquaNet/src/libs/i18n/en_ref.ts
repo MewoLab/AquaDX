@@ -69,6 +69,7 @@ export const EN_REF_LEADERBOARD = {
   'Leaderboard.Accuracy': 'Accuracy',
   'Leaderboard.FC': 'FC',
   'Leaderboard.AP': 'AP',
+  'Leaderboard.Loading': "Loading..."
 }
 
 export const EN_REF_GENERAL = {
