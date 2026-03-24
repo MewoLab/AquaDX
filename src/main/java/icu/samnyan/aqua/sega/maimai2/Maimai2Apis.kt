@@ -211,7 +211,8 @@ fun Maimai2ServletController.initApis() {
     "GetUserCardPrintError" static { mapOf("length" to 0, "userPrintDetailList" to empty) }
     "GetUserFriendCheck" static { mapOf("returnCode" to 0) }
     "UserFriendRegist" static { mapOf("returnCode1" to 0, "returnCode2" to 0) }
-    "GetGameNgMusicId" static { mapOf("length" to 0, "musicIdList" to empty) }
+    "GetGameNgMusicId" static { mapOf("length" to 0, "musicIdList" to empty, "ngMusicDataList" to empty) }
+    "GetGameNationalData" static { mapOf("nextIndex" to 0, "nationalDataList" to empty) }
     "GetGameTournamentInfo" static { mapOf("length" to 0, "gameTournamentInfoList" to empty) }
 
     // <phaseId: start offset days>
@@ -375,6 +376,13 @@ fun Maimai2ServletController.initApis() {
         "circleClass" to 0,
         "lastLoginDate" to "",
         "circlePointRankingList" to empty
+    ) }
+
+    "GetUserCircleChallenge" { mapOf(
+        "userId" to uid,
+        "userCircleChallenge" to null,
+        "circleCircleChallenge" to null,
+        "achievement" to 0
     ) }
 
     "GetUserCirclePointData" { mapOf(
