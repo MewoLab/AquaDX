@@ -61,7 +61,7 @@ class OngekiController(
                     if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
                         log.info("$token : $api > ${it.truncate(500)}")
                 }
-            }
+            }!!
         } catch (e: Exception) {
             Metrics.counter("aquadx_ongeki_api_error", "api" to api, "error" to e.simpleDescribe()).increment()
             throw e

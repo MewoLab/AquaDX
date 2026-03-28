@@ -103,7 +103,7 @@ class WaccaServer {
                     is List<*> -> resp(it.toJson())
                     else -> error("Invalid response type ${it.javaClass}")
                 } }.also { log.info("Wacca > $path : ${it.body}") }
-            }
+            }!!
         } catch (e: Exception) {
             Metrics.counter(
                 "aquadx_wacca_api_error",

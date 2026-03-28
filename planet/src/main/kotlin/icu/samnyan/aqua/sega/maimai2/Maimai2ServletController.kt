@@ -94,7 +94,7 @@ class Maimai2ServletController(
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     log.info("$token : $api > ${it.truncate(500)}")
                 }
-            }
+            }!!
         } catch (e: Exception) {
             Metrics.counter(
                 "aquadx_maimai2_api_error",
