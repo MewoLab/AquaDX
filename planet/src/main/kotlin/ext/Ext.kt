@@ -2,71 +2,22 @@
 
 package ext
 
-import icu.samnyan.aqua.net.utils.ApiException
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.kotlinx.json.*
-import jakarta.persistence.Query
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.apache.tika.Tika
-import org.apache.tika.mime.MimeTypes
 import org.slf4j.LoggerFactory
-import org.springframework.context.ApplicationContext
-import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity.BodyBuilder
-import org.springframework.web.bind.annotation.*
 import java.io.File
-import java.lang.reflect.Field
 import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.security.MessageDigest
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset.UTC
-import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.locks.Lock
-import kotlin.reflect.KCallable
-import kotlin.reflect.KClass
-import kotlin.reflect.KMutableProperty1
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.isSubclassOf
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.javaField
-import kotlin.reflect.jvm.jvmErasure
 
-typealias RP = RequestParam
-typealias RB = RequestBody
-typealias RT = RequestPart
-typealias RH = RequestHeader
-typealias PV = PathVariable
-typealias API = RequestMapping
-typealias Var<T, V> = KMutableProperty1<T, V>
 typealias Str = String
 typealias Bool = Boolean
 typealias JavaSerializable = java.io.Serializable
 
 typealias JDict = Map<String, Any?>
 typealias MutJDict = MutableMap<String, Any?>
-
-fun HttpServletRequest.details() = mapOf(
-    "method" to method,
-    "uri" to requestURI,
-    "query" to queryString,
-    "remote" to remoteAddr,
-    "headers" to headerNames.asSequence().associateWith { getHeader(it) }
-)
-
-fun HttpServletResponse.details() = mapOf(
-    "status" to status,
-    "headers" to headerNames.asSequence().associateWith { getHeader(it) },
-)
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY, AnnotationTarget.PROPERTY_GETTER)
 @Retention(AnnotationRetention.RUNTIME)
@@ -81,48 +32,9 @@ annotation class SettingField(
     val game: String
 )
 
-// Reflection
-@Suppress("UNCHECKED_CAST")
-fun <T : Any> KClass<T>.ownVars() = declaredMemberProperties.sortedBy { it.javaField?.declaringClass?.declaredFields?.indexOf(it.javaField) ?: Int.MAX_VALUE }.mapNotNull { it as? Var<T, Any> }
-@Suppress("UNCHECKED_CAST")
-fun <T : Any> KClass<T>.vars(): List<Var<T, Any>> = supertypes.mapNotNull { it.classifier as? KClass<*> }.filter { !it.java.isInterface }.flatMap{ it.vars() as List<Var<T, Any>> } + ownVars()
-fun <T : Any> KClass<T>.varsMap() = vars().associateBy { it.name }
-fun <T : Any> KClass<T>.getters() = java.methods.filter { it.name.startsWith("get") }
-fun <T : Any> KClass<T>.gettersMap() = getters().associateBy { it.name.removePrefix("get").firstCharLower() }
-infix fun KCallable<*>.returns(type: KClass<*>) = returnType.jvmErasure.isSubclassOf(type)
-@Suppress("UNCHECKED_CAST")
-fun <C, T: Any> Var<C, T>.setCast(obj: C, value: String) = set(obj, when (returnType.classifier) {
-    String::class -> value
-    Int::class -> value.toInt()
-    Boolean::class -> value.toBoolean()
-    else -> 400 - "Invalid field type $returnType"
-} as T)
-inline fun <reified T: Any> Field.gets(obj: Any): T? = get(obj)?.let { it as T }
-
-// HTTP
-operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
-operator fun Int.minus(message: String): Nothing {
-    ApiException.log.info("> Error $this: $message")
-    throw ApiException(this, message)
-}
-fun <R> parsing(block: () -> R) = try { block() }
-catch (e: ApiException) { throw e }
-catch (e: Exception) { 400 - e.message.toString() }
-fun BodyBuilder.headers(vararg pairs: Pair<String, String>) = headers(HttpHeaders().apply { pairs.forEach { (k, v) -> set(k, v) } })
-
 // Email validation
-// https://www.baeldung.com/java-email-validation-regex
 val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$".toRegex()
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
-
-// Global Tools
-val HTTP = HttpClient(CIO) {
-    install(ContentNegotiation) {
-        json(JSON)
-    }
-}
-val TIKA = Tika()
-val MIMES = MimeTypes.getDefaultMimeTypes()
 
 // Class resource
 object Ext { val log = logger() }
@@ -131,35 +43,6 @@ fun resStr(name: Str) = res(name)?.reader()?.readText()
 inline fun <reified T> resJson(name: Str, warn: Boolean = true) = resStr(name)?.let {
     JSON.decodeFromString<T>(it)
 } ?: run { if (warn) Ext.log.warn("Resource $name is not found"); null }
-
-// Date and time
-val JST_ZONE = ZoneId.of("Asia/Tokyo")
-fun jstNow() = LocalDateTime.now(JST_ZONE)
-fun millis() = System.currentTimeMillis()
-fun utcNow() = LocalDateTime.now(UTC)
-val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-fun LocalDate.isoDate() = format(DATE_FORMAT)
-fun String.isoDate() = DATE_FORMAT.parse(this, LocalDate::from)
-fun Date.utc() = toInstant().atZone(UTC).toLocalDate()
-fun LocalDate.toDate() = Date(atStartOfDay().toInstant(UTC).toEpochMilli())
-fun LocalDateTime.isoDateTime() = format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-fun String.isoDateTime() = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-val URL_SAFE_DT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")
-fun LocalDateTime.urlSafeStr() = format(URL_SAFE_DT)
-val DATE_2018 = LocalDateTime.parse("2018-01-01T00:00:00")
-
-val ALT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-fun Str.asDateTime() = try { LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
-catch (e: Exception) { try { LocalDateTime.parse(this, ALT_DATETIME_FORMAT) }
-catch (e: Exception) { null } }
-
-val Calendar.year get() = get(Calendar.YEAR)
-val Calendar.month get() = get(Calendar.MONTH) + 1
-val Calendar.day get() = get(Calendar.DAY_OF_MONTH)
-fun cal() = Calendar.getInstance()
-fun Date.cal() = Calendar.getInstance().apply { time = this@cal }
-operator fun Calendar.invoke(field: Int) = get(field)
-val Date.sec get() = time / 1000
 
 // Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
@@ -269,10 +152,5 @@ val emptyMap = emptyMap<Any, Any>()
 val <F> Pair<F, *>.l get() = component1()
 val <S> Pair<*, S>.r get() = component2()
 
-// Database
-val Query.exec get() = resultList.map { (it as Array<*>).toList() }
 fun List<List<Any?>>.numCsv(vararg head: Str) = head.joinToString(",") + "\n" +
     joinToString("\n") { it.joinToString(",") }
-
-// DI
-inline fun <reified T> ApplicationContext.lazy() = lazy { getBean(T::class.java) }
