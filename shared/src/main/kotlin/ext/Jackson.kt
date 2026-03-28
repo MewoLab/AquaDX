@@ -56,7 +56,7 @@ catch (e: Exception) {
     throw e
 }
 
-fun String.jsonMap(): Map<String, Any?> = json() ?: emptyMap()
-fun String.jsonArray(): List<Map<String, Any?>> = json() ?: emptyList()
-fun String.jsonMaybeMap(): Map<String, Any?>? = json()
-fun String.jsonMaybeArray(): List<Map<String, Any?>>? = json()
+fun String.jsonMap(): Map<String, Any?> = json<Map<String, Any?>>() ?: emptyMap()
+fun String.jsonArray(): List<Map<String, Any?>> = json<List<Map<String, Any?>>>() ?: emptyList()
+fun String.jsonMaybeMap(): Map<String, Any?>? = json<Map<String, Any?>>()
+fun String.jsonMaybeArray(): List<Map<String, Any?>>? = json<List<Map<String, Any?>>>()

@@ -4,6 +4,8 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlin.random.Random
 import kotlin.random.nextInt
+import ext.ensureEndingSlash
+import ext.jsonMap
 
 const val BOARD_ID = "ACAE-01A99999999"
 const val FULL_CLIENT_ID = "A123-45678909999"

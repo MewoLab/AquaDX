@@ -2,6 +2,7 @@
 
 package ext
 
+import icu.samnyan.aqua.net.utils.ApiException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
@@ -37,12 +38,12 @@ val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 
 // Class resource
-object Ext { val log = logger() }
+object Ext
 fun res(name: Str) = Ext::class.java.getResourceAsStream(name)
 fun resStr(name: Str) = res(name)?.reader()?.readText()
 inline fun <reified T> resJson(name: Str, warn: Boolean = true) = resStr(name)?.let {
     JSON.decodeFromString<T>(it)
-} ?: run { if (warn) Ext.log.warn("Resource $name is not found"); null }
+} ?: run { if (warn) ApiException.log.warn("Resource $name is not found"); null }
 
 // Encodings
 fun Long.toHex(len: Int = 16): Str = "0x${this.toString(len).padStart(len, '0').uppercase()}"
@@ -55,6 +56,10 @@ fun Any.long() = when (this) {
     is Number -> toLong()
     is String -> toLong()
     else -> 400 - "Invalid number: $this"
+}
+operator fun Int.minus(message: String): Nothing {
+    ApiException.log.info("> Error $this: $message")
+    throw ApiException(this, message)
 }
 fun Any.uint32() = long() and 0xFFFFFFFF
 fun Any.int() = long().toInt()
@@ -120,17 +125,19 @@ val Str.some get() = ifBlank { null }
 val ByteArray.hexStr get() = toHexString()
 operator fun StringBuilder.plusAssign(other: String) { this.append(other) }
 
-// Coroutine
-suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
+// Coroutine-lite
 fun <T> thread(block: () -> T) = Thread { block() }.apply { start() }
 fun <T> Lock.maybeLock(block: () -> T) = if (tryLock()) try { block() } finally { unlock() } else null
+
+// Coroutine
+suspend fun <T> async(block: suspend kotlinx.coroutines.CoroutineScope.() -> T): T = withContext(Dispatchers.IO) { block() }
 
 // Paths
 fun path(part1: Str, vararg parts: Str) = Path.of(part1, *parts)
 fun Str.path() = Path.of(this)
 operator fun Path.div(part: Str) = resolve(part)
 operator fun File.div(fileName: Str) = File(this, fileName)
-fun Str.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
+fun String.ensureEndingSlash() = if (endsWith('/')) this else "$this/"
 fun Str.ensureNoEndingSlash() = if (endsWith('/')) dropLast(1) else this
 
 fun <T: Any> T.logger() = LoggerFactory.getLogger(this::class.java)

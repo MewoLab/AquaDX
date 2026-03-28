@@ -32,10 +32,7 @@ fun HttpServletResponse.details() = mapOf(
 
 // HTTP
 operator fun HttpStatus.invoke(message: String? = null): Nothing = throw ApiException(value(), message ?: this.reasonPhrase)
-operator fun Int.minus(message: String): Nothing {
-    ApiException.log.info("> Error $this: $message")
-    throw ApiException(this, message)
-}
+
 fun <R> parsing(block: () -> R) = try { block() }
 catch (e: ApiException) { throw e }
 catch (e: Exception) { 400 - e.message.toString() }
