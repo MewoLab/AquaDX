@@ -74,8 +74,6 @@ interface Chu3UserLinkedVerseRepo : Chu3UserLinked<Chu3UserLinkedVerse> {
     fun findByUserAndLinkedVerseId(user: Chu3UserData, linkedVerseId: Int): Chu3UserLinkedVerse?
 }
 
-interface Chu3GameLinkedVerseRepo : JpaRepository<GameLinkedVerse, Int>
-
 interface Chu3UserDataRepo : GenericUserDataRepo<Chu3UserData> {
     fun findTopByLastClientIdOrderByLastPlayDateDesc(lastClientId: String): Chu3UserData?
 }
