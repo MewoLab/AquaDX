@@ -1,0 +1,1442 @@
+[
+  {
+    "id": 1,
+    "gacha_id": 370,
+    "card_id": 1323002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 2,
+    "gacha_id": 370,
+    "card_id": 905002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 3,
+    "gacha_id": 370,
+    "card_id": 894002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 4,
+    "gacha_id": 370,
+    "card_id": 646002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 5,
+    "gacha_id": 370,
+    "card_id": 1002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 6,
+    "gacha_id": 370,
+    "card_id": 40002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 7,
+    "gacha_id": 370,
+    "card_id": 25002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 8,
+    "gacha_id": 370,
+    "card_id": 6002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 9,
+    "gacha_id": 370,
+    "card_id": 11002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 10,
+    "gacha_id": 370,
+    "card_id": 231002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 11,
+    "gacha_id": 370,
+    "card_id": 237002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 12,
+    "gacha_id": 370,
+    "card_id": 239002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 13,
+    "gacha_id": 370,
+    "card_id": 325002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 14,
+    "gacha_id": 370,
+    "card_id": 336002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 15,
+    "gacha_id": 370,
+    "card_id": 442002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 16,
+    "gacha_id": 370,
+    "card_id": 449002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 17,
+    "gacha_id": 370,
+    "card_id": 338002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 18,
+    "gacha_id": 370,
+    "card_id": 635002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 19,
+    "gacha_id": 370,
+    "card_id": 637002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 20,
+    "gacha_id": 370,
+    "card_id": 642002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 21,
+    "gacha_id": 370,
+    "card_id": 761002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 22,
+    "gacha_id": 370,
+    "card_id": 763002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 23,
+    "gacha_id": 370,
+    "card_id": 768002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 24,
+    "gacha_id": 370,
+    "card_id": 774002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 25,
+    "gacha_id": 370,
+    "card_id": 868002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 26,
+    "gacha_id": 370,
+    "card_id": 885002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 27,
+    "gacha_id": 370,
+    "card_id": 1011002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 28,
+    "gacha_id": 370,
+    "card_id": 1015002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 29,
+    "gacha_id": 370,
+    "card_id": 1024002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 30,
+    "gacha_id": 370,
+    "card_id": 1030002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 31,
+    "gacha_id": 370,
+    "card_id": 874002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 32,
+    "gacha_id": 370,
+    "card_id": 657002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 33,
+    "gacha_id": 370,
+    "card_id": 995002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 34,
+    "gacha_id": 370,
+    "card_id": 996002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 35,
+    "gacha_id": 370,
+    "card_id": 777002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 36,
+    "gacha_id": 370,
+    "card_id": 538002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 37,
+    "gacha_id": 380,
+    "card_id": 1324002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 38,
+    "gacha_id": 380,
+    "card_id": 1160002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 39,
+    "gacha_id": 380,
+    "card_id": 895002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 40,
+    "gacha_id": 380,
+    "card_id": 647002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 41,
+    "gacha_id": 380,
+    "card_id": 45002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 42,
+    "gacha_id": 380,
+    "card_id": 24002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 43,
+    "gacha_id": 380,
+    "card_id": 36002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 44,
+    "gacha_id": 380,
+    "card_id": 39002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 45,
+    "gacha_id": 380,
+    "card_id": 20002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 46,
+    "gacha_id": 380,
+    "card_id": 189002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 47,
+    "gacha_id": 380,
+    "card_id": 198002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 48,
+    "gacha_id": 380,
+    "card_id": 232002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 49,
+    "gacha_id": 380,
+    "card_id": 237002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 50,
+    "gacha_id": 380,
+    "card_id": 316002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 51,
+    "gacha_id": 380,
+    "card_id": 327002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 52,
+    "gacha_id": 380,
+    "card_id": 434002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 53,
+    "gacha_id": 380,
+    "card_id": 441002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 54,
+    "gacha_id": 380,
+    "card_id": 445002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 55,
+    "gacha_id": 380,
+    "card_id": 621002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 56,
+    "gacha_id": 380,
+    "card_id": 628002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 57,
+    "gacha_id": 380,
+    "card_id": 630002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 58,
+    "gacha_id": 380,
+    "card_id": 639002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 59,
+    "gacha_id": 380,
+    "card_id": 643002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 60,
+    "gacha_id": 380,
+    "card_id": 766002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 61,
+    "gacha_id": 380,
+    "card_id": 634002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 62,
+    "gacha_id": 380,
+    "card_id": 867002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 63,
+    "gacha_id": 380,
+    "card_id": 870002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 64,
+    "gacha_id": 380,
+    "card_id": 884002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 65,
+    "gacha_id": 380,
+    "card_id": 886002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 66,
+    "gacha_id": 380,
+    "card_id": 1010002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 67,
+    "gacha_id": 380,
+    "card_id": 1017002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 68,
+    "gacha_id": 380,
+    "card_id": 1030002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 69,
+    "gacha_id": 380,
+    "card_id": 873002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 70,
+    "gacha_id": 380,
+    "card_id": 992002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 71,
+    "gacha_id": 380,
+    "card_id": 658002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 72,
+    "gacha_id": 380,
+    "card_id": 994002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 73,
+    "gacha_id": 390,
+    "card_id": 1325002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 74,
+    "gacha_id": 390,
+    "card_id": 1161002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 75,
+    "gacha_id": 390,
+    "card_id": 896002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 76,
+    "gacha_id": 390,
+    "card_id": 648002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 77,
+    "gacha_id": 390,
+    "card_id": 18002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 78,
+    "gacha_id": 390,
+    "card_id": 44002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 79,
+    "gacha_id": 390,
+    "card_id": 10002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 80,
+    "gacha_id": 390,
+    "card_id": 31002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 81,
+    "gacha_id": 390,
+    "card_id": 192002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 82,
+    "gacha_id": 390,
+    "card_id": 196002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 83,
+    "gacha_id": 390,
+    "card_id": 201002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 84,
+    "gacha_id": 390,
+    "card_id": 237002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 85,
+    "gacha_id": 390,
+    "card_id": 317002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 86,
+    "gacha_id": 390,
+    "card_id": 319002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 87,
+    "gacha_id": 390,
+    "card_id": 322002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 88,
+    "gacha_id": 390,
+    "card_id": 334002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 89,
+    "gacha_id": 390,
+    "card_id": 437002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 90,
+    "gacha_id": 390,
+    "card_id": 443002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 91,
+    "gacha_id": 390,
+    "card_id": 447002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 92,
+    "gacha_id": 390,
+    "card_id": 622002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 93,
+    "gacha_id": 390,
+    "card_id": 638002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 94,
+    "gacha_id": 390,
+    "card_id": 760002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 95,
+    "gacha_id": 390,
+    "card_id": 762002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 96,
+    "gacha_id": 390,
+    "card_id": 765002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 97,
+    "gacha_id": 390,
+    "card_id": 452002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 98,
+    "gacha_id": 390,
+    "card_id": 871002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 99,
+    "gacha_id": 390,
+    "card_id": 888002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 100,
+    "gacha_id": 390,
+    "card_id": 1013002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 101,
+    "gacha_id": 390,
+    "card_id": 1016002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 102,
+    "gacha_id": 390,
+    "card_id": 1030002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 103,
+    "gacha_id": 390,
+    "card_id": 1026002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 104,
+    "gacha_id": 390,
+    "card_id": 875002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 105,
+    "gacha_id": 390,
+    "card_id": 656002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 106,
+    "gacha_id": 390,
+    "card_id": 991002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 107,
+    "gacha_id": 390,
+    "card_id": 993002,
+    "rarity": 2,
+    "weight": 2,
+    "is_pickup": 0
+  },
+  {
+    "id": 108,
+    "gacha_id": 390,
+    "card_id": 539002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 109,
+    "gacha_id": 400,
+    "card_id": 1336002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 110,
+    "gacha_id": 400,
+    "card_id": 897002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 111,
+    "gacha_id": 400,
+    "card_id": 649002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 112,
+    "gacha_id": 400,
+    "card_id": 662002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 113,
+    "gacha_id": 400,
+    "card_id": 28002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 114,
+    "gacha_id": 400,
+    "card_id": 2002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 115,
+    "gacha_id": 400,
+    "card_id": 41002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 116,
+    "gacha_id": 400,
+    "card_id": 43002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 117,
+    "gacha_id": 400,
+    "card_id": 29002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 118,
+    "gacha_id": 400,
+    "card_id": 199002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 119,
+    "gacha_id": 400,
+    "card_id": 203002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 120,
+    "gacha_id": 400,
+    "card_id": 230002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 121,
+    "gacha_id": 400,
+    "card_id": 237002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 122,
+    "gacha_id": 400,
+    "card_id": 318002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 123,
+    "gacha_id": 400,
+    "card_id": 333002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 124,
+    "gacha_id": 400,
+    "card_id": 433002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 125,
+    "gacha_id": 400,
+    "card_id": 435002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 126,
+    "gacha_id": 400,
+    "card_id": 444002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 127,
+    "gacha_id": 400,
+    "card_id": 623002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 128,
+    "gacha_id": 400,
+    "card_id": 625002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 129,
+    "gacha_id": 400,
+    "card_id": 627002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 130,
+    "gacha_id": 400,
+    "card_id": 629002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 131,
+    "gacha_id": 400,
+    "card_id": 640002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 132,
+    "gacha_id": 400,
+    "card_id": 767002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 133,
+    "gacha_id": 400,
+    "card_id": 769002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 134,
+    "gacha_id": 400,
+    "card_id": 773002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 135,
+    "gacha_id": 400,
+    "card_id": 775002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 136,
+    "gacha_id": 400,
+    "card_id": 631002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 137,
+    "gacha_id": 400,
+    "card_id": 1030002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 138,
+    "gacha_id": 400,
+    "card_id": 50002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 139,
+    "gacha_id": 400,
+    "card_id": 244002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 140,
+    "gacha_id": 400,
+    "card_id": 343002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 141,
+    "gacha_id": 400,
+    "card_id": 207002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 142,
+    "gacha_id": 400,
+    "card_id": 661002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 143,
+    "gacha_id": 400,
+    "card_id": 655002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 144,
+    "gacha_id": 400,
+    "card_id": 863002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 145,
+    "gacha_id": 410,
+    "card_id": 1337002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 146,
+    "gacha_id": 410,
+    "card_id": 1162002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 147,
+    "gacha_id": 410,
+    "card_id": 898002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 148,
+    "gacha_id": 410,
+    "card_id": 650002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 149,
+    "gacha_id": 410,
+    "card_id": 35002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 150,
+    "gacha_id": 410,
+    "card_id": 4002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 151,
+    "gacha_id": 410,
+    "card_id": 37002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 152,
+    "gacha_id": 410,
+    "card_id": 7002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 153,
+    "gacha_id": 410,
+    "card_id": 47002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 154,
+    "gacha_id": 410,
+    "card_id": 12002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 155,
+    "gacha_id": 410,
+    "card_id": 187002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 156,
+    "gacha_id": 410,
+    "card_id": 197002,
+    "rarity": 2,
+    "weight": 4,
+    "is_pickup": 0
+  },
+  {
+    "id": 157,
+    "gacha_id": 410,
+    "card_id": 202002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 158,
+    "gacha_id": 410,
+    "card_id": 227002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 159,
+    "gacha_id": 410,
+    "card_id": 237002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 160,
+    "gacha_id": 410,
+    "card_id": 328002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 161,
+    "gacha_id": 410,
+    "card_id": 329002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 162,
+    "gacha_id": 410,
+    "card_id": 436002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 163,
+    "gacha_id": 410,
+    "card_id": 438002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 164,
+    "gacha_id": 410,
+    "card_id": 624002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 165,
+    "gacha_id": 410,
+    "card_id": 626002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 166,
+    "gacha_id": 410,
+    "card_id": 636002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 167,
+    "gacha_id": 410,
+    "card_id": 641002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 168,
+    "gacha_id": 410,
+    "card_id": 644002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 169,
+    "gacha_id": 410,
+    "card_id": 764002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 170,
+    "gacha_id": 410,
+    "card_id": 770002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 171,
+    "gacha_id": 410,
+    "card_id": 772002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 172,
+    "gacha_id": 410,
+    "card_id": 632002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 173,
+    "gacha_id": 410,
+    "card_id": 633002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 174,
+    "gacha_id": 410,
+    "card_id": 1030002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 175,
+    "gacha_id": 410,
+    "card_id": 341002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 176,
+    "gacha_id": 410,
+    "card_id": 660002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 177,
+    "gacha_id": 410,
+    "card_id": 659002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 178,
+    "gacha_id": 410,
+    "card_id": 345002,
+    "rarity": 2,
+    "weight": 3,
+    "is_pickup": 0
+  },
+  {
+    "id": 179,
+    "gacha_id": 410,
+    "card_id": 777002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  },
+  {
+    "id": 180,
+    "gacha_id": 410,
+    "card_id": 862002,
+    "rarity": 2,
+    "weight": 1,
+    "is_pickup": 0
+  }
+]

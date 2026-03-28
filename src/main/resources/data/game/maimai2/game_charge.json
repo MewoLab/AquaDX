@@ -1,0 +1,27 @@
+[
+  {
+    "order_id": 1,
+    "charge_id": 2,
+    "price": 1
+  },
+  {
+    "order_id": 2,
+    "charge_id": 3,
+    "price": 2
+  },
+  {
+    "order_id": 3,
+    "charge_id": 4,
+    "price": 3
+  },
+  {
+    "order_id": 4,
+    "charge_id": 5,
+    "price": 4
+  },
+  {
+    "order_id": 5,
+    "charge_id": 6,
+    "price": 5
+  }
+]

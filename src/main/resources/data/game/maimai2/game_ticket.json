@@ -1,0 +1,242 @@
+[
+  {
+    "id": 0,
+    "name": "使用しない",
+    "credits": 0,
+    "kind": "None",
+    "max": 0,
+    "detail": "チケットを使用しません",
+    "event_id": 1,
+    "event_name": "無期限常時解放"
+  },
+  {
+    "id": 2,
+    "name": "2倍チケット",
+    "credits": 1,
+    "kind": "Paid",
+    "max": 0,
+    "detail": "2倍チケット",
+    "event_id": 1,
+    "event_name": "無期限常時解放"
+  },
+  {
+    "id": 3,
+    "name": "3倍チケット",
+    "credits": 2,
+    "kind": "Paid",
+    "max": 0,
+    "detail": "3倍チケット",
+    "event_id": 1,
+    "event_name": "無期限常時解放"
+  },
+  {
+    "id": 4,
+    "name": "4倍チケット",
+    "credits": 3,
+    "kind": "Paid",
+    "max": 0,
+    "detail": "4倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 5,
+    "name": "5倍チケット",
+    "credits": 4,
+    "kind": "Paid",
+    "max": 0,
+    "detail": "5倍チケット",
+    "event_id": 24021661,
+    "event_name": "240216_06_1：有料5倍チケット解放"
+  },
+  {
+    "id": 6,
+    "name": "6倍チケット",
+    "credits": 5,
+    "kind": "Paid",
+    "max": 0,
+    "detail": "6倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10001,
+    "name": "イベント1.5倍チケット_1",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き1.5倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10002,
+    "name": "イベント2倍チケット_1",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き2倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10003,
+    "name": "イベント3倍チケット_1",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き3倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10005,
+    "name": "イベント5倍チケット_1",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き5倍チケット",
+    "event_id": 23091461,
+    "event_name": "230914_06_1：イベント5倍チケット配布_1（1.40予備）"
+  },
+  {
+    "id": 10101,
+    "name": "イベント1.5倍チケット_2",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き1.5倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10102,
+    "name": "イベント2倍チケット_2",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き2倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10103,
+    "name": "イベント3倍チケット_2",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き3倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10105,
+    "name": "イベント5倍チケット_2",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き5倍チケット",
+    "event_id": 23091462,
+    "event_name": "230914_06_2：イベント5倍チケット配布_2（1.40予備）"
+  },
+  {
+    "id": 10201,
+    "name": "イベント1.5倍チケット_3",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き1.5倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10202,
+    "name": "イベント2倍チケット_3",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き2倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10203,
+    "name": "イベント3倍チケット_3",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き3倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 10205,
+    "name": "イベント5倍チケット_3",
+    "credits": 0,
+    "kind": "Event",
+    "max": 1,
+    "detail": "期限付き5倍チケット",
+    "event_id": 23032362,
+    "event_name": "230323_06_2：イベント5倍チケット配布_3（予備）"
+  },
+  {
+    "id": 11001,
+    "name": "無料1.5倍チケット",
+    "credits": 0,
+    "kind": "Free",
+    "max": 5,
+    "detail": "ちほー進行1.5倍チケット",
+    "event_id": 1,
+    "event_name": "無期限常時解放"
+  },
+  {
+    "id": 11002,
+    "name": "無料2倍チケット",
+    "credits": 0,
+    "kind": "Free",
+    "max": 5,
+    "detail": "ちほー進行2倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 11003,
+    "name": "無料3倍チケット",
+    "credits": 0,
+    "kind": "Free",
+    "max": 5,
+    "detail": "ちほー進行3倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 11005,
+    "name": "無料5倍チケット",
+    "credits": 0,
+    "kind": "Free",
+    "max": 5,
+    "detail": "ちほー進行5倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 20010,
+    "name": "無料10倍チケット",
+    "credits": 0,
+    "kind": "Free",
+    "max": 99,
+    "detail": "ちほー進行10倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  },
+  {
+    "id": 20020,
+    "name": "無料20倍チケット",
+    "credits": 0,
+    "kind": "Free",
+    "max": 99,
+    "detail": "ちほー進行20倍チケット",
+    "event_id": 0,
+    "event_name": "解放なし"
+  }
+]

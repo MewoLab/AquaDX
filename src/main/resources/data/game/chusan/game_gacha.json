@@ -1,0 +1,52 @@
+[
+  {
+    "gacha_id": 370,
+    "gacha_name": "お風呂上がりの一発でわからせる！",
+    "type": 0,
+    "kind": 0,
+    "is_ceiling": 0,
+    "ceiling_cnt": 10,
+    "change_rate_cnt1": 0,
+    "change_rate_cnt2": 0
+  },
+  {
+    "gacha_id": 380,
+    "gacha_name": "優しいキャロルが流れる頃には",
+    "type": 0,
+    "kind": 0,
+    "is_ceiling": 0,
+    "ceiling_cnt": 10,
+    "change_rate_cnt1": 0,
+    "change_rate_cnt2": 0
+  },
+  {
+    "gacha_id": 390,
+    "gacha_name": "音闘気鍛練の行",
+    "type": 0,
+    "kind": 0,
+    "is_ceiling": 0,
+    "ceiling_cnt": 10,
+    "change_rate_cnt1": 0,
+    "change_rate_cnt2": 0
+  },
+  {
+    "gacha_id": 400,
+    "gacha_name": "最後の物語。約束はあなたと共に",
+    "type": 0,
+    "kind": 0,
+    "is_ceiling": 0,
+    "ceiling_cnt": 10,
+    "change_rate_cnt1": 0,
+    "change_rate_cnt2": 0
+  },
+  {
+    "gacha_id": 410,
+    "gacha_name": "可愛さ指数は3000倍！？",
+    "type": 0,
+    "kind": 0,
+    "is_ceiling": 0,
+    "ceiling_cnt": 10,
+    "change_rate_cnt1": 0,
+    "change_rate_cnt2": 0
+  }
+]

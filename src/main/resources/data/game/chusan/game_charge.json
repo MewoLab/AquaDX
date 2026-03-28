@@ -1,0 +1,32 @@
+[
+  {
+    "charge_id": 2020,
+    "order_id": 0,
+    "price": 1,
+    "sale_price": 1
+  },
+  {
+    "charge_id": 2040,
+    "order_id": 1,
+    "price": 1,
+    "sale_price": 1
+  },
+  {
+    "charge_id": 2060,
+    "order_id": 2,
+    "price": 1,
+    "sale_price": 1
+  },
+  {
+    "charge_id": 2070,
+    "order_id": 3,
+    "price": 1,
+    "sale_price": 1
+  },
+  {
+    "charge_id": 2080,
+    "order_id": 4,
+    "price": 1,
+    "sale_price": 1
+  }
+]
