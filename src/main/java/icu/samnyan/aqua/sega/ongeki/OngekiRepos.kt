@@ -12,6 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
+import icu.samnyan.aqua.sega.util.GameDataService
+import icu.samnyan.aqua.sega.util.StaticRepo
 import java.util.*
 
 
@@ -149,14 +151,11 @@ interface OgkUserRegionsRepo: OngekiUserLinked<UserRegions> {
     fun findByUserAndRegionId(user: UserData, regionId: Int): UserRegions?
 }
 
-interface OgkGameGachaCardRepo : JpaRepository<GameGachaCard, Long> {
-    fun findAllByGachaId(gachaId: Long): List<GameGachaCard>
-
-    @Query("SELECT g FROM OngekiGameGachaCard g WHERE g.gachaId = :gachaId OR g.gachaId = 1112")
-    fun findAllByGachaIdAndPermanent(gachaId: Long): List<GameGachaCard>
+class OngekiGameGachaCardRepo(data: List<GameGachaCard>) : StaticRepo<GameGachaCard, Long>(data, { it.cardId }) {
+    private val gachaMap by lazy { data.groupBy { it.gachaId } }
+    fun findAllByGachaId(gachaId: Long) = gachaMap[gachaId] ?: emptyList()
+    fun findAllByGachaIdAndPermanent(gachaId: Long) = (gachaMap[gachaId] ?: emptyList()) + (gachaMap[1112L] ?: emptyList())
 }
-
-interface OgkGameGachaRepo : JpaRepository<GameGacha, Long>
 
 interface OgkUserGachaRepo : OngekiUserLinked<UserGacha> {
     fun findByUserAndGachaId(user: UserData, gachaId: Long): UserGacha?
@@ -166,14 +165,6 @@ interface OgkUserGachaRepo : OngekiUserLinked<UserGacha> {
 interface OgkUserEventMapRepo : OngekiUserLinked<UserEventMap>
 interface OgkUserSkinRepo : OngekiUserLinked<UserSkin>
 
-interface OgkGameCardRepo : JpaRepository<GameCard, Long>
-interface OgkGameCharaRepo : JpaRepository<GameChara, Long>
-interface OgkGameEventRepo : JpaRepository<GameEvent, Long>
-interface OgkGameMusicRepo : JpaRepository<GameMusic, Long>
-interface OgkGamePointRepo : JpaRepository<GamePoint, Long>
-interface OgkGamePresentRepo : JpaRepository<GamePresent, Long>
-interface OgkGameRewardRepo : JpaRepository<GameReward, Long>
-interface OgkGameSkillRepo : JpaRepository<GameSkill, Long>
 
 @Component
 class OngekiUserRepos(
@@ -211,17 +202,19 @@ class OngekiUserRepos(
 
 @Component
 class OngekiGameRepos(
-    val card: OgkGameCardRepo,
-    val chara: OgkGameCharaRepo,
-    val event: OgkGameEventRepo,
-    val music: OgkGameMusicRepo,
-    val point: OgkGamePointRepo,
-    val present: OgkGamePresentRepo,
-    val reward: OgkGameRewardRepo,
-    val skill: OgkGameSkillRepo,
-    val gachaCard: OgkGameGachaCardRepo,
-    val gacha:OgkGameGachaRepo
-)
+    val gameData: GameDataService
+) {
+    val card = StaticRepo(gameData.ogkGameCards) { it.cardId }
+    val chara = StaticRepo(gameData.ogkGameCharas) { it.modelId }
+    val event = StaticRepo(gameData.ogkGameEvents) { it.id }
+    val music = StaticRepo(gameData.ogkGameMusics) { it.id }
+    val point = StaticRepo(gameData.ogkGamePoints) { it.id }
+    val present = StaticRepo(gameData.ogkGamePresents) { it.id }
+    val reward = StaticRepo(gameData.ogkGameRewards) { it.id }
+    val skill = StaticRepo(gameData.ogkGameSkills) { it.id }
+    val gachaCard = OngekiGameGachaCardRepo(gameData.ogkGameGachaCards)
+    val gacha = StaticRepo(gameData.ogkGameGachas) { it.gachaId }
+}
 
 @Component
 class OngekiRepos(

@@ -15,6 +15,8 @@ import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+import icu.samnyan.aqua.sega.util.GameDataService
+import icu.samnyan.aqua.sega.util.StaticRepo
 import java.util.*
 
 @NoRepositoryBean
@@ -117,14 +119,6 @@ interface MAi2UserIntimateRepo : Mai2UserLinked<Mai2UserIntimate> {
     fun findByUserAndPartnerId(user: Mai2UserDetail, partnerId: Int): Mai2UserIntimate?
 }
 
-interface Mai2GameChargeRepo : JpaRepository<Mai2GameCharge, Long>
-
-interface Mai2GameEventRepo : JpaRepository<Mai2GameEvent, Int> {
-    fun findByEnable(enable: Boolean): List<Mai2GameEvent>
-}
-
-interface Mai2GameSellingCardRepo : JpaRepository<Mai2GameSellingCard, Long>
-
 interface Mai2UserRegionsRepo: Mai2UserLinked<UserRegions> {
     fun findByUserAndRegionId(user: Mai2UserDetail, regionId: Int): UserRegions?
 }
@@ -152,8 +146,10 @@ class Mai2Repos(
     val userUdemae: Mai2UserUdemaeRepo,
     val userKaleidx: MAi2UserKaleidxRepo,
     val userIntimate: MAi2UserIntimateRepo,
-    val gameCharge: Mai2GameChargeRepo,
-    val gameEvent: Mai2GameEventRepo,
-    val gameSellingCard: Mai2GameSellingCardRepo,
     val userRegions: Mai2UserRegionsRepo,
-)
+    gameData: GameDataService
+) {
+    val gameCharge = StaticRepo(gameData.mai2Charges) { it.orderId }
+    val gameEvent = StaticRepo(gameData.mai2Events) { it.id }
+    val gameSellingCard = StaticRepo(gameData.mai2SellingCards) { it.cardId }
+}

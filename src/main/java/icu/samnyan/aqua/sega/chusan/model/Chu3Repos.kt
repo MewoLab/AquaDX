@@ -13,7 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
-import java.util.*
+import icu.samnyan.aqua.sega.util.GameDataService
+import icu.samnyan.aqua.sega.util.StaticRepo
 
 
 @NoRepositoryBean
@@ -147,42 +148,21 @@ interface Chu3UserChallengeRepo : Chu3UserLinked<Chu3UserChallenge> {
     fun findByUserAndUnlockChallengeId(user: Chu3UserData, unlockChallengeId: Int): Chu3UserChallenge?
 }
 
-interface Chu3GameChargeRepo : JpaRepository<GameCharge, Long>
-
-interface Chu3GameEventRepo : JpaRepository<GameEvent, Int> {
-    fun findByEnable(enable: Boolean): List<GameEvent>
-}
-
-interface Chu3GameGachaCardRepo : JpaRepository<GameGachaCard, Long> {
-    fun findAllByGachaId(gachaId: Int): List<GameGachaCard>
-}
-
-interface Chu3GameGachaRepo : JpaRepository<GameGacha, Long>
-
-interface Chu3GameLoginBonusPresetsRepo : JpaRepository<GameLoginBonusPreset, Long> {
-    @Query(
-        value = "select * from chusan_game_login_bonus_preset where version = ?1 and is_enabled = ?2",
-        nativeQuery = true
-    )
-    fun findLoginBonusPresets(version: Int, isEnabled: Int): List<GameLoginBonusPreset>
-}
-
-interface Chu3GameLoginBonusRepo : JpaRepository<GameLoginBonus, Int> {
-    @Query(
-        value = "select * from chusan_game_login_bonus where version = ?1 and preset_id = ?2 order by need_login_day_count desc",
-        nativeQuery = true
-    )
-    fun findGameLoginBonus(version: Int, presetId: Int): List<GameLoginBonus>
-
-    @Query(
-        value = "select * from chusan_game_login_bonus where version = ?1 and preset_id = ?2 and need_login_day_count = ?3 limit 1",
-        nativeQuery = true
-    )
-    fun findByRequiredDays(version: Int, presetId: Int, requiredDays: Int): GameLoginBonus?
-}
-
 interface Chu3UserRegionsRepo: Chu3UserLinked<UserRegions> {
     fun findByUserAndRegionId(user: Chu3UserData, regionId: Int): UserRegions?
+}
+
+class Chu3GameGachaCardRepo(data: List<GameGachaCard>) : StaticRepo<GameGachaCard, Long>(data, { it.id }) {
+    fun findAllByGachaId(gachaId: Int) = data.filter { it.gachaId == gachaId }
+}
+
+class Chu3GameLoginBonusPresetsRepo(data: List<GameLoginBonusPreset>) : StaticRepo<GameLoginBonusPreset, Long>(data, { it.id }) {
+    fun findLoginBonusPresets(version: Int, isEnabled: Int) = data.filter { it.version == version && it.isEnabled == (isEnabled == 1) }
+}
+
+class Chu3GameLoginBonusRepo(data: List<GameLoginBonus>) : StaticRepo<GameLoginBonus, Long>(data, { it.id }) {
+    fun findGameLoginBonus(version: Int, presetId: Int) = data.filter { it.version == version && it.presetId == presetId }.sortedByDescending { it.needLoginDayCount }
+    fun findByRequiredDays(version: Int, presetId: Int, requiredDays: Int) = data.find { it.version == version && it.presetId == presetId && it.needLoginDayCount == requiredDays }
 }
 
 @Component
@@ -209,11 +189,13 @@ class Chu3Repos(
     val userMisc: Chu3UserMiscRepo,
     val userChallenge: Chu3UserChallengeRepo,
     val userLinkedVerse: Chu3UserLinkedVerseRepo,
-    val gameCharge: Chu3GameChargeRepo,
-    val gameEvent: Chu3GameEventRepo,
-    val gameGachaCard: Chu3GameGachaCardRepo,
-    val gameGacha: Chu3GameGachaRepo,
-    val gameLoginBonusPresets: Chu3GameLoginBonusPresetsRepo,
-    val gameLoginBonus: Chu3GameLoginBonusRepo,
-    val gameLinkedVerse: Chu3GameLinkedVerseRepo
-)
+    val gameData: GameDataService
+) {
+    val gameCharge = StaticRepo(gameData.chu3GameCharges) { it.orderId.toLong() }
+    val gameEvent = StaticRepo(gameData.chu3GameEvents) { it.id }
+    val gameGachaCard = Chu3GameGachaCardRepo(gameData.chu3GameGachaCards)
+    val gameGacha = StaticRepo(gameData.chu3GameGachas) { it.gachaId.toLong() }
+    val gameLoginBonusPresets = Chu3GameLoginBonusPresetsRepo(gameData.chu3GameLoginBonusPresets)
+    val gameLoginBonus = Chu3GameLoginBonusRepo(gameData.chu3GameLoginBonuses)
+    val gameLinkedVerse = StaticRepo(gameData.chu3GameLinkedVerses) { it.id }
+}
