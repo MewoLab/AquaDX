@@ -1,0 +1,13 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../../:/workspaces:cached
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - "127.0.0.1:2322:22"
+    environment:
+      - JAVA_OPTS=-Xmx2g
