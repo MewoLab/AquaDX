@@ -53,7 +53,7 @@ fun Maimai2ServletController.initApis() {
     }
 
     // Maimai only request for event type 1
-    "GetGameEvent" static { mapOf("type" to 1, "gameEventList" to db.gameEvent.findByEnable(true)) }
+    "GetGameEvent" static { mapOf("type" to 1, "gameEventList" to db.gameEvent.findAll()) }
     "GetGameCharge" static { db.gameCharge.findAll().let { mapOf("length" to it.size, "gameChargeList" to it) } }
 
     "GetUserOption" { mapOf(
