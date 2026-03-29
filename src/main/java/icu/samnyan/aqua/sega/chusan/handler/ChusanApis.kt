@@ -377,7 +377,7 @@ fun ChusanController.chusanInit() {
     }
 
     // Static
-    "GetGameEvent" static { db.gameEvent.findByEnable(true).let { mapOf("type" to 1, "length" to it.size, "gameEventList" to it) } }
+    "GetGameEvent" static { db.gameEvent.findAll().let { mapOf("type" to 1, "length" to it.size, "gameEventList" to it) } }
     "GetGameCharge" static { db.gameCharge.findAll().let { mapOf("length" to it.size, "gameChargeList" to it) } }
     "GetGameGacha" static { db.gameGacha.findAll().let { mapOf("length" to it.size, "gameGachaList" to it, "registIdList" to empty) } }
     "GetGameMapAreaCondition" static { ChusanData.mapAreaCondition }
