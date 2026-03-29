@@ -1,0 +1,92 @@
+package aquadx.sega.chusan
+
+import ext.*
+import aquadx.net.db.AquaUserServices
+import aquadx.net.games.chu3.Chusan
+import aquadx.net.utils.simpleDescribe
+import aquadx.sega.allnet.TokenChecker
+import aquadx.sega.chusan.handler.chusanInit
+import aquadx.sega.chusan.model.Chu3Repos
+import aquadx.sega.general.GameMusicPopularity
+import aquadx.sega.general.MeowApi
+import aquadx.sega.general.RequestContext
+import aquadx.sega.general.service.CardService
+import aquadx.sega.util.BasicMapper
+import aquadx.sega.util.StringMapper
+import aquadx.spring.Metrics
+import jakarta.servlet.http.HttpServletRequest
+import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.RestController
+
+/**
+ * @author samnyan (privateamusement@protonmail.com)
+ */
+@Suppress("unused")
+@RestController
+@API(value = ["/g/chu3/{version}/ChuniServlet", "/g/chu3/{version}"])
+class ChusanController(
+    val mapper: StringMapper,
+    val cmMapper: BasicMapper,
+    val db: Chu3Repos,
+    val us: AquaUserServices,
+    val cardService: CardService,
+    val versionHelper: ChusanVersionHelper,
+    val props: ChusanProps,
+    val pop: GameMusicPopularity,
+    val chusan: Chusan
+): MeowApi({ api, resp ->
+    if (resp is String) resp
+    else (if ("CM" in api  || api == "GetUserItemApi" ) cmMapper else mapper).write(resp)
+}) {
+    val log = LoggerFactory.getLogger(ChusanController::class.java)
+
+    val noopEndpoint = setOf("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
+        "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
+        "PrinterLoginApi", "PrinterLogoutApi", "Ping", "GameLogoutApi", "RemoveMatchingMemberApi",
+        "UpsertClientPlayTimeApi", "UpsertClientGameStartApi", "UpsertClientGameEndApi")
+
+    init { chusanInit() }
+    val handlers = initH
+
+    @API("/{endpoint}", "/MatchingServer/{endpoint}")
+    fun handle(@PV endpoint: Str, @RB data: MutableMap<Str, Any>, @PV version: Str, req: HttpServletRequest): Any {
+        val ctx = RequestContext(req, data)
+        var api = endpoint
+        data["version"] = version
+
+        // Export version
+        if (api.endsWith("C3Exp")) {
+            api = api.removeSuffix("C3Exp")
+            data["c3exp"] = true
+        }
+
+        if (api.startsWith("CM") && api !in handlers) api = api.removePrefix("CM")
+        val token = TokenChecker.tokenShort()
+        log.info("$token : $api < ${data.toJson()}")
+
+        val noop = """{"returnCode":"1","apiName":"$api"}"""
+        if (api !in noopEndpoint && !handlers.containsKey(api)) {
+            log.warn("$token : $api > not found")
+            return noop
+        }
+
+        // Only record the counter metrics if the API is known.
+        Metrics.counter("aquadx_chusan_api_call", "api" to api).increment()
+        if (api in noopEndpoint) {
+            log.info("$token : $api > no-op")
+            return noop
+        }
+
+        return try {
+            Metrics.timer("aquadx_chusan_api_latency", "api" to api).recordCallable {
+                serialize(api, handlers[api]!!(ctx) ?: noop).also {
+                    if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
+                        log.info("$token : $api > ${it.truncate(500)}")
+                }
+            }!!
+        } catch (e: Exception) {
+            Metrics.counter("aquadx_chusan_api_error", "api" to api, "error" to e.simpleDescribe()).increment()
+            throw e
+        }
+    }
+}

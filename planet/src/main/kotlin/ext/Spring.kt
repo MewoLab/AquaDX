@@ -1,6 +1,6 @@
 package ext
 
-import icu.samnyan.aqua.net.utils.ApiException
+import aquadx.net.utils.ApiException
 import jakarta.persistence.Query
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

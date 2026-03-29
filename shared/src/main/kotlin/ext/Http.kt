@@ -1,6 +1,6 @@
 package ext
 
-import icu.samnyan.aqua.sega.util.ZLib
+import aquadx.sega.util.ZLib
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest

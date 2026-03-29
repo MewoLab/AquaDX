@@ -1,8 +1,8 @@
 package test
 
 import ext.*
-import icu.samnyan.aqua.sega.wacca.WaccaServer
-import icu.samnyan.aqua.sega.wacca.init
+import aquadx.sega.wacca.WaccaServer
+import aquadx.sega.wacca.init
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.ktor.client.request.*

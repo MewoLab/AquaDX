@@ -1,7 +1,7 @@
 package test
 
 import ext.*
-import icu.samnyan.aqua.sega.util.ZLib
+import aquadx.sega.util.ZLib
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.ktor.client.call.*

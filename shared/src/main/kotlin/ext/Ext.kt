@@ -2,7 +2,7 @@
 
 package ext
 
-import icu.samnyan.aqua.net.utils.ApiException
+import aquadx.net.utils.ApiException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.slf4j.LoggerFactory
