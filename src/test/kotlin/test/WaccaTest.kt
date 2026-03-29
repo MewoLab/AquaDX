@@ -17,7 +17,7 @@ class WaccaTest : StringSpec({
     data class PostResp(val resp: HttpResponse, val res: List<Any>)
     suspend fun post(url: String, par: String): PostResp {
         requestNo++
-        val resp = HTTP.post("$HOST/gs/$CLIENT_ID/wacca/api/$url") {
+        val resp = HTTP.post("$HOST/g/wacca/api/$url") {
             contentType(ContentType.Application.Json)
             setBody("""{"requestNo": ${requestNo++},"appVersion": "$version","boardId": "$BOARD_ID","chipId": "$FULL_CLIENT_ID","params": $par}""")
         }
