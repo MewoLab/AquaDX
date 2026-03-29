@@ -1,6018 +1,754 @@
 [
-  {
-    "card_id": 100003,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100003,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100004,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100004,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100006,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100006,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100007,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100007,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100008,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100008,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100008,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100012,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100012,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100013,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100013,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100015,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100015,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100016,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100016,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100017,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100017,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100017,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100021,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100021,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100022,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100022,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100024,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100024,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100025,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100025,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100026,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100026,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100026,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100030,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100030,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100030,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100033,
-    "gacha_id": 1152,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100033,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100034,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100034,
-    "gacha_id": 1152,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100034,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100034,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100037,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100037,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100040,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100040,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100041,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100041,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100041,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100044,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100044,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100047,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100047,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100048,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100048,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100048,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100051,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100051,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100053,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100053,
-    "gacha_id": 1144,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100053,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100054,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100054,
-    "gacha_id": 1144,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100054,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100054,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100057,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100057,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100059,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100059,
-    "gacha_id": 1144,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100059,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100060,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100060,
-    "gacha_id": 1144,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100060,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100060,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100063,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100063,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100065,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100065,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100065,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100066,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100066,
-    "gacha_id": 1147,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100066,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100066,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100069,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100069,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100071,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100071,
-    "gacha_id": 1145,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100071,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100072,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100072,
-    "gacha_id": 1145,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100072,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100072,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100075,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100075,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100077,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100077,
-    "gacha_id": 1145,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100077,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100078,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100078,
-    "gacha_id": 1145,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100078,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100078,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100081,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100081,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100083,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100083,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100083,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100084,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100084,
-    "gacha_id": 1147,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100084,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100084,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100087,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100087,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100089,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100089,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100089,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100090,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100090,
-    "gacha_id": 1147,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100090,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100090,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100173,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100173,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100174,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100174,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100175,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100175,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100176,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100176,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100176,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100177,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100177,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100178,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100178,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100179,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100179,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100180,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100180,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100181,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100181,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100182,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100182,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100183,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100183,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100184,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100184,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100185,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100185,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100209,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100223,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100223,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100224,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100224,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100225,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100225,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100226,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100226,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100226,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100227,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100227,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100228,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100228,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100229,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100229,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100230,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100230,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100231,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100231,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100232,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100232,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100233,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100233,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100234,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100234,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100235,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100235,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100236,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100236,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100237,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100237,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100238,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100238,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100239,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100239,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100240,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100240,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100241,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100241,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100242,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100242,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100243,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100243,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100244,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100244,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100245,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100245,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100246,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100246,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100247,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100247,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100248,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100248,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100249,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100249,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100250,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100250,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100251,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100251,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100252,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100252,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100253,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100253,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100254,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100254,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100255,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100255,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100256,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100256,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100257,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100257,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100258,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100258,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100259,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100259,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100260,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100260,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100261,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100261,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100262,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100262,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100263,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100263,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100264,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100264,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100265,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100265,
-    "gacha_id": 1152,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100265,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100266,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100266,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100267,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100267,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100268,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100268,
-    "gacha_id": 1144,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100268,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100269,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100269,
-    "gacha_id": 1144,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100269,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100270,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100270,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100270,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100271,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100271,
-    "gacha_id": 1145,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100271,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100272,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100272,
-    "gacha_id": 1145,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100272,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100273,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100273,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100273,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100274,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100274,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100274,
-    "gacha_id": 1159,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100275,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100275,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100275,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100276,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100276,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100276,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100277,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100277,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100277,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100278,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100278,
-    "gacha_id": 1152,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100278,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100278,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100280,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100280,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100280,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100282,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100282,
-    "gacha_id": 1144,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100282,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100282,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100284,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100284,
-    "gacha_id": 1145,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100284,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100284,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100285,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100285,
-    "gacha_id": 1145,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100285,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100285,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100286,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100286,
-    "gacha_id": 1147,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100286,
-    "gacha_id": 1159,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100286,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100336,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100336,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100337,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100337,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100338,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100338,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100339,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100339,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100340,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100340,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100341,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100341,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100342,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100342,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100342,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100343,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100343,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100344,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100344,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100345,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100345,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100346,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100346,
-    "gacha_id": 1144,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100347,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100347,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100348,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100348,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100349,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100349,
-    "gacha_id": 1145,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100350,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100350,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100351,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100351,
-    "gacha_id": 1147,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100407,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100407,
-    "gacha_id": 1143,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100407,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100407,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100411,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100411,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100411,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100412,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100412,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100413,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100413,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100414,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100415,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100416,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100417,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100418,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100418,
-    "gacha_id": 1149,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100418,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100419,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100419,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100420,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100420,
-    "gacha_id": 1144,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100421,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100421,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100422,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100422,
-    "gacha_id": 1144,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100422,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100423,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100423,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100424,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100424,
-    "gacha_id": 1143,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100424,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100425,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100425,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100426,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100426,
-    "gacha_id": 1147,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100426,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100427,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100427,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100428,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100428,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100429,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100429,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100430,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100430,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100431,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100431,
-    "gacha_id": 1143,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100431,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100431,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100432,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100432,
-    "gacha_id": 1143,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100432,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100432,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100433,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100433,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100433,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100434,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100434,
-    "gacha_id": 1144,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100434,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100434,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100435,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100435,
-    "gacha_id": 1123,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100435,
-    "gacha_id": 1147,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100435,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100435,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100435,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100436,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100436,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100436,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100437,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100437,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100437,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100438,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100438,
-    "gacha_id": 1147,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100438,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100438,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100439,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100439,
-    "gacha_id": 1146,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100439,
-    "gacha_id": 1152,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100439,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100439,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100440,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100441,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100445,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100445,
-    "gacha_id": 1143,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100447,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100447,
-    "gacha_id": 1143,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100449,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100449,
-    "gacha_id": 1143,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100454,
-    "gacha_id": 1011,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100606,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100607,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100608,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100608,
-    "gacha_id": 1143,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100608,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100609,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100609,
-    "gacha_id": 1143,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100609,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100610,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100610,
-    "gacha_id": 1143,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100610,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100634,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100634,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100636,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100636,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100637,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100637,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100638,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100638,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100639,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100639,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100640,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100640,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100641,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100641,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100642,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100642,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100643,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100643,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100644,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100644,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100645,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100645,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100646,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100646,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100647,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100648,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100649,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100650,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100651,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100652,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100653,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100653,
-    "gacha_id": 1143,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100654,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100654,
-    "gacha_id": 1143,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100655,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100655,
-    "gacha_id": 1143,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100662,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100665,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100665,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100666,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100666,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100667,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100667,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100692,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100692,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100693,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100693,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100694,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100694,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100701,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100701,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100701,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100702,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100703,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100711,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100711,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100712,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100712,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100725,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100725,
-    "gacha_id": 1146,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100725,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100725,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100726,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100726,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100726,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100755,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100756,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100757,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100757,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100758,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100758,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100759,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100759,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100760,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100760,
-    "gacha_id": 1149,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100760,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100760,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100761,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100761,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100761,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100762,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100762,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100763,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100763,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100764,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100764,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100765,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100765,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100766,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100766,
-    "gacha_id": 1146,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100766,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100767,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100767,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100767,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100768,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100768,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100768,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100771,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100772,
-    "gacha_id": 1011,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100772,
-    "gacha_id": 1012,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100777,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100777,
-    "gacha_id": 1146,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100777,
-    "gacha_id": 1152,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100777,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100778,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100778,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100779,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100779,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100779,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100779,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100780,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100780,
-    "gacha_id": 1149,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100780,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100780,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100783,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100783,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100784,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100784,
-    "gacha_id": 1160,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100784,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100785,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100785,
-    "gacha_id": 1149,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100785,
-    "gacha_id": 1151,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100785,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100786,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100786,
-    "gacha_id": 1149,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100786,
-    "gacha_id": 1151,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100786,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100787,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100787,
-    "gacha_id": 1151,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100787,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100787,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100805,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100805,
-    "gacha_id": 1160,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100842,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100980,
-    "gacha_id": 1011,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100982,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100982,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100982,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100983,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100983,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100983,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100984,
-    "gacha_id": 1137,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100984,
-    "gacha_id": 1146,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100984,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100985,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100985,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100985,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100986,
-    "gacha_id": 1137,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100986,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100987,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100987,
-    "gacha_id": 1149,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100987,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100987,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100987,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100988,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100988,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100988,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100988,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100989,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100989,
-    "gacha_id": 1123,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100989,
-    "gacha_id": 1146,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100989,
-    "gacha_id": 1152,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100989,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100989,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 100996,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100996,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100997,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100998,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 100999,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 100999,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101000,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101000,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101001,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101002,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101002,
-    "gacha_id": 1146,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101003,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101003,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101004,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101004,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101005,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101005,
-    "gacha_id": 1149,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101005,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101020,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101020,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101021,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101021,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101021,
-    "gacha_id": 1152,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101022,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101023,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101023,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101024,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101024,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101025,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101025,
-    "gacha_id": 1149,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101026,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101293,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101293,
-    "gacha_id": 1123,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101293,
-    "gacha_id": 1137,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101293,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101293,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101293,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101294,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101294,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101294,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101295,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101295,
-    "gacha_id": 1123,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101295,
-    "gacha_id": 1149,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101295,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101295,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101296,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101296,
-    "gacha_id": 1149,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101296,
-    "gacha_id": 1151,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101296,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101296,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101296,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101297,
-    "gacha_id": 1137,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101297,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101298,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101298,
-    "gacha_id": 1146,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101298,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101299,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101299,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101300,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101300,
-    "gacha_id": 1151,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101300,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101301,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101301,
-    "gacha_id": 1146,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101301,
-    "gacha_id": 1152,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101315,
-    "gacha_id": 1146,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101315,
-    "gacha_id": 1151,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101316,
-    "gacha_id": 1151,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101320,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101320,
-    "gacha_id": 1146,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101320,
-    "gacha_id": 1161,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101320,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101321,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101321,
-    "gacha_id": 1161,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101553,
-    "gacha_id": 1011,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101566,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101566,
-    "gacha_id": 1135,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101566,
-    "gacha_id": 1148,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101566,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101567,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101567,
-    "gacha_id": 1135,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101567,
-    "gacha_id": 1148,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101567,
-    "gacha_id": 1151,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101567,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101567,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101589,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101592,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101592,
-    "gacha_id": 1135,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101592,
-    "gacha_id": 1149,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101592,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101592,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101592,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101593,
-    "gacha_id": 1137,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101593,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101594,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101594,
-    "gacha_id": 1123,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101594,
-    "gacha_id": 1135,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101594,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101594,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101594,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101595,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101595,
-    "gacha_id": 1123,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101595,
-    "gacha_id": 1128,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101595,
-    "gacha_id": 1135,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101595,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1138,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1146,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1154,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1156,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101596,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101597,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101597,
-    "gacha_id": 1139,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101597,
-    "gacha_id": 1156,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101597,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101597,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101598,
-    "gacha_id": 1137,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101598,
-    "gacha_id": 1148,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101599,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101599,
-    "gacha_id": 1140,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101599,
-    "gacha_id": 1156,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101599,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101599,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101600,
-    "gacha_id": 1112,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101600,
-    "gacha_id": 1141,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101600,
-    "gacha_id": 1156,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101600,
-    "gacha_id": 1162,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101600,
-    "gacha_id": 1167,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101601,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101602,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101602,
-    "gacha_id": 1135,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101602,
-    "gacha_id": 1149,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101602,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101603,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101603,
-    "gacha_id": 1128,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101603,
-    "gacha_id": 1135,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101603,
-    "gacha_id": 1146,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101603,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101604,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101604,
-    "gacha_id": 1138,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101604,
-    "gacha_id": 1149,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101604,
-    "gacha_id": 1156,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101604,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101605,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101605,
-    "gacha_id": 1139,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101605,
-    "gacha_id": 1156,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101605,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101606,
-    "gacha_id": 1137,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101606,
-    "gacha_id": 1167,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 1
-  },
-  {
-    "card_id": 101607,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101607,
-    "gacha_id": 1140,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101607,
-    "gacha_id": 1156,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101607,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101608,
-    "gacha_id": 1112,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101608,
-    "gacha_id": 1141,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101608,
-    "gacha_id": 1156,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101608,
-    "gacha_id": 1162,
-    "rarity": 3,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101619,
-    "gacha_id": 1112,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101619,
-    "gacha_id": 1135,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 1,
-    "is_select": 0
-  },
-  {
-    "card_id": 101619,
-    "gacha_id": 1148,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101620,
-    "gacha_id": 1011,
-    "rarity": 2,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  },
-  {
-    "card_id": 101627,
-    "gacha_id": 1011,
-    "rarity": 4,
-    "weight": 100,
-    "is_pickup": 0,
-    "is_select": 0
-  }
+	{"card_id": 100003, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100003, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100004, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100004, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100006, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100006, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100007, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100007, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100008, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100008, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100008, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100012, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100012, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100013, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100013, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100015, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100015, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100016, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100016, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100017, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100017, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100017, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100021, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100021, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100022, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100022, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100024, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100024, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100025, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100025, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100026, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100026, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100026, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100030, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100030, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100030, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100033, "gacha_id": 1152, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100033, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100034, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100034, "gacha_id": 1152, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100034, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100034, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100037, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100037, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100040, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100040, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100041, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100041, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100041, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100044, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100044, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100047, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100047, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100048, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100048, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100048, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100051, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100051, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100053, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100053, "gacha_id": 1144, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100053, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100054, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100054, "gacha_id": 1144, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100054, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100054, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100057, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100057, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100059, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100059, "gacha_id": 1144, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100059, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100060, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100060, "gacha_id": 1144, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100060, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100060, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100063, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100063, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100065, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100065, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100065, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100066, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100066, "gacha_id": 1147, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100066, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100066, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100069, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100069, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100071, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100071, "gacha_id": 1145, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100071, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100072, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100072, "gacha_id": 1145, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100072, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100072, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100075, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100075, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100077, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100077, "gacha_id": 1145, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100077, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100078, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100078, "gacha_id": 1145, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100078, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100078, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100081, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100081, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100083, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100083, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100083, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100084, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100084, "gacha_id": 1147, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100084, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100084, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100087, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100087, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100089, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100089, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100089, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100090, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100090, "gacha_id": 1147, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100090, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100090, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100173, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100173, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100174, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100174, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100175, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100175, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100176, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100176, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100176, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100177, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100177, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100178, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100178, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100179, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100179, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100180, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100180, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100181, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100181, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100182, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100182, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100183, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100183, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100184, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100184, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100185, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100185, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100209, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100223, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100223, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100224, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100224, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100225, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100225, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100226, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100226, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100226, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100227, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100227, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100228, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100228, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100229, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100229, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100230, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100230, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100231, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100231, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100232, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100232, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100233, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100233, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100234, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100234, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100235, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100235, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100236, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100236, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100237, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100237, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100238, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100238, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100239, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100239, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100240, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100240, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100241, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100241, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100242, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100242, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100243, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100243, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100244, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100244, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100245, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100245, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100246, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100246, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100247, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100247, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100248, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100248, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100249, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100249, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100250, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100250, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100251, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100251, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100252, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100252, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100253, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100253, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100254, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100254, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100255, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100255, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100256, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100256, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100257, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100257, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100258, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100258, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100259, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100259, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100260, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100260, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100261, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100261, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100262, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100262, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100263, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100263, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100264, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100264, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100265, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100265, "gacha_id": 1152, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100265, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100266, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100266, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100267, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100267, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100268, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100268, "gacha_id": 1144, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100268, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100269, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100269, "gacha_id": 1144, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100269, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100270, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100270, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100270, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100271, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100271, "gacha_id": 1145, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100271, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100272, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100272, "gacha_id": 1145, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100272, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100273, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100273, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100273, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100274, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100274, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100274, "gacha_id": 1159, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100275, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100275, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100275, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100276, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100276, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100276, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100277, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100277, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100277, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100278, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100278, "gacha_id": 1152, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100278, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100278, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100280, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100280, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100280, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100282, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100282, "gacha_id": 1144, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100282, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100282, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100284, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100284, "gacha_id": 1145, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100284, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100284, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100285, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100285, "gacha_id": 1145, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100285, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100285, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100286, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100286, "gacha_id": 1147, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100286, "gacha_id": 1159, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100286, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100336, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100336, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100337, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100337, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100338, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100338, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100339, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100339, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100340, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100340, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100341, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100341, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100342, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100342, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100342, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100343, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100343, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100344, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100344, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100345, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100345, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100346, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100346, "gacha_id": 1144, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100347, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100347, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100348, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100348, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100349, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100349, "gacha_id": 1145, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100350, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100350, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100351, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100351, "gacha_id": 1147, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100407, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100407, "gacha_id": 1143, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100407, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100407, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100411, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100411, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100411, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100412, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100412, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100413, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100413, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100414, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100415, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100416, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100417, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100418, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100418, "gacha_id": 1149, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100418, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100419, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100419, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100420, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100420, "gacha_id": 1144, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100421, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100421, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100422, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100422, "gacha_id": 1144, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100422, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100423, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100423, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100424, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100424, "gacha_id": 1143, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100424, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100425, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100425, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100426, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100426, "gacha_id": 1147, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100426, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100427, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100427, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100428, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100428, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100429, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100429, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100430, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100430, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100431, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100431, "gacha_id": 1143, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100431, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100431, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100432, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100432, "gacha_id": 1143, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100432, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100432, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100433, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100433, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100433, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100434, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100434, "gacha_id": 1144, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100434, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100434, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100435, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100435, "gacha_id": 1123, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100435, "gacha_id": 1147, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100435, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100435, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100435, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100436, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100436, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100436, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100437, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100437, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100437, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100438, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100438, "gacha_id": 1147, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100438, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100438, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100439, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100439, "gacha_id": 1146, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100439, "gacha_id": 1152, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100439, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100439, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100440, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100441, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100445, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100445, "gacha_id": 1143, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100447, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100447, "gacha_id": 1143, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100449, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100449, "gacha_id": 1143, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100454, "gacha_id": 1011, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100606, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100607, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100608, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100608, "gacha_id": 1143, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100608, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100609, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100609, "gacha_id": 1143, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100609, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100610, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100610, "gacha_id": 1143, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100610, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100634, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100634, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100636, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100636, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100637, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100637, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100638, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100638, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100639, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100639, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100640, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100640, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100641, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100641, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100642, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100642, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100643, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100643, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100644, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100644, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100645, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100645, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100646, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100646, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100647, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100648, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100649, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100650, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100651, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100652, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100653, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100653, "gacha_id": 1143, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100654, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100654, "gacha_id": 1143, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100655, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100655, "gacha_id": 1143, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100662, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100665, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100665, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100666, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100666, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100667, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100667, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100692, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100692, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100693, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100693, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100694, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100694, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100701, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100701, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100701, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100702, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100703, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100711, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100711, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100712, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100712, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100725, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100725, "gacha_id": 1146, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100725, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100725, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100726, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100726, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100726, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100755, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100756, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100757, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100757, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100758, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100758, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100759, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100759, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100760, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100760, "gacha_id": 1149, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100760, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100760, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100761, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100761, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100761, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100762, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100762, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100763, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100763, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100764, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100764, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100765, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100765, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100766, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100766, "gacha_id": 1146, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100766, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100767, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100767, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100767, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100768, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100768, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100768, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100771, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100772, "gacha_id": 1011, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100772, "gacha_id": 1012, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100777, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100777, "gacha_id": 1146, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100777, "gacha_id": 1152, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100777, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100778, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100778, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100779, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100779, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100779, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100779, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100780, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100780, "gacha_id": 1149, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100780, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100780, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100783, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100783, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100784, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100784, "gacha_id": 1160, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100784, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100785, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100785, "gacha_id": 1149, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100785, "gacha_id": 1151, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100785, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100786, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100786, "gacha_id": 1149, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100786, "gacha_id": 1151, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100786, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100787, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100787, "gacha_id": 1151, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100787, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100787, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100805, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100805, "gacha_id": 1160, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100842, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100980, "gacha_id": 1011, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100982, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100982, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100982, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100983, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100983, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100983, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100984, "gacha_id": 1137, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100984, "gacha_id": 1146, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100984, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100985, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100985, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100985, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100986, "gacha_id": 1137, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100986, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100987, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100987, "gacha_id": 1149, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100987, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100987, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100987, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100988, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100988, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100988, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100988, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100989, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100989, "gacha_id": 1123, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100989, "gacha_id": 1146, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100989, "gacha_id": 1152, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100989, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100989, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 100996, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100996, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100997, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100998, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 100999, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 100999, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101000, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101000, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101001, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101002, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101002, "gacha_id": 1146, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101003, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101003, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101004, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101004, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101005, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101005, "gacha_id": 1149, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101005, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101020, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101020, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101021, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101021, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101021, "gacha_id": 1152, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101022, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101023, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101023, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101024, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101024, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101025, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101025, "gacha_id": 1149, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101026, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101293, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101293, "gacha_id": 1123, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101293, "gacha_id": 1137, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101293, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101293, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101293, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101294, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101294, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101294, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101295, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101295, "gacha_id": 1123, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101295, "gacha_id": 1149, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101295, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101295, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101296, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101296, "gacha_id": 1149, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101296, "gacha_id": 1151, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101296, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101296, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101296, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101297, "gacha_id": 1137, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101297, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101298, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101298, "gacha_id": 1146, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101298, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101299, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101299, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101300, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101300, "gacha_id": 1151, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101300, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101301, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101301, "gacha_id": 1146, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101301, "gacha_id": 1152, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101315, "gacha_id": 1146, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101315, "gacha_id": 1151, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101316, "gacha_id": 1151, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101320, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101320, "gacha_id": 1146, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101320, "gacha_id": 1161, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101320, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101321, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101321, "gacha_id": 1161, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101553, "gacha_id": 1011, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101566, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101566, "gacha_id": 1135, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101566, "gacha_id": 1148, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101566, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101567, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101567, "gacha_id": 1135, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101567, "gacha_id": 1148, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101567, "gacha_id": 1151, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101567, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101567, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101589, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101592, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101592, "gacha_id": 1135, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101592, "gacha_id": 1149, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101592, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101592, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101592, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101593, "gacha_id": 1137, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101593, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101594, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101594, "gacha_id": 1123, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101594, "gacha_id": 1135, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101594, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101594, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101594, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101595, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101595, "gacha_id": 1123, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101595, "gacha_id": 1128, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101595, "gacha_id": 1135, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101595, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101596, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101596, "gacha_id": 1138, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101596, "gacha_id": 1146, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101596, "gacha_id": 1154, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101596, "gacha_id": 1156, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101596, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101596, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101597, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101597, "gacha_id": 1139, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101597, "gacha_id": 1156, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101597, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101597, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101598, "gacha_id": 1137, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101598, "gacha_id": 1148, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101599, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101599, "gacha_id": 1140, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101599, "gacha_id": 1156, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101599, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101599, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101600, "gacha_id": 1112, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101600, "gacha_id": 1141, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101600, "gacha_id": 1156, "rarity": 4, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101600, "gacha_id": 1162, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101600, "gacha_id": 1167, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101601, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101602, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101602, "gacha_id": 1135, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101602, "gacha_id": 1149, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101602, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101603, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101603, "gacha_id": 1128, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101603, "gacha_id": 1135, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101603, "gacha_id": 1146, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101603, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101604, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101604, "gacha_id": 1138, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101604, "gacha_id": 1149, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101604, "gacha_id": 1156, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101604, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101605, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101605, "gacha_id": 1139, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101605, "gacha_id": 1156, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101605, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101606, "gacha_id": 1137, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101606, "gacha_id": 1167, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 1},
+	{"card_id": 101607, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101607, "gacha_id": 1140, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101607, "gacha_id": 1156, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101607, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101608, "gacha_id": 1112, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101608, "gacha_id": 1141, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101608, "gacha_id": 1156, "rarity": 3, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101608, "gacha_id": 1162, "rarity": 3, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101619, "gacha_id": 1112, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101619, "gacha_id": 1135, "rarity": 2, "weight": 100, "is_pickup": 1, "is_select": 0},
+	{"card_id": 101619, "gacha_id": 1148, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101620, "gacha_id": 1011, "rarity": 2, "weight": 100, "is_pickup": 0, "is_select": 0},
+	{"card_id": 101627, "gacha_id": 1011, "rarity": 4, "weight": 100, "is_pickup": 0, "is_select": 0}
 ]

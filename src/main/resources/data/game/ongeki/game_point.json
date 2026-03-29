@@ -1,32 +1,8 @@
 [
-  {
-    "id": 1,
-    "type": 0,
-    "cost": 100
-  },
-  {
-    "id": 2,
-    "type": 1,
-    "cost": 200
-  },
-  {
-    "id": 3,
-    "type": 2,
-    "cost": 300
-  },
-  {
-    "id": 4,
-    "type": 3,
-    "cost": 333
-  },
-  {
-    "id": 5,
-    "type": 4,
-    "cost": 666
-  },
-  {
-    "id": 6,
-    "type": 5,
-    "cost": 999
-  }
+	{"id": 1, "type": 0, "cost": 100},
+	{"id": 2, "type": 1, "cost": 200},
+	{"id": 3, "type": 2, "cost": 300},
+	{"id": 4, "type": 3, "cost": 333},
+	{"id": 5, "type": 4, "cost": 666},
+	{"id": 6, "type": 5, "cost": 999}
 ]
