@@ -9,8 +9,6 @@ class Mai2GameEvent {
     var type = 0
     var startDate: String? = "2019-01-01 00:00:00.000000"
     var endDate: String? = "2099-01-01 00:00:00.000000"
-
-    @JsonIgnore
     var enable = false
     var disableArea = ""
 }

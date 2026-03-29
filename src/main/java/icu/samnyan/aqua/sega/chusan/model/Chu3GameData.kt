@@ -20,8 +20,6 @@ class GameEvent {
     val type = 0
     val startDate: LocalDateTime? = LocalDateTime.of(2019, 1, 1, 0, 0, 0)
     val endDate: LocalDateTime? = LocalDateTime.of(2099, 1, 1, 0, 0, 0)
-
-    @JsonIgnore
     val enable = false
 }
 
