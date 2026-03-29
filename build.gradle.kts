@@ -4,7 +4,6 @@ plugins {
     kotlin("plugin.jpa") version "2.1.10" apply false
     kotlin("plugin.serialization") version "2.1.10" apply false
     kotlin("plugin.allopen") version "2.1.10" apply false
-    kotlin("kapt") version "2.1.10" apply false
     id("org.springframework.boot") version "3.2.3" apply false
     id("io.spring.dependency-management") version "1.1.4" apply false
     id("com.github.ben-manes.versions") version "0.51.0"

@@ -1,11 +1,11 @@
 package aquadx.sega.maimai2.handler
 
-import com.querydsl.jpa.impl.JPAQueryFactory
+import aquadx.sega.maimai2.model.Mai2UserPlaylogRepo
 import ext.logger
 import ext.thread
 import aquadx.sega.allnet.TokenChecker
 import aquadx.sega.general.BaseHandler
-import aquadx.sega.maimai2.model.userdata.QMai2UserPlaylog
+import org.springframework.data.domain.PageRequest
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -17,7 +17,7 @@ import kotlin.concurrent.Volatile
  */
 @Component("Maimai2GetGameRankingHandler")
 class GetGameRankingHandler(
-    private val queryFactory: JPAQueryFactory
+    private val playlogRepo: Mai2UserPlaylogRepo
 ) : BaseHandler {
     private data class MusicRankingItem(val musicId: Int, val weight: Long)
 
@@ -37,18 +37,8 @@ class GetGameRankingHandler(
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val queryAfterStr = queryAfter.format(formatter)
 
-        val qPlaylog = QMai2UserPlaylog.mai2UserPlaylog
-        val cMusicId = qPlaylog.musicId
-        val cUserCount = qPlaylog.user.id.countDistinct()
-        musicRankingCache = queryFactory
-            .select(cMusicId, cUserCount)
-            .from(qPlaylog)
-            .where(qPlaylog.userPlayDate.stringValue().goe(queryAfterStr))
-            .groupBy(cMusicId)
-            .orderBy(cUserCount.desc())
-            .limit(QUERY_LIMIT)
-            .fetch()
-            .map { MusicRankingItem(it.get(cMusicId)!!, it.get(cUserCount)!!) }
+        musicRankingCache = playlogRepo.getMusicRanking(queryAfterStr, PageRequest.of(0, QUERY_LIMIT.toInt()))
+            .map { MusicRankingItem(it.musicId, it.userCount) }
 
         log.info("Refreshed music ranking cache: ${musicRankingCache.size} items")
     }

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -105,6 +106,14 @@ interface Mai2UserPlaylogRepo : GenericPlaylogRepo<Mai2UserPlaylog>, Mai2UserLin
         userPlayDate: String
     ): MutableList<Mai2UserPlaylog>
     fun findByUserAndUserPlayDateAfter(user: Mai2UserDetail, userPlayDate: String): List<Mai2UserPlaylog>
+
+    @Query("select p.musicId as musicId, count(distinct p.user.id) as userCount from Mai2UserPlaylog p where p.userPlayDate >= :date group by p.musicId order by userCount desc")
+    fun getMusicRanking(date: String, pageable: Pageable): List<Mai2MusicRanking>
+}
+
+interface Mai2MusicRanking {
+    val musicId: Int
+    val userCount: Long
 }
 
 interface Mai2UserPrintDetailRepo : JpaRepository<Mai2UserPrintDetail, Long>
