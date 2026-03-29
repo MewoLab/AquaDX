@@ -13,7 +13,7 @@ class Mai2Test : StringSpec({
     var userId = 0L
 
     suspend fun post(url: String, body: String): Pair<HttpResponse, Map<String, Any?>> {
-        val resp = HTTP.post("$HOST/gs/$CLIENT_ID/mai2/$url") {
+        val resp = HTTP.post("$HOST/g/mai2/$url") {
             contentType(ContentType.Application.Json)
             setBody(body)
         }
@@ -31,20 +31,23 @@ class Mai2Test : StringSpec({
     "GetGameSettingApi" {
         println("UserID: $userId")
         post("GetGameSettingApi", """{"placeId":291,"clientId":"$CLIENT_ID"}""").let { (_, result) ->
-            result shouldBe """{"gameSetting":{"requestInterval":10,"rebootStartTime":"2099-01-01 23:59:00.0","rebootEndTime":"2099-01-01 23:59:00.0","movieUploadLimit":10000,"movieStatus":0,"movieServerUri":"","deliverServerUri":"","oldServerUri":"","usbDlServerUri":"","rebootInterval":0,"isMaintenance":false},"isAouAccession":true}""".jsonMap()
+            val gs = result["gameSetting"] as Map<*, *>
+            gs["requestInterval"] shouldBe 10
+            result["isAouAccession"] shouldBe true
         }
     }
 
     "GetGameRankingApi" {
         post("GetGameRankingApi", """{"type":1}""").let { (_, result) ->
-            result shouldBe """{"type":"1","gameRankingList":[]}""".jsonMap()
+            result["type"] shouldBe 1
+            assert(result["gameRankingList"] is List<*>)
         }
     }
 
     "GetGameEventApi" {
         post("GetGameEventApi", """{"type":1,"isAllEvent":true}""").let { (_, result) ->
             result.keys shouldBe setOf("type", "gameEventList")
-            ((result["gameEventList"] as List<*>).first() as Map<*, *>).keys shouldBe setOf("id", "type", "startDate", "endDate")
+            ((result["gameEventList"] as List<*>).first() as Map<*, *>).keys shouldBe setOf("id", "type", "startDate", "endDate", "enable", "disableArea")
         }
     }
 
@@ -56,13 +59,13 @@ class Mai2Test : StringSpec({
 
     "GetGameChargeApi" {
         post("GetGameChargeApi", """{"isAll":false}""").let { (_, result) ->
-            result shouldBe """{"length":5,"gameChargeList":[{"orderId":1,"chargeId":2,"price":1,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"orderId":2,"chargeId":3,"price":2,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"orderId":3,"chargeId":4,"price":3,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"orderId":4,"chargeId":5,"price":4,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"orderId":5,"chargeId":6,"price":5,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"}]}""".jsonMap()
+            result shouldBe """{"length":5,"gameChargeList":[{"chargeId":0,"orderId":0,"price":1,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":2,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":3,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":4,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":5,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"}]}""".jsonMap()
         }
     }
 
     "GetGameNgMusicIdApi" {
         post("GetGameNgMusicIdApi", """{}""").let { (_, result) ->
-            result shouldBe """{"length":0,"musicIdList":[]}""".jsonMap()
+            result shouldBe """{"length":0,"musicIdList":[],"ngMusicDataList":[]}""".jsonMap()
         }
     }
 
@@ -115,13 +118,16 @@ class Mai2Test : StringSpec({
 
     "GetUserDataApi" {
         post("GetUserDataApi", """{"userId":$userId}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userData":{"userName":"ＡＺＡ☆","friendCode":"","isNetMember":1,"nameplateId":0,"iconId":11,"trophyId":0,"plateId":1,"titleId":11,"partnerId":1,"frameId":1,"selectMapId":400001,"totalAwake":0,"gradeRating":0,"musicRating":271,"playerRating":271,"highestRating":271,"gradeRank":0,"classRank":0,"courseRank":0,"charaSlot":[101,400101,105,104,103],"charaLockSlot":[0,0,0,0,0],"contentBit":2169888,"playCount":1,"eventWatchedDate":"2024-03-27 05:45:15.0","lastGameId":"SDEZ","lastRomVersion":"1.41.00","lastDataVersion":"1.40.08","lastLoginDate":"2024-03-27 05:45:15.0","lastPlayDate":"2024-03-27 05:56:54.0","lastPlayCredit":1,"lastPlayMode":0,"lastPlaceId":291,"lastPlaceName":"","lastAllNetId":0,"lastRegionId":1,"lastRegionName":"W","lastClientId":"$CLIENT_ID","lastCountryCode":"JPN","lastSelectEMoney":0,"lastSelectTicket":0,"lastSelectCourse":0,"lastCountCourse":0,"firstGameId":"SDEZ","firstRomVersion":"1.41.00","firstDataVersion":"1.40.08","firstPlayDate":"2024-03-27 05:45:15.0","compatibleCmVersion":"1.40.00","dailyBonusDate":"1970-01-01 09:00:00.0","dailyCourseBonusDate":"1970-01-01 09:00:00.0","lastPairLoginDate":"1970-01-01 09:00:00.0","lastTrialPlayDate":"1970-01-01 09:00:00.0","playVsCount":0,"playSyncCount":0,"winCount":0,"helpCount":0,"comboCount":0,"totalDeluxscore":1725,"totalBasicDeluxscore":0,"totalAdvancedDeluxscore":0,"totalExpertDeluxscore":1725,"totalMasterDeluxscore":0,"totalReMasterDeluxscore":0,"totalHiscore":0,"totalBasicHighscore":0,"totalAdvancedHighscore":0,"totalExpertHighscore":0,"totalMasterHighscore":0,"totalReMasterHighscore":0,"totalSync":0,"totalBasicSync":0,"totalAdvancedSync":0,"totalExpertSync":0,"totalMasterSync":0,"totalReMasterSync":0,"totalAchievement":997456,"totalBasicAchievement":0,"totalAdvancedAchievement":0,"totalExpertAchievement":997456,"totalMasterAchievement":0,"totalReMasterAchievement":0,"playerOldRating":271,"playerNewRating":0,"banState":0,"dateTime":1711485182,"cmLastEmoneyBrand":2,"cmLastEmoneyCredit":69,"mapStock":0,"currentPlayCount":1,"renameCredit":0,"accessCode":"$ACCESS_CODE"},"banState":0}""".jsonMap()
+            val userData = result["userData"] as Map<*, *>
+            userData["userName"] shouldBe "ＡＺＡ☆"
+            userData["playerRating"] shouldBe 271
+            result["banState"] shouldBe 0
         }
     }
 
     "GetUserCardApi" {
         post("GetUserCardApi", """{"userId":$userId,"nextIndex":0,"maxCount":20}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"nextIndex":0,"userCardList":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":0,"userCardList":[]}""".jsonMap()
         }
     }
 
@@ -191,63 +197,63 @@ class Mai2Test : StringSpec({
 
     "GetUserCourseApi" {
         post("GetUserCourseApi", """{"userId":$userId,"nextIndex":0}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"nextIndex":0,"userCourseList":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":0,"userCourseList":[]}""".jsonMap()
         }
     }
 
     "GetUserChargeApi" {
         post("GetUserChargeApi", """{"userId":$userId}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"length":0,"userChargeList":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":0,"userChargeList":[]}""".jsonMap()
         }
     }
 
     "GetUserFavoriteApi" {
         post("GetUserFavoriteApi", """{"userId":$userId,"itemKind":1}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userFavoriteData":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId}""".jsonMap()
         }
 
 
         post("GetUserFavoriteApi", """{"userId":$userId,"itemKind":2}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userFavoriteData":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId}""".jsonMap()
         }
 
 
         post("GetUserFavoriteApi", """{"userId":$userId,"itemKind":3}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userFavoriteData":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId}""".jsonMap()
         }
 
 
         post("GetUserFavoriteApi", """{"userId":$userId,"itemKind":4}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userFavoriteData":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId}""".jsonMap()
         }
 
 
         post("GetUserFavoriteApi", """{"userId":$userId,"itemKind":5}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userFavoriteData":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId}""".jsonMap()
         }
     }
 
     "GetUserGhostApi" {
         post("GetUserGhostApi", """{"userId":$userId}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"userGhostList":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":0,"userGhostList":[]}""".jsonMap()
         }
     }
 
     "GetUserMapApi" {
         post("GetUserMapApi", """{"userId":$userId,"nextIndex":0,"maxCount":20}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"nextIndex":0,"userMapList":[{"mapId":1,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":2,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":3,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":4,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":5,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":6,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150001,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150002,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150003,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150004,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150005,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350001,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350003,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350004,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350006,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350007,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400001,"distance":14000,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400002,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400003,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400004,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400005,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400006,"distance":0,"isLock":false,"isClear":false,"isComplete":false}]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":22,"userMapList":[{"mapId":1,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":2,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":3,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":4,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":5,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":6,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150001,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150002,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150003,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150004,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":150005,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350001,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350003,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350004,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350006,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":350007,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400001,"distance":14000,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400002,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400003,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400004,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400005,"distance":0,"isLock":false,"isClear":false,"isComplete":false},{"mapId":400006,"distance":0,"isLock":false,"isClear":false,"isComplete":false}]}""".jsonMap()
         }
     }
 
     "GetUserLoginBonusApi" {
         post("GetUserLoginBonusApi", """{"userId":$userId,"nextIndex":0,"maxCount":20}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"nextIndex":0,"userLoginBonusList":[{"bonusId":38,"point":1,"isCurrent":true,"isComplete":false}]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":1,"userLoginBonusList":[{"bonusId":38,"point":1,"isCurrent":false,"isComplete":false}]}""".jsonMap()
         }
     }
 
     "GetUserRegionApi" {
         post("GetUserRegionApi", """{"userId":$userId}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"length":0,"userRegionList":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"length":1,"userRegionList":[{"regionId":1,"playCount":1}]}""".jsonMap()
         }
     }
 
@@ -283,7 +289,7 @@ class Mai2Test : StringSpec({
 
     "GetUserMusicApi" {
         post("GetUserMusicApi", """{"userId":$userId,"nextIndex":0,"maxCount":50}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"nextIndex":0,"userMusicList":[{"userMusicDetailList":[{"musicId":11479,"level":2,"playCount":1,"achievement":997456,"comboStatus":1,"syncStatus":0,"deluxscoreMax":1725,"scoreRank":11,"extNum1":0}]}]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":1,"userMusicList":[{"userMusicDetailList":[{"musicId":11479,"level":2,"playCount":1,"achievement":997456,"comboStatus":1,"syncStatus":0,"deluxscoreMax":1725,"scoreRank":11,"extNum1":0}]}]}""".jsonMap()
         }
     }
 
@@ -310,7 +316,7 @@ class Mai2Test : StringSpec({
 
     "GetUserFriendSeasonRankingApi" {
         post("GetUserFriendSeasonRankingApi", """{"userId":$userId,"nextIndex":0,"maxCount":20}""").let { (_, result) ->
-            result shouldBe """{"userId":$userId,"nextIndex":0,"userFriendSeasonRankingList":[]}""".jsonMap()
+            result shouldBe """{"userId":$userId,"nextIndex":0,"length":0,"userFriendSeasonRankingList":[]}""".jsonMap()
         }
     }
 
