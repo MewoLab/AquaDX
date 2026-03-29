@@ -179,14 +179,14 @@ class Fedy(
         val card = cardRepo.findByExtId(req.extId)
             ?: (404 - "Card with extId ${req.extId} not found")
         val cardTimestamp = cardService.getCardTimestamp(card, req.game)
-        if (cardTimestamp.updatedAt.toEpochMilli() == req.updatedAtMs) return@handleFedy DataPullRes(error = null, result = null) // No changes
-        val isRebased = req.createdAtMs > 0 && cardTimestamp.createdAt.toEpochMilli() > req.createdAtMs
+        if (cardTimestamp.updatedAt == req.updatedAtMs) return@handleFedy DataPullRes(error = null, result = null) // No changes
+        val isRebased = req.createdAtMs > 0 && cardTimestamp.createdAt > req.createdAtMs
         val exportOptions = if (!isRebased) { req.exportOptions } else { req.exportOptions.copy(playlogAfter = null) }
         {
             DataPullRes(result = DataPullResult(data = when (req.game) {
                 "mai2" -> mai2Import.export(card, exportOptions)
                 else -> 406 - "Unsupported game"
-            }, createdAtMs = cardTimestamp.createdAt.toEpochMilli(), updatedAtMs = cardTimestamp.updatedAt.toEpochMilli(), isRebased = isRebased))
+            }, createdAtMs = cardTimestamp.createdAt, updatedAtMs = cardTimestamp.updatedAt, isRebased = isRebased))
         } caught { DataPullRes(error = it) }
     }
 

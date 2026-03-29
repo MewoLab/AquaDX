@@ -2,6 +2,8 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.jpa")
     kotlin("plugin.serialization")
+    kotlin("kapt")
+    id("org.hibernate.orm") version "6.4.4.Final"
 }
 
 dependencies {
@@ -11,9 +13,30 @@ dependencies {
     api("com.fasterxml.jackson.core:jackson-databind:2.17.0")
     api("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.0")
 
+    // QueryDSL
+    implementation("io.github.openfeign.querydsl:querydsl-jpa:6.10.1")
+    kapt("io.github.openfeign.querydsl:querydsl-apt:6.10.1:jpa")
+
     // Core libraries
     api("org.slf4j:slf4j-api:2.0.12")
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
     api("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
+
+    // Hibernate enhancement requires the core library in shared as well
+    implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
+}
+
+hibernate {
+    enhancement {
+        enableLazyInitialization = true
+        enableAssociationManagement = false
+        enableExtendedEnhancement = false
+    }
+}
+
+sourceSets {
+    main {
+        java.srcDir("${layout.buildDirectory.get()}/generated/source/kapt/main")
+    }
 }

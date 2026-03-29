@@ -118,7 +118,7 @@ hibernate {
 }
 
 kapt {
-    includeCompileClasspath = false
+    includeCompileClasspath = true
     keepJavacAnnotationProcessors = true
 }
 

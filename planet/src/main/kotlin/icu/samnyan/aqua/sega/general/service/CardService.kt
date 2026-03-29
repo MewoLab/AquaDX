@@ -104,12 +104,19 @@ class CardService(val cardRepo: CardRepository, val cardTimestampRepo: CardTimes
         return eid
     }
 
-    fun getCardTimestamp(card: Card, game: Str, now: Instant = Instant.now()) =
-        cardTimestampRepo.findByCardIdAndGame(card.id, game) ?: CardTimestamp(game = game, card = card, createdAt = now, updatedAt = now);
+    fun getCardTimestamp(card: Card, game: Str, now: Instant = Instant.now()): CardTimestamp =
+        cardTimestampRepo.findByCardIdAndGameId(card.id, game).orElseGet {
+            CardTimestamp().apply {
+                this.gameId = game
+                this.cardId = card.id
+                this.createdAt = now.toEpochMilli()
+                this.updatedAt = now.toEpochMilli()
+            }
+        }
 
     fun updateCardTimestamp(card: Card, game: Str, now: Instant = Instant.now(), resetCreatedAt: Bool = false) {
-        cardTimestampRepo.save(getCardTimestamp(card, game, now).apply { updatedAt = now }
-            .apply { if (resetCreatedAt) createdAt = now });
+        cardTimestampRepo.save(getCardTimestamp(card, game, now).apply { updatedAt = now.toEpochMilli() }
+            .apply { if (resetCreatedAt) createdAt = now.toEpochMilli() });
         fedy.onDataUpdated(card.extId, game, resetCreatedAt)
     }
 }

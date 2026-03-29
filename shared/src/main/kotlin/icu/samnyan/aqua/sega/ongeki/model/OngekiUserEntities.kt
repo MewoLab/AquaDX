@@ -11,7 +11,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @MappedSuperclass
-class OngekiUserEntity : BaseEntity(), IUserEntity<UserData> {
+open class OngekiUserEntity : BaseEntity(), IUserEntity<UserData> {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -14,7 +14,7 @@ import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.AccessCodeSerializer
 import jakarta.persistence.*
-import kotlinx.io.IOException
+import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
