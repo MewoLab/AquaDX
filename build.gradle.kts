@@ -147,7 +147,7 @@ tasks.processResources {
 }
 
 tasks.test {
-    enabled = false
+    enabled = project.hasProperty("runTests")
     useJUnitPlatform()
     jvmArgs("-Dkotest.assertions.collection.print.size=100")
 }
