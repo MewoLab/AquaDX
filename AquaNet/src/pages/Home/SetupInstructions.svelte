@@ -11,34 +11,79 @@
   import { patchUserSegatools } from "../../libs/setup";
 
   let user: AquaNetUser
-  let keychip: string;
+  let keychips: string[] = [];
+  let selectedKeychip: string = "";
   let keychipCode: string;
 
   let exposeKeychip = false;
   let automaticSetupStatus: "none" | "success" | "failure" = "none";
+  let isLoading = true;
+  let isAdding = false;
 
-  USER.me().then((u) => {
-    user = u;
-    USER.keychip().then(k => {
-      keychip = `${k.slice(0, 4)}-${k.slice(4)}1337`;
-      codeToHtml(`
+  function formatKeychipDisplay(k: string): string {
+    return `${k.slice(0, 4)}-${k.slice(4)}1337`;
+  }
+
+  async function buildKeychipCode(k: string) {
+    exposeKeychip = false;
+    const displayId = formatKeychipDisplay(k);
+    keychipCode = await codeToHtml(`
 [dns]
 default=${AQUA_CONNECTION}
 
 [keychip]
 enable=1
-id=${keychip}`.trim(), {
-        lang: 'ini',
-        theme: 'rose-pine',
-        transformers: []
-      }).then((html) => {
-        keychipCode = html;
-      });
+id=${displayId}`.trim(), {
+      lang: 'ini',
+      theme: 'rose-pine',
+      transformers: []
     });
+  }
+
+  async function loadKeychips() {
+    isLoading = true;
+    keychips = await USER.keychips();
+    if (keychips.length > 0) {
+      selectedKeychip = keychips[0];
+      await buildKeychipCode(selectedKeychip);
+    }
+    isLoading = false;
+  }
+
+  USER.me().then((u) => {
+    user = u;
+    loadKeychips();
   });
 
+  async function selectKeychip(k: string) {
+    selectedKeychip = k;
+    await buildKeychipCode(k);
+  }
+
+  async function addKeychip() {
+    isAdding = true;
+    try {
+      const newId = await USER.addKeychip();
+      keychips = [...keychips, newId];
+      selectedKeychip = newId;
+      await buildKeychipCode(newId);
+    } finally {
+      isAdding = false;
+    }
+  }
+
+  async function deleteKeychip(k: string) {
+    await USER.deleteKeychip(k);
+    keychips = keychips.filter(id => id !== k);
+    if (selectedKeychip === k) {
+      selectedKeychip = keychips[0] ?? "";
+      if (selectedKeychip) await buildKeychipCode(selectedKeychip);
+      else keychipCode = "";
+    }
+  }
+
   async function patchSegatools() {
-    automaticSetupStatus = await patchUserSegatools({ keychip, dns: AQUA_CONNECTION }) ? "success" : "failure";
+    automaticSetupStatus = await patchUserSegatools({ keychip: formatKeychipDisplay(selectedKeychip), dns: AQUA_CONNECTION }) ? "success" : "failure";
   }
 </script>
 
@@ -47,45 +92,70 @@ id=${keychip}`.trim(), {
   <div class="setup-instructions">
     <h2>{t('home.setup')}</h2>
 
-    {#if keychip}
+    {#if isLoading}
+      <p>{t('loading')}</p>
+    {:else}
       <div class="setup-step">
         1. <div>{@html t('setup.steps.one')}</div>
       </div>
-      
+
       <blockquote class="info">
         {t('setup.keychip-warning')}
       </blockquote>
-      
-      {#if !!window.showOpenFilePicker}
+
+      <!-- Keychip list management -->
+      <div class="keychip-list">
+        {#if keychips.length === 0}
+          <p>{t('setup.no-keychips')}</p>
+        {:else}
+          {#each keychips as k}
+            <div class="keychip-item" class:selected={k === selectedKeychip}>
+              <button class="keychip-select" on:click={() => selectKeychip(k)}>
+                {k.slice(0, 4)}-{k.slice(4)}
+              </button>
+              <button class="keychip-delete danger" on:click={() => deleteKeychip(k)}>
+                {t('setup.keychip-delete')}
+              </button>
+            </div>
+          {/each}
+        {/if}
+        <button class="add-keychip" on:click={addKeychip} disabled={isAdding}>
+          {isAdding ? t('loading') : t('setup.keychip-add')}
+        </button>
+      </div>
+
+      {#if selectedKeychip}
+        {#if !!window.showOpenFilePicker}
+          <details>
+            <summary>{t('setup.type.automatic')}</summary>
+            {@html t('setup.automatic')}
+            {#if automaticSetupStatus != "none"}
+              <blockquote class={`keychip-status ${automaticSetupStatus}`}>
+                {t(`setup.automatic.${automaticSetupStatus}`)}
+              </blockquote>
+            {/if}
+            <div class="setup-btn">
+              <button on:click={patchSegatools}>{t('setup.automatic.select')}</button>
+            </div>
+          </details>
+        {/if}
+
         <details>
-          <summary>{t('setup.type.automatic')}</summary>
-          {@html t('setup.automatic')}
-          {#if automaticSetupStatus != "none"}
-            <blockquote class={`keychip-status ${automaticSetupStatus}`}>
-              {t(`setup.automatic.${automaticSetupStatus}`)}
-            </blockquote>
-          {/if}
-          <div class="setup-btn">
-            <button on:click={patchSegatools}>{t('setup.automatic.select')}</button>
+          <summary>{t('setup.type.manual')}</summary>
+          {@html t('setup.manual')}
+          <div class="code-container">
+            <div class="code" class:revealed={exposeKeychip}>
+              {@html keychipCode}
+            </div>
+            {#if !exposeKeychip}
+              <button class="reveal-btn" on:click={() => exposeKeychip = true}>
+                {t('setup.reveal-keychip')}
+              </button>
+            {/if}
           </div>
         </details>
+        <br>
       {/if}
-
-      <details>
-        <summary>{t('setup.type.manual')}</summary>
-        {@html t('setup.manual')}
-        <div class="code-container">
-          <div class="code" class:revealed={exposeKeychip}>
-            {@html keychipCode}
-          </div>
-          {#if !exposeKeychip}
-            <button class="reveal-btn" on:click={() => exposeKeychip = true}>
-              {t('setup.reveal-keychip')}
-            </button>
-          {/if}
-        </div>
-      </details>
-      <br>
 
       <div class="setup-step">
         2. <div>{@html t('setup.steps.two')}</div>
@@ -100,8 +170,6 @@ id=${keychip}`.trim(), {
       <p>
         {@html t('setup.support-info')}
       </p>
-    {:else}
-      <p>{t('loading')}</p>
     {/if}
   </div>
 </main>
@@ -167,5 +235,33 @@ id=${keychip}`.trim(), {
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
-      
+
+  .keychip-list
+    display: flex
+    flex-direction: column
+    gap: 0.5em
+    margin: 1em 0
+
+  .keychip-item
+    display: flex
+    align-items: center
+    gap: 0.5em
+    padding: 0.25em 0.5em
+    border-radius: 4px
+    &.selected
+      background: vars.$c-shadow
+
+  .keychip-select
+    font-family: monospace
+    flex: 1
+    text-align: left
+
+  .add-keychip
+    align-self: flex-start
+    margin-top: 0.25em
+
+  .danger
+    color: vars.$c-error
+    
 </style>
+

@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.allnet
 
 import ext.*
-import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.sega.allnet.AllNetBillingDecoder.decodeAllNet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -59,7 +58,7 @@ class AllNetProps {
 @Suppress("HttpUrlsUsage")
 @RestController
 class AllNet(
-    val userRepo: AquaNetUserRepo,
+    val userKeychipRepo: UserKeychipRepo,
     val keychipSessionService: KeychipSessionService,
     val keychipRepo: KeyChipRepo,
     val props: AllNetProps
@@ -109,7 +108,7 @@ class AllNet(
         // Proper keychip authentication
         if (props.checkKeychip) {
             // If it's a user keychip, it should be in user database
-            val u = userRepo.findByKeychip(serial)
+            val u = userKeychipRepo.findByKeychipId(serial)?.user
             if (u != null) {
                 // Create a new session for the user
                 logger.info("> Keychip authenticated: ${u.auId} ${u.computedName}")

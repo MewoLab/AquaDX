@@ -8,6 +8,8 @@ import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import icu.samnyan.aqua.sega.allnet.KeyChipRepo
 import icu.samnyan.aqua.sega.allnet.KeychipSession
+import icu.samnyan.aqua.sega.allnet.UserKeychip
+import icu.samnyan.aqua.sega.allnet.UserKeychipRepo
 import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.Card
@@ -74,10 +76,10 @@ class AquaNetUser(
     @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
     var cards: MutableList<Card> = mutableListOf(),
 
-    // Each user can have one keychip (if the user owns a cabinet)
+    // Each user can have multiple keychips (if the user owns cabinets)
     @JsonIgnore
-    @Column(nullable = true, length = 32, unique = true)
-    var keychip: Str? = null,
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    var keychips: MutableList<UserKeychip> = mutableListOf(),
 
     // Each user's keychip can have multiple sessions
     @JsonIgnore
@@ -105,7 +107,6 @@ interface AquaNetUserRepo : JpaRepository<AquaNetUser, Long> {
     fun findByAuId(auId: Long): AquaNetUser?
     fun findByEmailIgnoreCase(email: String): AquaNetUser?
     fun findByUsernameIgnoreCase(username: String): AquaNetUser?
-    fun findByKeychip(keychip: String): AquaNetUser?
     fun findByGhostCardExtId(extId: Long): AquaNetUser?
 }
 
@@ -125,6 +126,7 @@ class AquaUserServices(
     val cardRepo: CardRepository,
     val hasher: PasswordEncoder,
     val keyChipRepo: KeyChipRepo,
+    val userKeychipRepo: UserKeychipRepo,
     val allNetProps: AllNetProps,
     val jwt: JWT,
     val em: EntityManager,
@@ -192,7 +194,7 @@ class AquaUserServices(
     fun validKeychip(keychipId: Str): Bool {
         if (!allNetProps.checkKeychip) return true
         if (keychipId.isBlank()) return false
-        if (userRepo.findByKeychip(keychipId) != null || keyChipRepo.existsByKeychipId(keychipId)) return true
+        if (userKeychipRepo.existsByKeychipId(keychipId) || keyChipRepo.existsByKeychipId(keychipId)) return true
         return false
     }
 
