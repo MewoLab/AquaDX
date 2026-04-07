@@ -149,16 +149,17 @@ export const EN_REF_SETUP = {
   'setup.steps.four': `Start the game. Upon reaching the title screen, the network icon in the corner should now show green instead of grey.`,
   'setup.support-info': `If you need assistance, feel free to make an inquiry in a <a href="/support">support channel</a>.`,
   'setup.reveal-keychip': `Reveal keychip`,
-  'setup.no-keychips': `You have no keychips yet. Generate one to connect your cabinet to the server.`,
-  'setup.keychip-add': `Generate new keychip`,
-  'setup.keychip-delete': `Delete`,
   'setup.type.automatic': `Automatic Setup`,
   'setup.type.manual': `Manual Setup`,
   'setup.manual': `Please modify your segatools.ini with the following information.`,
   'setup.automatic': `Select your segatools.ini below to autofill the network information.`,
   'setup.automatic.success': `Success, data has been updated`,
   'setup.automatic.failure': `Failed to update information, please ensure access is not blocked and try again.`,
-  'setup.automatic.select': `Pick file`
+  'setup.automatic.select': `Pick file`,
+  'setup.keychip-list': 'Keychip Management',
+  'setup.keychip-add': `Add keychip`,
+  'setup.keychip-delete': `Delete`,
+  'setup.keychip-placeholder': `New Keychip ID`
 }
 
 export const EN_REF_SETTINGS = {

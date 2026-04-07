@@ -19,22 +19,34 @@
   let automaticSetupStatus: "none" | "success" | "failure" = "none";
   let isLoading = true;
   let isAdding = false;
+  let newKeychip = "";
+  let addKeychipError = "";
 
-  // Format the keychip for display in segatools.ini.
   function formatKeychipDisplay(k: string): string {
     return `${k.slice(0, 4)}-${k.slice(4)}`;
   }
 
-  async function buildKeychipCode(k: string) {
+  function buildManualKeychipLines(): string {
+    if (keychips.length > 1) {
+      return [
+        "; This account has multiple keychips linked. CHOOSE ONE to use and DELETE THE REST",
+        ...keychips.map((id) => `id=${formatKeychipDisplay(id)}`),
+      ].join("\n");
+    }
+
+    return `id=${formatKeychipDisplay(selectedKeychip)}`;
+  }
+
+  async function buildKeychipCode() {
     exposeKeychip = false;
-    const displayId = formatKeychipDisplay(k);
+    const keychipLines = buildManualKeychipLines();
     keychipCode = await codeToHtml(`
 [dns]
 default=${AQUA_CONNECTION}
 
 [keychip]
 enable=1
-id=${displayId}`.trim(), {
+${keychipLines}`.trim(), {
       lang: 'ini',
       theme: 'rose-pine',
       transformers: []
@@ -46,7 +58,10 @@ id=${displayId}`.trim(), {
     keychips = await USER.keychips();
     if (keychips.length > 0) {
       selectedKeychip = keychips[0];
-      await buildKeychipCode(selectedKeychip);
+      await buildKeychipCode();
+    } else {
+      selectedKeychip = "";
+      await buildKeychipCode();
     }
     isLoading = false;
   }
@@ -58,16 +73,29 @@ id=${displayId}`.trim(), {
 
   async function selectKeychip(k: string) {
     selectedKeychip = k;
-    await buildKeychipCode(k);
+    await buildKeychipCode();
   }
 
   async function addKeychip() {
+    const rawKeychipId = newKeychip.trim().toUpperCase();
+    const validRawFormat = /^A\d{14}$/.test(rawKeychipId) || /^A\d{3}-\d{11}$/.test(rawKeychipId);
+    if (!validRawFormat) {
+      addKeychipError = "Invalid keychip format; use A12345678901234 or A123-12345678901.";
+      return;
+    }
+
+    const keychipId = rawKeychipId.replace("-", "");
+
+    addKeychipError = "";
     isAdding = true;
     try {
-      const newId = await USER.addKeychip();
+      const newId = await USER.addKeychip(keychipId);
       keychips = [...keychips, newId];
       selectedKeychip = newId;
-      await buildKeychipCode(newId);
+      newKeychip = "";
+      await buildKeychipCode();
+    } catch (error) {
+      addKeychipError = error instanceof Error ? error.message : "Failed to add keychip.";
     } finally {
       isAdding = false;
     }
@@ -78,8 +106,7 @@ id=${displayId}`.trim(), {
     keychips = keychips.filter(id => id !== k);
     if (selectedKeychip === k) {
       selectedKeychip = keychips[0] ?? "";
-      if (selectedKeychip) await buildKeychipCode(selectedKeychip);
-      else keychipCode = "";
+      await buildKeychipCode();
     }
   }
 
@@ -103,27 +130,6 @@ id=${displayId}`.trim(), {
       <blockquote class="info">
         {t('setup.keychip-warning')}
       </blockquote>
-
-      <!-- Keychip list management -->
-      <div class="keychip-list">
-        {#if keychips.length === 0}
-          <p>{t('setup.no-keychips')}</p>
-        {:else}
-          {#each keychips as k}
-            <div class="keychip-item" class:selected={k === selectedKeychip}>
-              <button class="keychip-select" on:click={() => selectKeychip(k)}>
-                {k.slice(0, 4)}-{k.slice(4)}
-              </button>
-              <button class="keychip-delete danger" on:click={() => deleteKeychip(k)}>
-                {t('setup.keychip-delete')}
-              </button>
-            </div>
-          {/each}
-        {/if}
-        <button class="add-keychip" on:click={addKeychip} disabled={isAdding}>
-          {isAdding ? t('loading') : t('setup.keychip-add')}
-        </button>
-      </div>
 
       {#if selectedKeychip}
         {#if !!window.showOpenFilePicker}
@@ -171,6 +177,38 @@ id=${displayId}`.trim(), {
       <p>
         {@html t('setup.support-info')}
       </p>
+
+      {#if user.canModifyKeychips}
+      <h2>{t('setup.keychip-list')}</h2>
+        <div class="keychip-list">
+          {#each keychips as k}
+            <div class="keychip-item" class:selected={k === selectedKeychip}>
+              <button class="keychip-select" on:click={() => selectKeychip(k)}>
+                {formatKeychipDisplay(k)}
+              </button>
+              <button class="keychip-delete danger" on:click={() => deleteKeychip(k)}>
+                {t('setup.keychip-delete')}
+              </button>
+            </div>
+          {/each}
+
+          <form class="add-keychip-form" on:submit|preventDefault={addKeychip}>
+            <input
+              type="text"
+              placeholder={t('setup.keychip-placeholder')}
+              maxlength="16"
+              bind:value={newKeychip}
+              required
+            />
+            <button class="add-keychip" type="submit" disabled={isAdding}>
+              {isAdding ? t('loading') : t('setup.keychip-add')}
+            </button>
+          </form>
+          {#if addKeychipError}
+            <p class="danger">{addKeychipError}</p>
+          {/if}
+        </div>
+      {/if}
     {/if}
   </div>
 </main>
@@ -260,6 +298,21 @@ id=${displayId}`.trim(), {
   .add-keychip
     align-self: flex-start
     margin-top: 0.25em
+
+  .add-keychip-form
+    display: flex
+    flex-wrap: wrap
+    gap: 0.5em
+    align-items: center
+    margin-top: 0.25em
+    
+    input
+      flex: 1 1 16rem
+      max-width: 16rem
+
+    button
+      flex: 1 1 10rem
+      max-width: 8rem
 
   .danger
     color: vars.$c-error

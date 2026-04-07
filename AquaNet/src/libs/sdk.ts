@@ -188,8 +188,8 @@ export const USER = {
   },
   keychips: (): Promise<string[]> =>
     post('/api/v2/user/keychip', {}).then(it => it.keychips),
-  addKeychip: (): Promise<string> =>
-    post('/api/v2/user/keychip/add', {}).then(it => it.keychipId),
+  addKeychip: (keychipId: string): Promise<string> =>
+    post('/api/v2/user/keychip/add', { keychipId }).then(it => it.keychipId),
   deleteKeychip: (keychipId: string) =>
     post('/api/v2/user/keychip/delete', { keychipId }),
   setting: (key: string, value: string) =>

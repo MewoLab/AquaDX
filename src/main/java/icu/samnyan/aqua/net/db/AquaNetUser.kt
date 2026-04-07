@@ -86,6 +86,9 @@ class AquaNetUser(
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     var keychipSessions: MutableList<KeychipSession> = mutableListOf(),
 
+    @Column(nullable = false)
+    var canModifyKeychips: Boolean = false,
+
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "gameOptions", unique = true, nullable = true)
     var gameOptions: AquaGameOptions? = null,
