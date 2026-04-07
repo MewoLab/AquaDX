@@ -17,7 +17,7 @@ class UserKeychip(
     var user: AquaNetUser,
 
     @Column(unique = true, nullable = false, length = 32)
-    val keychipId: String = "",
+    val keychipId: String,
 )
 
 @Repository
