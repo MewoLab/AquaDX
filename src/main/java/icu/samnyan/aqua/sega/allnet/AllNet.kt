@@ -181,20 +181,7 @@ class AllNet(
         // If keychip authentication is enabled, the game URLs will be set to /gs/{token}/{game}/...
         val base = if (session != null) "gs/$session" else "g"
 
-        return "http://$addr/$base/" + when (gameId) {
-            "SDBT" -> "chu2/$ver/$session/"
-            "SDHD" -> "chu3/$ver/"
-            "SDGS" -> "chu3/$ver/" // International (c3exp)
-            "SBZV" -> "diva/"
-            "SDDT" -> "ongeki/$ver/"
-            "SDEY" -> "mai/"
-            "SDGA" -> "mai2/" // International (Exp)
-            "SDGB" -> "mai2/" // International (China) - TODO: Test it
-            "SDEZ" -> "mai2/"
-            "SDFE" -> "wacca" // Note: Wacca must not end with a trailing slash
-            "SDED" -> "card/"
-            else -> ""
-        }
+        return "http://$addr/$base/$gameId/$ver/"
     }
 
     companion object {

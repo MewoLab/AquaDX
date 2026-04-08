@@ -11,12 +11,14 @@ import icu.samnyan.aqua.sega.maimai2.handler.*
 import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
 import icu.samnyan.aqua.spring.Metrics
 import jakarta.servlet.http.HttpServletRequest
+import kotlinx.io.bytestring.hexToByteString
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.security.MessageDigest
 import java.time.format.DateTimeFormatter
 import kotlin.reflect.full.declaredMemberProperties
 
@@ -25,7 +27,11 @@ import kotlin.reflect.full.declaredMemberProperties
  */
 @Suppress("unused")
 @RestController
-@RequestMapping(path = ["/g/mai2/Maimai2Servlet/", "/g/mai2/"])
+@RequestMapping(path = [
+    "/g/SDGA/{version}/Maimai2Servlet/", "/g/SDGA/{version}",
+    "/g/SDEZ/{version}/Maimai2Servlet/", "/g/SDEZ/{version}",
+    "/g/SDGB/{version}/Maimai2Servlet/", "/g/SDGB/{version}",
+])
 class Maimai2ServletController(
     val upsertUserAll: UpsertUserAllHandler,
     val getUserItem: GetUserItemHandler,
@@ -40,7 +46,18 @@ class Maimai2ServletController(
     val getGameRanking: GetGameRankingHandler,
     val db: Mai2Repos,
     val net: Maimai2,
-): MeowApi(serialize = { _, resp -> if (resp is String) resp else resp.toJson() }) {
+): MeowApi(
+    serialize = { _, resp -> if (resp is String) resp else resp.toJson() },
+    @kotlin.ExperimentalStdlibApi
+    { endpoint: String ->
+        db.gameData.mai2GameEncryption.map{
+            val suffix = when (it.code) { "SDGA" -> "MaimaiExp" "SDGB" -> "MaimaiChn" else -> "" }
+            MessageDigest.getInstance("MD5")
+                .digest((endpoint + suffix).toByteArray() + it.salt!!.hexToByteArray())
+                .toHexString()
+        }
+    }
+) {
     companion object {
         private val log = logger()
         private val empty = listOf<Any>()
@@ -55,11 +72,6 @@ class Maimai2ServletController(
         "CMGetUserCardApi","CMGetUserCardPrintErrorApi","CMGetUserDataApi","CMGetUserItemApi","CMUpsertUserPrintApi",
         "GetUserFavoriteItemApi")
 
-    val noopEndpoint = setOf("GetUserScoreRankingApi", "UpsertClientBookkeepingApi",
-        "UpsertClientSettingApi", "UpsertClientTestmodeApi", "UpsertClientUploadApi", "Ping", "RemoveTokenApi",
-        "CMLoginApi", "CMLogoutApi", "CMUpsertBuyCardApi", "UserLogoutApi", "GetGameMapAreaConditionApi",
-        "UpsertUserChargelogApi","UpsertClientPlayTimeApi")
-
     val members = this::class.declaredMemberProperties
     val handlers: Map<String, SpecialHandler> = initH + endpointList.associateWith { api ->
         val name = api.replace("Api", "").lowercase()
@@ -72,27 +84,25 @@ class Maimai2ServletController(
     @API("/{api}")
     fun handle(@PathVariable api: String, @RequestBody data: Map<String, Any>, req: HttpServletRequest): Any {
         val token = TokenChecker.tokenShort()
-        log.info("$token : $api < ${data.toJson()}")
+
+        val apiFriendlyName = if (api.lowercase() == api && api.length == 32)
+            ((hashes.filter { it.value.contains(api) }.keys.firstOrNull()?.str + " (encrypt)") ?: api) else "$api (encrypt)"
+        log.info("$token : $apiFriendlyName < ${data.toJson()}")
 
         val noop = """{"returnCode":1,"apiName":"com.sega.maimai2servlet.api.$api"}"""
-        if (api !in noopEndpoint && !handlers.containsKey(api)) {
-            log.warn("$token : $api > not found")
+        if (!handlers.containsKey(api)) {
+            log.warn("$token : $apiFriendlyName > not found")
             return noop
         }
 
         // Only record the counter metrics if the API is known.
         Metrics.counter("aquadx_maimai2_api_call", "api" to api).increment()
 
-        if (api in noopEndpoint) {
-            log.info("$token : $api > no-op")
-            return noop
-        }
-
         return try {
             Metrics.timer("aquadx_maimai2_api_latency", "api" to api).recordCallable {
                 val ctx = RequestContext(req, data.mut)
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
-                    log.info("$token : $api > ${it.truncate(500)}")
+                    log.info("$token : $apiFriendlyName > ${it.truncate(500)}")
                 }
             }
         } catch (e: Exception) {

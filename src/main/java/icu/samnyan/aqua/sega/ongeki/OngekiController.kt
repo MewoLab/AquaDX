@@ -8,14 +8,18 @@ import icu.samnyan.aqua.sega.general.GameMusicPopularity
 import icu.samnyan.aqua.sega.general.MeowApi
 import icu.samnyan.aqua.sega.general.RequestContext
 import icu.samnyan.aqua.sega.general.service.CardService
+import icu.samnyan.aqua.sega.maimai2.Maimai2ServletController
 import icu.samnyan.aqua.sega.util.BasicMapper
 import icu.samnyan.aqua.spring.Metrics
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.RestController
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.PBEKeySpec
+
 
 @Suppress("unused")
 @RestController
-@API("/g/ongeki/{version}", "/g/ongeki")
+@API("/g/SDDT/{version}", "/g/SDDT")
 class OngekiController(
     val mapper: BasicMapper,
     val db: OngekiUserRepos,
@@ -23,13 +27,22 @@ class OngekiController(
     val us: AquaUserServices,
     val pop: GameMusicPopularity,
     val cardService: CardService,
-): MeowApi({ _, resp -> if (resp is String) resp else mapper.write(resp) }) {
+): MeowApi(
+    { _, resp -> if (resp is String) resp else mapper.write(resp) },
+    @OptIn(ExperimentalStdlibApi::class)
+    { endpoint: String ->
+        gdb.gameData.ogkGameEncryption.map{
+            SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
+                .generateSecret(PBEKeySpec(
+                    endpoint.toCharArray(),
+                    it.salt!!.hexToByteArray(),
+                    it.iterations, 128
+                )).encoded.toHexString().substring(0, 32)
+        }
+    }
+) {
 
     val log = logger()
-
-    val noopEndpoint = setOf("ExtendLockTimeApi", "GameLogoutApi", "RegisterPromotionCardApi",
-        "UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi", "UpsertClientSettingApi",
-        "UpsertClientTestmodeApi", "UpsertUserGplogApi", "Ping")
 
     init { ongekiInit() }
     val handlers = initH
@@ -40,26 +53,25 @@ class OngekiController(
         version?.let { data["version"] = it }
 
         val token = TokenChecker.tokenShort()
-        log.info("$token : $api < ${data.toJson()}")
+
+        val apiFriendlyName = if (api.lowercase() == api && api.length == 32)
+            ((hashes.filter { it.value.contains(api) }.keys.firstOrNull()?.str + " (encrypt)") ?: api) else "$api (encrypt)"
+        log.info("$token : $apiFriendlyName < ${data.toJson()}")
 
         val noop = """{"returnCode":1,"apiName":"${api.substringBefore("Api").firstCharLower()}"}"""
-        if (api !in noopEndpoint && !handlers.containsKey(api)) {
-            log.warn("$token : $api > not found")
+        if (!handlers.containsKey(api)) {
+            log.warn("$token : $apiFriendlyName > not found")
             return noop
         }
 
         // Only record the counter metrics if the API is known.
         Metrics.counter("aquadx_ongeki_api_call", "api" to api).increment()
-        if (api in noopEndpoint) {
-            log.info("$token : $api > no-op")
-            return noop
-        }
 
         return try {
             Metrics.timer("aquadx_ongeki_api_latency", "api" to api).recordCallable {
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
-                        log.info("$token : $api > ${it.truncate(500)}")
+                        log.info("$token : $apiFriendlyName > ${it.truncate(500)}")
                 }
             }
         } catch (e: Exception) {

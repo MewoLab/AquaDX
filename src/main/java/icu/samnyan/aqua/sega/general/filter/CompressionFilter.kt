@@ -5,6 +5,8 @@ import ext.logger
 import ext.toJson
 import icu.samnyan.aqua.net.components.GeoIP
 import icu.samnyan.aqua.sega.allnet.TokenChecker
+import icu.samnyan.aqua.sega.general.model.GameEncryptionKey
+import icu.samnyan.aqua.sega.util.GameDataService
 import icu.samnyan.aqua.sega.util.ZLib
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.util.ContentCachingResponseWrapper
 import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 
 /**
@@ -21,21 +26,46 @@ import java.util.*
  */
 @Component
 class CompressionFilter(
-    val geoip: GeoIP
+    val geoip: GeoIP,
+    val gameData: GameDataService
 ) : OncePerRequestFilter() {
     companion object {
         val log = logger()
         val b64d = Base64.getMimeDecoder()
         val b64e = Base64.getMimeEncoder()
+
     }
 
+    var keys = gameData.chu3GameEncryption + gameData.mai2GameEncryption + gameData.ogkGameEncryption
+    fun getEncryptionKeys(path: String): GameEncryptionKey? {
+        val endpoint = path.split("/").last()
+        if (endpoint.lowercase() != endpoint || endpoint.length != 32) return null
+
+        val game = path.split("/")[2]
+        val version = path.split("/")[3].filterNot { it == '.' }.toInt()
+        return keys.find { it.version == version && it.code == game }
+    }
+
+    @OptIn(ExperimentalStdlibApi::class)
     override fun doFilterInternal(req: HttpServletRequest, resp: HttpServletResponse, chain: FilterChain) {
         val isDeflate = req.getHeader("content-encoding") == "deflate"
         val isDfi = req.getHeader("pragma") == "DFI"
 
+        val keys = getEncryptionKeys(req.servletPath)
+
         // Decode input
         val reqSrc = try {
             req.inputStream.readAllBytes().let {
+                if (keys != null) {
+                    val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+                    cipher.init(
+                        Cipher.DECRYPT_MODE,
+                        SecretKeySpec(keys.key!!.hexToByteArray(), "AES"),
+                        IvParameterSpec(keys.iv!!.hexToByteArray())
+                    )
+                    cipher.doFinal(it)
+                } else it
+            }.let {
                 if (isDeflate) ZLib.decompress(it)
                 else if (isDfi) ZLib.decompress(b64d.decode(it))
                 else it
@@ -50,7 +80,19 @@ class CompressionFilter(
         val respW = ContentCachingResponseWrapper(resp)
         val result = try {
             chain.doFilter(CompressRequestWrapper(req, reqSrc), respW)
-            ZLib.compress(respW.contentAsByteArray).let { if (isDfi) b64e.encode(it) else it }
+            ZLib.compress(respW.contentAsByteArray)
+                .let { if (isDfi) b64e.encode(it) else it }
+                .let {
+                    if (keys != null) {
+                        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+                        cipher.init(
+                            Cipher.ENCRYPT_MODE,
+                            SecretKeySpec(keys.key!!.hexToByteArray(), "AES"),
+                            IvParameterSpec(keys.iv!!.hexToByteArray())
+                        )
+                        cipher.doFinal(it)
+                    } else it
+                }
         } finally {
             if (respW.status != 200) {
                 val details = mapOf(

@@ -17,13 +17,18 @@ import icu.samnyan.aqua.spring.Metrics
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.RestController
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.PBEKeySpec
 
 /**
  * @author samnyan (privateamusement@protonmail.com)
  */
 @Suppress("unused")
 @RestController
-@API(value = ["/g/chu3/{version}/ChuniServlet", "/g/chu3/{version}"])
+@API(value = [
+    "/g/SDHD/{version}/ChuniServlet", "/g/SDHD/{version}",
+    "/g/SDGS/{version}/ChuniServlet", "/g/SDGS/{version}",
+])
 class ChusanController(
     val mapper: StringMapper,
     val cmMapper: BasicMapper,
@@ -37,13 +42,18 @@ class ChusanController(
 ): MeowApi({ api, resp ->
     if (resp is String) resp
     else (if ("CM" in api  || api == "GetUserItemApi" ) cmMapper else mapper).write(resp)
+}, 
+@kotlin.ExperimentalStdlibApi
+{ endpoint: String ->
+    db.gameData.chu3GameEncryption.map{
+        val suffix = when (it.code) { "SDGS" -> "C3Exp" else -> "" }
+        SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1")
+            .generateSecret(
+                PBEKeySpec((endpoint + suffix).toCharArray(), it.salt!!.hexToByteArray(), it.iterations, 128)
+            ).encoded.toHexString().substring(0, 32)
+    }
 }) {
     val log = LoggerFactory.getLogger(ChusanController::class.java)
-
-    val noopEndpoint = setOf("UpsertClientBookkeepingApi", "UpsertClientDevelopApi", "UpsertClientErrorApi",
-        "UpsertClientSettingApi", "UpsertClientTestmodeApi", "CreateTokenApi", "RemoveTokenApi", "UpsertClientUploadApi",
-        "PrinterLoginApi", "PrinterLogoutApi", "Ping", "GameLogoutApi", "RemoveMatchingMemberApi",
-        "UpsertClientPlayTimeApi", "UpsertClientGameStartApi", "UpsertClientGameEndApi")
 
     init { chusanInit() }
     val handlers = initH
@@ -60,28 +70,27 @@ class ChusanController(
             data["c3exp"] = true
         }
 
+        val apiFriendlyName = if (endpoint.lowercase() == endpoint && endpoint.length == 32)
+            hashes.filter { it.value.contains(api) }.keys.first().str + " (encrypt)" else api
+
         if (api.startsWith("CM") && api !in handlers) api = api.removePrefix("CM")
         val token = TokenChecker.tokenShort()
-        log.info("$token : $api < ${data.toJson()}")
+        log.info("$token : $apiFriendlyName < ${data.toJson()}")
 
         val noop = """{"returnCode":"1","apiName":"$api"}"""
-        if (api !in noopEndpoint && !handlers.containsKey(api)) {
-            log.warn("$token : $api > not found")
+        if (!handlers.containsKey(api)) {
+            log.warn("$token : $apiFriendlyName > not found")
             return noop
         }
 
         // Only record the counter metrics if the API is known.
         Metrics.counter("aquadx_chusan_api_call", "api" to api).increment()
-        if (api in noopEndpoint) {
-            log.info("$token : $api > no-op")
-            return noop
-        }
 
         return try {
             Metrics.timer("aquadx_chusan_api_latency", "api" to api).recordCallable {
                 serialize(api, handlers[api]!!(ctx) ?: noop).also {
                     if (api !in setOf("GetUserItemApi", "GetGameEventApi"))
-                        log.info("$token : $api > ${it.truncate(500)}")
+                        log.info("$token : $apiFriendlyName > ${it.truncate(500)}")
                 }
             }
         } catch (e: Exception) {

@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("/g/card")
+@RequestMapping("/g/SDED/{version}")
 class CardMakerController(
     val mapper: BasicMapper,
     @param:Value("\${allnet.server.host:}") val ALLNET_HOST: String,

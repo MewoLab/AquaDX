@@ -84,3 +84,6 @@ src/main/resources/meta/*/*.json
 test-diff
 htmlReport
 docs/logs
+
+# Sensitive keys
+game_encryption.json

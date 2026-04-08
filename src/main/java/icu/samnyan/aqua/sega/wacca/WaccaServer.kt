@@ -25,7 +25,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 @RestController
-@API("/g/wacca/")
+@API("/g/SDFE/{version}")
 class WaccaServer {
     // These are lateinit autowired instead of constructor injection because the tests depend on creating
     // an instance of this class with no arguments.

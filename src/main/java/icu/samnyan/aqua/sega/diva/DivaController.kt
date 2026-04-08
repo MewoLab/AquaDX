@@ -35,7 +35,7 @@ val DIVA_INIT = mapOf("db_close" to "0,0", "retry_time" to "FFFF")
  * @author samnyan (privateamusement@protonmail.com)
  */
 @RestController
-@RequestMapping("/g/diva")
+@RequestMapping("/g/SBZV/{version}")
 class DivaController(
     val attendHandler: AttendHandler,
     val cardProcedureHandler: CardProcedureHandler,

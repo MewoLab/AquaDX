@@ -31,11 +31,23 @@ typealias PagePost = (MutJDict) -> Unit
 data class PagedProcessor(val add: JDict?, val fn: PagedHandler, var post: PagePost? = null)
 
 // A very :3 way of declaring APIs
-abstract class MeowApi(val serialize: (String, Any) -> String) {
+abstract class MeowApi(
+    val serialize: (String, Any) -> String,
+    val endpointHash: ((String) -> List<String>)? = null
+) {
     val initH = mutableMapOf<String, SpecialHandler>()
+    val hashes = mutableMapOf<String, MutableList<String>>()
     infix operator fun String.invoke(fn: SpecialHandler) {
         if (initH.containsKey("${this}Api")) error("Duplicate API $this found! Someone is not smart 👀")
         initH["${this}Api"] = fn
+        if (endpointHash != null) {
+            // Keep track of hashes for logging; they're not necessary for anything else
+            hashes["${this}Api"] = mutableListOf()
+            for (hashedEndpoint in endpointHash("${this}Api")) {
+                initH[hashedEndpoint] = fn
+                hashes["${this}Api"]?.add(hashedEndpoint)
+            }
+        }
     }
     infix fun String.static(fn: () -> Any) = serialize(this, fn()).let { resp -> this { resp } }
 

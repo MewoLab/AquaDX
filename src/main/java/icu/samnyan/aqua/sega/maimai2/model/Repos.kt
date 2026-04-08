@@ -147,7 +147,7 @@ class Mai2Repos(
     val userKaleidx: MAi2UserKaleidxRepo,
     val userIntimate: MAi2UserIntimateRepo,
     val userRegions: Mai2UserRegionsRepo,
-    gameData: GameDataService
+    val gameData: GameDataService
 ) {
     val gameCharge = StaticRepo(gameData.mai2Charges) { it.orderId }
     val gameEvent = StaticRepo(gameData.mai2Events) { it.id }

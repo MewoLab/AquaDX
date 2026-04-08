@@ -424,8 +424,20 @@ fun Maimai2ServletController.initApis() {
         )
     ) }
 
-    "UpsertUserPlaceCircleRegist" static { mapOf(
-        "returnCode" to 0,
-        "apiName" to "UpsertUserPlaceCircleRegistApi"
-    ) }
+    // NOTE: no-op APIs moved to respect encryption
+    "UpsertUserPlaceCircleRegist" static { mapOf( "returnCode" to 0, "apiName" to "com.sega.maimai2servlet.api.UpsertUserPlaceCircleRegistApi") }
+    "GetUserScoreRanking" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.GetUserScoreRankingApi"}""" }
+    "UpsertClientBookkeeping" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UpsertClientBookkeepingApi"}""" }
+    "UpsertClientSetting" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UpsertClientSettingApi"}""" }
+    "UpsertClientTestmode" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UpsertClientTestmodeApi"}""" }
+    "UpsertClientUpload" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UpsertClientUploadApi"}""" }
+    "Ping" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.Ping"}""" }
+    "RemoveToken" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.RemoveTokenApi"}""" }
+    "CMLogin" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.CMLoginApi"}""" }
+    "CMLogout" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.CMLogoutApi"}""" }
+    "CMUpsertBuyCard" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.CMUpsertBuyCardApi"}""" }
+    "UserLogout" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UserLogoutApi"}""" }
+    "GetGameMapAreaCondition" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.GetGameMapAreaConditionApi"}""" }
+    "UpsertUserChargelog" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UpsertUserChargelogApi"}""" }
+    "UpsertClientPlayTime" static { """{returnCode":1, "apiName":"com.sega.maimai2servlet.api.UpsertClientPlayTimeApi"}""" }
 }

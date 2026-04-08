@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.util
 import com.fasterxml.jackson.core.type.TypeReference
 import ext.logger
 import ext.toJson
+import icu.samnyan.aqua.sega.general.model.GameEncryptionKey
 import icu.samnyan.aqua.sega.chusan.model.GameCharge as Chu3GameCharge
 import icu.samnyan.aqua.sega.chusan.model.GameEvent as Chu3GameEvent
 import icu.samnyan.aqua.sega.chusan.model.GameGacha as Chu3GameGacha
@@ -45,7 +46,8 @@ class GameDataService() {
                 return mapper.read(resStream.bufferedReader().use { it.readText() }, object : TypeReference<List<T>>() {})
             }
 
-            log.warn("Game data file $f or resource $resPath not found, using empty list")
+            if (file != "game_encryption.json")
+                log.warn("Game data file $f or resource $resPath not found, using empty list")
             return emptyList()
         }
     }
@@ -54,6 +56,7 @@ class GameDataService() {
     lateinit var mai2Events: List<Mai2GameEvent>
     lateinit var mai2Charges: List<Mai2GameCharge>
     lateinit var mai2SellingCards: List<Mai2GameSellingCard>
+    lateinit var mai2GameEncryption: List<GameEncryptionKey>
 
     // chusan
     lateinit var chu3GameLinkedVerses: List<Chu3GameLinkedVerse>
@@ -63,6 +66,7 @@ class GameDataService() {
     lateinit var chu3GameGachas: List<Chu3GameGacha>
     lateinit var chu3GameLoginBonusPresets: List<Chu3GameLoginBonusPreset>
     lateinit var chu3GameLoginBonuses: List<Chu3GameLoginBonus>
+    lateinit var chu3GameEncryption: List<GameEncryptionKey>
 
     // ongeki
     lateinit var ogkGameCards: List<OgkGameCard>
@@ -75,6 +79,7 @@ class GameDataService() {
     lateinit var ogkGameSkills: List<OgkGameSkill>
     lateinit var ogkGameGachaCards: List<OgkGameGachaCard>
     lateinit var ogkGameGachas: List<OgkGameGacha>
+    lateinit var ogkGameEncryption: List<GameEncryptionKey>
 
     init {
         load()
@@ -84,6 +89,7 @@ class GameDataService() {
         mai2Events = load("maimai2", "game_event.json")
         mai2Charges = load("maimai2", "game_charge.json")
         mai2SellingCards = load("maimai2", "game_selling_card.json")
+        mai2GameEncryption = load(game = "maimai2", file = "game_encryption.json")
 
         chu3GameLinkedVerses = load("chusan", "game_linked_verse.json")
         chu3GameCharges = load("chusan", "game_charge.json")
@@ -92,6 +98,7 @@ class GameDataService() {
         chu3GameGachas = load("chusan", "game_gacha.json")
         chu3GameLoginBonusPresets = load("chusan", "game_login_bonus_preset.json")
         chu3GameLoginBonuses = load("chusan", "game_login_bonus.json")
+        chu3GameEncryption = load(game = "chusan", file = "game_encryption.json")
 
         ogkGameCards = load("ongeki", "game_card.json")
         ogkGameCharas = load("ongeki", "game_chara.json")
@@ -103,6 +110,7 @@ class GameDataService() {
         ogkGameSkills = load("ongeki", "game_skill.json")
         ogkGameGachaCards = load("ongeki", "game_gacha_card.json")
         ogkGameGachas = load("ongeki", "game_gacha.json")
+        ogkGameEncryption = load(game = "ongeki", file = "game_encryption.json")
     }
 }
 

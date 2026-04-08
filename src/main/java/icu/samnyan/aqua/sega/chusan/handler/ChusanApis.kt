@@ -431,5 +431,23 @@ fun ChusanController.chusanInit() {
 //        process()
 
         """{"returnCode":"1"}"""
+
+        // NOTE: no-op APIs moved to respect encryption
+        "UpsertClientBookkeeping" static { """{returnCode":1, "apiName":"UpsertClientBookkeepingApi"}""" }
+        "UpsertClientDevelop" static { """{returnCode":1, "apiName":"UpsertClientDevelopApi"}""" }
+        "UpsertClientError" static { """{returnCode":1, "apiName":"UpsertClientErrorApi"}""" }
+        "UpsertClientSetting" static { """{returnCode":1, "apiName":"UpsertClientSettingApi"}""" }
+        "UpsertClientTestmode" static { """{returnCode":1, "apiName":"UpsertClientTestmodeApi"}""" }
+        "CreateToken" static { """{returnCode":1, "apiName":"CreateTokenApi"}""" }
+        "RemoveToken" static { """{returnCode":1, "apiName":"RemoveTokenApi"}""" }
+        "UpsertClientUpload" static { """{returnCode":1, "apiName":"UpsertClientUploadApi"}""" }
+        "PrinterLogin" static { """{returnCode":1, "apiName":"PrinterLoginApi"}""" }
+        "PrinterLogout" static { """{returnCode":1, "apiName":"PrinterLogoutApi"}""" }
+        "Ping" static { """{returnCode":1, "apiName":"Ping"}""" }
+        "GameLogout" static { """{returnCode":1, "apiName":"GameLogoutApi"}""" }
+        "RemoveMatchingMember" static { """{returnCode":1, "apiName":"RemoveMatchingMemberApi"}""" }
+        "UpsertClientPlayTime" static { """{returnCode":1, "apiName":"UpsertClientPlayTimeApi"}""" }
+        "UpsertClientGameStart" static { """{returnCode":1, "apiName":"UpsertClientGameStartApi"}""" }
+        "UpsertClientGameEnd" static { """{returnCode":1, "apiName":"UpsertClientGameEndApi"}""" }
     }
 }
