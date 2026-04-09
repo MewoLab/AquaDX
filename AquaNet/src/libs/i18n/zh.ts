@@ -5,6 +5,7 @@ import {
   EN_REF_LEADERBOARD,
   EN_REF_MAI_PHOTO,
   EN_REF_SETTINGS,
+  EN_REF_SETUP,
   EN_REF_USER,
   EN_REF_USERBOX,
   type EN_REF_Welcome
@@ -152,6 +153,32 @@ const zhHome: typeof EN_REF_HOME = {
   'home.import.unknown-game': '未知游戏类型 (目前导入只支持舞萌和中二)',
   'home.import.new-data': '要导入的数据',
   'home.import.data-conflict': '继续导入将覆盖现有数据',
+}
+
+const zhSetup: typeof EN_REF_SETUP = {
+  'setup.welcome': `欢迎！如果您已经设置好游戏，请按照以下说明与 AquaDX 建立连接。`,
+  'setup.keychip-warning': `您的 keychip 与您的账户绑定，应妥善保管。请勿将 keychip 提供给他人。`,
+  'setup.steps.one': `选择一种网络通信设置方式。某些浏览器可能无法进行自动设置。`,
+  'setup.steps.two': `通过 <a href="/cards">Cards</a> 页面，使用访问码或序列号将您的 Aime 卡绑定到 AquaDX 账户。`,
+  'setup.steps.three': `启动游戏。在进入标题界面后，角落中的网络图标应显示为绿色而不是灰色。`,
+  'setup.support-info': `如果您需要更多帮助，请在 <a href="/support">support channel</a> 中提交咨询。`,
+  'setup.reveal-keychip': `显示 keychip`,
+  'setup.type.automatic': `自动设置`,
+  'setup.type.manual': `手动设置`,
+  'setup.manual': `请使用以下信息修改您的 segatools.ini 文件。`,
+  'setup.automatic': `选择您的 segatools.ini 文件以自动填充网络信息。`,
+  'setup.automatic.success': `成功，数据已更新`,
+  'setup.automatic.failure': `更新失败，请确保访问未被阻止后重试。`,
+  'setup.automatic.select': `选择文件`,
+  'setup.troubleshooting.header': '设置故障排除（FAQ）',
+  'setup.troubleshooting.items.one': `"网络测试显示 DNS BAD！"<br>
+    您可能错误配置了 segatools.ini。请确保其指向上方显示的 DNS（见手动设置）。`,
+  'setup.troubleshooting.items.two': `"网络测试显示 タイトル サーバー BAD（Title Server BAD）！"<br>
+    请检查您的 segatools.ini，确保 keychip 设置正确。<br>
+    此外，Card Maker 用户以及使用高于所列版本的玩家可能需要禁用加密
+    <a target="_blank" href="https://gitea.tendokyu.moe/Dniel97/SEGAguide/wiki/SDED#patching-assemblycsharpdll">（Card Maker 指南）</a>`,
+  'setup.troubleshooting.items.three': `"我无法扫描卡片！"<br>
+    默认情况下，模拟读卡器使用 ENTER 键进行扫描（按住）。`
 }
 
 const zhSettings: typeof EN_REF_SETTINGS = {
@@ -342,5 +369,5 @@ export const zhAquaTrans: typeof EN_REF_AQUATRANS = {
 
 export const ZH = { ...zhUser, ...zhWelcome, ...zhGeneral,
   ...zhLeaderboard, ...zhHome, ...zhSettings, ...zhUserbox, ...zhMaiPhoto,
-  ...zhAquaTrans
+  ...zhAquaTrans,   ...zhSetup
 }

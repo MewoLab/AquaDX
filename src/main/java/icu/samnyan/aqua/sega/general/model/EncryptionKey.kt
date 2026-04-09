@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 class GameEncryptionKey {
     var code: String? = null
-    var version = 0
+    var versions: List<Int> = listOf()
     var key: String? = null
     var salt: String? = null
     var iv: String? = null

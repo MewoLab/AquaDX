@@ -32,21 +32,22 @@ Multipurpose game server for ALL.Net games.
 > [!WARNING]  
 > CHUNITHM pre-NEW!! and maimai pre-DX are no longer supported after February 6th, 2026 and all associated data will be removed.
 
-| Game                   | Latest Ver.         | Initial Ver.        | Notes                                                       | Web UI | Data Import |
-|------------------------|---------------------|---------------------|-------------------------------------------------------------|--------|-------------|
-| SDHD: CHUNITHM         | 2.45 (X-VERSE-X)    | 2.00 (NEW)          |                                                             | ✅    |  ❗         | 
-| SDEZ: maimai DX        | 1.65 (CiRCLE PLUS)  | 1.00 (DX)           | Missing circle (teams) support                              | ✅    |  ✅         | 
-| SDGA: maimai DX (Intl) | 1.60 (CiRCLE)       | 1.00 (DX)           | Thanks [@Clansty](https://github.com/clansty)               | ✅    |  ✅         | 
-| SDED: Card Maker       | 1.39                | N/A                 | Thanks [@Becods](https://github.com/Becods)                 | ❌    |  ❌         | 
-| SDDT: O.N.G.E.K.I.     | 1.50 (Re:Fresh)     | N/A                 | Thanks [@PenguinCaptain](https://github.com/PenguinCaptain) | ✅    |  ❌         | 
-| SBZV: Project DIVA     | 7.10                | N/A                 | Minimal support                                             | ❌    |  ❌         | 
-| SDFE: Wacca            | 3.07 (Reverse)      | N/A                 | Later versions are EOS patches, network will not work       | ✅    |  ❌         | 
+| Game                   | Latest Ver.         | Initial Ver.        | Notes                                                       | Web UI | Data Import | Encryption |
+|------------------------|---------------------|---------------------|-------------------------------------------------------------|--------|-------------|------------|
+| SDHD: CHUNITHM         | 2.45 (X-VERSE-X)    | 2.00 (NEW)          |                                                             | ✅    |  ❗         | ✅        |
+| SDEZ: maimai DX        | 1.65 (CiRCLE PLUS)  | 1.00 (DX)           | Missing circle (teams) support                              | ✅    |  ✅         | ✅        | 
+| SDGA: maimai DX (Intl) | 1.60 (CiRCLE)       | 1.00 (DX)           | Thanks [@Clansty](https://github.com/clansty)               | ✅    |  ✅         | ✅        |
+| SDED: Card Maker       | 1.39                | N/A                 | Thanks [@Becods](https://github.com/Becods)                 | ❌    |  ❌         | ❌        |
+| SDDT: O.N.G.E.K.I.     | 1.50 (Re:Fresh)     | N/A                 | Thanks [@PenguinCaptain](https://github.com/PenguinCaptain) | ✅    |  ❌         | ✅        |
+| SBZV: Project DIVA     | 7.10                | N/A                 | Minimal support                                             | ❌    |  ❌         | 🔓        |
+| SDFE: Wacca            | 3.07 (Reverse)      | N/A                 | Later versions are EOS patches, network will not work       | ✅    |  ❌         | 🔓        |
 
 <!-- A majority of them have been left as N/A for initial version as they do not appear to have restrictions -->
 
 Check out these docs for more information.
 * [Game specific notes](docs/game_specific_notes.md)
 * [Frequently asked questions](docs/frequently_asked_questions.md)
+* [Encryption notes](docs/encryption.md)
   
 ## Usage
 

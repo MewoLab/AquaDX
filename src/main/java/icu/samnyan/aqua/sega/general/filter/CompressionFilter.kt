@@ -43,7 +43,7 @@ class CompressionFilter(
 
         val game = path.split("/")[2]
         val version = path.split("/")[3].filterNot { it == '.' }.toInt()
-        return keys.find { it.version == version && it.code == game }
+        return keys.find { it.versions.contains(version) && it.code == game }
     }
 
     @OptIn(ExperimentalStdlibApi::class)
