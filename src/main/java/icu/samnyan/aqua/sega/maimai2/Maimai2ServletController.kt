@@ -30,7 +30,7 @@ import kotlin.reflect.full.declaredMemberProperties
 @RequestMapping(path = [
     "/g/SDGA/{version}/Maimai2Servlet/", "/g/SDGA/{version}",
     "/g/SDEZ/{version}/Maimai2Servlet/", "/g/SDEZ/{version}",
-    "/g/SDGB/{version}/Maimai2Servlet/", "/g/SDGB/{version}",
+    //"/g/SDGB/{version}/Maimai2Servlet/", "/g/SDGB/{version}",
 ])
 class Maimai2ServletController(
     val upsertUserAll: UpsertUserAllHandler,
