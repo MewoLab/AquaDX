@@ -11,7 +11,7 @@ ALTER TABLE user_keychip
     ADD CONSTRAINT uc_user_keychip_keychip_id UNIQUE (keychip_id);
 
 ALTER TABLE user_keychip
-    ADD CONSTRAINT fk_user_keychip_on_au FOREIGN KEY (au_id) REFERENCES aqua_net_user (au_id);
+    ADD CONSTRAINT fk_user_keychip_on_au FOREIGN KEY (au_id) REFERENCES aqua_net_user (au_id) ON DELETE CASCADE;
 
 -- Migrate existing keychip values from aqua_net_user into the new table
 INSERT INTO user_keychip (au_id, keychip_id)
