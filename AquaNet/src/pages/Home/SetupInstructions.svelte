@@ -20,10 +20,9 @@
   let isLoading = true;
   let isAdding = false;
 
-  // Format the keychip for use in segatools.ini.
-  // The '1337' suffix is appended to conform to the segatools keychip ID format requirement.
+  // Format the keychip for display in segatools.ini.
   function formatKeychipDisplay(k: string): string {
-    return `${k.slice(0, 4)}-${k.slice(4)}1337`;
+    return `${k.slice(0, 4)}-${k.slice(4)}`;
   }
 
   async function buildKeychipCode(k: string) {

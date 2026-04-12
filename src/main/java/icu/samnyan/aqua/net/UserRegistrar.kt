@@ -241,8 +241,8 @@ class UserRegistrar(
     val keychipRange = 1e9.toULong()..1e10.toULong() - 1UL
 
     private suspend fun generateKeychipId(): String {
-        var new = "A" + keychipRange.random()
-        while (async { userKeychipRepo.existsByKeychipId(new) }) new = "A" + keychipRange.random()
+        var new = "A" + keychipRange.random() + "1337"
+        while (async { userKeychipRepo.existsByKeychipId(new) }) new = "A" + keychipRange.random() + "1337"
         return new
     }
 

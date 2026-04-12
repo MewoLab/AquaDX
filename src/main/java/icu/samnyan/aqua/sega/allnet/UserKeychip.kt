@@ -23,6 +23,7 @@ class UserKeychip(
 @Repository
 interface UserKeychipRepo : JpaRepository<UserKeychip, Long> {
     fun findByKeychipId(keychipId: String): UserKeychip?
+    fun findByKeychipIdStartingWith(keychipIdPrefix: String): UserKeychip?
     fun existsByKeychipId(keychipId: String): Boolean
     fun findAllByUserAuId(auId: Long): List<UserKeychip>
 
