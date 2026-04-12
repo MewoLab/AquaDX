@@ -29,7 +29,7 @@
   function buildManualKeychipLines(): string {
     if (keychips.length > 1) {
       return [
-        "; This account has multiple keychips linked. CHOOSE ONE to use and DELETE THE REST",
+        `; ${t('setup.keychip-multiple-warning')}`,
         ...keychips.map((id) => `id=${formatKeychipDisplay(id)}`),
       ].join("\n");
     }

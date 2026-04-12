@@ -157,6 +157,7 @@ export const EN_REF_SETUP = {
   'setup.automatic.failure': `Failed to update information, please ensure access is not blocked and try again.`,
   'setup.automatic.select': `Pick file`,
   'setup.keychip-list': 'Keychip Management',
+  'setup.keychip-multiple-warning': 'This account has multiple keychips linked. CHOOSE ONE to use and DELETE THE REST',
   'setup.keychip-add': `Add keychip`,
   'setup.keychip-delete': `Delete`,
   'setup.keychip-placeholder': `New Keychip ID`
