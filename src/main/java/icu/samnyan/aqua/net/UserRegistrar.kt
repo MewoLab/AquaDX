@@ -40,8 +40,6 @@ class UserRegistrar(
     final val paths: PathProps
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
-    val keychipPattern = Regex("^A\\d{14}$")
-    val dashedKeychipPattern = Regex("^A\\d{3}-\\d{11}$")
 
     companion object {
         // Random long with length 9-10
@@ -241,6 +239,11 @@ class UserRegistrar(
         SUCCESS
     }
 
+    val keychipPattern = Regex("^A\\d{14}$")
+    val dashedKeychipPattern = Regex("^A\\d{3}-\\d{11}$")
+    val keychipRange = 1e9.toULong()..1e10.toULong() - 1UL
+
+
     private fun ensureCanModifyKeychips(u: AquaNetUser) {
         if (!u.canModifyKeychips) 403 - "You don't have permission to modify keychips"
     }
@@ -260,6 +263,14 @@ class UserRegistrar(
     @Doc("List all keychip IDs associated with the current user's account.", "List of keychip IDs")
     suspend fun listKeychips(@RP token: Str) = jwt.auth(token) { u ->
         val keychips = async { userKeychipRepo.findAllByUserAuId(u.auId) }
+        if (keychips.isEmpty()) {
+            var new = "A" + keychipRange.random() + "1337"
+            while (async { userKeychipRepo.existsByKeychipId(new) }) new = "A" + keychipRange.random() + "1337"
+            async { userKeychipRepo.save(UserKeychip(user = u, keychipId = new)) }
+
+            return mapOf("keychips" to listOf(new))
+        }
+
         mapOf("keychips" to keychips.map { it.keychipId })
     }
 
