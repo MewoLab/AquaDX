@@ -7,6 +7,7 @@ import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import icu.samnyan.aqua.net.db.ResetPasswordRepo
+import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.allnet.UserKeychip
@@ -37,6 +38,7 @@ class UserRegistrar(
     val validator: AquaUserServices,
     val emailProps: EmailProperties,
     val userKeychipRepo: UserKeychipRepo,
+    val aquaNetProps: AquaNetProps,
     final val paths: PathProps
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
@@ -275,6 +277,9 @@ class UserRegistrar(
 
         if (async { userKeychipRepo.existsByKeychipId(validated) })
             400 - "Keychip already exists"
+
+        if (userKeychipRepo.findAllByUserAuId(u.auId).size >= aquaNetProps.keychipLimit)
+            400 - "Exceeds maximum keychip count"
 
         async { userKeychipRepo.save(UserKeychip(user = u, keychipId = validated)) }
         mapOf("keychipId" to validated)

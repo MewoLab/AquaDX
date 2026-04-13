@@ -10,6 +10,7 @@ import kotlin.io.path.createDirectories
 @ConfigurationProperties(prefix = "aqua-net")
 class AquaNetProps {
     var linkCardLimit: Int = 10
+    var keychipLimit: Int = 20
     var importBackupPath = "data/import-backups"
 
     @PostConstruct
