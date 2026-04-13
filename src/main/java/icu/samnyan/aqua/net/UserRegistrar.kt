@@ -263,14 +263,6 @@ class UserRegistrar(
     @Doc("List all keychip IDs associated with the current user's account.", "List of keychip IDs")
     suspend fun listKeychips(@RP token: Str) = jwt.auth(token) { u ->
         val keychips = async { userKeychipRepo.findAllByUserAuId(u.auId) }
-        if (keychips.isEmpty()) {
-            var new = "A" + keychipRange.random() + "1337"
-            while (async { userKeychipRepo.existsByKeychipId(new) }) new = "A" + keychipRange.random() + "1337"
-            async { userKeychipRepo.save(UserKeychip(user = u, keychipId = new)) }
-
-            return mapOf("keychips" to listOf(new))
-        }
-
         mapOf("keychips" to keychips.map { it.keychipId })
     }
 

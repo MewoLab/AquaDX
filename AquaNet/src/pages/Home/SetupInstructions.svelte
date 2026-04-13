@@ -27,13 +27,6 @@
   }
 
   function buildManualKeychipLines(): string {
-    if (keychips.length > 1) {
-      return [
-        `; ${t('setup.keychip-multiple-warning')}`,
-        ...keychips.map((id) => `id=${formatKeychipDisplay(id)}`),
-      ].join("\n");
-    }
-
     return `id=${formatKeychipDisplay(selectedKeychip)}`;
   }
 
@@ -131,6 +124,44 @@ ${keychipLines}`.trim(), {
         {t('setup.keychip-warning')}
       </blockquote>
 
+      {#if user.canModifyKeychips}
+        <details>
+          <summary>{t('setup.keychip')}</summary>
+          <p>
+            {t('setup.keychip.warning')}
+          </p>
+          <div class="keychip-list">
+            {#each keychips as k}
+              <div class="keychip-item" class:selected={k === selectedKeychip}>
+                <button class="keychip-select" on:click={() => selectKeychip(k)}>
+                  {formatKeychipDisplay(k)}
+                </button>
+                <button class="keychip-delete danger" on:click={() => deleteKeychip(k)}>
+                  {t('setup.keychip.delete')}
+                </button>
+              </div>
+            {/each}
+
+            <form class="add-keychip-form" on:submit|preventDefault={addKeychip}>
+              <input
+                type="text"
+                placeholder={t('setup.keychip.placeholder')}
+                maxlength="16"
+                bind:value={newKeychip}
+                required
+              />
+              <button class="add-keychip" type="submit" disabled={isAdding}>
+                {isAdding ? t('loading') : t('setup.keychip.add')}
+              </button>
+            </form>
+            {#if addKeychipError}
+              <p class="danger">{addKeychipError}</p>
+            {/if}
+          </div>
+        </details>
+        <div class="divider"></div>
+      {/if}
+
       {#if selectedKeychip}
         {#if !!window.showOpenFilePicker}
           <details>
@@ -177,38 +208,6 @@ ${keychipLines}`.trim(), {
       <p>
         {@html t('setup.support-info')}
       </p>
-
-      {#if user.canModifyKeychips}
-      <h2>{t('setup.keychip-list')}</h2>
-        <div class="keychip-list">
-          {#each keychips as k}
-            <div class="keychip-item" class:selected={k === selectedKeychip}>
-              <button class="keychip-select" on:click={() => selectKeychip(k)}>
-                {formatKeychipDisplay(k)}
-              </button>
-              <button class="keychip-delete danger" on:click={() => deleteKeychip(k)}>
-                {t('setup.keychip-delete')}
-              </button>
-            </div>
-          {/each}
-
-          <form class="add-keychip-form" on:submit|preventDefault={addKeychip}>
-            <input
-              type="text"
-              placeholder={t('setup.keychip-placeholder')}
-              maxlength="16"
-              bind:value={newKeychip}
-              required
-            />
-            <button class="add-keychip" type="submit" disabled={isAdding}>
-              {isAdding ? t('loading') : t('setup.keychip-add')}
-            </button>
-          </form>
-          {#if addKeychipError}
-            <p class="danger">{addKeychipError}</p>
-          {/if}
-        </div>
-      {/if}
     {/if}
   </div>
 </main>
@@ -217,6 +216,18 @@ ${keychipLines}`.trim(), {
   @use "../../vars"
   .code
     overflow-x: auto
+
+  .divider
+    width: 90%
+    height: 1px
+
+    background: #fff3
+
+    margin: 1em 0
+    
+    position: relative
+    left: 50%
+    transform: translate(-50%, 0)
 
   :global(pre.shiki)
     background-color: transparent !important
