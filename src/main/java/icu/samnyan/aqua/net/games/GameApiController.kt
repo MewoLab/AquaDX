@@ -4,6 +4,7 @@ import ext.*
 import icu.samnyan.aqua.net.BotProps
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.utils.SUCCESS
+import icu.samnyan.aqua.sega.allnet.UserKeychipRepo
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import jakarta.annotation.PostConstruct
@@ -32,6 +33,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     open val gettableFields: Set<String> = setOf()
 
     @Autowired lateinit var cardService: CardService
+    @Autowired lateinit var userKeychipRepo: UserKeychipRepo
 
     @API("trend")
     abstract suspend fun trend(@RP username: String): List<TrendOut>
@@ -205,7 +207,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             lastVersion = user.lastRomVersion,
             ratingComposition = ratingComp,
             recent = plays.sortedBy { it.userPlayDate.toString() }.takeLast(100).reversed(),
-            lastPlayedHost = user.lastClientId?.let { us.userRepo.findByKeychip(it)?.username },
+            lastPlayedHost = user.lastClientId?.let { userKeychipRepo.findByKeychipId(it)?.user?.username },
             rival = rival,
             favorites = favorites
         )

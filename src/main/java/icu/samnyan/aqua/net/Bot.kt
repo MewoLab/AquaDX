@@ -116,7 +116,7 @@ class BotController(
             val gamesDict = listOfNotNull(chu3, mai2).map {
                 // Find the keychip owner
                 val keychip = it.lastClientId
-                val keychipOwner = keychip?.let { us.userRepo.findByKeychip(it) }
+                val keychipOwner = keychip?.let { k -> us.userKeychipRepo.findByKeychipId(k)?.user }
 
                 mapOf(
                     "userData" to it,

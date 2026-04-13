@@ -2,12 +2,16 @@ package icu.samnyan.aqua.net
 
 import ext.*
 import icu.samnyan.aqua.net.components.*
+import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import icu.samnyan.aqua.net.db.ResetPasswordRepo
+import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
+import icu.samnyan.aqua.sega.allnet.UserKeychip
+import icu.samnyan.aqua.sega.allnet.UserKeychipRepo
 import icu.samnyan.aqua.sega.general.dao.CardRepository
 import icu.samnyan.aqua.sega.general.model.CardStatus
 import jakarta.servlet.http.HttpServletRequest
@@ -33,6 +37,8 @@ class UserRegistrar(
     val cardRepo: CardRepository,
     val validator: AquaUserServices,
     val emailProps: EmailProperties,
+    val userKeychipRepo: UserKeychipRepo,
+    val aquaNetProps: AquaNetProps,
     final val paths: PathProps
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
@@ -235,20 +241,57 @@ class UserRegistrar(
         SUCCESS
     }
 
+    val keychipPattern = Regex("^A\\d{14}$")
+    val dashedKeychipPattern = Regex("^A\\d{3}-\\d{11}$")
     val keychipRange = 1e9.toULong()..1e10.toULong() - 1UL
 
+
+    private fun ensureCanModifyKeychips(u: AquaNetUser) {
+        if (!u.canModifyKeychips) 403 - "You don't have permission to modify keychips"
+    }
+
+    private fun validateCustomKeychip(keychipId: Str): Str {
+        val raw = keychipId.trim().uppercase()
+        val normalized = raw.replace("-", "")
+
+        val validRawFormat = raw == normalized || dashedKeychipPattern.matches(raw)
+        if (!validRawFormat || !keychipPattern.matches(normalized))
+            400 - "Invalid keychip format. Expected A followed by 14 digits (with optional dash)"
+
+        return normalized
+    }
+
     @API("/keychip")
-    @Doc("Get a Keychip ID so that the user can connect to the server.", "Success message")
-    suspend fun setupConnection(@RP token: Str) = jwt.auth(token) { u ->
-        u.keychip?.let { return mapOf("keychip" to it) }
-        log.info("Net: /user/keychip setup: ${u.auId} for ${u.username}")
+    @Doc("List all keychip IDs associated with the current user's account.", "List of keychip IDs")
+    suspend fun listKeychips(@RP token: Str) = jwt.auth(token) { u ->
+        val keychips = async { userKeychipRepo.findAllByUserAuId(u.auId) }
+        mapOf("keychips" to keychips.map { it.keychipId })
+    }
 
-        // Generate a keychip id with 10 digits (e.g. A1234567890)
-        var new = "A" + keychipRange.random()
-        while (async { userRepo.findByKeychip(new) != null }) new = "A" + keychipRange.random()
-        async { userRepo.save(u.apply { keychip = new }) }
+    @API("/keychip/add")
+    @Doc("Add a custom keychip ID for the user.", "The newly added keychip ID")
+    suspend fun addKeychip(@RP token: Str, @RP keychipId: Str) = jwt.auth(token) { u ->
+        ensureCanModifyKeychips(u)
+        log.info("Net: /user/keychip/add: ${u.auId} for ${u.username}")
+        val validated = validateCustomKeychip(keychipId)
 
-        mapOf("keychip" to new)
+        if (async { userKeychipRepo.existsByKeychipId(validated) })
+            400 - "Keychip already exists"
+
+        if (userKeychipRepo.findAllByUserAuId(u.auId).size >= aquaNetProps.keychipLimit)
+            400 - "Exceeds maximum keychip count"
+
+        async { userKeychipRepo.save(UserKeychip(user = u, keychipId = validated)) }
+        mapOf("keychipId" to validated)
+    }
+
+    @API("/keychip/delete")
+    @Doc("Remove a keychip ID from the user's account.", "Success message")
+    suspend fun deleteKeychip(@RP token: Str, @RP keychipId: Str) = jwt.auth(token) { u ->
+        ensureCanModifyKeychips(u)
+        val deleted = async { userKeychipRepo.deleteByKeychipIdAndUserAuId(keychipId, u.auId) }
+        if (deleted == 0L) 404 - "Keychip not found"
+        SUCCESS
     }
 
     @API("/upload-pfp", consumes = ["multipart/form-data"])

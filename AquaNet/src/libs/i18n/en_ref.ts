@@ -142,7 +142,7 @@ export const EN_REF_HOME = {
 
 export const EN_REF_SETUP = {
   'setup.welcome': `Welcome! If you have a game set up, please follow the instructions below to set up the connection with AquaDX.`,
-  'setup.keychip-warning': `Your keychip is linked to your account and should be kept secure. Do not give others your keychip.`,
+  'setup.keychip-warning': `Your keychip(s) are linked to your account and should be kept secure.`,
   'setup.steps.one': `Pick a method of setting up network communications. Some browsers may not be able to do automatic setup.`,
   'setup.steps.two': `Link your Aime card to your AquaDX account using the <a href="/cards">Cards</a> page via it's access code or serial number.`,
   'setup.steps.three': `Start the game. Upon reaching the title screen, the network icon in the corner should now show green instead of grey.`,
@@ -164,6 +164,11 @@ export const EN_REF_SETUP = {
     <a target="_blank" href="https://gitea.tendokyu.moe/Dniel97/SEGAguide/wiki/SDED#patching-assemblycsharpdll">(instructions for Card Maker)</a>`,
   'setup.troubleshooting.items.three': `"I can't scan my card!"<br>
     Emulated card readers, by default, are configured to use the ENTER key to scan in (hold it).`
+  'setup.keychip': 'Keychip Management',
+  'setup.keychip.warning': 'Keychips can be manually set here for cabinet owners with physical keychips trying to connect to AquaDX. Selecting a keychip will autofill it for the setup below.',
+  'setup.keychip.add': `Add keychip`,
+  'setup.keychip.delete': `Delete`,
+  'setup.keychip.placeholder': `New Keychip ID`
 }
 
 export const EN_REF_SETTINGS = {

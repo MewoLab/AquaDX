@@ -186,8 +186,12 @@ export const USER = {
     ensureLoggedIn()
     return post('/api/v2/user/me', {})
   },
-  keychip: (): Promise<string> =>
-    post('/api/v2/user/keychip', {}).then(it => it.keychip),
+  keychips: (): Promise<string[]> =>
+    post('/api/v2/user/keychip', {}).then(it => it.keychips),
+  addKeychip: (keychipId: string): Promise<string> =>
+    post('/api/v2/user/keychip/add', { keychipId }).then(it => it.keychipId),
+  deleteKeychip: (keychipId: string) =>
+    post('/api/v2/user/keychip/delete', { keychipId }),
   setting: (key: string, value: string) =>
     post('/api/v2/user/setting', { key: key === 'password' ? 'pwHash' : key, value }),
   uploadPfp: (file: File) => {

@@ -1,7 +1,6 @@
 package icu.samnyan.aqua.sega.allnet
 
 import ext.*
-import icu.samnyan.aqua.net.db.AquaNetUserRepo
 import icu.samnyan.aqua.sega.allnet.AllNetBillingDecoder.decodeAllNet
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -59,9 +58,8 @@ class AllNetProps {
 @Suppress("HttpUrlsUsage")
 @RestController
 class AllNet(
-    val userRepo: AquaNetUserRepo,
+    val userKeychipRepo: UserKeychipRepo,
     val keychipSessionService: KeychipSessionService,
-    val keychipRepo: KeyChipRepo,
     val props: AllNetProps
 ) {
     @API("/")
@@ -109,7 +107,7 @@ class AllNet(
         // Proper keychip authentication
         if (props.checkKeychip) {
             // If it's a user keychip, it should be in user database
-            val u = userRepo.findByKeychip(serial)
+            val u = findUserByIncomingSerial(serial)
             if (u != null) {
                 // Create a new session for the user
                 logger.info("> Keychip authenticated: ${u.auId} ${u.computedName}")
@@ -118,11 +116,6 @@ class AllNet(
                     region = u.region
                 }
                 session = keychipSessionService.new(u, reqMap["game_id"] ?: "").token
-            }
-
-            // Check if it's a whitelisted keychip
-            else if (!serial.isEmpty() && keychipRepo.existsByKeychipId(serial)) {
-                session = keychipSessionService.new(null, reqMap["game_id"] ?: "").token
             }
 
             else if (props.keychipPermissiveForTesting) {
@@ -175,6 +168,17 @@ class AllNet(
         return resp.toUrl() + "\n"
     }
 
+    private fun findUserByIncomingSerial(serial: String) = when (serial.length) {
+        FULL_KEYCHIP_LENGTH -> userKeychipRepo.findByKeychipId(serial)?.user
+        SHORT_KEYCHIP_LENGTH -> {
+            // segatools only sends the first 11 characters of the keychip
+            // First, try to find it by suffixing AquaDX's generated suffix, then fall back to matching without the suffixed 4 digits
+            userKeychipRepo.findByKeychipId(serial + KEYCHIP_SUFFIX)?.user
+                ?: userKeychipRepo.findByKeychipIdStartingWith(serial)?.user
+        }
+        else -> userKeychipRepo.findByKeychipId(serial)?.user
+    }
+
     private fun switchUri(hereAddr: Str, localPort: Str, gameId: Str, ver: Str, session: Str?): Str {
         val addr = hereAddr + (if (props.hidePort) "" else ":${props.port ?: localPort}")
 
@@ -185,6 +189,9 @@ class AllNet(
     }
 
     companion object {
+        const val SHORT_KEYCHIP_LENGTH = 11
+        const val FULL_KEYCHIP_LENGTH = 15
+        const val KEYCHIP_SUFFIX = "1337"
         val logger = logger()
     }
 }
