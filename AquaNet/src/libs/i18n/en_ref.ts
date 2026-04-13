@@ -156,14 +156,14 @@ export const EN_REF_SETUP = {
   'setup.automatic.failure': `Failed to update information, please ensure access is not blocked and try again.`,
   'setup.automatic.select': `Pick file`,
   'setup.troubleshooting.header': 'Setup Troubleshooting (FAQ)',
-  'setup.troubleshooting.items.one': `"It shows DNS BAD on Network Test!"<br>
+  'setup.troubleshooting.items.one': `» It displays DNS BAD on Network Test<br>
     You likely misconfigured your segatools.ini. Ensure it's pointing to the DNS shown above (under Manual Setup).`,
-  'setup.troubleshooting.items.two': `"It shows タイトル サーバー BAD (Title Server BAD) on Network Test!"<br>
+  'setup.troubleshooting.items.two': `» It displays タイトル サーバー BAD (Title Server BAD) on Network Test<br>
     You should check your segatools.ini to ensure your keychip is set correctly.<br>
     Additionally, Card Maker users and players using a game version higher than what's listed may need to disable encryption
     <a target="_blank" href="https://gitea.tendokyu.moe/Dniel97/SEGAguide/wiki/SDED#patching-assemblycsharpdll">(instructions for Card Maker)</a>`,
-  'setup.troubleshooting.items.three': `"I can't scan my card!"<br>
-    Emulated card readers, by default, are configured to use the ENTER key to scan in (hold it).`
+  'setup.troubleshooting.items.three': `» I can't scan my card<br>
+    The built-in emulated card reader, by default, is configured to use the Enter / Return key to scan in (hold the key).`,
   'setup.keychip': 'Keychip Management',
   'setup.keychip.warning': 'Keychips can be manually set here for cabinet owners with physical keychips trying to connect to AquaDX. Selecting a keychip will autofill it for the setup below.',
   'setup.keychip.add': `Add keychip`,

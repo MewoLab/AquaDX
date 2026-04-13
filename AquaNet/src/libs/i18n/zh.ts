@@ -60,15 +60,15 @@ const zhWelcome: typeof EN_REF_Welcome = {
   'welcome.username-missing': '用户名/邮箱必须填哦',
   'welcome.email-password-missing': '邮箱和密码必须填哦',
   'welcome.waiting-turnstile': '正在验证网络环境…',
-  'welcome.turnstile-error': '验证网络环境出错了，请关闭 VPN 后重试',
-  'welcome.turnstile-timeout': '验证网络环境超时了，请重试',
-  'welcome.verification-sent': '验证邮件已发送至 ${email}，请翻翻收件箱',
-  'welcome.reset-password-sent': '重置邮件已发送至 ${email}，请翻翻收件箱',
-  'welcome.verify-state-0': '您还没有验证邮箱哦！验证邮件一分钟内刚刚发到您的邮箱，请翻翻收件箱',
-  'welcome.verify-state-1': '您还没有验证邮箱哦！我们在过去的 24 小时内已经发送了 3 封验证邮件，所以我们不会再发送了，请翻翻收件箱',
-  'welcome.verify-state-2': '您还没有验证邮箱哦！我们刚刚又发送了一封验证邮件，请翻翻收件箱',
-  'welcome.reset-state-0': '重置邮件刚刚发送到你的邮箱啦，请翻翻收件箱!',
-  'welcome.reset-state-1': '邮件发送次数过多，暂时不会再发送新的重置邮件了',
+  'welcome.turnstile-error': '验证网络环境出错了,请关闭 VPN 后重试',
+  'welcome.turnstile-timeout': '验证网络环境超时了,请重试',
+  'welcome.verification-sent': '验证邮件已发送至 ${email},请翻翻收件箱',
+  'welcome.reset-password-sent': '重置邮件已发送至 ${email},请翻翻收件箱',
+  'welcome.verify-state-0': '您还没有验证邮箱哦！验证邮件一分钟内刚刚发到您的邮箱,请翻翻收件箱',
+  'welcome.verify-state-1': '您还没有验证邮箱哦！我们在过去的 24 小时内已经发送了 3 封验证邮件,所以我们不会再发送了,请翻翻收件箱',
+  'welcome.verify-state-2': '您还没有验证邮箱哦！我们刚刚又发送了一封验证邮件,请翻翻收件箱',
+  'welcome.reset-state-0': '重置邮件刚刚发送到你的邮箱啦,请翻翻收件箱!',
+  'welcome.reset-state-1': '邮件发送次数过多,暂时不会再发送新的重置邮件了',
   'welcome.verifying': '正在验证邮箱…请稍等',
   'welcome.verified': '您的邮箱已经验证成功！您现在可以登录了',
   'welcome.verification-failed': '验证失败：${message}。请重试',
@@ -91,7 +91,7 @@ const zhGeneral: typeof EN_REF_GENERAL = {
   'game.ongeki': "音击",
   'game.wacca': "华卡",
   "status.error": "发生错误",
-  "status.error.hint": "出了一些问题，请稍后刷新重试或者",
+  "status.error.hint": "出了一些问题,请稍后刷新重试或者",
   "status.error.hint.link": "加我们的 Discord 群问一问",
   "status.detail": "详细信息：${detail}",
   "action.refresh": "刷新",
@@ -113,21 +113,21 @@ const zhHome: typeof EN_REF_HOME = {
   'home.link-card': '绑定游戏卡',
   'home.link-cards-description':'绑定游戏数据卡（Amusement IC 或 Aime 卡）后才可以访问游戏存档哦',
   'home.join-community': '加入群组',
-  'home.join-community-description': '加入我们的聊天群组，与其他玩家聊天、获取帮助',
+  'home.join-community-description': '加入我们的聊天群组,与其他玩家聊天、获取帮助',
   'home.setup': '连接到 AquaDX',
-  'home.setup-description': '如果您有街机框体或者手台，点击这里设置服务器的连接',
+  'home.setup-description': '如果您有街机框体或者手台,点击这里设置服务器的连接',
   'home.import': '导入玩家数据',
-  'home.import-description': '如果你来自其他在线服，可以点击这里导入从其他服务器导出的数据',
+  'home.import-description': '如果你来自其他在线服,可以点击这里导入从其他服务器导出的数据',
   'home.linkcard.cards': "已绑卡片",
   'home.linkcard.description': "这些是您绑定到帐户的卡",
   'home.linkcard.account-card': "账户卡",
   'home.linkcard.registered': "注册于",
   'home.linkcard.lastused': "上次使用",
-  'home.linkcard.enter-info': "请输入以下信息，或将 aime.txt / felica.txt 文件拖放到此区域",
-  'home.linkcard.access-code': "卡背面的 20 位卡号（如果提示找不到卡，请尝试使用游戏内置的显示卡号功能，输入游戏读取到的卡号）",
+  'home.linkcard.enter-info': "请输入以下信息,或将 aime.txt / felica.txt 文件拖放到此区域",
+  'home.linkcard.access-code': "卡背面的 20 位卡号（如果提示找不到卡,请尝试使用游戏内置的显示卡号功能,输入游戏读取到的卡号）",
   'home.linkcard.enter-sn1': "在您的手机",
   'home.linkcard.enter-sn2': "上下载 NFC Tools 并扫描您的卡。然后输入显示的 SN 号。",
-  'home.linkcard.kdx-notice': "如果你在玩 KanadeDX，请在这里输入虚拟卡号（可以在设置 > 卡号中找到卡号）",
+  'home.linkcard.kdx-notice': "如果你在玩 KanadeDX,请在这里输入虚拟卡号（可以在设置 > 卡号中找到卡号）",
   'home.linkcard.link': "绑定",
   'home.linkcard.data-conflict': "卡号冲突",
   'home.linkcard.name': "名称",
@@ -138,15 +138,15 @@ const zhHome: typeof EN_REF_HOME = {
   'home.linkcard.notfound': "找不到卡",
   'home.linkcard.unlink': "取消链接",
   'home.linkcard.unlink-notice': "你确定要取消此卡的链接吗？",
-  'home.linkcard.felica-ac-warning': "该 Access Code 是一张 FeliCa AIC 卡。\n如果你使用实体卡（而非 aime.txt 模拟）刷卡登录游戏，与官方服务器不同，你需要绑定该卡的 FeliCa SN（或与之对应的，游戏界面中查看得到的 00 开头的卡号）而非此号码。\n如果你使用 aime.txt 模拟登录，请忽略本警告继续绑定。",
-  'home.setup.welcome': "欢迎! 如果您有街机框体或者手台，请按照以下说明设置以连接到 AquaDX。",
-  'home.setup.blockquote': "我们假设您已经拥有所需的文件，并且可以启动机台或手台附带的游戏（例如 ROM 和 segatools）。如果没有，请联系您设备的卖家以获取所需的文件，因为出于版权原因，我们不会提供这些文件。",
+  'home.linkcard.felica-ac-warning': "该 Access Code 是一张 FeliCa AIC 卡。\n如果你使用实体卡（而非 aime.txt 模拟）刷卡登录游戏,与官方服务器不同,你需要绑定该卡的 FeliCa SN（或与之对应的,游戏界面中查看得到的 00 开头的卡号）而非此号码。\n如果你使用 aime.txt 模拟登录,请忽略本警告继续绑定。",
+  'home.setup.welcome': "欢迎! 如果您有街机框体或者手台,请按照以下说明设置以连接到 AquaDX。",
+  'home.setup.blockquote': "我们假设您已经拥有所需的文件,并且可以启动机台或手台附带的游戏（例如 ROM 和 segatools）。如果没有,请联系您设备的卖家以获取所需的文件,因为出于版权原因,我们不会提供这些文件。",
   'home.setup.get': "开始",
   'home.setup.edit': "请打开您的 segatools.ini 文件并修改以下行",
-  'home.setup.test': "在您重新启动游戏后，应该能够连接到 AquaDX。可以验证测试菜单中的网络测试测试连接是否全部良好。",
-  'home.setup.ask': "如果您有任何问题，请加入我们的",
+  'home.setup.test': "在您重新启动游戏后,应该能够连接到 AquaDX。可以验证测试菜单中的网络测试测试连接是否全部良好。",
+  'home.setup.ask': "如果您有任何问题,请加入我们的",
   'home.setup.support': "以获取支持",
-  'home.setup.keychip-tips': "这是你的狗号，不要与任何人分享",
+  'home.setup.keychip-tips': "这是你的狗号,不要与任何人分享",
   'home.community.discord': 'Discord',
   'home.community.telegram': 'Telegram (中文)',
   'home.community.qq': 'QQ (中文)',
@@ -156,29 +156,34 @@ const zhHome: typeof EN_REF_HOME = {
 }
 
 const zhSetup: typeof EN_REF_SETUP = {
-  'setup.welcome': `欢迎！如果您已经设置好游戏，请按照以下说明与 AquaDX 建立连接。`,
-  'setup.keychip-warning': `您的 keychip 与您的账户绑定，应妥善保管。请勿将 keychip 提供给他人。`,
-  'setup.steps.one': `选择一种网络通信设置方式。某些浏览器可能无法进行自动设置。`,
-  'setup.steps.two': `通过 <a href="/cards">Cards</a> 页面，使用访问码或序列号将您的 Aime 卡绑定到 AquaDX 账户。`,
-  'setup.steps.three': `启动游戏。在进入标题界面后，角落中的网络图标应显示为绿色而不是灰色。`,
-  'setup.support-info': `如果您需要更多帮助，请在 <a href="/support">support channel</a> 中提交咨询。`,
-  'setup.reveal-keychip': `显示 keychip`,
+  'setup.welcome': `欢迎！如果您已准备好游戏,请按照以下说明设置与 AquaDX 的连接。`,
+  'setup.keychip-warning': `您的密钥芯片已与您的账户绑定,请妥善保管。`,
+  'setup.steps.one': `选择一种网络通信设置方法。某些浏览器可能无法进行自动设置。`,
+  'setup.steps.two': `请通过 <a href="/cards">卡片</a> 页面,使用访问码或序列号将您的 Aime 卡与 AquaDX 账户绑定。`,
+  'setup.steps.three': `启动游戏。进入标题画面后,角落处的网络图标应变为绿色,而非灰色。`,
+  'setup.support-info': `如需进一步协助,欢迎在 <a href="/support">支持频道</a> 中咨询。`,
+  'setup.reveal-keychip': `显示密钥芯片`,
   'setup.type.automatic': `自动设置`,
   'setup.type.manual': `手动设置`,
   'setup.manual': `请使用以下信息修改您的 segatools.ini 文件。`,
-  'setup.automatic': `选择您的 segatools.ini 文件以自动填充网络信息。`,
-  'setup.automatic.success': `成功，数据已更新`,
-  'setup.automatic.failure': `更新失败，请确保访问未被阻止后重试。`,
+  'setup.automatic': `请在下方的 segatools.ini 文件中选择,以自动填写网络信息。`,
   'setup.automatic.select': `选择文件`,
-  'setup.troubleshooting.header': '设置故障排除（FAQ）',
-  'setup.troubleshooting.items.one': `"网络测试显示 DNS BAD！"<br>
-    您可能错误配置了 segatools.ini。请确保其指向上方显示的 DNS（见手动设置）。`,
-  'setup.troubleshooting.items.two': `"网络测试显示 タイトル サーバー BAD（Title Server BAD）！"<br>
-    请检查您的 segatools.ini，确保 keychip 设置正确。<br>
-    此外，Card Maker 用户以及使用高于所列版本的玩家可能需要禁用加密
-    <a target="_blank" href="https://gitea.tendokyu.moe/Dniel97/SEGAguide/wiki/SDED#patching-assemblycsharpdll">（Card Maker 指南）</a>`,
-  'setup.troubleshooting.items.three': `"我无法扫描卡片！"<br>
-    默认情况下，模拟读卡器使用 ENTER 键进行扫描（按住）。`
+  'setup.automatic.success': `成功,数据已更新`,
+  'setup.automatic.failure': `更新信息失败,请确保访问未被阻止,然后重试。`,
+  'setup.troubleshooting.header': '设置故障排除（常见问题解答）',
+  'setup.troubleshooting.items.one': `» 网络测试显示 DNS BAD<br>
+    您可能配置了错误的 segatools.ini。请确保其指向上述（手动设置部分）显示的 DNS。`,
+  'setup.troubleshooting.items.two': `» 网络测试显示 タイトル サーバー BAD (Title Server BAD)<br>
+    请检查您的 segatools.ini 文件,确保密钥芯片设置正确。<br>
+    此外, Card Maker 用户以及使用高于列表中版本的游戏版本的玩家,可能需要禁用加密
+    <a target="_blank" href="https://gitea.tendokyu.moe/Dniel97/SEGAguide/wiki/SDED#patching-assemblycsharpdll">（Card Maker 操作指南）</a>`,
+  'setup.troubleshooting.items.three': `» 无法扫描卡片<br>
+    内置的模拟读卡器默认配置为使用回车键进行扫描（长按该键）。`,
+  'setup.keychip': '钥匙芯片管理',
+  'setup.keychip.warning': '对于拥有实体钥匙芯片并试图连接到 AquaDX 的机柜所有者,可在此手动设置钥匙芯片。选择钥匙芯片后,下方设置项将自动填充。',
+  'setup.keychip.add': `添加钥匙芯片`,
+  'setup.keychip.delete': `删除`,
+  'setup.keychip.placeholder': `新钥匙芯片 ID`
 }
 
 const zhSettings: typeof EN_REF_SETTINGS = {
@@ -190,7 +195,7 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.tabs.ongeki': '音击',
   'settings.tabs.wacca': '华卡',
 
-  "settings.options.all.preset-warning": "您正在使用预设选项配置，部分选项可能显示不正确。",
+  "settings.options.all.preset-warning": "您正在使用预设选项配置,部分选项可能显示不正确。",
   "settings.options.all.personal-best": "记录",
   "settings.options.all.rival-score": "对手",
   "settings.options.all.life": "生命值",
@@ -247,11 +252,11 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.fields.optOutOfLeaderboard.name': '不参与排行榜',
   'settings.fields.optOutOfLeaderboard.desc': '登录之后还是可以在排行榜上看到自己',
   'settings.fields.enableMusicRank.name': '在你的机台上启用「推荐乐曲排行榜」',
-  'settings.fields.enableMusicRank.desc': '如果你自己设计了排行榜的话，可以关闭这个（会影响你自己的机器）。',
+  'settings.fields.enableMusicRank.desc': '如果你自己设计了排行榜的话,可以关闭这个（会影响你自己的机器）。',
   'settings.mai2.name': '玩家名字',
   'settings.profile.picture': '头像',
   'settings.profile.upload-new': '上传',
-  'settings.profile.bad-format': '无效的图片格式，支持的格式有 PNG、JPG、JPEG、WEBP 和 GIF。',
+  'settings.profile.bad-format': '无效的图片格式,支持的格式有 PNG、JPG、JPEG、WEBP 和 GIF。',
   'settings.profile.save': '保存',
   'settings.profile.name': '昵称',
   'settings.profile.username': '用户名',
@@ -264,7 +269,7 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.profile.unchanged': '未更改',
   'settings.export': '导出玩家数据',
   'settings.batchManualExport': "导出 Batch Manual 格式（用于 Tachi）",
-  'settings.cabNotice': '注意：下面这些设置只会影响你自己的机器，如果你是在其他人的机器上玩的话，请联系机主来改设置',
+  'settings.cabNotice': '注意：下面这些设置只会影响你自己的机器,如果你是在其他人的机器上玩的话,请联系机主来改设置',
   // AI
   'settings.siteNotice': "这些设置仅适用于网站。",
   // AI
@@ -311,7 +316,7 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.matching.symbolChat.default': '默认',
 
   'userbox.new.name': 'AquaBox',
-  'userbox.new.setup': '将中二（Lumi 或更高版本）的游戏文件夹拖放到下方区域，以显示带有名牌和头像的 UserBox。所有文件都在浏览器中处理。',
+  'userbox.new.setup': '将中二（Lumi 或更高版本）的游戏文件夹拖放到下方区域,以显示带有名牌和头像的 UserBox。所有文件都在浏览器中处理。',
   'userbox.new.setup.notice': '选择包含游戏数据的最外层文件夹。',
   'userbox.new.setup.processing_file': '正在处理文件',
   'userbox.new.setup.finalizing': '正在保存到内部存储',
@@ -325,20 +330,20 @@ export const zhUserbox: typeof EN_REF_USERBOX = {
   'userbox.new.activate_desc': '启用后可显示带有名牌和头像的 UserBox',
   'userbox.new.activate_profile': '在用户页面启用 AquaBox',
   'userbox.new.activate_profile_desc': '启用后可在个人页面显示带有名牌和头像的 UserBox',
-  'userbox.new.error.invalidFolder': '所选文件夹无效。请确认游戏版本为 Lumi 或更新，并且包含 “A000” 选项包。',
+  'userbox.new.error.invalidFolder': '所选文件夹无效。请确认游戏版本为 Lumi 或更新,并且包含 “A000” 选项包。',
   'userbox.new.error.invalidUrl': '输入的 URL 无效。'
 };
 
 export const zhMaiPhoto: typeof EN_REF_MAI_PHOTO = {
   'maiphoto.title': 'Mai 纪念照片库',
-  'maiphoto.url_warning': '注意：如果想与朋友分享图片的话，请先保存照片再发出去。不要复制图片 URL，因为 URL 中包含 AquaDX 账号信息。',
+  'maiphoto.url_warning': '注意：如果想与朋友分享图片的话,请先保存照片再发出去。不要复制图片 URL,因为 URL 中包含 AquaDX 账号信息。',
   'maiphoto.none': '还没有图片哦~ 可以在每次游戏结束的时候点击上传来上传照片。',
 }
 
 export const zhAquaTrans: typeof EN_REF_AQUATRANS = {
   'trans.title': '🏳️‍⚧️ AquaTrans™ 数据迁移工具',
   'trans.confirm.unbackuped.title': '确认迁移',
-  'trans.confirm.unbackuped.msg': '似乎还没有备份目标服务器的数据，真的要继续吗？（推荐先备份一下，因为迁移的时候会覆盖数据）',
+  'trans.confirm.unbackuped.msg': '似乎还没有备份目标服务器的数据,真的要继续吗？（推荐先备份一下,因为迁移的时候会覆盖数据）',
   'trans.confirm.untested.title': '不太聪明喵',
   'trans.confirm.untested.msg': '在两个服务器上都测试完连接之后才能进行数据迁移哦！',
   'trans.confirm.done.title': '完成！',
@@ -346,8 +351,8 @@ export const zhAquaTrans: typeof EN_REF_AQUATRANS = {
   'trans.alert.in-progress': '在迁移了在迁移了',
   'trans.prompt-html': `
     <p>👋 欢迎使用 AquaTrans™ 服务器游玩数据迁移工具！</p>
-    <p>这个工具可以导出任意服务器的数据，并使用连接凭证（卡号、服务器地址和 Keychip ID）将数据导入任何其他服务器。</p>
-    <p>我将模拟游戏客户端，从源服务器拉取游戏数据并推送到目标服务器。</p>
+    <p>这个工具可以导出任意服务器的数据,并使用连接凭证（卡号、服务器地址和 Keychip ID）将数据导入任何其他服务器。</p>
+    <p>我将模拟游戏客户端,从源服务器拉取游戏数据并推送到目标服务器。</p>
     <p>填写下面的表格开始迁移吧！</p>
   `,
   'trans.error.empty': '请填写所有字段。',
@@ -363,7 +368,7 @@ export const zhAquaTrans: typeof EN_REF_AQUATRANS = {
   'trans.btn.test': '测试连接',
   'trans.btn.export': '导出数据',
   'trans.btn.import': '导入数据',
-  'trans.blacklist': "这个服务器的服主把这个导出工具 ban 了，所以不能从这里导出",
+  'trans.blacklist': "这个服务器的服主把这个导出工具 ban 了,所以不能从这里导出",
 }
 
 
