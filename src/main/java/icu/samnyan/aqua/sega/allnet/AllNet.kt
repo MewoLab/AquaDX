@@ -60,7 +60,6 @@ class AllNetProps {
 class AllNet(
     val userKeychipRepo: UserKeychipRepo,
     val keychipSessionService: KeychipSessionService,
-    val keychipRepo: KeyChipRepo,
     val props: AllNetProps
 ) {
     @API("/")
@@ -117,11 +116,6 @@ class AllNet(
                     region = u.region
                 }
                 session = keychipSessionService.new(u, reqMap["game_id"] ?: "").token
-            }
-
-            // Check if it's a whitelisted keychip
-            else if (!serial.isEmpty() && keychipRepo.existsByKeychipId(serial)) {
-                session = keychipSessionService.new(null, reqMap["game_id"] ?: "").token
             }
 
             else if (props.keychipPermissiveForTesting) {

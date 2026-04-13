@@ -25,7 +25,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @Component
 @ConditionalOnBean(AllNetSecureInit::class)
 class TokenChecker(
-    val keyChipRepo: KeyChipRepo,
     val keychipSessionService: KeychipSessionService,
     val frontierProps: FrontierProps,
     val geoip: GeoIP
@@ -56,7 +55,7 @@ class TokenChecker(
         // The token can either be a keychip id (old method) or a session id (new method)
         // Or the frontier token
         val session = keychipSessionService.find(token)
-        if (token.isNotBlank() && (keyChipRepo.existsByKeychipId(token) || session != null
+        if (token.isNotBlank() && (session != null
                 || (frontierProps.enabled && frontierProps.ftk == token)))
         {
             currentSession.set(session)

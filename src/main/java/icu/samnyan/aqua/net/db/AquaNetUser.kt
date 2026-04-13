@@ -6,7 +6,6 @@ import icu.samnyan.aqua.net.UserRegistrar.Companion.cardExtIdEnd
 import icu.samnyan.aqua.net.UserRegistrar.Companion.cardExtIdStart
 import icu.samnyan.aqua.net.components.JWT
 import icu.samnyan.aqua.sega.allnet.AllNetProps
-import icu.samnyan.aqua.sega.allnet.KeyChipRepo
 import icu.samnyan.aqua.sega.allnet.KeychipSession
 import icu.samnyan.aqua.sega.allnet.UserKeychip
 import icu.samnyan.aqua.sega.allnet.UserKeychipRepo
@@ -128,7 +127,6 @@ class AquaUserServices(
     val userRepo: AquaNetUserRepo,
     val cardRepo: CardRepository,
     val hasher: PasswordEncoder,
-    val keyChipRepo: KeyChipRepo,
     val userKeychipRepo: UserKeychipRepo,
     val allNetProps: AllNetProps,
     val jwt: JWT,
@@ -210,7 +208,7 @@ class AquaUserServices(
     fun validKeychip(keychipId: Str): Bool {
         if (!allNetProps.checkKeychip) return true
         if (keychipId.isBlank()) return false
-        if (userKeychipRepo.existsByKeychipId(keychipId) || keyChipRepo.existsByKeychipId(keychipId)) return true
+        if (userKeychipRepo.existsByKeychipId(keychipId)) return true
         return false
     }
 
