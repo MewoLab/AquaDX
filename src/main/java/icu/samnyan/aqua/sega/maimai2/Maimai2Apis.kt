@@ -252,11 +252,9 @@ fun Maimai2ServletController.initApis() {
                 }
         }
 
-        (1..6).forEach(::unlockGate)
-        if (gates[6]?.isClear == true) unlockGate(7)
-        if (gates[7]?.isClear == true) unlockGate(8)
-        if (gates[8]?.isClear == true) unlockGate(9)
-        if (gates[9]?.isClear == true) unlockGate(10)
+        // --- ĐOẠN NÀY ĐÃ ĐƯỢC MÈO CON BẺ KHÓA CHO ANH GIA HUY ---
+        (1..10).forEach(::unlockGate)
+        // -------------------------------------------------------
 
         gates.values.sortedBy { it.gateId }
     }
