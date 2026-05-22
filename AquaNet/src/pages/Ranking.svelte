@@ -9,8 +9,9 @@
   import UserCard from "../components/UserCard.svelte";
   import Tooltip from "../components/Tooltip.svelte";
   import Cap from "./Ranking/Cap.svelte";
+  import { DEFAULT_GAME } from "../libs/config";
 
-  export let game: GameName = 'mai2';
+  export let game: GameName = DEFAULT_GAME;
 
   title(`Ranking`);
 

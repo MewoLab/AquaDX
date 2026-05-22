@@ -10,6 +10,7 @@
   import MaiPhoto from "./pages/MaiPhoto.svelte";
   import { pfp, tooltip } from "./libs/ui"
   import { ANNOUNCEMENT } from "./libs/announcement";
+  import { DEFAULT_GAME } from "./libs/config"
   import { t } from "./libs/i18n";
   import Transfer from "./pages/Transfer/Transfer.svelte";
   import { link } from "d3";
@@ -34,7 +35,7 @@
   let me: AquaNetUser
   let playedMai = false
 
-  let recentGame: string = "mai2";
+  let recentGame: string = DEFAULT_GAME;
 
   if (USER.isLoggedIn())
   {
