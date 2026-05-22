@@ -36,3 +36,5 @@ public/chu3
 
 # local env file
 *.local
+
+.env
