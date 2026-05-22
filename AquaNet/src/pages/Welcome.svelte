@@ -6,6 +6,14 @@
   import { USER } from "../libs/sdk";
   import { t } from "../libs/i18n"
 
+  import * as acUrl from "../libs/acUrl"
+  const hasAc = acUrl.has()
+  let previewAc = ""
+
+  if (hasAc) {
+    previewAc = acUrl.preview() || ""
+  }
+
   let params = new URLSearchParams(window.location.search)
 
   let state = "home"
@@ -178,6 +186,13 @@
 <main id="home" class="no-margin">
   <div>
     <h1 id="title">AquaNet</h1>
+    <div id="welcome">
+    {#if hasAc}
+      <span>{t('welcome.login_link')}:</span><br>
+      <small>{previewAc}</small>
+    {/if}
+    </div>
+
     {#if state === "home"}
       <div class="btn-group" transition:slide>
         <button on:click={() => state = 'login'}>{t('welcome.btn-login')}</button>
@@ -328,6 +343,9 @@
       margin-top: 0
       margin-bottom: 32px
       opacity: 0.9
+
+    #welcome
+      margin-bottom: 32px
 
     .btn-group
       display: flex

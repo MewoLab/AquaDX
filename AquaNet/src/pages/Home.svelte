@@ -6,6 +6,7 @@
   import { t } from "../libs/i18n";
   import ImportDataAction from "./Home/ImportDataAction.svelte";
   import DashboardTabs from "../components/DashboardTabs.svelte";
+  import * as acUrl from "../libs/acUrl";
 
   USER.ensureLoggedIn();
 
@@ -13,6 +14,10 @@
   let error = "";
 
   USER.me().then((m) => me = m).catch(e => error = e.message)
+
+  if (acUrl.has()) {
+    location.href = "/cards"
+  }
 </script>
 
 <main class="content">

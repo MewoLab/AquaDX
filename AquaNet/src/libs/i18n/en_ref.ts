@@ -60,6 +60,7 @@ export const EN_REF_Welcome = {
   'welcome.verified': 'Your email has been verified! You can now log in now.',
   'welcome.verification-failed': 'Verification failed: ${message}. Please try again.',
   'welcome.password-reset-done': 'Your password has been updated! Please log back in.',
+  'welcome.login_link': 'Login / register to link your card.'
 }
 
 export const EN_REF_LEADERBOARD = {

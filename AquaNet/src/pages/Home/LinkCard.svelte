@@ -9,6 +9,8 @@
   import StatusOverlays from "../../components/StatusOverlays.svelte"
   import { t } from "../../libs/i18n"
   import DashboardTabs from "../../components/DashboardTabs.svelte";
+  import * as acUrl from "../../libs/acUrl"
+  import { ACCESSCODE_QKEY } from "../../libs/config";
 
   // State
   let state: 'ready' | 'linking-AC' | 'linking-SN' | 'loading' = "loading"
@@ -27,7 +29,10 @@
     // Always put the ghost card at the top
     m.cards.sort((a, b) => a.isGhost ? -1 : 1)
     state = "ready"
+
+    linkQR()
   }).catch(e => error = e.message)
+  acUrl.check()
   updateMe()
 
   // Data conflict overlay
@@ -272,6 +277,16 @@
         inputAC += digit;
     };
     inputACChange();
+  }
+
+  function linkQR() {
+    if (!acUrl.has()) return;
+
+    inputAC = acUrl.get()
+    if (inputAC.length !== 20) return inputAC = "";
+
+    inputACChange()
+    acUrl.clear()
   }
 </script>
 
