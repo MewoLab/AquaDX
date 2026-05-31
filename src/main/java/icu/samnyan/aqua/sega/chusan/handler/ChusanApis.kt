@@ -237,6 +237,13 @@ fun ChusanController.chusanInit() {
                     items.removeAll { it.itemId in penguins }
                     items.addAll(penguins.map { Chu3UserItem(kind, it, 999, true) })
                 }
+
+                if (it.chusanUnlock29672999Ultima && kind == 12) {
+                    val existing = items.map { item -> item.itemId }.toHashSet()
+                    setOf(2967, 2999)
+                        .filterNot { id -> id in existing }
+                        .mapTo(items) { id -> Chu3UserItem(kind, id, 1, true) }
+                }
             }
 
             items

@@ -228,6 +228,8 @@ export const EN_REF_SETTINGS = {
   'settings.fields.chusanTeamName.desc': 'Customize the text displayed on the top of your profile.',
   'settings.fields.chusanInfinitePenguins.name': 'Infinite Penguins',
   'settings.fields.chusanInfinitePenguins.desc': 'Set penguin statues for character level prompting to 999.',
+  'settings.fields.chusanUnlock29672999Ultima.name': 'Unlock 2967, 2999 Ultima',
+  'settings.fields.chusanUnlock29672999Ultima.desc': 'Unlocks Ultima difficulty ONLY for musicIds 2967, 2999. Do not use if you don\'t know why you need this.',
   'settings.fields.chusanLvUnlockAll.name': 'Unlock Linked Gates',
   'settings.fields.chusanLvUnlockAll.desc': 'Incurs a long animated sequence, cannot be undone',
   'settings.fields.chusanMatchingReflector.name': 'Matching Server Reflector',

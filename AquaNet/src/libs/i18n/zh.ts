@@ -240,6 +240,8 @@ const zhSettings: typeof EN_REF_SETTINGS = {
   'settings.fields.chusanTeamName.desc': '自定义显示在个人资料顶部的文本。',
   'settings.fields.chusanInfinitePenguins.name': '我是桐谷遥',
   'settings.fields.chusanInfinitePenguins.desc': '将角色界限突破的企鹅雕像数量设置为 999。',
+  'settings.fields.chusanUnlock29672999Ultima.name': '解锁 2967、2999 Ultima',
+  'settings.fields.chusanUnlock29672999Ultima.desc': '仅解锁曲目 2967、2999 的 Ultima 难度。不清楚用途请勿使用。',
   'settings.fields.chusanLvUnlockAll.name': '解锁所有 Linked Gate',
   'settings.fields.chusanLvUnlockAll.desc': '会触发一个很长的动画序列,且无法撤销',
   'settings.fields.chusanMatchingReflector.name': '全国对战 Reflector',

@@ -43,6 +43,9 @@ class AquaGameOptions(
     @SettingField("chu3")
     var chusanInfinitePenguins: Boolean = false,
 
+    @SettingField("chu3") @Column(name = "chusan_unlock_2967_2999_ultima")
+    var chusanUnlock29672999Ultima: Boolean = false,
+
     @SettingField("chu3-matching")
     var chusanMatchingServer: String = "",
 
