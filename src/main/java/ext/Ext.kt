@@ -111,8 +111,10 @@ catch (e: Exception) { 400 - e.message.toString() }
 fun BodyBuilder.headers(vararg pairs: Pair<String, String>) = headers(HttpHeaders().apply { pairs.forEach { (k, v) -> set(k, v) } })
 
 // Email validation
+// Modified from:
 // https://www.baeldung.com/java-email-validation-regex
-val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$".toRegex()
+// To include more special characters
+val emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_!#$%&*+/=?^`{}~-]+(\\.[\\p{L}0-9_!#$%&*+/=?^`{}~-]+)*@[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$".toRegex()
 fun Str.isValidEmail(): Bool = emailRegex.matches(this)
 
 // Global Tools
