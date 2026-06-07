@@ -54,6 +54,17 @@ class Ongeki(
         genericUserSummary(card, ratingComposition)
     }
 
+    @API("refresh-data")
+    suspend fun refreshData(@RP username: String) = us.cardByName(username) { card ->
+        val user = userDataRepo.findByCard_ExtId(card.extId) ?: (404 - "User not found")
+        if (user.newHighestRating > 0)
+            mapOf(
+                "playerRating" to user.newPlayerRating,
+                "highestRating" to user.newHighestRating
+            )
+        else (400 - "User has not played Refresh")
+    }
+
     @API("user-option")
     override suspend fun userOption(@RP token: String) = us.jwt.auth(token) { u ->
         userOptionRepo.findByUser_Card_ExtId(u.ghostCard.extId).getOrNull(0)

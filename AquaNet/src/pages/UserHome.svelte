@@ -24,6 +24,7 @@
   import useLocalStorage from "../libs/hooks/useLocalStorage.svelte";
   import Line from "../components/chart/Line.svelte";
   import ChuniUserboxDisplay from "../components/settings/userbox/ChuniUserboxDisplay.svelte";
+  import type { OngekiRefreshData } from "../libs/ongekiTypes";
 
   const TREND_DAYS = 60
 
@@ -51,6 +52,8 @@
   let isLoading = false
   let showMoreRecent = false
 
+  let ongekiData: OngekiRefreshData
+
   function init() {
     USER.isLoggedIn() && USER.me().then(u => me = u)
 
@@ -77,7 +80,7 @@
         GAME.userSummary(username, game),
         GAME.trend(username, game),
         DATA.allMusic(game),
-      ]).then(([user, trend, music]) => {
+      ]).then(async ([user, trend, music]) => {
         console.log(user)
         console.log(trend)
         console.log(games)
@@ -91,6 +94,9 @@
             it.afterRating /= 10
           })
         }
+
+        if (game == 'ongeki')
+          ongekiData = await GAME.refreshData(username)
 
         // Set beforeRating in recent to the last play's afterRating
         user.recent.forEach((it, i) => {
@@ -187,14 +193,28 @@
       <div class="scoring-info">
         <div class="chart">
           <div class="info-top">
-            <div class="rating">
-              <span>{game === 'mai2' ? t("UserHome.DXRating"): t("UserHome.Rating")}</span>
-              <span>{
-                game === 'chu3' || game === 'ongeki' ?
-                  (d.user.rating / 100).toFixed(2) :
-                  d.user.rating.toLocaleString()
-              }</span>
-            </div>
+            
+
+            {#if game == "ongeki" && ongekiData}
+              <!-- display modern (refresh) and legacy rating -->
+              <div class="rating">
+                <span>{t("UserHome.ModernRating")}</span>
+                <span>{ongekiData.playerRating.toLocaleString()}</span>
+              </div>
+              <div class="rating">
+                <span>{t("UserHome.LegacyRating")}</span>
+                <span>{(d.user.rating / 100).toFixed(2)}</span>
+              </div>
+            {:else}
+              <div class="rating">
+                <span>{game === 'mai2' ? t("UserHome.DXRating"): t("UserHome.Rating")}</span>
+                <span>{
+                  game === 'chu3' ?
+                    (d.user.rating / 100).toFixed(2) :
+                    d.user.rating.toLocaleString()
+                }</span>
+              </div>
+            {/if}
 
             <div class="rank">
               <span>{t('UserHome.ServerRank')}</span>

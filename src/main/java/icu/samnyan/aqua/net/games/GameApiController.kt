@@ -57,7 +57,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
         val time = millis()
 
         // Check cache validity
-        if (rankingCache.isEmpty()) (500 - "Rank is empty or is currently computing. Please come back later.")
+        if (rankingCache.isEmpty()) (500 - "Rank is empty or is currently computing.")
 
         val reqUser = token?.let { us.jwt.auth(it) }?.let { u ->
             // Optimization: If the user is not banned, we don't need to process user information

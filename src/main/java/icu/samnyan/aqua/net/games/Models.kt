@@ -59,7 +59,8 @@ data class GenericRankingPlayer(
     val rating: Int,
     val allPerfect: Int,
     val fullCombo: Int,
-    val lastSeen: String
+    val lastSeen: String,
+    val modernRating: Int = 0
 )
 
 @Serializable

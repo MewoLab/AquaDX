@@ -22,3 +22,8 @@ export interface OngekiUserSummaryEntry {
     recent10: string
     recent: GenericGamePlaylog[]
 }
+
+export interface OngekiRefreshData {
+    playerRating: number,
+    highestRating: number
+}
