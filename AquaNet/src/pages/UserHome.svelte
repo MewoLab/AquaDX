@@ -328,20 +328,20 @@
       </div>
     </div>
 
-    <RatingComposition title="Best 50" comp={d.user.ratingComposition.best50} {allMusics} {game}/>
-    <RatingComposition title="Best 35" comp={d.user.ratingComposition.best35} {allMusics} {game}/>
-    <RatingComposition title="Best 30" comp={d.user.ratingComposition.best30} {allMusics} {game}/>
-    <RatingComposition title="Best 15" comp={d.user.ratingComposition.best15} {allMusics} {game}/>
-    <RatingComposition title="New 15" comp={d.user.ratingComposition.new15} {allMusics} {game}/>
-    <RatingComposition title="New 10" comp={d.user.ratingComposition.new10} {allMusics} {game}/>
-    <RatingComposition title="Best 25 (Candidates)" comp={d.user.ratingComposition.best25_candidates} {allMusics} {game}/>
-    <RatingComposition title="Platinum" comp={d.user.ratingComposition.pscore} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.Best50")} comp={d.user.ratingComposition.best50} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.Best35")} comp={d.user.ratingComposition.best35} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.Best30")} comp={d.user.ratingComposition.best30} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.Best15")} comp={d.user.ratingComposition.best15} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.New15")} comp={d.user.ratingComposition.new15} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.New10")} comp={d.user.ratingComposition.new10} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.Best25Candidates")} comp={d.user.ratingComposition.best25_candidates} {allMusics} {game}/>
+    <RatingComposition title={t("UserHome.RatingComposition.Platinum")} comp={d.user.ratingComposition.pscore} {allMusics} {game}/>
 
      <!-- Chuni -->
     {#if d.user.ratingComposition.new}
-      <RatingComposition title="New 20" comp={d.user.ratingComposition.new} {allMusics} game="chu3"/>
+      <RatingComposition title={t("UserHome.RatingComposition.New20")} comp={d.user.ratingComposition.new} {allMusics} game="chu3"/>
     {:else}
-      <RatingComposition title="Recent 10" comp={d.user.ratingComposition.recent10} {allMusics} {game} top={10}/>
+      <RatingComposition title={t("UserHome.RatingComposition.Recent10")} comp={d.user.ratingComposition.recent10} {allMusics} {game} top={10}/>
     {/if}
 
     <div class="recent">
