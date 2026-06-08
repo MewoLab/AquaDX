@@ -98,7 +98,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
                     SUM(p.is_full_combo) AS fc,
                     SUM(p.is_all_perfect) AS ap,
                     c.ranking_banned or a.opt_out_of_leaderboard or c.status = 12 AS hide,
-                    a.username
+                    a.username ${if (name == "ongeki") ", u.new_player_rating" else ""}
                 FROM ${tableName}_user_playlog_view p
                      JOIN ${tableName}_user_data_view u ON p.user_id = u.id
                      JOIN sega_card c ON u.aime_card_id = c.id
@@ -115,7 +115,8 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
                 accuracy = it[4]!!.double,
                 fullCombo = it[5]!!.int,
                 allPerfect = it[6]!!.int,
-                username = it[8]?.toString() ?: "user${it[0]}"
+                username = it[8]?.toString() ?: "user${it[0]}",
+                modernRating = if (name == "ongeki") it[9]?.int() ?: 0 else 0
             )
         }
         rankingSortedIndex = rankingCache.filter { !it.l }.map { it.r.rating }.reversed()

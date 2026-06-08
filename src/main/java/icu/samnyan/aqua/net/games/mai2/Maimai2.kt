@@ -60,7 +60,7 @@ class Maimai2(
 
         val ratingComposition = mapOf(
             "best35" to (extra["recent_rating"] ?: ""),
-            "best15" to (extra["recent_rating_new"] ?: "")
+            "new15" to (extra["recent_rating_new"] ?: "")
         )
 
         // if isLogin than boolean or null

@@ -79,7 +79,8 @@ export interface GenericRanking {
   rating: number
   fullCombo: number
   allPerfect: number
-  lastSeen: string
+  lastSeen: string,
+  modernRating: number
 }
 
 export interface RankCount {

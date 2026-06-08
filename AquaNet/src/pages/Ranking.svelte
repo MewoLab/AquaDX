@@ -52,7 +52,12 @@
       <div class="lb-user" on:mouseenter={() => hoveringUser = ""} role="heading" aria-level="2">
         <span class="rank">{t("Leaderboard.Rank")}</span>
         <span class="name"></span>
-        <span class="rating">{t("Leaderboard.Rating")}</span>
+        {#if game == "ongeki"}
+          <span class="rating modern-rating">{t("Leaderboard.ModernRating")}</span>
+          <span class="rating legacy-rating">{t("Leaderboard.LegacyRating")}</span>
+        {:else}
+          <span class="rating">{t("Leaderboard.Rating")}</span>
+        {/if}
         <span class="accuracy">{t("Leaderboard.Accuracy")}</span>
         <span class="fc">{t("Leaderboard.FC")}</span>
         <span class="ap">{t("Leaderboard.AP")}</span>
@@ -70,11 +75,23 @@
               <span>{user.name}</span>
             {/if}
           </span>
-          <span class="rating">{
-            game === 'chu3' || game === 'ongeki' ?
-              (user.rating / 100).toFixed(2) :
-              user.rating.toLocaleString()
-          }</span>
+          {#if game == 'ongeki'}
+            {#if user.modernRating > 0}
+              <span class="rating modern-rating">{
+                user.modernRating.toLocaleString()
+              }</span>
+            {/if}
+            <span class="rating legacy-rating">{
+              (user.rating / 100).toFixed(2)
+            }</span>
+          {:else}
+            <span class="rating">{
+              game === 'chu3' ?
+                (user.rating / 100).toFixed(2) :
+                user.rating.toLocaleString()
+            }</span>
+          {/if}
+          
           <span class="accuracy">{(+user.accuracy).toFixed(2)}%</span>
           <span class="fc">{user.fullCombo}</span>
           <span class="ap">{user.allPerfect}</span>
@@ -141,6 +158,14 @@
 
       .accuracy
         display: none
+      .modern-rating
+        display: none
+      .legacy-rating
+        /* this is officially the worst css i've ever written dear god */
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: clip
+        min-width: 3.5em !important
 
     &.alternate
       background-color: vars.$ov-light

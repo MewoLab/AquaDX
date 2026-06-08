@@ -95,8 +95,10 @@
           })
         }
 
-        if (game == 'ongeki')
-          ongekiData = await GAME.refreshData(username)
+        if (game == 'ongeki') {
+          let ogkData = await GAME.refreshData(username).catch(err => {});
+          if(ogkData) ongekiData = ogkData
+        }
 
         // Set beforeRating in recent to the last play's afterRating
         user.recent.forEach((it, i) => {
@@ -326,13 +328,15 @@
       </div>
     </div>
 
-    <!-- I don't like doing this but it may be preferable to gaslighting the types -->
+    <RatingComposition title="Best 50" comp={d.user.ratingComposition.best50} {allMusics} {game}/>
+    <RatingComposition title="Best 35" comp={d.user.ratingComposition.best35} {allMusics} {game}/>
+    <RatingComposition title="Best 30" comp={d.user.ratingComposition.best30} {allMusics} {game}/>
+    <RatingComposition title="Best 15" comp={d.user.ratingComposition.best15} {allMusics} {game}/>
+    <RatingComposition title="New 15" comp={d.user.ratingComposition.new15} {allMusics} {game}/>
+    <RatingComposition title="New 10" comp={d.user.ratingComposition.new10} {allMusics} {game}/>
+    <RatingComposition title="Best 25 (Candidates)" comp={d.user.ratingComposition.best25_candidates} {allMusics} {game}/>
+    <RatingComposition title="Platinum" comp={d.user.ratingComposition.pscore} {allMusics} {game}/>
 
-    <RatingComposition title="B30" comp={d.user.ratingComposition.best30} {allMusics} {game}/>
-    <RatingComposition title="B35" comp={d.user.ratingComposition.best35} {allMusics} {game}/>
-    <RatingComposition title="B15" comp={d.user.ratingComposition.best15} {allMusics} {game}/>
-    <!-- <RatingComposition title="Hot 10" comp={d.user.ratingComposition.hot10} {allMusics} {game}/> -->
-    <!-- <RatingComposition title="N10" comp={d.user.ratingComposition.next10} {allMusics} {game}/> -->
      <!-- Chuni -->
     {#if d.user.ratingComposition.new}
       <RatingComposition title="New 20" comp={d.user.ratingComposition.new} {allMusics} game="chu3"/>

@@ -42,16 +42,24 @@ class Ongeki(
     ) }
 
     override suspend fun userSummary(username: String, token: String?) = us.cardByName(username) { card ->
+        val user = userDataRepo.findByCard_ExtId(card.extId) ?: (404 - "User not found")
         val extra = userGeneralDataRepository.findByUser_Card_ExtId(card.extId)
             .associate { it.propertyKey to it.propertyValue }
 
-        val ratingComposition = mapOf(
-            "best30" to (extra["rating_base_best"] ?: ""),
-            "best15" to (extra["rating_base_new_best"] ?: ""),
-            "recent10" to (extra["rating_base_hot_best"] ?: "")
-        )
-
-        genericUserSummary(card, ratingComposition)
+        val isRefresh = user.newHighestRating > 0
+        if (isRefresh)
+            genericUserSummary(card, mapOf(
+                "best50" to (extra["new_rating_base_best"] ?: ""),
+                "new10" to (extra["new_rating_base_new_best"] ?: ""),
+                "best25_candidates" to (extra["new_rating_base_next_best"] ?: ""),
+                "pscore" to (extra["new_rating_base_pscore"] ?: "")
+            ))
+        else
+            genericUserSummary(card, mapOf(
+                "best30" to (extra["rating_base_best"] ?: ""),
+                "new15" to (extra["rating_base_new_best"] ?: ""),
+                "recent10" to (extra["rating_base_hot_best"] ?: "")
+            ))
     }
 
     @API("refresh-data")

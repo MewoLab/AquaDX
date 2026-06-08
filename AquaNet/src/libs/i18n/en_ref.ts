@@ -69,7 +69,7 @@ export const EN_REF_LEADERBOARD = {
   'Leaderboard.Title': 'Server Leaderboard',
   'Leaderboard.Rank': 'Rank',
   'Leaderboard.Rating': 'Rating',
-  'Leaderboard.OldRating': 'Legacy Rating',
+  'Leaderboard.LegacyRating': 'Legacy Rating',
   'Leaderboard.ModernRating': 'Modern Rating',
   'Leaderboard.Accuracy': 'Accuracy',
   'Leaderboard.FC': 'FC',
