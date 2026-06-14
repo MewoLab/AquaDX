@@ -81,8 +81,7 @@ export interface GenericRanking {
   rating: number
   fullCombo: number
   allPerfect: number
-  lastSeen: string,
-  modernRating: number
+  lastSeen: string
 }
 
 export interface RankCount {
@@ -97,7 +96,8 @@ export interface GenericGameSummary {
   serverRank: number
   accuracy: number
   rating: number
-  ratingHighest: number
+  ratingHighest: number,
+  ratingNotGeneric: boolean,
   ranks: RankCount[]
   detailedRanks: { [key: number]: { [key: string]: number } }
   maxCombo: number

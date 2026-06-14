@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.games
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import ext.Bool
 import ext.JACKSON
 import ext.JavaSerializable
 import icu.samnyan.aqua.sega.general.model.Card
@@ -25,10 +26,11 @@ data class GenericGameSummary(
 
     val aquaUser: Map<String, Any?>?,
 
-    val serverRank: Long,
+    val serverRank: String,
     val accuracy: Double,
     val rating: Int,
     val ratingHighest: Int,
+    val ratingNotGeneric: Bool,
     val ranks: List<RankCount>,
     val detailedRanks: Map<Int, Map<String, Int>>,
     val maxCombo: Int,
@@ -60,7 +62,9 @@ data class GenericRankingPlayer(
     val allPerfect: Int,
     val fullCombo: Int,
     val lastSeen: String,
-    val modernRating: Int = 0
+
+    @JsonIgnore
+    val id: Long
 )
 
 @Serializable

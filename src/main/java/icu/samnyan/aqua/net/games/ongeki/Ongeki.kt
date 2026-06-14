@@ -1,6 +1,7 @@
 package icu.samnyan.aqua.net.games.ongeki
 
 import ext.API
+import ext.Bool
 import ext.RP
 import ext.minus
 import icu.samnyan.aqua.net.db.AquaUserServices
@@ -64,15 +65,10 @@ class Ongeki(
             ))
     }
 
-    @API("refresh-data")
-    suspend fun refreshData(@RP username: String) = us.cardByName(username) { card ->
-        val user = userDataRepo.findByCard_ExtId(card.extId) ?: (404 - "User not found")
-        if (user.newHighestRating > 0)
-            mapOf(
-                "playerRating" to user.newPlayerRating,
-                "highestRating" to user.newHighestRating
-            )
-        else (400 - "User has not played Refresh")
+    override fun getRating(user: UserData, isHighest: Bool): Int {
+        return if (user.newHighestRating > 0) {
+            if (isHighest) user.newHighestRating else user.newPlayerRating
+        } else if (isHighest) user.highestRating else user.playerRating
     }
 
     @API("user-option")

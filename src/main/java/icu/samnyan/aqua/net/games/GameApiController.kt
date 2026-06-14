@@ -46,10 +46,10 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     }
 
     // List<Pair<should_hide, player>>>
-    private var rankingCache: List<Pair<Bool, GenericRankingPlayer>> = emptyList()
+    private var rankingCache: List<GenericRankingPlayer> = emptyList()
     private var rankingCacheLock = ReentrantLock()
     // Sorted index List<Rating> = Rank
-    private var rankingSortedIndex: List<Int> = emptyList()
+    private var rankingLookupCache: Map<Long, GenericRankingPlayer> = emptyMap()
     private val pageSize = 100
 
     @API("ranking")
@@ -58,18 +58,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
 
         // Check cache validity
         if (rankingCache.isEmpty()) (500 - "Rank is empty or is currently computing.")
-
-        val reqUser = token?.let { us.jwt.auth(it) }?.let { u ->
-            // Optimization: If the user is not banned, we don't need to process user information
-            if (!u.ghostCard.rankingBanned && !u.cards.any { it.rankingBanned } && u.ghostCard.status.isNormal) null
-            else u
-        }
-
-        // Read from cache if we just computed it less than duration ago
-        // Shadow-ban: Do not show banned cards in the ranking except for the user who owns the card
-        val v = rankingCache.filter { !it.l || it.r.username == reqUser?.username }
-            .mapIndexed { i, it -> it.r.apply { rank = i + 1 } }
-            .also { logger.info("Ranking returned in ${millis() - time}ms") }
+        val v = rankingCache.also { logger.info("Ranking returned in ${millis() - time}ms") }
 
         return page?.let {
             if (it < 0) (400 - "Invalid page number")
@@ -78,7 +67,7 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     }
 
     @PostConstruct
-    fun rakingCacheInit() = thread { rankingCacheRun() }
+    fun rankingCacheInit() = thread { rankingCacheRun() }
 
     // Every 20 minutes
     @Scheduled(fixedRate = 20, timeUnit = TimeUnit.MINUTES)
@@ -92,34 +81,35 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
                 SELECT
                     c.id,
                     u.user_name,
-                    u.player_rating,
+                    ${if (name == "ongeki") "u.new_player_rating" else "u.player_rating"} AS rating,
                     u.last_play_date,
                     AVG(p.achievement) / 10000.0 AS acc,
                     SUM(p.is_full_combo) AS fc,
                     SUM(p.is_all_perfect) AS ap,
                     c.ranking_banned or a.opt_out_of_leaderboard or c.status = 12 AS hide,
-                    a.username ${if (name == "ongeki") ", u.new_player_rating" else ""}
+                    a.username
                 FROM ${tableName}_user_playlog_view p
                      JOIN ${tableName}_user_data_view u ON p.user_id = u.id
                      JOIN sega_card c ON u.aime_card_id = c.id
                      LEFT JOIN aqua_net_user a ON c.net_user_id = a.au_id
                 GROUP BY p.user_id, u.player_rating
+                HAVING NOT hide ${if (name == "ongeki") "AND rating > 0" else "" /* Hide users on Ongeki 1.45 and below */}
                 ORDER BY u.player_rating DESC;
             """
         ).exec.mapIndexed { i, it ->
-            it[7].truthy to GenericRankingPlayer(
+            GenericRankingPlayer(
                 rank = i + 1,
+                id = it[0]!!.long,
                 name = it[1].toString(),
                 rating = it[2]!!.int,
                 lastSeen = it[3].toString(),
                 accuracy = it[4]!!.double,
                 fullCombo = it[5]!!.int,
                 allPerfect = it[6]!!.int,
-                username = it[8]?.toString() ?: "user${it[0]}",
-                modernRating = if (name == "ongeki") it[9]?.int() ?: 0 else 0
+                username = it[8]?.toString() ?: "user${it[0]}"
             )
         }
-        rankingSortedIndex = rankingCache.filter { !it.l }.map { it.r.rating }.reversed()
+        rankingLookupCache = rankingCache.associateBy { it.id }
         logger.info("Ranking for $name computed in ${millis() - time}ms")
     }
 
@@ -158,6 +148,10 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
         userMusicRepo.findByUser_Card_ExtIdAndMusicIdIn(card.extId, musicList)
     }
 
+    open fun getRating(user: T, isHighest: Bool): Int {
+        return if (isHighest) user.highestRating else user.playerRating;
+    }
+
     fun genericUserSummary(card: Card, ratingComp: Map<String, String>, rival: Boolean? = null, favorites: List<Int>? = null): GenericGameSummary {
         // Summary values: total plays, player rating, server-wide ranking
         // number of each rank, max combo, number of full combo, number of all perfect
@@ -183,18 +177,14 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
             }
         }
 
-        // Find serverRank by binary-searching in the rankingSortedIndex to find the minimal index that
-        // is greater than or equal to the user's rating
-        var serverRank = rankingSortedIndex.binarySearch(user.playerRating).let { if (it < 0) -it - 1 else it + 1 }
-        serverRank = rankingSortedIndex.size - serverRank
-
         return GenericGameSummary(
             name = user.userName,
             aquaUser = card.aquaUser?.publicFields,
-            serverRank = serverRank.long,
+            serverRank = rankingLookupCache[user.card!!.id]?.rank?.str ?: "-",
             accuracy = plays.acc(),
-            rating = user.playerRating,
-            ratingHighest = user.highestRating,
+            rating = getRating(user, false),
+            ratingHighest = getRating(user, true),
+            ratingNotGeneric = getRating(user, false) != user.playerRating,
             ranks = ranks.map { (k, v) -> RankCount(k, v) },
             detailedRanks = detailedRanks,
             maxCombo = plays.maxOfOrNull { it.maxCombo } ?: 0,

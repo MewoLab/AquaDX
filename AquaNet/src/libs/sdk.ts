@@ -12,7 +12,6 @@ import type {
   Dict,
   GameUserOption
 } from './generalTypes'
-import type { OngekiRefreshData } from './ongekiTypes'
 import type { GameName } from './scoring'
 
 interface ExtReqInit extends RequestInit {
@@ -245,8 +244,6 @@ export const GAME = {
     post(`/api/v2/game/${game}/import-music-detail`, {}, { json: data }),
   setRival: (game: GameName, rivalUserName: string, isAdd: boolean) =>
     post(`/api/v2/game/${game}/set-rival`, { rivalUserName, isAdd }),
-  refreshData: (username: string): Promise<OngekiRefreshData> =>
-    post(`/api/v2/game/ongeki/refresh-data`, { username })
 }
 
 export const DATA = {
@@ -263,9 +260,9 @@ export const SETTING = {
     post('/api/v2/settings/set', { key, value: `${value}` }),
   detailSet: (game: string, field: string, value: any) =>
     post(`/api/v2/game/${game}/user-detail-set`, { field, value }),
-  optionGet: (game: string): Promise<GameUserOption> => 
+  optionGet: (game: string): Promise<GameUserOption> =>
     post(`/api/v2/game/${game}/user-option`),
-  optionSet: (game: string, field: string, value: number): Promise<void> => 
+  optionSet: (game: string, field: string, value: number): Promise<void> =>
     post(`/api/v2/game/${game}/user-option-set`, { field, value }),
 }
 

@@ -14,9 +14,9 @@ import {
 const zhUser: typeof EN_REF_USER = {
   'UserHome.ServerRank': '服务器排名',
   'UserHome.DXRating': 'DX B50',
-  'UserHome.Rating': '评分',
-  'UserHome.LegacyRating': '旧评分',
-  'UserHome.ModernRating': '新评分',
+  'UserHome.Rating': '最高评分',
+  'UserHome.HighestDXRating': 'DX B50',
+  'UserHome.HighestRating': '最高评分',
   'UserHome.Statistics': '统计数据',
   'UserHome.Accuracy': '准确率',
   'UserHome.MaxCombo': '最大连击',

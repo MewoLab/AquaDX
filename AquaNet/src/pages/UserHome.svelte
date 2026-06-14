@@ -24,7 +24,6 @@
   import useLocalStorage from "../libs/hooks/useLocalStorage.svelte";
   import Line from "../components/chart/Line.svelte";
   import ChuniUserboxDisplay from "../components/settings/userbox/ChuniUserboxDisplay.svelte";
-  import type { OngekiRefreshData } from "../libs/ongekiTypes";
 
   const TREND_DAYS = 60
 
@@ -35,7 +34,6 @@
   let calElement: HTMLElement
   let error: string;
   let me: AquaNetUser
-  title(`User ${username}`)
   const rounding = useLocalStorage("rounding", true);
 
   interface MusicAndPlay extends MusicMeta, GenericGamePlaylog {}
@@ -52,7 +50,6 @@
   let isLoading = false
   let showMoreRecent = false
 
-  let ongekiData: OngekiRefreshData
 
   function init() {
     USER.isLoggedIn() && USER.me().then(u => me = u)
@@ -85,6 +82,8 @@
         console.log(trend)
         console.log(games)
 
+        title(` ${user.name} (@${username}) ・ ${GAME_TITLE[game]}`)
+
         // If game is wacca, divide all ratings by 10
         if (game === 'wacca') {
           user.rating /= 10
@@ -93,11 +92,6 @@
             it.beforeRating /= 10
             it.afterRating /= 10
           })
-        }
-
-        if (game == 'ongeki') {
-          let ogkData = await GAME.refreshData(username).catch(err => {});
-          if(ogkData) ongekiData = ogkData
         }
 
         // Set beforeRating in recent to the last play's afterRating
@@ -195,23 +189,19 @@
       <div class="scoring-info">
         <div class="chart">
           <div class="info-top">
-            
 
-            {#if game == "ongeki" && ongekiData}
-              <!-- display modern (refresh) and legacy rating -->
+
+            {#if game == "ongeki" && d.user.ratingNotGeneric}
               <div class="rating">
-                <span>{t("UserHome.ModernRating")}</span>
-                <span>{(ongekiData.playerRating / 1000).toFixed(3)}</span>
-              </div>
-              <div class="rating">
-                <span>{t("UserHome.LegacyRating")}</span>
-                <span>{(d.user.rating / 100).toFixed(2)}</span>
+                <span>{t("UserHome.Rating")}</span>
+                <span>{(d.user.rating / 1000).toFixed(3)}</span>
               </div>
             {:else}
               <div class="rating">
                 <span>{game === 'mai2' ? t("UserHome.DXRating"): t("UserHome.Rating")}</span>
+                <!-- NOTE: this is for legacy ongeki display, so 1.45 profiles are at least usable -->
                 <span>{
-                  game === 'chu3' ?
+                  game === 'chu3' || game === 'ongeki' ?
                     (d.user.rating / 100).toFixed(2) :
                     d.user.rating.toLocaleString()
                 }</span>
@@ -220,7 +210,7 @@
 
             <div class="rank">
               <span>{t('UserHome.ServerRank')}</span>
-              <span>#{(d.user.serverRank + 1).toLocaleString()}</span>
+              <span>#{(d.user.serverRank).toLocaleString()}</span>
             </div>
           </div>
 
@@ -268,6 +258,23 @@
             <span>{t('UserHome.Accuracy')}</span>
             <span>{(d.user.accuracy).toFixed(2)}%</span>
           </div>
+
+          {#if game == "ongeki" && d.user.ratingNotGeneric}
+            <div class="rating">
+              <span>{t("UserHome.HighestRating")}</span>
+              <span>{(d.user.ratingHighest / 1000).toFixed(3)}</span>
+            </div>
+          {:else}
+            <div class="rating">
+              <span>{game === 'mai2' ? t("UserHome.HighestDXRating"): t("UserHome.HighestRating")}</span>
+              <!-- NOTE: this is for legacy ongeki display, so 1.45 profiles are at least usable -->
+              <span>{
+                game === 'chu3' || game === 'ongeki' ?
+                  (d.user.ratingHighest / 100).toFixed(2) :
+                  d.user.ratingHighest.toLocaleString()
+              }</span>
+            </div>
+          {/if}
 
           <div class="max-combo">
             <span>{t("UserHome.MaxCombo")}</span>
@@ -335,7 +342,7 @@
     <RatingComposition title={t("UserHome.RatingComposition.New", {n : 15})} comp={d.user.ratingComposition.new15} {allMusics} {game}/>
     <RatingComposition title={t("UserHome.RatingComposition.New", {n: 10})} comp={d.user.ratingComposition.new10} {allMusics} {game}/>
     <RatingComposition title={t("UserHome.RatingComposition.Platinum", {n: 50})} comp={d.user.ratingComposition.pscore50} {allMusics} {game}/>
-    
+
     {#if me && me.displayCandidates && d.user.aquaUser && me.username == d.user.aquaUser.username}
       <RatingComposition title={t("UserHome.RatingComposition.BestCandidates", {n: 20})} comp={d.user.ratingComposition.best20_candidates} {allMusics} {game}/>
       <RatingComposition title={t("UserHome.RatingComposition.NewCandidates", {n: 10})} comp={d.user.ratingComposition.new10_candidates} {allMusics} {game}/>
@@ -523,7 +530,7 @@
   .scoring-info
     display: flex
     gap: vars.$gap
-    max-height: 250px
+    max-height: 300px
 
     .chart
       flex: 0 1 790px
@@ -604,7 +611,7 @@
         display: flex
         align-items: center
         gap: 20px
-        
+
         background-color: rgba(white, 0.03)
         border-radius: vars.$border-radius
 

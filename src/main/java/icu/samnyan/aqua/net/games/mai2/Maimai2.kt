@@ -14,6 +14,7 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserGeneralData
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserLoginBonus
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserOption
+import jakarta.annotation.PostConstruct
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
@@ -214,6 +215,21 @@ class Maimai2(
     // creating a ton of SHA256 hashes every launch *probably* isn't ideal but it's better than exposing token AND extid...
 
     @OptIn(ExperimentalStdlibApi::class)
+    fun myPhotoGetHash(value: Str): Str {
+        return MessageDigest.getInstance("SHA-256")
+            .digest(value.toByteArray(UTF_8)).toHexString()
+    }
+
+    @PostConstruct
+    fun myPhotoInit() = thread {
+        photoDir.listFiles()
+            ?.map { it.name }
+            ?.map {
+                // generate hash of photo filename as to not expose details
+                photoHashMap[it] = myPhotoGetHash(it)
+            }
+    }
+
     @API("my-photo")
     suspend fun myPhoto(@RP token: Str) = us.jwt.auth(token) { u ->
         val find = "${u.ghostCard.extId}-"
@@ -224,8 +240,7 @@ class Maimai2(
             ?.map {
                 // generate hash of photo filename as to not expose details
                 if (!photoHashMap.containsKey(it))
-                    photoHashMap[it] = MessageDigest.getInstance("SHA-256")
-                        .digest(it.toByteArray(UTF_8)).toHexString()
+                    photoHashMap[it] = myPhotoGetHash(it)
                 photoHashMap[it]
             }
             ?: emptyList()
