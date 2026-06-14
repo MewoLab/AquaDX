@@ -58,12 +58,11 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
 
         // Check cache validity
         if (rankingCache.isEmpty()) (500 - "Rank is empty or is currently computing.")
-        val v = rankingCache.also { logger.info("Ranking returned in ${millis() - time}ms") }
 
         return page?.let {
             if (it < 0) (400 - "Invalid page number")
-            v.drop(it * pageSize).take(pageSize)
-        } ?: v
+            rankingCache.drop(it * pageSize).take(pageSize)
+        } ?: rankingCache
     }
 
     @PostConstruct
