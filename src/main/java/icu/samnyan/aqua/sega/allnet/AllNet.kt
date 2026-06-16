@@ -22,6 +22,7 @@ class AllNetProps {
     val keychipSesExpire: Long = 172800000 // milliseconds
     var checkKeychip: Boolean = false
     var keychipPermissiveForTesting: Boolean = false
+    var tls: Boolean = false
     var redirect: String = "web"
 
     var placeName: String = ""
@@ -188,8 +189,9 @@ class AllNet(
 
         // If keychip authentication is enabled, the game URLs will be set to /gs/{token}/{game}/...
         val base = if (session != null) "gs/$session" else "g"
+        val protocol = if (props.tls) "https" else "http"
 
-        val url = "http://$addr/$base/$gameId/$ver"
+        val url = "$protocol://$addr/$base/$gameId/$ver"
         return url + (if (gameId == "SDFE") "" else "/")  // Wacca must not end with trailing slash
     }
 
