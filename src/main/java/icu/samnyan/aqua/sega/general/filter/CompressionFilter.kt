@@ -41,12 +41,20 @@ class CompressionFilter(
     }
 
     var keys = gameData.chu3GameEncryption + gameData.mai2GameEncryption + gameData.ogkGameEncryption
-    fun getEncryptionKeys(path: String): GameEncryptionKey? {
-        val endpoint = path.split("/").last()
+    fun getEncryptionKeys(req: HttpServletRequest): GameEncryptionKey? {
+        val endpoint = req.servletPath.split("/").last()
         if (endpoint.lowercase() != endpoint || endpoint.length != 32) return null
 
-        val game = path.split("/")[2]
-        val version = path.split("/")[3].filterNot { it == '.' }.toInt()
+        val game = req.servletPath.split("/")[2]
+
+        // NOTE: this should help with some issues regarding mismatched data
+        val expectedVersion = (req.getHeader("Mai-Encoding") ?:
+            req.getHeader("Ongeki-Encoding") ?:
+            req.getHeader("Chuni-Encoding") ?: "0.0").filterNot { it == '.' }.toInt()
+        val fallbackVersion = req.servletPath.split("/")[3].filterNot { it == '.' }.toInt()
+        val version = if (expectedVersion < 100 || keys.none { it.versions.contains(truncateVersion(expectedVersion)) && it.code == game })
+            fallbackVersion else expectedVersion // Versions below 1.00 are typically invalid
+
         return keys.find { it.versions.contains(truncateVersion(version)) && it.code == game }
     }
 
@@ -55,7 +63,7 @@ class CompressionFilter(
         val isDeflate = req.getHeader("content-encoding") == "deflate"
         val isDfi = req.getHeader("pragma") == "DFI"
 
-        val keys = getEncryptionKeys(req.servletPath)
+        val keys = getEncryptionKeys(req)
 
         // Decode input
         val reqSrc = try {
