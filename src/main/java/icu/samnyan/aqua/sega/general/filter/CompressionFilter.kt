@@ -39,6 +39,15 @@ class CompressionFilter(
     fun truncateVersion(version: Number): Number {
         return (floor(version.toFloat() / 5.0) * 5).toInt();
     }
+    fun getVersion(req: HttpServletRequest, game: String): Int {
+        // NOTE: this should help with some issues regarding mismatched data
+        val expectedVersion = (req.getHeader("Mai-Encoding") ?:
+        req.getHeader("Ongeki-Encoding") ?:
+        req.getHeader("Chuni-Encoding") ?: "0.0").filterNot { it == '.' }.toInt()
+        val fallbackVersion = req.servletPath.split("/")[3].filterNot { it == '.' }.toInt()
+        return if (expectedVersion < 100 || keys.none { it.versions.contains(truncateVersion(expectedVersion)) && it.code == game })
+            fallbackVersion else expectedVersion // Versions below 1.00 are typically invalid
+    }
 
     var keys = gameData.chu3GameEncryption + gameData.mai2GameEncryption + gameData.ogkGameEncryption
     fun getEncryptionKeys(req: HttpServletRequest): GameEncryptionKey? {
@@ -46,14 +55,7 @@ class CompressionFilter(
         if (endpoint.lowercase() != endpoint || endpoint.length != 32) return null
 
         val game = req.servletPath.split("/")[2]
-
-        // NOTE: this should help with some issues regarding mismatched data
-        val expectedVersion = (req.getHeader("Mai-Encoding") ?:
-            req.getHeader("Ongeki-Encoding") ?:
-            req.getHeader("Chuni-Encoding") ?: "0.0").filterNot { it == '.' }.toInt()
-        val fallbackVersion = req.servletPath.split("/")[3].filterNot { it == '.' }.toInt()
-        val version = if (expectedVersion < 100 || keys.none { it.versions.contains(truncateVersion(expectedVersion)) && it.code == game })
-            fallbackVersion else expectedVersion // Versions below 1.00 are typically invalid
+        val version = getVersion(req, game)
 
         return keys.find { it.versions.contains(truncateVersion(version)) && it.code == game }
     }
@@ -64,6 +66,7 @@ class CompressionFilter(
         val isDfi = req.getHeader("pragma") == "DFI"
 
         val keys = getEncryptionKeys(req)
+        val game = req.servletPath.split("/")[2]
 
         // Decode input
         val reqSrc = try {
@@ -83,7 +86,7 @@ class CompressionFilter(
                 else it
             }
         } catch (e: Exception) {
-            log.error("Failed to decode request from ip ${geoip.getIP(req)} (Version ${req.servletPath.split("/")[3]})")
+            log.error("Failed to decode request from ip ${geoip.getIP(req)} (Version ${getVersion(req, game)}")
             resp.sendError(400, "Failed to decode request")
             return
         }
