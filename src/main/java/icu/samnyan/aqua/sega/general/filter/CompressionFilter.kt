@@ -75,7 +75,7 @@ class CompressionFilter(
                 else it
             }
         } catch (e: Exception) {
-            log.error("Failed to decode request from ip ${geoip.getIP(req)}")
+            log.error("Failed to decode request from ip ${geoip.getIP(req)} (Version ${req.servletPath.split("/")[3]})")
             resp.sendError(400, "Failed to decode request")
             return
         }
