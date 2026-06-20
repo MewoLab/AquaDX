@@ -8883,5 +8883,45 @@
         "id": 18716,
         "type": 12,
         "enable": 1
+    },
+    {
+        "id": 18811,
+        "type": 12,
+        "enable": 1
+    },
+    {
+        "id": 2606,
+        "type": 13,
+        "enable": 1
+    },
+    {
+        "id": 18750,
+        "type": 1,
+        "enable": 1
+    },
+    {
+        "id": 18751,
+        "type": 2,
+        "enable": 1
+    },
+    {
+        "id": 18752,
+        "type": 8,
+        "enable": 1
+    },
+    {
+        "id": 18753,
+        "type": 3,
+        "enable": 1
+    },
+    {
+        "id": 18754,
+        "type": 1,
+        "enable": 1
+    },
+    {
+        "id": 18755,
+        "type": 2,
+        "enable": 1
     }
 ]

@@ -200,7 +200,7 @@ export const EN_REF_SETTINGS = {
   'settings.options.all.push': 'Push',
   'settings.options.all.none': 'None',
   // Chuni User Options
-  'settings.options.chu3.speed': 'Lane Speed',
+  'settings.options.chu3.speed': 'Lane Speed (60fps)',
   'settings.options.chu3.speed_120': 'Lane Speed (120fps)',
   'settings.options.chu3.trackSkip': 'Track Skip Type',
   'settings.options.chu3.headphone': 'Headphone Volume',
