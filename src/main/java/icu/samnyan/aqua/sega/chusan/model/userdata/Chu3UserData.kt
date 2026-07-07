@@ -53,6 +53,7 @@ class Chu3UserData : BaseEntity(), IUserData {
     var nameplateId = 0
     var frameId = 0
     var characterId = 0
+    var mateId = 0
     var trophyId = 0
     var playedTutorialBit = 0
     var firstTutorialCancelNum = 0

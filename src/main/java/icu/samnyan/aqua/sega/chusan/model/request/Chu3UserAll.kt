@@ -64,5 +64,7 @@ class Chu3UserAll(
     var userCMissionList: List<UserCMissionResp>? = null,
     var userFavoriteMusicList: List<FavNewMusic>? = null,
     var userUnlockChallengeList: List<Chu3UserChallenge>? = null,
-    var userLinkedVerseList: List<Chu3UserLinkedVerse>? = null
+    var userLinkedVerseList: List<Chu3UserLinkedVerse>? = null,
+    var userMateList: List<UserMate>? = null,
+    var userVoteList: List<UserVote>? = null
 )

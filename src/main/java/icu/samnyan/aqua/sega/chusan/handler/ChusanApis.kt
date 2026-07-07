@@ -163,6 +163,10 @@ fun ChusanController.chusanInit() {
         mapOf("userId" to uid, "userGameOption" to userGameOption)
     }
 
+    "GetUserMate" {
+        db.userMate.findByUser_Card_ExtId(uid).let{ u -> mapOf("userId" to uid, "userMateList" to u) }
+    }
+
     "RollGacha" {
         val (gachaId, times) = parsing { data["gachaId"]!!.int to data["times"]!!.int }
         val lst = db.gameGachaCard.findAllByGachaId(gachaId).shuffled().take(times)
@@ -263,6 +267,11 @@ fun ChusanController.chusanInit() {
                 else -> empty
             }.map { mapOf("id" to it) }
         }
+    }
+    "GetUserFavoriteCollection".pagedWithKind("userFavoriteCollectionList") {
+        // TODO
+        val kind = parsing { data["itemKind"]!!.int }
+        mapOf("itemKind" to kind) grabs { emptyList() }
     }
 
     val userPreviewKeys = ("userName,reincarnationNum,level,exp,playerRating,lastGameId,lastRomVersion," +

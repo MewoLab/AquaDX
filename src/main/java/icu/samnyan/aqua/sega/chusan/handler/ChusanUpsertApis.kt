@@ -164,8 +164,19 @@ fun ChusanController.upsertApiInit() {
                 db.userLinkedVerse.saveAll(list.map{
                     it.apply{ it.user = u }
                 }.distinctBy { it.linkedVerseId }.mapApply {
-                    id = db.userLinkedVerse.findByUserAndLinkedVerseId(u, linkedVerseId)?.id ?: 0 })
-                }
+                    id = db.userLinkedVerse.findByUserAndLinkedVerseId(u, linkedVerseId)?.id ?: 0 }) }
+
+            userMateList?.let { list ->
+                db.userMate.saveAll(list.map{
+                    it.apply{ it.user = u }
+                }.distinctBy { it.mateId }.mapApply {
+                    id = db.userMate.findByUserAndMateId(u, mateId)?.id ?: 0 }) }
+
+            userVoteList?.let { list ->
+                db.userVote.saveAll(list.map{
+                    it.apply{ it.user = u }
+                }.distinctBy { it.voteId }.mapApply {
+                    id = db.userVote.findByUserAndVoteId(u, voteId)?.id ?: 0 }) }
 
             // Need testing
 //            userLoginBonusList?.let { list ->

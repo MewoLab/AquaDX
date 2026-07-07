@@ -69,10 +69,21 @@ interface Chu3UserCourseRepo : Chu3UserLinked<UserCourse> {
     fun findByUserAndCourseId(user: Chu3UserData, courseId: Int): UserCourse?
 }
 
+interface Chu3UserMateRepo : Chu3UserLinked<UserMate> {
+    fun findAllByUser(user: Chu3UserData): List<UserMate?>
+    fun findByUserAndMateId(user: Chu3UserData, mateId: Int): UserMate?
+}
+
+interface Chu3UserVoteRepo : Chu3UserLinked<UserVote> {
+    fun findAllByUser(user: Chu3UserData): List<UserVote?>
+    fun findByUserAndVoteId(user: Chu3UserData, voteId: Int): UserVote?
+}
+
 interface Chu3UserLinkedVerseRepo : Chu3UserLinked<Chu3UserLinkedVerse> {
     fun findAllByUser(user: Chu3UserData): List<Chu3UserLinkedVerse?>
     fun findByUserAndLinkedVerseId(user: Chu3UserData, linkedVerseId: Int): Chu3UserLinkedVerse?
 }
+
 
 interface Chu3UserDataRepo : GenericUserDataRepo<Chu3UserData> {
     fun findTopByLastClientIdOrderByLastPlayDateDesc(lastClientId: String): Chu3UserData?
@@ -187,6 +198,8 @@ class Chu3Repos(
     val userMisc: Chu3UserMiscRepo,
     val userChallenge: Chu3UserChallengeRepo,
     val userLinkedVerse: Chu3UserLinkedVerseRepo,
+    val userMate: Chu3UserMateRepo,
+    val userVote: Chu3UserVoteRepo,
     val gameData: GameDataService
 ) {
     val gameCharge = StaticRepo(gameData.chu3GameCharges) { it.orderId.toLong() }
