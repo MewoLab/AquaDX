@@ -4,7 +4,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 plugins {
-    val ktVer = "2.1.10"
+    val ktVer = "2.4.0"
 
     java
     kotlin("jvm") version ktVer
@@ -13,9 +13,9 @@ plugins {
     kotlin("plugin.serialization") version ktVer
     kotlin("plugin.allopen") version ktVer
     kotlin("kapt") version ktVer
-    id("org.springframework.boot") version "3.2.3"
+    id("org.springframework.boot") version "3.5.16"
     id("com.github.ben-manes.versions") version "0.51.0"
-    id("org.hibernate.orm") version "6.4.4.Final"
+    id("org.hibernate.orm") version "7.4.4.Final"
     application
 }
 
@@ -37,8 +37,8 @@ dependencies {
     implementation("io.netty:netty-all")
     implementation("org.apache.commons:commons-lang3:3.14.0")
     implementation("org.apache.httpcomponents.client5:httpclient5")
-    implementation("org.flywaydb:flyway-core:10.10.0")
-    implementation("org.flywaydb:flyway-mysql:10.10.0")
+    implementation("org.flywaydb:flyway-core:12.10.0")
+    implementation("org.flywaydb:flyway-mysql:12.10.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
@@ -52,8 +52,8 @@ dependencies {
     // Database
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.3")
     runtimeOnly("org.xerial:sqlite-jdbc:3.45.2.0")
-    implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
-    implementation("org.hibernate.orm:hibernate-community-dialects:6.4.4.Final")
+    implementation("org.hibernate.orm:hibernate-core:6.6.54.Final")
+    implementation("org.hibernate.orm:hibernate-community-dialects:6.6.54.Final")
     implementation("io.github.openfeign.querydsl:querydsl-jpa:6.10.1")
     kapt("io.github.openfeign.querydsl:querydsl-apt:6.10.1:jpa")
 
@@ -105,10 +105,20 @@ dependencies {
 group = "icu.samnya"
 version = "1.0.0"
 description = "AquaDX Arcade Server"
-java.sourceCompatibility = JavaVersion.VERSION_21
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_25)
+    }
 }
 
 springBoot {

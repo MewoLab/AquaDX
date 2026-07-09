@@ -41,7 +41,7 @@ docker compose up
 ```
 
 ### Building
-You need to install JDK 21 on your system, then run `./gradlew clean build`. The jar file will be built into the `build/libs` folder.
+You need to install JDK 25 on your system, then run `./gradlew clean build`. The jar file will be built into the `build/libs` folder.
 
 ## Why drop SQLite support?
 
