@@ -221,20 +221,22 @@ class AquaUserServices(
             400 - "User with username `$this` already exists"
     }
 
-    fun validateEmail(email: Str) = email.apply {
+    fun validateEmail(email: Str): Str {
         // Check if email is valid
-        if (!isValidEmail()) 400 - "Invalid email"
+        if (!email.isValidEmail()) 400 - "Invalid email"
 
         // Check if user with the same email exists
         if (userRepo.findByEmailIgnoreCase(email) != null)
             400 - "User with email `$email` already exists"
+
+        return email
     }
 
-    fun checkPwHash(password: Str) = password.run {
+    fun checkPwHash(password: Str): Str {
         // Validate password
-        if (length < 8) 400 - "Password must be at least 8 characters"
+        if (password.length < 8) 400 - "Password must be at least 8 characters"
 
-        hasher.encode(this)
+        return hasher.encode(password) ?: (500 - "Failed to hash password")
     }
 
     fun checkDisplayName(displayName: Str) = displayName.apply {

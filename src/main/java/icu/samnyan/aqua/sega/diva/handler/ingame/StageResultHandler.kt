@@ -9,7 +9,6 @@ import icu.samnyan.aqua.sega.diva.model.db.userdata.*
 import icu.samnyan.aqua.sega.diva.util.DivaCalculator
 import org.apache.commons.lang3.StringUtils
 import org.springframework.stereotype.Component
-import java.lang.String
 import java.time.LocalDateTime
 import java.util.*
 import java.util.function.Supplier
@@ -100,7 +99,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
 
             // Calculate reward
             // Contest reward
-            var contestSpecifier = String.join(",", *request.cr_sp)
+            var contestSpecifier = request.cr_sp.joinToString(",")
             val contestRewardType = arrayOf<kotlin.String?>("-1", "-1", "-1")
             val contestRewardValue = arrayOf<kotlin.String?>("-1", "-1", "-1")
             val contestRewardString1 = arrayOf<kotlin.String?>("***", "***", "***")
@@ -204,10 +203,10 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
                 request.cr_cid,
                 request.cr_tv,
                 contestSpecifier,
-                String.join(",", *contestRewardType),
-                String.join(",", *contestRewardValue),
-                String.join(",", *contestRewardString1),
-                String.join(",", *contestRewardString2),
+                contestRewardType.joinToString(","),
+                contestRewardValue.joinToString(","),
+                contestRewardString1.joinToString(","),
+                contestRewardString2.joinToString(","),
                 contestEntryRewardType,
                 contestEntryRewardValue,
                 contestEntryRewardString1,
@@ -328,7 +327,7 @@ class StageResultHandler(val db: DivaRepos, val calc: DivaCalculator) {
         while (result.size < 60) {
             result.add("-1")
         }
-        return String.join(",", result)
+        return result.joinToString(",")
     }
 
     private fun updateReward(

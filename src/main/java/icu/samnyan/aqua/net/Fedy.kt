@@ -154,7 +154,7 @@ class Fedy(
                 forEach { (k, v) -> v?.let { GAME_OPTIONS_FIELDS[k]?.set(options, it) } }
             }
             us.userRepo.save(ru)
-            if (fields.containsKey("pwHash") ?: false) { us.clearAllSessions(ru) }
+            if (fields.containsKey("pwHash")) { us.clearAllSessions(ru) }
             UserUpdateRes(user = ru.fedyBasicInfo())
         } caught { UserUpdateRes(error = it) }
     }

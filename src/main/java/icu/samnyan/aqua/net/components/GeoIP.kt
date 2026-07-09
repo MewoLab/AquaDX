@@ -77,7 +77,7 @@ class GeoIP(
     {
         return try {
             val ipa = InetAddress.getByName(ip)
-            geoLite.country(ipa)?.country?.isoCode ?: ""
+            geoLite.country(ipa)?.country()?.isoCode() ?: ""
         }
         catch (e: AddressNotFoundException) { "" }
         catch (e: Exception) {

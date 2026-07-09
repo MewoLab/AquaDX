@@ -56,7 +56,6 @@ class WcUserGate : WaccaUserEntity() {
     var progress = 0
     var loops = 0
 
-    @Temporal(TemporalType.TIMESTAMP)
     var lastUsed = Date(0)
     var missionFlag = 0
     var totalPoints = 0
@@ -74,7 +73,6 @@ class WcUserItem(
     var p2: Long = 0L,
     var p3: Long = 0L,
 
-    @Temporal(TemporalType.TIMESTAMP)
     var acquiredDate: Date = Date(),
 ) : WaccaUserEntity() {
     fun ls() = when (type) {
@@ -133,7 +131,6 @@ class WcUserPlayLog : WaccaUserEntity(), IGenericGamePlaylog {
     override var beforeRating = 0
     override var afterRating = 0
 
-    @Temporal(TemporalType.TIMESTAMP)
     override var userPlayDate = Date()
 
     fun clears() = ls(1, +isClear, +isFullCombo, +isMissless, +isAllPerfect)

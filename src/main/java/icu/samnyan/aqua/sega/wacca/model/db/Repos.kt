@@ -14,9 +14,9 @@ interface WcUserRepo : JpaRepository<WaccaUser, Long>, GenericUserDataRepo<Wacca
 }
 
 @NoRepositoryBean
-interface IWaccaUserLinked<T> : JpaRepository<T, Long> {
+interface IWaccaUserLinked<T : Any> : JpaRepository<T, Long> {
     fun findByUser(user: WaccaUser): List<T>
-    fun findByUserCardExtId(userId: Long): List<T>
+    fun findByUserCardExtId(extId: Long): List<T>
     @Transactional
     fun deleteByUser(user: WaccaUser)
 }

@@ -18,7 +18,7 @@ import icu.samnyan.aqua.sega.util.StaticRepo
 
 
 @NoRepositoryBean
-interface Chu3UserLinked<T> : IUserRepo<Chu3UserData, T> {
+interface Chu3UserLinked<T : Any> : IUserRepo<Chu3UserData, T> {
     fun findByUser_Card_ExtId(extId: Long): List<T>
     fun findSingleByUser_Card_ExtId(extId: Long): T?
     fun findByUser_Card_ExtId(extId: Long, pageable: Pageable): Page<T>

@@ -18,7 +18,7 @@ import java.util.*
 
 
 @NoRepositoryBean
-interface OngekiUserLinked<T> : IUserRepo<UserData, T> {
+interface OngekiUserLinked<T : Any> : IUserRepo<UserData, T> {
     fun findByUser_Card_ExtId(extId: Long): List<T>
     fun findSingleByUser_Card_ExtId(extId: Long): T?
     fun findByUser_Card_ExtId(extId: Long, pageable: Pageable): Page<T>
@@ -221,4 +221,3 @@ class OngekiRepos(
     val u: OngekiUserRepos,
     val g: OngekiGameRepos,
 )
-

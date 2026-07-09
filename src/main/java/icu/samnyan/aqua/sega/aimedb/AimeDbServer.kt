@@ -4,7 +4,8 @@ import ext.logger
 import io.netty.bootstrap.ServerBootstrap
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.ChannelOption
-import io.netty.channel.nio.NioEventLoopGroup
+import io.netty.channel.MultiThreadIoEventLoopGroup
+import io.netty.channel.nio.NioIoHandler
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
 import io.netty.handler.logging.LogLevel
@@ -38,7 +39,10 @@ class AimeDbServer(
         if (!props.enable) return logger.info("Aime DB is disabled.")
 
         val bootstrap = ServerBootstrap()
-            .group(NioEventLoopGroup(), NioEventLoopGroup())
+            .group(
+                MultiThreadIoEventLoopGroup(NioIoHandler.newFactory()),
+                MultiThreadIoEventLoopGroup(NioIoHandler.newFactory())
+            )
             .handler(LoggingHandler(LogLevel.DEBUG))
             .channel(NioServerSocketChannel::class.java)
             .childHandler(initializer)
