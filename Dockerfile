@@ -1,7 +1,6 @@
 # Use a multi-stage build to keep the image size small
-# Start with a Gradle image for building the project
-#FROM gradle:jdk25-alpine as builder
-FROM gradle:jdk25 AS builder
+# Pin the builder so ARM64 deployments cannot reuse an older floating jdk25 image.
+FROM gradle:9.6.1-jdk25 AS builder
 
 # Copy the Gradle wrapper and configuration files separately to leverage Docker cache
 COPY --chown=gradle:gradle gradlew /home/gradle/
@@ -16,6 +15,7 @@ RUN sed -i 's/\r$//' ./gradlew
 
 # Download dependencies - cached if build.gradle.kts and settings.gradle.kts are unchanged
 RUN chmod +x ./gradlew
+RUN java -version
 RUN ./gradlew dependencies
 
 # Copy the project source, this layer is rebuilt whenever a file has changed
