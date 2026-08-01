@@ -2,6 +2,8 @@ package icu.samnyan.aqua.sega.diva.model.db.userdata
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.io.Serializable
 
 @Entity(name = "DivaPlayerInventory")
@@ -12,6 +14,7 @@ class PlayerInventory : Serializable {
     var id: Long = 0
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pd_id")
     @JsonIgnore
     var pdId: PlayerProfile = PlayerProfile()

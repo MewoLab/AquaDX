@@ -1,6 +1,8 @@
 package icu.samnyan.aqua.sega.diva.model.db.userdata
 
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 
 @Entity(name = "DivaPlayerScreenShot")
 @Table(name = "diva_player_screen_shot")
@@ -10,6 +12,7 @@ class PlayerScreenShot {
     var id: Long = 0
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pd_id")
     var pdId: PlayerProfile = PlayerProfile()
     var pvId: Long = 0

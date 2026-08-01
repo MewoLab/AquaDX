@@ -436,15 +436,6 @@ class AccountDeletionService(
         val profile: PlayerProfile = diva.profile.findByPdId(card.extId).orElse(null) ?: return emptyList()
         val screenshots = diva.screenShot.findByPdId(profile)
 
-        diva.gameSession.findByPdId(profile).ifPresent { diva.gameSession.delete(it) }
-        diva.playLog.deleteAll(diva.playLog.findByPdId(profile))
-        diva.contest.deleteAll(diva.contest.findByPdId(profile))
-        diva.customize.deleteAll(diva.customize.findByPdId(profile))
-        diva.inventory.deleteAll(diva.inventory.findByPdId(profile))
-        diva.module.deleteAll(diva.module.findByPdId(profile))
-        diva.pvCustomize.deleteAll(diva.pvCustomize.findByPdId(profile))
-        diva.pvRecord.deleteAll(diva.pvRecord.findByPdId(profile))
-        diva.screenShot.deleteAll(screenshots)
         diva.profile.delete(profile)
 
         return screenshots.map { it.fileName }

@@ -6,6 +6,8 @@ import icu.samnyan.aqua.sega.diva.model.common.ClearResult
 import icu.samnyan.aqua.sega.diva.model.common.Difficulty
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -17,6 +19,7 @@ class PlayLog : Serializable {
     var id: Long = 0
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pd_id")
     @JsonIgnore
     var pdId: PlayerProfile = PlayerProfile()

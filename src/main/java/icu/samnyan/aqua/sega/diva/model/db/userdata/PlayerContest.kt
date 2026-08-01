@@ -2,6 +2,8 @@ package icu.samnyan.aqua.sega.diva.model.db.userdata
 
 import icu.samnyan.aqua.sega.diva.model.common.ContestBorder
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -13,6 +15,7 @@ class PlayerContest : Serializable {
     var id: Long = 0
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pd_id")
     var pdId: PlayerProfile = PlayerProfile()
 

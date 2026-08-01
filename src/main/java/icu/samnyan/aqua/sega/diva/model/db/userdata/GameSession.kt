@@ -2,6 +2,8 @@ package icu.samnyan.aqua.sega.diva.model.db.userdata
 
 import icu.samnyan.aqua.sega.diva.model.common.StartMode
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -14,6 +16,7 @@ class GameSession : Serializable {
     var acceptId = 0
 
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "pd_id", unique = true)
     var pdId: PlayerProfile = PlayerProfile()
 
