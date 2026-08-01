@@ -107,7 +107,9 @@ interface Mai2UserPlaylogRepo : GenericPlaylogRepo<Mai2UserPlaylog>, Mai2UserLin
     fun findByUserAndUserPlayDateAfter(user: Mai2UserDetail, userPlayDate: String): List<Mai2UserPlaylog>
 }
 
-interface Mai2UserPrintDetailRepo : JpaRepository<Mai2UserPrintDetail, Long>
+interface Mai2UserPrintDetailRepo : JpaRepository<Mai2UserPrintDetail, Long> {
+    fun findByUser(user: Mai2UserDetail): List<Mai2UserPrintDetail>
+}
 
 interface Mai2UserUdemaeRepo : Mai2UserLinked<Mai2UserUdemae>
 

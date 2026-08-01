@@ -67,6 +67,8 @@ interface PvEntryRepository : JpaRepository<PvEntry, Int> {
 }
 
 interface PlayerContestRepository : JpaRepository<PlayerContest, Long> {
+    fun findByPdId(pdId: PlayerProfile): MutableList<PlayerContest>
+
     fun findByPdIdAndContestId(pdId: PlayerProfile, contestId: Int): Optional<PlayerContest>
 
     fun findTop4ByPdIdOrderByLastUpdateTimeDesc(pdId: PlayerProfile): MutableList<PlayerContest>
@@ -86,6 +88,8 @@ interface PlayerCustomizeRepository : JpaRepository<PlayerCustomize, Long> {
 
 @Repository
 interface PlayerInventoryRepository : JpaRepository<PlayerInventory, Long> {
+    fun findByPdId(profile: PlayerProfile): MutableList<PlayerInventory>
+
     fun findByPdIdAndTypeAndValue(profile: PlayerProfile, type: String, value: String): Optional<PlayerInventory>
 }
 
@@ -96,6 +100,8 @@ interface PlayerProfileRepository : JpaRepository<PlayerProfile, Long> {
 
 @Repository
 interface PlayerPvCustomizeRepository : JpaRepository<PlayerPvCustomize, Long> {
+    fun findByPdId(profile: PlayerProfile): MutableList<PlayerPvCustomize>
+
     fun findByPdIdAndPvId(profile: PlayerProfile, pvId: Int): Optional<PlayerPvCustomize>
 }
 
@@ -139,10 +145,14 @@ interface PlayerPvRecordRepository : JpaRepository<PlayerPvRecord, Long> {
     ): MutableList<PlayerPvRecord>
 }
 
-interface PlayerScreenShotRepository : JpaRepository<PlayerScreenShot, Long>
+interface PlayerScreenShotRepository : JpaRepository<PlayerScreenShot, Long> {
+    fun findByPdId(profile: PlayerProfile): MutableList<PlayerScreenShot>
+}
 
 @Repository
-interface PlayLogRepository : JpaRepository<PlayLog, Long>
+interface PlayLogRepository : JpaRepository<PlayLog, Long> {
+    fun findByPdId(profile: PlayerProfile): MutableList<PlayLog>
+}
 
 @Repository
 interface PlayerModuleRepository : JpaRepository<PlayerModule, Long> {

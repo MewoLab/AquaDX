@@ -203,6 +203,10 @@ export const USER = {
   ensureLoggedIn,
   changeRegion: (regionId: number) =>
     post('/api/v2/user/change-region', { regionId }),
+  exportAccountData: (): Promise<Record<string, any>> =>
+    post('/api/v2/user/export-data'),
+  deleteAccount: () =>
+    post('/api/v2/user/delete-account'),
 }
 
 export const USERBOX = {

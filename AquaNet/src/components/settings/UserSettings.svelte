@@ -1,10 +1,10 @@
 <script lang="ts">
   import { slide, fade } from "svelte/transition";
-  import type { AquaNetUser } from "../../libs/generalTypes";
+  import type { AquaNetUser, ConfirmProps } from "../../libs/generalTypes";
   import { CARD, USER } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
-  import { pfp } from "../../libs/ui";
+  import { download, pfp } from "../../libs/ui";
   import { t, ts } from "../../libs/i18n";
   import Cropper from "svelte-easy-crop";
 
@@ -12,6 +12,7 @@
   let error: string;
   let submitting = ""
   let loading = false;
+  let confirm: ConfirmProps | null = null;
 
   const profileFields = [
     [ 'displayName', t('settings.profile.name') ],
@@ -97,11 +98,41 @@
     location.href = "/";
   }
 
+  function requestAccountDeletion() {
+    if (submitting) return;
+    confirm = {
+      title: t('settings.profile.delete-confirm-title'),
+      message: t('settings.profile.delete-confirm-message'),
+      dangerous: true,
+      cancel: () => confirm = null,
+      confirm: deleteAccount,
+    };
+  }
+
+  async function deleteAccount() {
+    if (submitting) return;
+    submitting = "deleteAccount";
+
+    try {
+      const data = await USER.exportAccountData();
+      download(
+        JSON.stringify(data, null, 2),
+        `AquaDX_account_export_${me.username}.json`,
+      );
+      await USER.deleteAccount();
+      localStorage.removeItem("token");
+      location.href = "/";
+    } catch (e) {
+      error = (e as Error).message;
+      submitting = "";
+    }
+  }
+
   const passwordAction = (node: HTMLInputElement, whether: boolean) => {
     if (whether) node.type = 'password'
   }
 </script>
-<StatusOverlays {error} loading={!!submitting || loading} />
+<StatusOverlays bind:confirm={confirm} {error} loading={!!submitting || loading} />
 {#if !submitting && !error && me}
   <div>
     <div class="fields">
@@ -171,6 +202,16 @@
             <button on:click={logOut}>{ts(`settings.profile.logout`)}</button>
         </div>
       </div>
+      <div class="field danger-zone m-t">
+        <span class="name">{t('settings.profile.delete-title')}</span>
+        <span class="desc">{t('settings.profile.delete-description')}</span>
+        <div>
+          <button class="error" on:click={requestAccountDeletion}>
+            <Icon icon="tabler:trash-x-filled" />
+            {t('settings.profile.delete')}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 {/if}
@@ -233,6 +274,19 @@
       border-radius: vars.$border-radius
       object-fit: cover
       aspect-ratio: 1
+
+  .danger-zone
+    margin-top: 1.5rem
+    padding-top: 1.5rem
+    border-top: 1px solid vars.$ov-lighter
+
+    .desc
+      opacity: 0.6
+
+    button
+      display: flex
+      align-items: center
+      gap: 0.5rem
 
 
 

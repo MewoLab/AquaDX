@@ -69,12 +69,12 @@ class AquaNetUser(
     // Email confirmation
     var emailConfirmed: Boolean = false,
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @OneToOne(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     @JoinColumn(name = "ghostCard", unique = true, nullable = false)
     var ghostCard: Card = Card(),
 
     // One user can have multiple cards
-    @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.ALL])
+    @OneToMany(mappedBy = "aquaUser", cascade = [CascadeType.PERSIST, CascadeType.MERGE])
     var cards: MutableList<Card> = mutableListOf(),
 
     // Each user can have multiple keychips (if the user owns cabinets)

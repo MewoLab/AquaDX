@@ -47,6 +47,7 @@ fun genUrlSafeToken(length: Int): String {
 @Repository("KeychipSessionRepo")
 interface KeychipSessionRepo : JpaRepository<KeychipSession, String> {
     fun findByToken(token: String): KeychipSession?
+    fun findAllByUserAuId(auId: Long): List<KeychipSession>
 
     @Transactional
     fun deleteAllByLastUseBefore(expire: Long)

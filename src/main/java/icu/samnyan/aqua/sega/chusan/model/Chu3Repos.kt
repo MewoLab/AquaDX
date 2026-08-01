@@ -28,6 +28,8 @@ interface Chu3UserLinked<T> : IUserRepo<Chu3UserData, T> {
 // This repo cannot be generalized as UserLinked because the entity stores user as an int
 // TODO: Find a way to generalize this
 interface Chu3UserLoginBonusRepo : JpaRepository<UserLoginBonus, Long> {
+    fun findByUser(userId: Int): List<UserLoginBonus>
+
     @Query(
         value = "select * from chusan_user_login_bonus where user = ?1 and version = ?2 and is_finished = ?3 order by last_update_date desc",
         nativeQuery = true
