@@ -14,6 +14,8 @@ import type {
 } from './generalTypes'
 import type { GameName } from './scoring'
 
+export type ExportGameName = GameName | 'diva'
+
 interface ExtReqInit extends RequestInit {
   params?: { [index: string]: string }
   json?: any
@@ -203,8 +205,6 @@ export const USER = {
   ensureLoggedIn,
   changeRegion: (regionId: number) =>
     post('/api/v2/user/change-region', { regionId }),
-  exportAccountData: (): Promise<Record<string, any>> =>
-    post('/api/v2/user/export-data'),
   deleteAccount: () =>
     post('/api/v2/user/delete-account'),
 }
@@ -240,7 +240,7 @@ export const GAME = {
     post(`/api/v2/game/${game}/ranking`, typeof page === "number" ? { page } : {}),
   changeName: (game: GameName, newName: string): Promise<{ newName: string }> =>
     post(`/api/v2/game/${game}/change-name`, { newName }),
-  export: (game: GameName): Promise<Record<string, any>> =>
+  export: (game: ExportGameName): Promise<Record<string, any>> =>
     post(`/api/v2/game/${game}/export`),
   import: (game: GameName, data: any): Promise<Record<string, any>> =>
     post(`/api/v2/game/${game}/import`, {}, { json: data }),

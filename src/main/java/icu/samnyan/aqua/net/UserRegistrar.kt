@@ -4,22 +4,40 @@ import ext.*
 import icu.samnyan.aqua.net.components.*
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
+import icu.samnyan.aqua.net.db.AquaGameOptionsRepo
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import icu.samnyan.aqua.net.db.ResetPasswordRepo
+import icu.samnyan.aqua.net.db.SessionTokenRepo
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.allnet.UserKeychip
 import icu.samnyan.aqua.sega.allnet.UserKeychipRepo
+import icu.samnyan.aqua.sega.allnet.KeychipSessionRepo
+import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
+import icu.samnyan.aqua.sega.diva.DivaRepos
+import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
 import icu.samnyan.aqua.sega.general.dao.CardRepository
+import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.model.CardStatus
+import icu.samnyan.aqua.sega.maimai2.model.Mai2Repos
+import icu.samnyan.aqua.sega.ongeki.OngekiUserRepos
+import icu.samnyan.aqua.sega.wacca.model.db.WaccaRepos
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
+import java.nio.file.Files
+import java.nio.file.Path
 import java.time.Instant
+import kotlin.io.path.Path
+import kotlin.io.path.deleteIfExists
+import kotlin.io.path.exists
+import kotlin.io.path.name
 import kotlin.io.path.writeBytes
 
 @RestController
@@ -39,7 +57,8 @@ class UserRegistrar(
     val emailProps: EmailProperties,
     val userKeychipRepo: UserKeychipRepo,
     val aquaNetProps: AquaNetProps,
-    final val paths: PathProps
+    final val paths: PathProps,
+    val accountDeletion: AccountDeletionService,
 ) {
     val portraitPath = paths.aquaNetPortrait.path()
 
@@ -336,5 +355,123 @@ class UserRegistrar(
         }
 
         SUCCESS
+    }
+
+    @API("/delete-account")
+    @Doc("Permanently delete the current user's account and all associated game data.", "Success message")
+    fun deleteAccount(@RP token: Str) = jwt.auth(token) { user ->
+        val cleanup = accountDeletion.deleteDatabaseData(user.auId)
+        accountDeletion.deleteUploadedFiles(cleanup)
+        SUCCESS
+    }
+}
+
+data class AccountFileCleanup(
+    val profilePicture: String?,
+    val gameUserId: Long,
+    val divaScreenshots: List<String>,
+)
+
+@Service
+class AccountDeletionService(
+    val userRepo: AquaNetUserRepo,
+    val cardRepo: CardRepository,
+    val gameOptionsRepo: AquaGameOptionsRepo,
+    val sessionRepo: SessionTokenRepo,
+    val confirmationRepo: EmailConfirmationRepo,
+    val resetPasswordRepo: ResetPasswordRepo,
+    val userKeychipRepo: UserKeychipRepo,
+    val keychipSessionRepo: KeychipSessionRepo,
+    val mai2: Mai2Repos,
+    val chu3: Chu3Repos,
+    val ongeki: OngekiUserRepos,
+    val wacca: WaccaRepos,
+    val diva: DivaRepos,
+    val paths: PathProps,
+) {
+    companion object {
+        val log = logger()
+    }
+
+    @Transactional
+    fun deleteDatabaseData(auId: Long): AccountFileCleanup {
+        val user = userRepo.findByAuId(auId) ?: (404 - "User not found")
+        val ghostCard = user.ghostCard
+        val divaScreenshots = deleteDiva(ghostCard)
+
+        mai2.userData.findByCard(ghostCard)?.let { mai2.userData.delete(it) }
+        chu3.userData.findByCard(ghostCard)?.let { chu3.userData.delete(it) }
+        ongeki.data.findByCard(ghostCard)?.let { ongeki.data.delete(it) }
+        wacca.user.findByCard(ghostCard)?.let { wacca.user.delete(it) }
+        chu3.userLoginBonus.deleteAll(chu3.userLoginBonus.findByUser(ghostCard.extId.toInt()))
+
+        sessionRepo.deleteAll(sessionRepo.findByAquaNetUserAuId(auId))
+        confirmationRepo.deleteAll(confirmationRepo.findByAquaNetUserAuId(auId))
+        resetPasswordRepo.deleteAll(resetPasswordRepo.findByAquaNetUserAuId(auId))
+        userKeychipRepo.deleteAll(userKeychipRepo.findAllByUserAuId(auId))
+        keychipSessionRepo.deleteAll(keychipSessionRepo.findAllByUserAuId(auId))
+
+        val linkedCards = (cardRepo.findAllByAquaUserAuId(auId) + ghostCard).distinctBy { it.id }
+        linkedCards.forEach { it.aquaUser = null }
+        cardRepo.saveAll(linkedCards)
+        cardRepo.flush()
+
+        user.cards.clear()
+        user.keychips.clear()
+        user.keychipSessions.clear()
+        val gameOptions = user.gameOptions
+        user.gameOptions = null
+
+        userRepo.delete(user)
+        userRepo.flush()
+        cardRepo.delete(ghostCard)
+        cardRepo.flush()
+        gameOptions?.let { gameOptionsRepo.delete(it) }
+
+        log.info("Deleted account and game data for user $auId")
+        return AccountFileCleanup(user.profilePicture, ghostCard.extId, divaScreenshots)
+    }
+
+    private fun deleteDiva(card: Card): List<String> {
+        val profile: PlayerProfile = diva.profile.findByPdId(card.extId).orElse(null) ?: return emptyList()
+        val screenshots = diva.screenShot.findByPdId(profile)
+
+        diva.gameSession.findByPdId(profile).ifPresent { diva.gameSession.delete(it) }
+        diva.playLog.deleteAll(diva.playLog.findByPdId(profile))
+        diva.contest.deleteAll(diva.contest.findByPdId(profile))
+        diva.customize.deleteAll(diva.customize.findByPdId(profile))
+        diva.inventory.deleteAll(diva.inventory.findByPdId(profile))
+        diva.module.deleteAll(diva.module.findByPdId(profile))
+        diva.pvCustomize.deleteAll(diva.pvCustomize.findByPdId(profile))
+        diva.pvRecord.deleteAll(diva.pvRecord.findByPdId(profile))
+        diva.screenShot.deleteAll(screenshots)
+        diva.profile.delete(profile)
+
+        return screenshots.map { it.fileName }
+    }
+
+    fun deleteUploadedFiles(cleanup: AccountFileCleanup) {
+        try {
+            cleanup.profilePicture
+                ?.takeIf { it.isNotBlank() && Path(it).name == it }
+                ?.let { (Path(paths.aquaNetPortrait) / it).deleteIfExists() }
+
+            deleteFilesStartingWith(Path(paths.mai2Portrait), "${cleanup.gameUserId}-")
+            deleteFilesStartingWith(Path(paths.mai2Plays), "${cleanup.gameUserId}-")
+            deleteFilesStartingWith(Path("data/tmp"), "${cleanup.gameUserId}-")
+            cleanup.divaScreenshots
+                .filter { Path(it).name == it }
+                .forEach { (Path("data") / it).deleteIfExists() }
+        } catch (e: Exception) {
+            log.error("Failed to delete one or more uploaded files for deleted user ${cleanup.gameUserId}", e)
+        }
+    }
+
+    private fun deleteFilesStartingWith(directory: Path, prefix: String) {
+        if (!directory.exists()) return
+        Files.list(directory).use { files ->
+            files.filter { it.fileName.toString().startsWith(prefix) }
+                .forEach { it.deleteIfExists() }
+        }
     }
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { slide, fade } from "svelte/transition";
   import type { AquaNetUser, ConfirmProps } from "../../libs/generalTypes";
-  import { CARD, USER } from "../../libs/sdk";
+  import { CARD, GAME, USER, type ExportGameName } from "../../libs/sdk";
   import StatusOverlays from "../../components/StatusOverlays.svelte";
   import Icon from "@iconify/svelte";
   import { download, pfp } from "../../libs/ui";
@@ -114,11 +114,18 @@
     submitting = "deleteAccount";
 
     try {
-      const data = await USER.exportAccountData();
-      download(
+      const gameSummary = await CARD.userGames(me.username);
+      const games = (['mai2', 'chu3', 'ongeki', 'wacca', 'diva'] as ExportGameName[])
+        .filter(game => gameSummary[game] !== null);
+      const exports = await Promise.all(games.map(async game => ({
+        game,
+        data: await GAME.export(game),
+      })));
+
+      exports.forEach(({game, data}) => download(
         JSON.stringify(data, null, 2),
-        `AquaDX_account_export_${me.username}.json`,
-      );
+        `AquaDX_${game}_export_${me.username}.json`,
+      ));
       await USER.deleteAccount();
       localStorage.removeItem("token");
       location.href = "/";
