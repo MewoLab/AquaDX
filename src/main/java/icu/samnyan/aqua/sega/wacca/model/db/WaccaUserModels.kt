@@ -9,6 +9,8 @@ import icu.samnyan.aqua.sega.general.IntegerListConverter
 import icu.samnyan.aqua.sega.wacca.WaccaItemType
 import icu.samnyan.aqua.sega.wacca.WaccaItemType.*
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.util.*
 
 typealias UC = UniqueConstraint
@@ -20,6 +22,7 @@ typealias UC = UniqueConstraint
 open class WaccaUserEntity : BaseEntity() {
     @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     open var user: WaccaUser = WaccaUser()
 }

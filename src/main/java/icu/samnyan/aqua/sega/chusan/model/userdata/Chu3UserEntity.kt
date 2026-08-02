@@ -6,11 +6,14 @@ import icu.samnyan.aqua.net.games.IUserEntity
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.MappedSuperclass
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 
 @MappedSuperclass
 class Chu3UserEntity : BaseEntity(), IUserEntity<Chu3UserData> {
     @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     override var user: Chu3UserData = Chu3UserData()
 }

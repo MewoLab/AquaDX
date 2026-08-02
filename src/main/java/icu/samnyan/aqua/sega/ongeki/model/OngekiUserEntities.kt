@@ -7,6 +7,8 @@ import icu.samnyan.aqua.net.games.*
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.util.AccessCodeSerializer
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -14,6 +16,7 @@ import java.time.LocalDateTime
 class OngekiUserEntity : BaseEntity(), IUserEntity<UserData> {
     @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     override var user: UserData = UserData()
 }

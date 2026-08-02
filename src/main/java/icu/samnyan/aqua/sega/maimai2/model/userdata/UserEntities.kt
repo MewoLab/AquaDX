@@ -16,6 +16,8 @@ import icu.samnyan.aqua.net.games.IGenericUserMusic
 import icu.samnyan.aqua.net.games.IUserEntity
 import icu.samnyan.aqua.sega.general.IntegerListConverter
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -24,6 +26,7 @@ import java.time.format.DateTimeFormatter
 open class Mai2UserEntity : BaseEntity(), IUserEntity<Mai2UserDetail> {
     @JsonIgnore
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     override var user: Mai2UserDetail = Mai2UserDetail()
 }
