@@ -69,10 +69,18 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
     fun rankingCacheInit() = thread { rankingCacheRun() }
 
     // Every 20 minutes
-    @Scheduled(fixedRate = 20, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedRate = 20, initialDelay = 20, timeUnit = TimeUnit.MINUTES)
     fun rankingCacheRun() = rankingCacheLock.maybeLock { rankingCacheCompute() }
 
     private val tableName = when (name) { "mai2" -> "maimai2"; "chu3" -> "chusan"; else -> name }
+    private val userDataTable = when (name) {
+        "mai2" -> "maimai2_user_detail"
+        "chu3" -> "chusan_user_data"
+        "ongeki" -> "ongeki_user_data"
+        else -> "wacca_user"
+    }
+    private val userCardColumn = if (name == "chu3") "card_id" else "aime_card_id"
+
     fun rankingCacheCompute() {
         val time = millis()
         rankingCache = us.em.createNativeQuery(
@@ -82,20 +90,21 @@ abstract class GameApiController<T : IUserData>(val name: String, userDataClass:
                     u.user_name,
                     ${if (name == "ongeki") "u.new_player_rating" else "u.player_rating"} AS rating,
                     u.last_play_date,
-                    AVG(p.achievement) / 10000.0 AS acc,
-                    SUM(p.is_full_combo) AS fc,
-                    SUM(p.is_all_perfect) AS ap,
+                    r.achievement_sum / NULLIF(r.play_count, 0) / 10000.0 AS acc,
+                    r.full_combo_count AS fc,
+                    r.all_perfect_count AS ap,
                     c.ranking_banned or COALESCE(a.opt_out_of_leaderboard, 0) or c.status = 12 AS hide,
                     a.username
-                FROM ${tableName}_user_playlog_view p
-                     JOIN ${tableName}_user_data_view u ON p.user_id = u.id
-                     JOIN sega_card c ON u.aime_card_id = c.id
+                FROM ${tableName}_user_ranking_cache r
+                     JOIN $userDataTable u ON r.user_id = u.id
+                     JOIN sega_card c ON u.$userCardColumn = c.id
                      LEFT JOIN aqua_net_user a ON c.net_user_id = a.au_id
-                GROUP BY p.user_id, u.player_rating
-                HAVING NOT hide ${if (name == "ongeki") "AND rating > 0" else "" /* Hide users on Ongeki 1.45 and below */}
+                WHERE r.play_count > 0
+                  AND NOT (c.ranking_banned or COALESCE(a.opt_out_of_leaderboard, 0) or c.status = 12)
+                  ${if (name == "ongeki") "AND u.new_player_rating > 0" else "" /* Hide users on Ongeki 1.45 and below */}
                 ORDER BY rating DESC;
             """
-        ).exec.mapIndexed { i, it ->
+        ).setHint("jakarta.persistence.query.timeout", 60_000).exec.mapIndexed { i, it ->
             GenericRankingPlayer(
                 rank = i + 1,
                 id = it[0]!!.long,
