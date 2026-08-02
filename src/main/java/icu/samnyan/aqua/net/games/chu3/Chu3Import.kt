@@ -3,6 +3,7 @@ package icu.samnyan.aqua.net.games.chu3
 import ext.API
 import ext.returns
 import ext.vars
+import icu.samnyan.aqua.net.games.ExportOptions
 import icu.samnyan.aqua.net.games.IExportClass
 import icu.samnyan.aqua.net.games.ImportClass
 import icu.samnyan.aqua.net.games.ImportController
@@ -12,6 +13,7 @@ import icu.samnyan.aqua.sega.chusan.model.userdata.*
 import org.springframework.web.bind.annotation.RestController
 import kotlin.reflect.full.declaredMembers
 
+@Suppress("UNCHECKED_CAST")
 @RestController
 @API("api/v2/game/chu3")
 class Chu3Import(
@@ -22,7 +24,7 @@ class Chu3Import(
         it.name.replace("List", "").lowercase()
     },
     exportRepos = Chu3DataExport::class.vars()
-        .filter { f -> f.name !in setOf("gameId", "userData") }
+        .filter { f -> f.name !in setOf("gameId", "userData", "userLoginBonusList") }
         .associateWith { Chu3Repos::class.declaredMembers
             .filter { f -> f returns Chu3UserLinked::class }
             .firstOrNull { f -> f.name == it.name || f.name == it.name.replace("List", "") }
@@ -44,7 +46,22 @@ class Chu3Import(
 //        "chuni_profile_emoney" to ImportClass(UserEmoney::class),
 //        "chuni_profile_overpower" to ImportClass(UserOverpower::class),
 //        "chuni_profile_recent_rating" to ImportClass(UserRecentRating::class),
-    )
+    ),
+    customExporters = mapOf(
+        Chu3DataExport::userLoginBonusList to { user: Chu3UserData, _: ExportOptions ->
+            repos.userLoginBonus.findByUser(user.card!!.extId.toInt())
+        },
+    ) as Map<kotlin.reflect.KMutableProperty1<Chu3DataExport, Any>, (Chu3UserData, ExportOptions) -> Any?>,
+    customImporters = mapOf(
+        Chu3DataExport::userLoginBonusList to { export: Chu3DataExport, user: Chu3UserData ->
+            val userId = user.card!!.extId.toInt()
+            repos.userLoginBonus.deleteAll(repos.userLoginBonus.findByUser(userId))
+            repos.userLoginBonus.saveAll(export.userLoginBonusList.map { it.apply {
+                id = 0
+                this.user = userId
+            } })
+        },
+    ) as Map<kotlin.reflect.KMutableProperty1<Chu3DataExport, Any>, (Chu3DataExport, Chu3UserData) -> Unit>,
 ) {
     override fun createEmpty() = Chu3DataExport()
     override val userDataRepo = repos.userData
@@ -67,6 +84,16 @@ data class Chu3DataExport(
     var userMateList: List<UserMate> = emptyList(),
     var userGeneralDataList: List<UserGeneralData> = emptyList(),
     var userMiscList: Chu3UserMisc = Chu3UserMisc(),
+    var userCardPrintStateList: List<UserCardPrintState> = emptyList(),
+    var userGachaList: List<UserGacha> = emptyList(),
+    var userRegionsList: List<UserRegions> = emptyList(),
+    var userCMissionList: List<UserCMission> = emptyList(),
+    var userCMissionProgressList: List<UserCMissionProgress> = emptyList(),
+    var netBattleLogList: List<Chu3NetBattleLog> = emptyList(),
+    var userChallengeList: List<Chu3UserChallenge> = emptyList(),
+    var userLinkedVerseList: List<Chu3UserLinkedVerse> = emptyList(),
+    var userVoteList: List<UserVote> = emptyList(),
+    var userLoginBonusList: List<UserLoginBonus> = emptyList(),
 ): IExportClass<Chu3UserData> {
     constructor() : this("SDHD",
         Chu3UserData(), UserGameOption(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), ArrayList(), Chu3UserMisc())
