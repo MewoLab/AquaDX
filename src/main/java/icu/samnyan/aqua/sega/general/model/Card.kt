@@ -3,6 +3,8 @@ package icu.samnyan.aqua.sega.general.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import icu.samnyan.aqua.net.db.AquaNetUser
 import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDateTime
 
 enum class CardStatus {
@@ -59,6 +61,7 @@ class Card(
 
     // Defines the AquaNet user that this card is bound to
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "net_user_id")
     @JsonIgnore
     var aquaUser: AquaNetUser? = null,

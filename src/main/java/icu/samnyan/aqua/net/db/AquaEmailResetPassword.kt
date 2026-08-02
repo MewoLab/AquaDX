@@ -2,6 +2,8 @@ package icu.samnyan.aqua.net.db
 
 import jakarta.persistence.*
 import org.springframework.data.jpa.repository.JpaRepository
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import org.springframework.stereotype.Repository
 import java.io.Serializable
 import java.time.Instant
@@ -22,6 +24,7 @@ class ResetPassword(
 
     // Linking to the AquaNetUser
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "auId", referencedColumnName = "auId")
     var aquaNetUser: AquaNetUser = AquaNetUser()
 ) : Serializable

@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository
 interface CardRepository : JpaRepository<Card, Long> {
     fun findByExtId(extId: Long): Card?
     fun findByLuid(luid: String): Card?
-    fun findAllByAquaUserAuId(auId: Long): List<Card>
 }

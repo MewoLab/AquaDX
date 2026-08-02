@@ -4,6 +4,8 @@ import icu.samnyan.aqua.net.db.AquaNetUser
 import jakarta.persistence.*
 import jakarta.transaction.Transactional
 import org.springframework.data.jpa.repository.JpaRepository
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import org.springframework.stereotype.Repository
 
 @Entity
@@ -13,6 +15,7 @@ class UserKeychip(
     val id: Long = 0,
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "au_id", nullable = false)
     var user: AquaNetUser,
 

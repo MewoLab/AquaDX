@@ -4,17 +4,14 @@ import ext.*
 import icu.samnyan.aqua.net.components.*
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaNetUserRepo
-import icu.samnyan.aqua.net.db.AquaGameOptionsRepo
 import icu.samnyan.aqua.net.db.AquaUserServices
 import icu.samnyan.aqua.net.db.EmailConfirmationRepo
 import icu.samnyan.aqua.net.db.ResetPasswordRepo
-import icu.samnyan.aqua.net.db.SessionTokenRepo
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.PathProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.allnet.UserKeychip
 import icu.samnyan.aqua.sega.allnet.UserKeychipRepo
-import icu.samnyan.aqua.sega.allnet.KeychipSessionRepo
 import icu.samnyan.aqua.sega.chusan.model.Chu3Repos
 import icu.samnyan.aqua.sega.diva.DivaRepos
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerProfile
@@ -376,12 +373,6 @@ data class AccountFileCleanup(
 class AccountDeletionService(
     val userRepo: AquaNetUserRepo,
     val cardRepo: CardRepository,
-    val gameOptionsRepo: AquaGameOptionsRepo,
-    val sessionRepo: SessionTokenRepo,
-    val confirmationRepo: EmailConfirmationRepo,
-    val resetPasswordRepo: ResetPasswordRepo,
-    val userKeychipRepo: UserKeychipRepo,
-    val keychipSessionRepo: KeychipSessionRepo,
     val mai2: Mai2Repos,
     val chu3: Chu3Repos,
     val ongeki: OngekiUserRepos,
@@ -405,28 +396,10 @@ class AccountDeletionService(
         wacca.user.findByCard(ghostCard)?.let { wacca.user.delete(it) }
         chu3.userLoginBonus.deleteAll(chu3.userLoginBonus.findByUser(ghostCard.extId.toInt()))
 
-        sessionRepo.deleteAll(sessionRepo.findByAquaNetUserAuId(auId))
-        confirmationRepo.deleteAll(confirmationRepo.findByAquaNetUserAuId(auId))
-        resetPasswordRepo.deleteAll(resetPasswordRepo.findByAquaNetUserAuId(auId))
-        userKeychipRepo.deleteAll(userKeychipRepo.findAllByUserAuId(auId))
-        keychipSessionRepo.deleteAll(keychipSessionRepo.findAllByUserAuId(auId))
-
-        val linkedCards = (cardRepo.findAllByAquaUserAuId(auId) + ghostCard).distinctBy { it.id }
-        linkedCards.forEach { it.aquaUser = null }
-        cardRepo.saveAll(linkedCards)
-        cardRepo.flush()
-
-        user.cards.clear()
-        user.keychips.clear()
-        user.keychipSessions.clear()
-        val gameOptions = user.gameOptions
-        user.gameOptions = null
-
         userRepo.delete(user)
         userRepo.flush()
         cardRepo.delete(ghostCard)
         cardRepo.flush()
-        gameOptions?.let { gameOptionsRepo.delete(it) }
 
         log.info("Deleted account and game data for user $auId")
         return AccountFileCleanup(user.profilePicture, ghostCard.extId, divaScreenshots)

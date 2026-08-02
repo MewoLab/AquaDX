@@ -6,6 +6,8 @@ import jakarta.persistence.*
 import jakarta.transaction.Transactional
 import org.slf4j.LoggerFactory
 import org.springframework.data.jpa.repository.JpaRepository
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Repository
 import org.springframework.stereotype.Service
@@ -20,6 +22,7 @@ import java.security.SecureRandom
 ])
 class KeychipSession(
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "au_id")
     var user: AquaNetUser? = null,
 
@@ -47,7 +50,6 @@ fun genUrlSafeToken(length: Int): String {
 @Repository("KeychipSessionRepo")
 interface KeychipSessionRepo : JpaRepository<KeychipSession, String> {
     fun findByToken(token: String): KeychipSession?
-    fun findAllByUserAuId(auId: Long): List<KeychipSession>
 
     @Transactional
     fun deleteAllByLastUseBefore(expire: Long)
