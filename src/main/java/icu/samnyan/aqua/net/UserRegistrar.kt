@@ -396,6 +396,12 @@ class AccountDeletionService(
         wacca.user.findByCard(ghostCard)?.let { wacca.user.delete(it) }
         chu3.userLoginBonus.deleteAll(chu3.userLoginBonus.findByUser(ghostCard.extId.toInt()))
 
+        // Keep Hibernate's managed state consistent with the database-level ON DELETE SET NULL.
+        // Hibernate 7 rejects the flush if a managed card still references the deleted user.
+        val linkedCards = cardRepo.findAllByAquaUserAuId(auId)
+        linkedCards.forEach { it.aquaUser = null }
+        cardRepo.saveAllAndFlush(linkedCards)
+
         userRepo.delete(user)
         userRepo.flush()
         cardRepo.delete(ghostCard)
