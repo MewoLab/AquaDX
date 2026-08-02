@@ -25,9 +25,7 @@ class Mai2Import(
         it.name.replace("List", "").lowercase()
     },
     exportRepos = Maimai2DataExport::class.vars()
-        .filter { f -> f.name !in setOf(
-            "gameId", "userData", "userPlaylogList", "userFavoriteMusicList", "userPrintDetailList"
-        ) }
+        .filter { f -> f.name !in setOf("gameId", "userData", "userPlaylogList", "userFavoriteMusicList") }
         .associateWith { field ->
             val repoName = when (field.name) {
                 "userKaleidxScopeList" -> "userKaleidx"
@@ -71,9 +69,6 @@ class Mai2Import(
                 ?.mapIndexed { index, id -> Mai2UserFavoriteItem().apply { orderId = index; this.id = id.toInt() } }
                 ?: emptyList()
         },
-        Maimai2DataExport::userPrintDetailList to { user: Mai2UserDetail, _: ExportOptions ->
-            repos.userPrintDetail.findByUser(user).map(::Mai2UserPrintDetailExport)
-        },
     ) as Map<kotlin.reflect.KMutableProperty1<Maimai2DataExport, Any>, (Mai2UserDetail, ExportOptions) -> Any?>,
     customImporters = mapOf(
         Maimai2DataExport::userPlaylogList to { export: Maimai2DataExport, user: Mai2UserDetail ->
@@ -90,17 +85,6 @@ class Mai2Import(
                     propertyValue = favoriteMusicList.sortedBy { it.orderId }.map { it.id }.joinToString(",")
                 })
             }
-        },
-        Maimai2DataExport::userPrintDetailList to { export: Maimai2DataExport, user: Mai2UserDetail ->
-            val userCards = repos.userCard.findByUser(user).associateBy { it.cardId }
-            repos.userPrintDetail.saveAll(export.userPrintDetailList.map { detail ->
-                detail.toEntity(
-                    user,
-                    detail.userCardId?.let { cardId ->
-                        userCards[cardId] ?: error("Missing Mai2 user card $cardId for print detail")
-                    },
-                )
-            })
         },
     ) as Map<kotlin.reflect.KMutableProperty1<Maimai2DataExport, Any>, (Maimai2DataExport, Mai2UserDetail) -> Unit>
 ) {
@@ -130,7 +114,7 @@ data class Maimai2DataExport(
     var userKaleidxScopeList: List<Mai2UserKaleidx> = mutableListOf(),
     var userPlaylogList: List<Mai2UserPlaylog> = mutableListOf(),
     var userCardList: List<Mai2UserCard> = mutableListOf(),
-    var userPrintDetailList: List<Mai2UserPrintDetailExport> = mutableListOf(),
+    var userPrintDetailList: List<Mai2UserPrintDetail> = mutableListOf(),
     var userRegionsList: List<UserRegions> = mutableListOf(),
     // Not supported yet:
     // var userWeeklyData
@@ -139,76 +123,3 @@ data class Maimai2DataExport(
     // var userTradeItemList
     override var gameId: String = "SDEZ",
 ): IExportClass<Mai2UserDetail>
-
-data class Mai2UserPrintDetailExport(
-    var orderId: Long = 0,
-    var printNumber: Int = 0,
-    var printDate: String = "",
-    var serialId: String = "",
-    var placeId: Int = 0,
-    var clientId: String = "",
-    var printerSerialId: String = "",
-    var userCardId: Int? = null,
-    var cardRomVersion: Int = 0,
-    var isHolograph: Boolean = false,
-    var printOption1: Boolean = false,
-    var printOption2: Boolean = false,
-    var printOption3: Boolean = false,
-    var printOption4: Boolean = false,
-    var printOption5: Boolean = false,
-    var printOption6: Boolean = false,
-    var printOption7: Boolean = false,
-    var printOption8: Boolean = false,
-    var printOption9: Boolean = false,
-    var printOption10: Boolean = false,
-    var created: String = "",
-) {
-    constructor(detail: Mai2UserPrintDetail) : this(
-        orderId = detail.orderId,
-        printNumber = detail.printNumber,
-        printDate = detail.printDate,
-        serialId = detail.serialId,
-        placeId = detail.placeId,
-        clientId = detail.clientId,
-        printerSerialId = detail.printerSerialId,
-        userCardId = detail.userCard?.cardId,
-        cardRomVersion = detail.cardRomVersion,
-        isHolograph = detail.isHolograph,
-        printOption1 = detail.printOption1,
-        printOption2 = detail.printOption2,
-        printOption3 = detail.printOption3,
-        printOption4 = detail.printOption4,
-        printOption5 = detail.printOption5,
-        printOption6 = detail.printOption6,
-        printOption7 = detail.printOption7,
-        printOption8 = detail.printOption8,
-        printOption9 = detail.printOption9,
-        printOption10 = detail.printOption10,
-        created = detail.created,
-    )
-
-    fun toEntity(user: Mai2UserDetail, userCard: Mai2UserCard?) = Mai2UserPrintDetail().also { detail ->
-        detail.user = user
-        detail.userCard = userCard
-        detail.orderId = orderId
-        detail.printNumber = printNumber
-        detail.printDate = printDate
-        detail.serialId = serialId
-        detail.placeId = placeId
-        detail.clientId = clientId
-        detail.printerSerialId = printerSerialId
-        detail.cardRomVersion = cardRomVersion
-        detail.isHolograph = isHolograph
-        detail.printOption1 = printOption1
-        detail.printOption2 = printOption2
-        detail.printOption3 = printOption3
-        detail.printOption4 = printOption4
-        detail.printOption5 = printOption5
-        detail.printOption6 = printOption6
-        detail.printOption7 = printOption7
-        detail.printOption8 = printOption8
-        detail.printOption9 = printOption9
-        detail.printOption10 = printOption10
-        detail.created = created
-    }
-}

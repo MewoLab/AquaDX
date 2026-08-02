@@ -3,6 +3,7 @@
 package icu.samnyan.aqua.sega.maimai2.model.userdata
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.core.JsonGenerator
@@ -462,6 +463,7 @@ fun main(args: Array<String>) {
 
 @Table(name = "maimai2_user_print_detail")
 @Entity
+@JsonIgnoreProperties(value = ["userCard"], allowSetters = true)
 class Mai2UserPrintDetail : Mai2UserEntity() {
     var orderId: Long = 0
     var printNumber = 0
