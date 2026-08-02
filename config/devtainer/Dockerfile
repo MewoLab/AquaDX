@@ -1,7 +1,7 @@
 FROM archlinux:latest
 
 RUN pacman -Syu --noconfirm \
-    && pacman -S --noconfirm openssh sudo jdk21-openjdk wget which procps-ng zsh git curlie micro ripgrep python3 exa \
+    && pacman -S --noconfirm openssh sudo jdk25-openjdk wget which procps-ng zsh git curlie micro ripgrep python3 exa \
     && rm -rf /var/cache/pacman/pkg/* \
     && mkdir -p /var/run/sshd \
     && chsh -s /bin/zsh root \

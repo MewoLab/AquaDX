@@ -4,8 +4,8 @@ import icu.samnyan.aqua.sega.aimedb.AimeDbProps
 import icu.samnyan.aqua.sega.allnet.AllNetProps
 import org.apache.hc.client5.http.impl.classic.HttpClients
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder
+import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder
 import org.apache.hc.client5.http.ssl.NoopHostnameVerifier
-import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder
 import org.apache.hc.client5.http.ssl.TrustAllStrategy
 import org.apache.hc.core5.ssl.SSLContextBuilder
 import org.springframework.beans.factory.annotation.Value
@@ -71,11 +71,11 @@ class AutoChecker(
             val rt = HttpComponentsClientHttpRequestFactory().apply {
                 httpClient = HttpClients.custom()
                     .setConnectionManager(PoolingHttpClientConnectionManagerBuilder.create()
-                        .setSSLSocketFactory(SSLConnectionSocketFactoryBuilder.create()
+                        .setTlsSocketStrategy(ClientTlsStrategyBuilder.create()
                             .setHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                             .setSslContext(SSLContextBuilder.create()
                                 .loadTrustMaterial(TrustAllStrategy.INSTANCE)
-                                .build()).build()).build()).build()
+                                .build()).buildClassic()).build()).build()
             }.let { RestTemplate(it) }
 
             val url = "https://${aimedb.address}:$BILLING_PORT/sys/test"

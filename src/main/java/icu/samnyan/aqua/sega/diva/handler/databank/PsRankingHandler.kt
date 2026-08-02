@@ -60,9 +60,9 @@ class PsRankingHandler(val db: DivaRepos) {
             score1.add(obj.first.maxScore)
             score2.add(obj.second.maxScore)
             score3.add(obj.third.maxScore)
-            name1.add(encode(obj.first.pdId?.playerName ?: "xxx"))
-            name2.add(encode(obj.second.pdId?.playerName ?: "xxx"))
-            name3.add(encode(obj.third.pdId?.playerName ?: "xxx"))
+            name1.add(encode(obj.first.pdId.playerName))
+            name2.add(encode(obj.second.pdId.playerName))
+            name3.add(encode(obj.third.pdId.playerName))
         }
 
         return PsRankingResponse(

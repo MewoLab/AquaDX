@@ -2,9 +2,10 @@
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    val ktVer = "2.1.10"
+    val ktVer = "2.4.0"
 
     java
     kotlin("jvm") version ktVer
@@ -13,9 +14,9 @@ plugins {
     kotlin("plugin.serialization") version ktVer
     kotlin("plugin.allopen") version ktVer
     kotlin("kapt") version ktVer
-    id("org.springframework.boot") version "3.2.3"
-    id("com.github.ben-manes.versions") version "0.51.0"
-    id("org.hibernate.orm") version "6.4.4.Final"
+    id("org.springframework.boot") version "4.1.0"
+    id("com.github.ben-manes.versions") version "0.54.0"
+    id("org.hibernate.orm") version "7.4.4.Final"
     application
 }
 
@@ -26,6 +27,9 @@ repositories {
     mavenCentral()
 }
 
+extra["netty.version"] = "4.2.16.Final"
+extra["kotlin-coroutines.version"] = "1.11.0"
+
 dependencies {
     // Spring boot
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -34,28 +38,30 @@ dependencies {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
     }
     implementation("org.springframework.boot:spring-boot-starter-jetty")
-    implementation("io.netty:netty-all")
-    implementation("org.apache.commons:commons-lang3:3.14.0")
-    implementation("org.apache.httpcomponents.client5:httpclient5")
-    implementation("org.flywaydb:flyway-core:10.10.0")
-    implementation("org.flywaydb:flyway-mysql:10.10.0")
+    implementation(enforcedPlatform("io.netty:netty-bom:4.2.16.Final"))
+    implementation("io.netty:netty-all:4.2.16.Final")
+    implementation("org.apache.commons:commons-lang3:3.20.0")
+    implementation("org.apache.httpcomponents.client5:httpclient5:5.6.2")
+    implementation("org.springframework.boot:spring-boot-starter-flyway")
+    implementation("org.flywaydb:flyway-core:12.10.0")
+    implementation("org.flywaydb:flyway-mysql:12.10.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
     testImplementation("org.springframework.security:spring-security-test")
-    implementation("net.logstash.logback:logstash-logback-encoder:7.4")
+    implementation("net.logstash.logback:logstash-logback-encoder:9.0")
 
     // Metrics
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-registry-prometheus")
 
     // Database
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.3.3")
-    runtimeOnly("org.xerial:sqlite-jdbc:3.45.2.0")
-    implementation("org.hibernate.orm:hibernate-core:6.4.4.Final")
-    implementation("org.hibernate.orm:hibernate-community-dialects:6.4.4.Final")
-    implementation("io.github.openfeign.querydsl:querydsl-jpa:6.10.1")
-    kapt("io.github.openfeign.querydsl:querydsl-apt:6.10.1:jpa")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.5.9")
+    runtimeOnly("org.xerial:sqlite-jdbc:3.53.2.0")
+    implementation("org.hibernate.orm:hibernate-core:7.4.4.Final")
+    implementation("org.hibernate.orm:hibernate-community-dialects:7.4.4.Final")
+    implementation("io.github.openfeign.querydsl:querydsl-jpa:7.4.0")
+    kapt("io.github.openfeign.querydsl:querydsl-apt:7.4.0:jpa")
 
     // JSR305 for nullable
     implementation("com.google.code.findbugs:jsr305:3.0.2")
@@ -65,50 +71,60 @@ dependencies {
     // =============================
 
     // Network
-    implementation("io.ktor:ktor-client-core:3.0.3")
-    implementation("io.ktor:ktor-client-cio:3.0.3")
-    implementation("io.ktor:ktor-client-content-negotiation:3.0.3")
-    implementation("io.ktor:ktor-client-encoding:3.0.3")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.0.3")
+    implementation("io.ktor:ktor-client-core:3.5.1")
+    implementation("io.ktor:ktor-client-cio:3.5.1")
+    implementation("io.ktor:ktor-client-content-negotiation:3.5.1")
+    implementation("io.ktor:ktor-client-encoding:3.5.1")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.5.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // Somehow these are needed for ktor even though they're not in the documentation
     runtimeOnly("org.reactivestreams:reactive-streams:1.0.4")
-    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.8.0")
+    runtimeOnly("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.11.0")
 
     // Email
-    implementation("org.simplejavamail:simple-java-mail:8.6.3")
-    implementation("org.simplejavamail:spring-module:8.6.3")
+    implementation("org.simplejavamail:simple-java-mail:9.0.1")
+    implementation("org.simplejavamail:spring-module:9.0.1")
 
     // GeoIP
-    implementation("com.maxmind.geoip2:geoip2:4.2.0")
+    implementation("com.maxmind.geoip2:geoip2:5.1.0")
 
     // JWT Authentication
-    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.5")
+    implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
 
     // Content validation
-    implementation("org.apache.tika:tika-core:2.9.1")
+    implementation("org.apache.tika:tika-core:3.3.1")
 
     // Import: DateTime Parsing
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.22.1")
 
     // Serialization
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.1")
 
     // Testing
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.1")
-    testImplementation("io.kotest:kotest-assertions-core")
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:6.2.2")
+    testImplementation("io.kotest:kotest-assertions-core:6.2.2")
 }
 
 group = "icu.samnya"
 version = "1.0.0"
 description = "AquaDX Arcade Server"
-java.sourceCompatibility = JavaVersion.VERSION_21
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_25)
+    }
 }
 
 springBoot {
@@ -117,14 +133,6 @@ springBoot {
 
 application {
     mainClass = "icu.samnyan.aqua.EntryKt"
-}
-
-hibernate {
-    enhancement {
-        enableLazyInitialization = true
-        enableAssociationManagement = false
-        enableExtendedEnhancement = false
-    }
 }
 
 kapt {
@@ -138,29 +146,36 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
 }
 
-val buildTime: String by extra(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z").withZone(ZoneId.of("UTC")).format(Instant.now()))
+val buildTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z").withZone(ZoneId.of("UTC")).format(Instant.now())
+val projectVersion = version.toString()
+extra["buildTime"] = buildTime
 
 tasks.processResources {
     filesMatching("**/application.properties") {
-        expand(project.properties)
+        expand(
+            mapOf(
+                "version" to projectVersion,
+                "ext" to mapOf("buildTime" to buildTime),
+            )
+        )
     }
 }
 
 tasks.test {
-    enabled = project.hasProperty("runTests")
+    enabled = providers.gradleProperty("runTests").isPresent
     useJUnitPlatform()
     jvmArgs("-Dkotest.assertions.collection.print.size=100")
 }
 
-tasks.withType<JavaCompile> {
+tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
 }
 
-tasks.withType<Javadoc> {
+tasks.withType<Javadoc>().configureEach {
     options.encoding = "UTF-8"
 }
 
-tasks.getByName<Jar>("jar") {
+tasks.named<Jar>("jar") {
     enabled = false
 }
 
@@ -170,12 +185,12 @@ sourceSets {
     }
 }
 
-val copyDependencies by tasks.registering(Copy::class) {
+val copyDependencies = tasks.register<Copy>("copyDependencies") {
     from(configurations.runtimeClasspath)
     into("${layout.buildDirectory.get()}/libs/lib")
 }
 
-val packageThin by tasks.registering(Jar::class) {
+tasks.register<Jar>("packageThin") {
     group = "build"
     from(sourceSets.main.get().output)
     manifest {

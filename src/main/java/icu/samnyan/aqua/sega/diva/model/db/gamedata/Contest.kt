@@ -85,7 +85,7 @@ class Contest : Serializable {
                     }
                     list += listOf(-1, -2, "7fffffffffffffffffffffffffffffff")
                 } else {
-                    val groups = pvl!!.split(',').dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val groups = pvl.split(',').dropLastWhile { it.isEmpty() }.toTypedArray()
                     if (groups.size < i) {
                         list += listOf(-1, -1, -2, -2, -1, -2, "7fffffffffffffffffffffffffffffff")
                     } else {
@@ -98,7 +98,7 @@ class Contest : Serializable {
                             list.add(this.maxComplexity)
                             list.add(-1)
                         } else {
-                            val diffList = pvdl!!.split(',').dropLastWhile { it.isEmpty() }.toTypedArray()
+                            val diffList = pvdl.split(',').dropLastWhile { it.isEmpty() }.toTypedArray()
                             if (diffList.size < i) {
                                 list.add(this.minComplexity)
                                 list.add(this.maxComplexity)

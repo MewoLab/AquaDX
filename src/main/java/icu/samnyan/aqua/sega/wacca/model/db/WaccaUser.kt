@@ -33,7 +33,6 @@ class WaccaUser : BaseEntity(), IUserData {
     var titles: MutableList<Int> = mutableListOf(0, 0, 0)
     override var playerRating = 0
     override var highestRating = 0
-    @Temporal(TemporalType.TIMESTAMP)
     var vipExpireTime: Date = Date(0)
     var alwaysVip = false
     var loginCount = 0
@@ -50,11 +49,8 @@ class WaccaUser : BaseEntity(), IUserData {
     override var lastRomVersion = "1.0.0"
     @Convert(converter = IntegerListConverter::class)
     var lastSongInfo: MutableList<Int> = mutableListOf(0, 0, 0, 0, 0)
-    @Temporal(TemporalType.TIMESTAMP)
     var lastConsecDate: Date = Date(0)
-    @Temporal(TemporalType.TIMESTAMP)
     override var lastPlayDate: Date = Date()
-    @Temporal(TemporalType.TIMESTAMP)
     override var firstPlayDate: Date = Date()
     var gateTutorialFlags: String = "[[1, 0], [2, 0], [3, 0], [4, 0], [5, 0]]"
     @Convert(converter = IntegerListConverter::class)

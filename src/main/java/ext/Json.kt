@@ -32,7 +32,6 @@ val JSON_DATETIME = SimpleModule().addDeserializer(java.time.LocalDateTime::clas
         } }
 })
 val JACKSON = jacksonObjectMapper().apply {
-    setSerializationInclusion(JsonInclude.Include.NON_NULL)
     setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
     findAndRegisterModules()
     registerModule(JSON_FUZZY_BOOLEAN)

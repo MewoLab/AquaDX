@@ -277,4 +277,4 @@ fun List<List<Any?>>.numCsv(vararg head: Str) = head.joinToString(",") + "\n" +
     joinToString("\n") { it.joinToString(",") }
 
 // DI
-inline fun <reified T> ApplicationContext.lazy() = lazy { getBean(T::class.java) }
+inline fun <reified T : Any> ApplicationContext.lazy() = kotlin.lazy { getBean(T::class.java) }

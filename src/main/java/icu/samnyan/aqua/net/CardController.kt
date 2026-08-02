@@ -68,7 +68,7 @@ class CardController(
      */
     @API("/link")
     @Doc("Bind a card to the user. This action will migrate selected data from the card to the user's ghost card.", "Success message")
-    suspend fun link(@RP token: Str, @RP cardId: Str, @RP migrate: Str) = jwt.auth(token) { u ->
+    suspend fun link(@RP token: Str, @RP cardId: Str, @RP migrate: Str): Any = jwt.auth(token) { u ->
         // Check if the user's card limit is reached
         if (u.cards.size >= props.linkCardLimit) 400 - "Card limit reached"
 

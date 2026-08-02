@@ -96,7 +96,6 @@ class AimeDB(
         }
     }
 
-    @Deprecated("Deprecated in Netty 5") // TODO: Move this to ChannelInboundHandler
     override fun exceptionCaught(ctx: ChannelHandlerContext, cause: Throwable) {
         logger.error("AimeDB: Error", cause)
         ctx.close()

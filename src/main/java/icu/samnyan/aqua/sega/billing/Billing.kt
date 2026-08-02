@@ -11,8 +11,8 @@ import org.eclipse.jetty.util.resource.URLResourceFactory
 import org.eclipse.jetty.util.ssl.SslContextFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer
-import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory
+import org.springframework.boot.jetty.JettyServerCustomizer
+import org.springframework.boot.jetty.servlet.JettyServletWebServerFactory
 import org.springframework.boot.web.server.WebServerFactoryCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

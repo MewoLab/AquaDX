@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
-    <conversionRule conversionWord="cmp" converterClass="icu.samnyan.aqua.spring.LoggerComponent" />
-    <conversionRule conversionWord="cls" converterClass="icu.samnyan.aqua.spring.LoggerClassColor" />
-    <conversionRule conversionWord="correlationId" converterClass="org.springframework.boot.logging.logback.CorrelationIdConverter" />
-    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
-    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="clr" class="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="cmp" class="icu.samnyan.aqua.spring.LoggerComponent" />
+    <conversionRule conversionWord="cls" class="icu.samnyan.aqua.spring.LoggerClassColor" />
+    <conversionRule conversionWord="correlationId" class="org.springframework.boot.logging.logback.CorrelationIdConverter" />
+    <conversionRule conversionWord="wex" class="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" class="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
 
     <!-- Define the log file name and path -->
     <property name="LOG_FILE" value="logs/AquaDX.log"/>

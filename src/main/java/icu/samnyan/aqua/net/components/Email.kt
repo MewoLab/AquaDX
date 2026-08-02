@@ -1,12 +1,16 @@
 package icu.samnyan.aqua.net.components
 
+import jakarta.mail.Message
 import ext.Bool
 import ext.Str
 import ext.logger
 import icu.samnyan.aqua.net.db.*
+import org.simplejavamail.api.email.Recipient
 import org.simplejavamail.api.mailer.Mailer
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.springsupport.SimpleJavaMailSpringSupport
+import org.springframework.beans.factory.ObjectProvider
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.event.ApplicationStartedEvent
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
@@ -25,15 +29,19 @@ class EmailProperties {
     var webHost: Str = "aquadx.net"
 }
 
+@Configuration
+@ConditionalOnProperty(prefix = "aqua-net.email", name = ["enable"], havingValue = "true")
+@Import(SimpleJavaMailSpringSupport::class)
+class EmailMailerConfiguration
+
 /**
  * Email service. All email related operations should be placed here.
  *
  * Library Documentation: https://www.simplejavamail.org/
  */
 @Service
-@Import(SimpleJavaMailSpringSupport::class)
 class EmailService(
-    val mailer: Mailer,
+    val mailerProvider: ObjectProvider<Mailer>,
     val props: EmailProperties,
     val confirmationRepo: EmailConfirmationRepo,
     val resetPasswordRepo: ResetPasswordRepo,
@@ -44,13 +52,16 @@ class EmailService(
     val resetTemplate: Str = this::class.java.getResource("/email/reset.html")?.readText()
         ?: throw Exception("Password Reset Template Not Found")
 
+    private fun mailer() = mailerProvider.getIfAvailable()
+        ?: throw IllegalStateException("Email is enabled, but Simple Java Mail is not configured")
+
     @Async
     @EventListener(ApplicationStartedEvent::class)
     fun test() {
         if (!props.enable) return
 
         try {
-            mailer.testConnection()
+            mailer().testConnection()
             log.info("Email Service Connected")
         } catch (e: Exception) {
             log.error("Email Service Connection Failed", e)
@@ -71,9 +82,9 @@ class EmailService(
 
         // Send email
         log.info("Sending verification email to ${user.email}")
-        mailer.sendMail(EmailBuilder.startingBlank()
+        mailer().sendMail(EmailBuilder.startingBlank()
             .from(props.senderName, props.senderAddr)
-            .to(user.computedName, user.email)
+            .withRecipients(Recipient(user.computedName, user.email, Message.RecipientType.TO, null))
             .withSubject("Verify Your Email Address for AquaNet")
             .withHTMLText(confirmTemplate
                 .replace("{{name}}", user.computedName)
@@ -94,9 +105,9 @@ class EmailService(
 
         // Send email
         log.info("Sending reset password email to ${user.email}")
-        mailer.sendMail(EmailBuilder.startingBlank()
+        mailer().sendMail(EmailBuilder.startingBlank()
             .from(props.senderName, props.senderAddr)
-            .to(user.computedName, user.email)
+            .withRecipients(Recipient(user.computedName, user.email, Message.RecipientType.TO, null))
             .withSubject("Reset Your Password for AquaNet")
             .withHTMLText(resetTemplate
                 .replace("{{name}}", user.computedName)
@@ -108,9 +119,9 @@ class EmailService(
         if (!props.enable) return
 
         log.info("Sending test email to $addr")
-        mailer.sendMail(EmailBuilder.startingBlank()
+        mailer().sendMail(EmailBuilder.startingBlank()
             .from(props.senderName, props.senderAddr)
-            .to(name, addr)
+            .withRecipients(Recipient(name, addr, Message.RecipientType.TO, null))
             .withSubject("Test Email")
             .withPlainText("This is a test email to check if AquaNet Email Works").buildEmail()).thenRun {
                 log.info("Test email sent to $addr")

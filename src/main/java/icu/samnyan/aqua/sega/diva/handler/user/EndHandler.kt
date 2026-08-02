@@ -11,7 +11,6 @@ import icu.samnyan.aqua.sega.diva.model.db.gamedata.Contest
 import icu.samnyan.aqua.sega.diva.model.db.userdata.PlayerContest
 import icu.samnyan.aqua.sega.diva.util.DivaStringUtils
 import org.springframework.stereotype.Component
-import java.lang.String
 import java.time.LocalDateTime
 import java.util.function.Supplier
 import kotlin.Any
@@ -47,7 +46,7 @@ class EndHandler(val db: DivaRepos) {
                 profile.contestNowPlayingId = request.cr_cid
                 profile.contestNowPlayingResultRank = currentResultRank
                 profile.contestNowPlayingValue = request.cr_tv
-                profile.contestNowPlayingSpecifier = String.join(",", *request.cr_sp)
+                profile.contestNowPlayingSpecifier = request.cr_sp.joinToString(",")
             } else {
                 val contestRecord =
                     db.contest.findByPdIdAndContestId(profile, request.cr_cid).orElseGet(

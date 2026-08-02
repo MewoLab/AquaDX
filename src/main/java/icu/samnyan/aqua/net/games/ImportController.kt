@@ -41,7 +41,7 @@ interface IExportClass<UserModel: IUserData> {
 }
 
 @NoRepositoryBean
-interface IUserRepo<UserModel, ThisModel>: JpaRepository<ThisModel, Long> {
+interface IUserRepo<UserModel : IUserData, ThisModel : Any>: JpaRepository<ThisModel, Long> {
     fun findByUser(user: UserModel): List<ThisModel>
     fun findSingleByUser(user: UserModel): ThisModel?
 }
