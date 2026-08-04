@@ -1,15 +1,18 @@
 package icu.samnyan.aqua.net.games
 
+import com.fasterxml.jackson.core.JsonProcessingException
 import ext.*
 import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.db.AquaNetUser
 import icu.samnyan.aqua.net.db.AquaUserServices
+import icu.samnyan.aqua.net.utils.ApiException
 import icu.samnyan.aqua.net.utils.AquaNetProps
 import icu.samnyan.aqua.net.utils.SUCCESS
 import icu.samnyan.aqua.sega.general.model.Card
 import icu.samnyan.aqua.sega.general.service.CardService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Lazy
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.transaction.PlatformTransactionManager
@@ -104,11 +107,36 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         export(u)
     }
 
+    internal fun replaceInTransaction(existingUserData: UserModel?, auId: Long, insert: () -> Unit) {
+        trans.execute {
+            existingUserData?.also { gu ->
+                // After migration v1000.7, all user-linked entities have ON DELETE CASCADE.
+                log.info("$game Import: Replacing old data for user $auId")
+                userDataRepo.delete(gu)
+                userDataRepo.flush()
+            }
+
+            insert()
+        }
+    }
+
+    private fun parseImport(json: String): ExportModel = try {
+        json.parseJackson(exportClass.java)
+    } catch (e: Exception) {
+        val jsonError = generateSequence<Throwable>(e) { it.cause }
+            .filterIsInstance<JsonProcessingException>()
+            .firstOrNull()
+            ?: throw e
+
+        log.warn("Rejected invalid $game import: ${jsonError.message}")
+        400 - "Invalid import data: ${jsonError.originalMessage}"
+    }
+
     @Suppress("UNCHECKED_CAST")
     @API("import")
     fun importUserData(@RP token: Str, @RB json: Str) = us.jwt.auth(token) { u ->
         try {
-            val export = json.parseJackson(exportClass.java)
+            val export = parseImport(json)
             if (!export.gameId.equals(game, true)) 400 - "Invalid game ID"
 
             val lists = listRepos.toList().associate { (f, r) -> r to f.get(export) as List<IUserEntity<UserModel>> }.vNotNull()
@@ -124,19 +152,15 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
             // Set user card
             export.userData.card = u.ghostCard
 
-            // Check existing data
-            userDataRepo.findByCard(u.ghostCard)?.also { gu ->
+            // Back up existing data before starting the replacement transaction.
+            val existingUserData = userDataRepo.findByCard(u.ghostCard)
+            existingUserData?.also {
                 // Store a backup of the old data
                 val fl = "${game}-backup-${u.auId}-${LocalDateTime.now().urlSafeStr()}.json"
                 (Path(netProps.importBackupPath) / fl).writeText(export(u).toJson())
-
-                // Delete the old data (After migration v1000.7, all user-linked entities have ON DELETE CASCADE)
-                log.info("$game Import: Deleting old data for user ${u.auId}")
-                userDataRepo.delete(gu)
-                userDataRepo.flush()
             }
 
-            trans.execute {
+            replaceInTransaction(existingUserData, u.auId) {
                 // Insert new data
                 val nu = userDataRepo.save(export.userData)
                 // Set user fields
@@ -155,6 +179,12 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
 
             SUCCESS
         } catch(e: Exception) {
+            if (e is ApiException) throw e
+            if (e is DataIntegrityViolationException) {
+                log.warn("Rejected conflicting $game import: ${e.message}")
+                400 - "Invalid import data: duplicate or conflicting records"
+            }
+
             log.error(e.message, e)
             500 - "Failed to import user data. More information can be found in the server logs (or contact an administrator for help if you do not have access)."
         }

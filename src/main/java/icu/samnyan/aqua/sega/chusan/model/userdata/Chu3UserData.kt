@@ -17,15 +17,34 @@ import jakarta.persistence.*
 import kotlinx.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.ResolverStyle
+import java.time.temporal.ChronoField
 
 class FlexibleDateTimeDeserializer : JsonDeserializer<LocalDateTime?>() {
     @Throws(IOException::class)
-    public override fun deserialize(p: JsonParser, ctxt: DeserializationContext?): LocalDateTime {
-        return LocalDateTime.parse(p.getText(), FORMATTER)
+    public override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalDateTime {
+        val value = p.text
+        return FORMATTERS.firstNotNullOfOrNull { formatter ->
+            runCatching { LocalDateTime.parse(value, formatter) }.getOrNull()
+        } ?: throw ctxt.weirdStringException(
+            value,
+            LocalDateTime::class.java,
+            "Invalid date-time; expected yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd HH:mm:ss with an optional fractional second",
+        )
     }
+
     companion object {
-        // Chusan imports previous would fail because the pattern was too strict. Now the incorrect pattern should at least get accepted correctly
-        private val FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd[' ']['T']HH:mm:ss[.S][.SS][.SSS]")
+        private val SPACE_SEPARATED_FORMATTER = DateTimeFormatterBuilder()
+            .parseStrict()
+            .appendPattern("uuuu-MM-dd HH:mm:ss")
+            .optionalStart()
+            .appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, true)
+            .optionalEnd()
+            .toFormatter()
+            .withResolverStyle(ResolverStyle.STRICT)
+
+        private val FORMATTERS = listOf(DateTimeFormatter.ISO_LOCAL_DATE_TIME, SPACE_SEPARATED_FORMATTER)
     }
 }
 
