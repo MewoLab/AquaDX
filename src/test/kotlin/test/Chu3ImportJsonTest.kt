@@ -3,6 +3,7 @@ package test
 import com.fasterxml.jackson.databind.JsonMappingException
 import ext.JACKSON
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
+import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCMissionProgress
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
@@ -42,6 +43,26 @@ class Chu3ImportJsonTest : StringSpec({
         imported.eventWatchedDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2, 3)
         imported.firstPlayDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2, 3, 123456000)
         imported.lastPlayDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2, 3)
+    }
+
+    "legacy backup date arrays remain importable" {
+        val userData = JACKSON.readValue(
+            """{
+                "eventWatchedDate":[2026,8,4,1,2],
+                "firstPlayDate":[2026,8,4,1,2,3],
+                "lastPlayDate":[2026,8,4,1,2,3,123456000]
+            }""",
+            Chu3UserData::class.java,
+        )
+        val charge = JACKSON.readValue(
+            """{"purchaseDate":[2026,8,4,1,2,3,123456000]}""",
+            UserCharge::class.java,
+        )
+
+        userData.eventWatchedDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2)
+        userData.firstPlayDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2, 3)
+        userData.lastPlayDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2, 3, 123456000)
+        charge.purchaseDate shouldBe LocalDateTime.of(2026, 8, 4, 1, 2, 3, 123456000)
     }
 
     "invalid CHUNITHM dates are rejected with a useful message" {

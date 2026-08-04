@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import ext.readLocalDateTimeArray
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.sega.chusan.model.request.UserEmoney
@@ -24,6 +25,8 @@ import java.time.temporal.ChronoField
 class FlexibleDateTimeDeserializer : JsonDeserializer<LocalDateTime?>() {
     @Throws(IOException::class)
     public override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalDateTime {
+        p.readLocalDateTimeArray(ctxt)?.let { return it }
+
         val value = p.text
         return FORMATTERS.firstNotNullOfOrNull { formatter ->
             runCatching { LocalDateTime.parse(value, formatter) }.getOrNull()
