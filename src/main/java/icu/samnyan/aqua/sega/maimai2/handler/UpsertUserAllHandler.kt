@@ -28,8 +28,8 @@ class UpsertUserAllHandler(
 ) : BaseHandler {
     fun String.isValidUsername() = isNotBlank() && length <= 8
 
-    // For preventing duplicates: {loginDateTime: processed time}
-    val processed = mutableMapOf<Long, Long>()
+    // For preventing duplicates: {nonce: processed time}
+    val processed = mutableMapOf<Pair<Long, Long>, Long>()
     fun cleanupProcessed() = processed.entries.removeIf { System.currentTimeMillis() - it.value > 5 * 60 * 1000 }
 
     @Throws(JacksonException::class)
@@ -39,8 +39,9 @@ class UpsertUserAllHandler(
         val req = upsertUserAll.upsertUserAll
 
         // Check if the request has been processed before
-        if (processed.containsKey(userId)) return SUCCESS
-        processed[userId] = System.currentTimeMillis()
+        val nonce = Pair(userId, upsertUserAll.loginDateTime)
+        if (processed.containsKey(nonce)) return SUCCESS
+        processed[nonce] = System.currentTimeMillis()
         cleanupProcessed()
 
         // If user is guest, just return OK response.
