@@ -98,7 +98,7 @@ dependencies {
     implementation("org.apache.tika:tika-core:3.3.1")
 
     // Serialization (Jackson 3; JSR-310 support is built into jackson-databind 3.x)
-    implementation("tools.jackson.module:jackson-module-kotlin:3.1.4")
+    implementation("tools.jackson.module:jackson-module-kotlin:3.2.1")
 
     // Testing
     testImplementation("io.kotest:kotest-runner-junit5-jvm:6.2.2")
