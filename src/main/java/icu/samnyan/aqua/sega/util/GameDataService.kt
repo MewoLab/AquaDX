@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.util
 
-import com.fasterxml.jackson.core.type.TypeReference
+import tools.jackson.core.type.TypeReference
 import ext.logger
 import ext.toJson
 import icu.samnyan.aqua.sega.general.model.GameEncryptionKey

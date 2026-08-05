@@ -1,9 +1,9 @@
 package icu.samnyan.aqua.net.games
 
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.JsonDeserializer
-import com.fasterxml.jackson.databind.module.SimpleModule
+import tools.jackson.core.JsonParser
+import tools.jackson.databind.DeserializationContext
+import tools.jackson.databind.ValueDeserializer
+import tools.jackson.databind.module.SimpleModule
 import ext.JACKSON
 import ext.minus
 
@@ -31,7 +31,7 @@ fun String.asSqlInsert(): SqlInsert {
 }
 
 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN", "UNCHECKED_CAST")
-val JSON_INT_LIST_STR = SimpleModule().addDeserializer(List::class.java, object : JsonDeserializer<List<Integer>>() {
+val JSON_INT_LIST_STR = SimpleModule().addDeserializer(List::class.java, object : ValueDeserializer<List<Integer>>() {
     override fun deserialize(parser: JsonParser, context: DeserializationContext) =
         try {
             val text = parser.text.trim('[', ']')
@@ -41,6 +41,4 @@ val JSON_INT_LIST_STR = SimpleModule().addDeserializer(List::class.java, object 
             400 - "Invalid list value ${parser.text}: $e" }
 })
 
-val JACKSON_ARTEMIS = JACKSON.copy().apply {
-    registerModule(JSON_INT_LIST_STR)
-}
+val JACKSON_ARTEMIS = JACKSON.rebuild().addModule(JSON_INT_LIST_STR).build()

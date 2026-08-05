@@ -1,17 +1,18 @@
 package icu.samnyan.aqua.sega.util
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.json.JsonWriteFeature
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.module.SimpleModule
-import com.fasterxml.jackson.databind.ser.std.StdSerializer
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.core.JsonGenerator
+import tools.jackson.core.json.JsonWriteFeature
+import tools.jackson.core.type.TypeReference
+import tools.jackson.databind.DeserializationFeature
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.cfg.EnumFeature
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.ext.javatime.deser.LocalDateTimeDeserializer
+import tools.jackson.databind.ext.javatime.ser.LocalDateTimeSerializer
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.databind.module.SimpleModule
+import tools.jackson.databind.ser.std.StdSerializer
+import tools.jackson.module.kotlin.KotlinModule
 import ext.jsonArray
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -28,11 +29,10 @@ open class IMapper(val mapper: ObjectMapper) {
     inline fun <reified T> read(json: String): T = read(json, object : TypeReference<T>() {})
 }
 
-val BASIC_MAPPER = jacksonObjectMapper().apply {
-    configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true)
-    findAndRegisterModules()
-    registerModule(SimpleModule().apply {
+val BASIC_MAPPER: ObjectMapper = JsonMapper.builder()
+    .addModule(KotlinModule.Builder().build())
+    .findAndAddModules()
+    .addModule(SimpleModule().apply {
         addSerializer(
             LocalDateTime::class.java,
             LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0"))
@@ -42,7 +42,9 @@ val BASIC_MAPPER = jacksonObjectMapper().apply {
             LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0"))
         )
     })
-}
+    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+    .configure(EnumFeature.WRITE_ENUMS_USING_INDEX, true)
+    .build()
 
 @Component
 class BasicMapper: IMapper(BASIC_MAPPER)
@@ -50,17 +52,15 @@ class BasicMapper: IMapper(BASIC_MAPPER)
 
 
 val BOOLEAN_SERIALIZER = object : StdSerializer<Boolean>(Boolean::class.java) {
-    override fun serialize(v: Boolean, gen: JsonGenerator, p: SerializerProvider) {
+    override fun serialize(v: Boolean, gen: JsonGenerator, p: SerializationContext) {
         gen.writeString(v.toString())
     }
 }
 
-var STRING_MAPPER = jacksonObjectMapper().apply {
-    enable(JsonWriteFeature.WRITE_NUMBERS_AS_STRINGS.mappedFeature())
-    configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    configure(SerializationFeature.WRITE_ENUMS_USING_INDEX, true)
-    findAndRegisterModules()
-    registerModule(SimpleModule().apply {
+var STRING_MAPPER: ObjectMapper = JsonMapper.builder()
+    .addModule(KotlinModule.Builder().build())
+    .findAndAddModules()
+    .addModule(SimpleModule().apply {
         addSerializer(
             LocalDateTime::class.java,
             LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
@@ -72,7 +72,10 @@ var STRING_MAPPER = jacksonObjectMapper().apply {
         addSerializer(Boolean::class.javaObjectType, BOOLEAN_SERIALIZER)
         addSerializer(Boolean::class.javaPrimitiveType, BOOLEAN_SERIALIZER)
     })
-}
+    .enable(JsonWriteFeature.WRITE_NUMBERS_AS_STRINGS)
+    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+    .configure(EnumFeature.WRITE_ENUMS_USING_INDEX, true)
+    .build()
 
 @Component
 class StringMapper: IMapper(STRING_MAPPER)

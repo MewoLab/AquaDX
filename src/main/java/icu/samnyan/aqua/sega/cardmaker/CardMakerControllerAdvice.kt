@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.cardmaker
 
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.core.type.TypeReference
+import tools.jackson.databind.json.JsonMapper
 import ext.logger
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets
 @RestControllerAdvice(basePackages = ["icu.samnyan.aqua.sega.cardmaker"])
 class CardMakerControllerAdvice {
     val logger = logger()
-    val mapper = ObjectMapper()
+    val mapper = JsonMapper()
 
     /**
      * Get the map object from json string

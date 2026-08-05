@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.JsonSerializer
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import tools.jackson.core.JsonGenerator
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.ValueSerializer
+import tools.jackson.databind.annotation.JsonSerialize
 import ext.toJson
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IGenericGamePlaylog
@@ -563,8 +563,8 @@ class UserRegions : Mai2UserEntity() {
 }
 
 val MAIMAI_DATETIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.0")
-class MaimaiDateSerializer : JsonSerializer<LocalDateTime>() {
-    override fun serialize(v: LocalDateTime, j: JsonGenerator, s: SerializerProvider) {
+class MaimaiDateSerializer : ValueSerializer<LocalDateTime>() {
+    override fun serialize(v: LocalDateTime, j: JsonGenerator, s: SerializationContext) {
         j.writeString(v.format(MAIMAI_DATETIME))
     }
 }

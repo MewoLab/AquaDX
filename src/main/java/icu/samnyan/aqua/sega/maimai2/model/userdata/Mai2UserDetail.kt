@@ -3,7 +3,7 @@ package icu.samnyan.aqua.sega.maimai2.model.userdata
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import tools.jackson.databind.annotation.JsonSerialize
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IUserData
 import icu.samnyan.aqua.sega.general.IntegerListConverter

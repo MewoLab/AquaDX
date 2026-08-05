@@ -1,7 +1,7 @@
 package icu.samnyan.aqua.sega.chusan.model.userdata
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import tools.jackson.databind.annotation.JsonDeserialize
 import icu.samnyan.aqua.net.games.IGenericUserMusic
 import icu.samnyan.aqua.sega.util.BooleanToIntegerDeserializer
 import jakarta.persistence.Entity

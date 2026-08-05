@@ -3,11 +3,11 @@ package icu.samnyan.aqua.sega.chusan.model.userdata
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.JsonDeserializer
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import tools.jackson.core.JsonParser
+import tools.jackson.databind.DeserializationContext
+import tools.jackson.databind.ValueDeserializer
+import tools.jackson.databind.annotation.JsonDeserialize
+import tools.jackson.databind.annotation.JsonSerialize
 import ext.readLocalDateTimeArray
 import icu.samnyan.aqua.net.games.BaseEntity
 import icu.samnyan.aqua.net.games.IUserData
@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.format.ResolverStyle
 import java.time.temporal.ChronoField
 
-class FlexibleDateTimeDeserializer : JsonDeserializer<LocalDateTime?>() {
+class FlexibleDateTimeDeserializer : ValueDeserializer<LocalDateTime?>() {
     @Throws(IOException::class)
     public override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalDateTime {
         p.readLocalDateTimeArray(ctxt)?.let { return it }
@@ -30,10 +30,10 @@ class FlexibleDateTimeDeserializer : JsonDeserializer<LocalDateTime?>() {
         val value = p.text
         return FORMATTERS.firstNotNullOfOrNull { formatter ->
             runCatching { LocalDateTime.parse(value, formatter) }.getOrNull()
-        } ?: throw ctxt.weirdStringException(
-            value,
+        } ?: ctxt.reportInputMismatch<LocalDateTime>(
             LocalDateTime::class.java,
-            "Invalid date-time; expected yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd HH:mm:ss with an optional fractional second",
+            "Invalid date-time '%s'; expected yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd HH:mm:ss with an optional fractional second",
+            value,
         )
     }
 

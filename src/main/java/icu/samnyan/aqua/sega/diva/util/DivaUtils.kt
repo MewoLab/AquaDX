@@ -1,8 +1,8 @@
 package icu.samnyan.aqua.sega.diva.util
 
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.databind.ser.std.StdSerializer
+import tools.jackson.core.JsonGenerator
+import tools.jackson.databind.SerializationContext
+import tools.jackson.databind.ser.std.StdSerializer
 import icu.samnyan.aqua.sega.diva.PlayerPvRecordRepository
 import icu.samnyan.aqua.sega.diva.model.common.Edition
 import icu.samnyan.aqua.sega.diva.model.common.LevelInfo
@@ -30,7 +30,7 @@ object DivaTime {
 }
 
 class DivaDateTimeSerializer(t: Class<LocalDateTime>? = null) : StdSerializer<LocalDateTime>(t) {
-    override fun serialize(value: LocalDateTime, gen: JsonGenerator, provider: SerializerProvider) {
+    override fun serialize(value: LocalDateTime, gen: JsonGenerator, provider: SerializationContext) {
         gen.writeString(DivaTime.getString(value))
     }
 }

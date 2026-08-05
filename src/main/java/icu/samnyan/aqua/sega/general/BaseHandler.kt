@@ -1,13 +1,13 @@
 package icu.samnyan.aqua.sega.general
 
-import com.fasterxml.jackson.core.JsonProcessingException
+import tools.jackson.core.JacksonException
 import ext.*
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.scheduling.annotation.Scheduled
 
 
 fun interface BaseHandler {
-    @Throws(JsonProcessingException::class)
+    @Throws(JacksonException::class)
     fun handle(request: Map<String, Any>): Any?
 }
 

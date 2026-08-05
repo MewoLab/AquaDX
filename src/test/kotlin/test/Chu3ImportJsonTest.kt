@@ -1,6 +1,6 @@
 package test
 
-import com.fasterxml.jackson.databind.JsonMappingException
+import tools.jackson.databind.DatabindException
 import ext.JACKSON
 import icu.samnyan.aqua.sega.chusan.model.userdata.Chu3UserData
 import icu.samnyan.aqua.sega.chusan.model.userdata.UserCharge
@@ -66,7 +66,7 @@ class Chu3ImportJsonTest : StringSpec({
     }
 
     "invalid CHUNITHM dates are rejected with a useful message" {
-        val error = shouldThrow<JsonMappingException> {
+        val error = shouldThrow<DatabindException> {
             JACKSON.readValue(
                 """{"firstPlayDate":"573-573-573T22:49:23"}""",
                 Chu3UserData::class.java,
@@ -74,6 +74,6 @@ class Chu3ImportJsonTest : StringSpec({
         }
 
         error.originalMessage shouldBe
-            "Cannot deserialize value of type `java.time.LocalDateTime` from String \"573-573-573T22:49:23\": Invalid date-time; expected yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd HH:mm:ss with an optional fractional second"
+            "Invalid date-time '573-573-573T22:49:23'; expected yyyy-MM-dd'T'HH:mm:ss or yyyy-MM-dd HH:mm:ss with an optional fractional second"
     }
 })

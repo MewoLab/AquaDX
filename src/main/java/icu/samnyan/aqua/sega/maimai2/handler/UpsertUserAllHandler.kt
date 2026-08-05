@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.sega.maimai2.handler
 
-import com.fasterxml.jackson.core.JsonProcessingException
+import tools.jackson.core.JacksonException
 import ext.mapApply
 import ext.minus
 import ext.unique
@@ -28,7 +28,7 @@ class UpsertUserAllHandler(
 ) : BaseHandler {
     fun String.isValidUsername() = isNotBlank() && length <= 8
 
-    @Throws(JsonProcessingException::class)
+    @Throws(JacksonException::class)
     override fun handle(request: Map<String, Any>): Any? {
         val upsertUserAll = mapper.convert(request, Mai2UpsertUserAll::class.java)
         val userId = upsertUserAll.userId

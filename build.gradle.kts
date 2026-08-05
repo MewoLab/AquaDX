@@ -97,11 +97,8 @@ dependencies {
     // Content validation
     implementation("org.apache.tika:tika-core:3.3.1")
 
-    // Import: DateTime Parsing
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.22.1")
-
-    // Serialization
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.1")
+    // Serialization (Jackson 3; JSR-310 support is built into jackson-databind 3.x)
+    implementation("tools.jackson.module:jackson-module-kotlin:3.1.4")
 
     // Testing
     testImplementation("io.kotest:kotest-runner-junit5-jvm:6.2.2")

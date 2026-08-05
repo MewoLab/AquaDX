@@ -1,6 +1,6 @@
 package icu.samnyan.aqua.net.games
 
-import com.fasterxml.jackson.core.JsonProcessingException
+import tools.jackson.core.JacksonException
 import ext.*
 import icu.samnyan.aqua.net.Fedy
 import icu.samnyan.aqua.net.db.AquaNetUser
@@ -124,7 +124,7 @@ abstract class ImportController<ExportModel: IExportClass<UserModel>, UserModel:
         json.parseJackson(exportClass.java)
     } catch (e: Exception) {
         val jsonError = generateSequence<Throwable>(e) { it.cause }
-            .filterIsInstance<JsonProcessingException>()
+            .filterIsInstance<JacksonException>()
             .firstOrNull()
             ?: throw e
 
