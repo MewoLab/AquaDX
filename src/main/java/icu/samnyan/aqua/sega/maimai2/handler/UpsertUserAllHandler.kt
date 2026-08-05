@@ -28,11 +28,20 @@ class UpsertUserAllHandler(
 ) : BaseHandler {
     fun String.isValidUsername() = isNotBlank() && length <= 8
 
+    // For preventing duplicates: {loginDateTime: processed time}
+    val processed = mutableMapOf<Long, Long>()
+    fun cleanupProcessed() = processed.entries.removeIf { System.currentTimeMillis() - it.value > 5 * 60 * 1000 }
+
     @Throws(JacksonException::class)
     override fun handle(request: Map<String, Any>): Any? {
         val upsertUserAll = mapper.convert(request, Mai2UpsertUserAll::class.java)
         val userId = upsertUserAll.userId
         val req = upsertUserAll.upsertUserAll
+
+        // Check if the request has been processed before
+        if (processed.containsKey(userId)) return SUCCESS
+        processed[userId] = System.currentTimeMillis()
+        cleanupProcessed()
 
         // If user is guest, just return OK response.
         if ((userId and 281474976710657L) == 281474976710657L) return SUCCESS
