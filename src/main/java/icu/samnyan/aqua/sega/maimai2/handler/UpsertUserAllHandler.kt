@@ -75,7 +75,7 @@ class UpsertUserAllHandler(
             listOfNotNull(
                 userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
                 userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList,
-                userKaleidxScopeList, userIntimateList
+                userKaleidxScopeList, userIntimateList, upsertUserAll.userPlaylogList
             )
         }.flatten().forEach { it.user = u }
 
@@ -141,6 +141,9 @@ class UpsertUserAllHandler(
         req.userIntimateList?.unique { it.partnerId }?.let { lst ->
             repos.userIntimate.saveAll(lst.mapApply {
                 id = repos.userIntimate.findByUserAndPartnerId(u, partnerId)?.id ?: 0 }) }
+
+        // Added on SDGA 1.65 / SDGB 1.53
+        upsertUserAll.userPlaylogList?.let(repos.userPlaylog::saveAll)
 
         // 2024/10/31 Found some user data findByUserAndKindAndActivityId is not unique
         // I think userActivityList is not important, so I will ignore it

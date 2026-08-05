@@ -5,7 +5,9 @@ import icu.samnyan.aqua.sega.maimai2.model.userdata.*
 
 class Mai2UpsertUserAll(
     var userId: Long,
-    var upsertUserAll: Mai2UserAll
+    var upsertUserAll: Mai2UserAll,
+
+    var userPlaylogList: List<Mai2UserPlaylog>? = null, // SDGA 1.65 / SDGB 1.53
 )
 
 class Mai2UserAll {
