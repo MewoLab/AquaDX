@@ -318,6 +318,7 @@ class UserMusicItem : OngekiUserEntity()  {
 class UserOption : OngekiUserEntity()  {
     var optionSet = 0
     var speed = 0
+    var fieldWall = 0
     var mirror = 0
     var judgeTiming = 0
     var judgeAdjustment = 0
@@ -342,20 +343,19 @@ class UserOption : OngekiUserEntity()  {
     var colorSide = 0
     var effectDamage = 0
     var effectPos = 0
+    var effectAttack = 0
     var judgeDisp = 0
     var judgePos = 0
     var judgeBreak = 0
     var judgeHit = 0
-    var platinumBreakDisp = 0
     var judgeCriticalBreak = 0
+    var platinumBreakDisp = 0
     var matching = 0
     var dispPlayerLv = 0
     var dispRating = 0
     var dispBP = 0
     var headphone = 0
 
-    // Re:Fresh
-    var effectAttack = 0
 }
 
 
