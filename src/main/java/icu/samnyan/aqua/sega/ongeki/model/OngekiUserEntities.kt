@@ -166,6 +166,7 @@ class UserChapter : OngekiUserEntity()  {
     var jewelCount = 0
     var lastPlayMusicCategory = 0
     var lastPlayMusicId = 0
+    var lastPlayMusicMinorCategory: String = ""
     var lastPlayMusicLevel = 0
     var isStoryWatched = false
     var isClear = false
@@ -460,6 +461,7 @@ class UserStory : OngekiUserEntity()  {
     var jewelCount = 0
     var lastPlayMusicId = 0
     var lastPlayMusicCategory = 0
+    var lastPlayMusicMinorCategory: String = ""
     var lastPlayMusicLevel = 0
 }
 
