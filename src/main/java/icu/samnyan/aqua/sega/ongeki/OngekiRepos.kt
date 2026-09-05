@@ -58,7 +58,8 @@ interface OgkUserEventMusicRepo : OngekiUserLinked<UserEventMusic> {
         userData: UserData,
         eventId: Int,
         type: Int,
-        musicId: Int
+        musicId: Int,
+        level: Int
     ): UserEventMusic?
 }
 

@@ -197,7 +197,10 @@ class UserDeck : OngekiUserEntity()  {
 }
 
 @Entity(name = "OngekiUserEventMusic")
-@Table(name = "ongeki_user_event_music")
+@Table(
+    name = "ongeki_user_event_music",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "event_id", "type", "music_id", "level"])]
+)
 class UserEventMusic : OngekiUserEntity()  {
     var eventId = 0
     var type = 0
