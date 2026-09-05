@@ -17,7 +17,14 @@ fun OngekiController.initUser() {
     "GetUserData" { mapOf("userId" to uid, "userData" to db.data.findByCard_ExtId(uid)) }
 
     "GetUserOption" { mapOf("userId" to uid, "userOption" to db.option.findSingleByUser_Card_ExtId(uid)) }
-    "GetUserEventMap" { mapOf("userId" to uid, "userEventMap" to db.eventMap.findSingleByUser_Card_ExtId(uid)) }
+    "GetUserEventMap" {
+        val eventId = parsing { data["eventId"]!!.int }
+        val mapId = parsing { data["mapId"]!!.int }
+        mapOf(
+            "userId" to uid,
+            "userEventMap" to db.eventMap.findByUser_Card_ExtIdAndEventIdAndMapId(uid, eventId, mapId)
+        )
+    }
 
     "GetUserTechEvent".unpaged { db.techEvent.findByUser_Card_ExtId(uid) }
     "GetUserBoss".unpaged { db.boss.findByUser_Card_ExtId(uid) }

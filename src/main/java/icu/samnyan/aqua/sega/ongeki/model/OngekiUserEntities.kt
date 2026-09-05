@@ -498,7 +498,10 @@ class UserTrainingRoom : OngekiUserEntity()  {
 
 // Re:Fresh
 @Entity(name = "OngekiUserEventMap")
-@Table(name = "ongeki_user_event_map")
+@Table(
+    name = "ongeki_user_event_map",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "event_id", "map_id"])]
+)
 class UserEventMap : OngekiUserEntity() {
     var eventId = 0
     var mapId = 0

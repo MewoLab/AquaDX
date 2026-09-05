@@ -74,7 +74,9 @@ fun OngekiController.initUpsertAll() {
             // UserEventMap
             userEventMap?.let {
                 db.eventMap.save(it.apply {
-                    id = db.eventMap.findSingleByUser(u)?.id ?: 0 }) }
+                    id = db.eventMap.findByUserAndEventIdAndMapId(u, it.eventId, it.mapId)?.id ?: 0
+                })
+            }
             
             // UserPlaylogList
             userPlaylogList?.let { db.playlog.saveAll(it) }
