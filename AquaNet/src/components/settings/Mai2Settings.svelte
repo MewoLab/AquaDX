@@ -155,7 +155,7 @@
         let lamp = null;
         if (score.isAllPerfect) {
           lamp = "ALL PERFECT";
-          if (score.percent >= 101.0) {
+          if (percent >= 101.0) {
             lamp = "ALL PERFECT+";
           }
         } else if (score.isFullCombo) {
