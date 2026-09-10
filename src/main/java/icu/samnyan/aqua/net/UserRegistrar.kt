@@ -217,9 +217,6 @@ class UserRegistrar(
         // Check if the token is valid
         if (confirmation == null) 400 - "Invalid token"
 
-        // Check if the token is expired
-        if (confirmation.createdAt.plusSeconds(60 * 60 * 24).isBefore(Instant.now())) 400 - "Token expired"
-
         // Check if the email is already confirmed
         val u = confirmation.aquaNetUser
         if (u.emailConfirmed) 400 - "Email already confirmed"
