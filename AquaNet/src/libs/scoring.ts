@@ -82,11 +82,11 @@ export function getMult(achievement: number, game: GameName) {
 }
 
 export function roundFloor(achievement: number, game: GameName, digits = 2) {
-  // Round, but if the rounded number reaches the next rank, use floor instead
+  // Round, but if the rounded number reaches the next rank (or fake 101% AP+), use floor instead
   const mult = getMult(achievement, game);
-  achievement /= 10000
-  const rounded = achievement.toFixed(digits);
-  if (getMult(+rounded * 10000, game)[2] === mult[2] && rounded !== '101.0') return rounded;
+  const original = achievement / 10000;
+  const rounded = original.toFixed(digits);
+  if (getMult(+rounded * 10000, game)[2] === mult[2] && (+rounded < 101 || original >= 101)) return rounded;
   return (+rounded - Math.pow(10, -digits)).toFixed(digits);
 }
 
