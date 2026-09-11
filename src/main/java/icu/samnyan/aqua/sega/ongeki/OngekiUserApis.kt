@@ -7,6 +7,7 @@ import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.general.model.UserRecentRating
 import icu.samnyan.aqua.sega.ongeki.model.OgkItemType
 import icu.samnyan.aqua.sega.ongeki.model.UserItem
+import icu.samnyan.aqua.sega.ongeki.model.UserEventMap
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import java.time.LocalDateTime
@@ -14,10 +15,25 @@ import java.time.format.DateTimeFormatter
 
 
 fun OngekiController.initUser() {
+    val emptyEventMapData = """{"unlockPoints":0,"_unlockedTileIDs":[1],"_rewardScenarioIDs":[],"_rewardRewardKeyIDs":[],"endless":false,"loopCount":0}"""
+
     "GetUserData" { mapOf("userId" to uid, "userData" to db.data.findByCard_ExtId(uid)) }
 
     "GetUserOption" { mapOf("userId" to uid, "userOption" to db.option.findSingleByUser_Card_ExtId(uid)) }
-    "GetUserEventMap" { mapOf("userId" to uid, "userEventMap" to db.eventMap.findSingleByUser_Card_ExtId(uid)) }
+    "GetUserEventMap" {
+        val eventId = parsing { data["eventId"]!!.int }
+        val mapId = parsing { data["mapId"]!!.int }
+        val userEventMap = db.eventMap.findByUser_Card_ExtIdAndEventIdAndMapId(uid, eventId, mapId)
+            ?: UserEventMap().apply {
+                this.eventId = eventId
+                this.mapId = mapId
+                this.mapData = emptyEventMapData
+            }
+        mapOf(
+            "userId" to uid,
+            "userEventMap" to userEventMap
+        )
+    }
 
     "GetUserTechEvent".unpaged { db.techEvent.findByUser_Card_ExtId(uid) }
     "GetUserBoss".unpaged { db.boss.findByUser_Card_ExtId(uid) }
