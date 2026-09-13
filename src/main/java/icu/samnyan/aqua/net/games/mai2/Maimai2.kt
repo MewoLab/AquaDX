@@ -19,6 +19,7 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 import java.security.MessageDigest
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.text.Charsets.UTF_8
 import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.KMutableProperty1
@@ -210,7 +211,7 @@ class Maimai2(
     }
 
     val photoDir = UploadUserPhotoHandler.uploadDir.toFile().canonicalFile
-    val photoHashMap: MutableMap<String, String> = emptyMap<String, String>().toMutableMap()
+    val photoHashMap = ConcurrentHashMap<String, String>()
 
     // creating a ton of SHA256 hashes every launch *probably* isn't ideal but it's better than exposing token AND extid...
 
@@ -231,19 +232,39 @@ class Maimai2(
     }
 
     @API("my-photo")
-    suspend fun myPhoto(@RP token: Str) = us.jwt.auth(token) { u ->
+    suspend fun myPhoto(
+        @RP token: Str,
+        @RP(required = false) page: Int?,
+        @RP(required = false) size: Int?
+    ): Any = us.jwt.auth(token) { u ->
         val find = "${u.ghostCard.extId}-"
-        photoDir.listFiles()
+        val files = photoDir.listFiles()
             ?.map { it.name }
             ?.filter { it.startsWith(find) }
-            ?.sorted()
-            ?.map {
-                // generate hash of photo filename as to not expose details
-                if (!photoHashMap.containsKey(it))
-                    photoHashMap[it] = myPhotoGetHash(it)
-                photoHashMap[it]
-            }
+            ?.sortedDescending()
             ?: emptyList()
+
+        if (page == null) {
+            files.map {
+                photoHashMap.computeIfAbsent(it) { f -> myPhotoGetHash(f) }
+            }
+        } else {
+            val pageSize = (size ?: 12).coerceIn(1, 100)
+            val pageNum = page.coerceAtLeast(1)
+            val total = files.size
+            val totalPages = if (total == 0) 0 else (total + pageSize - 1) / pageSize
+            val pagedFiles = files.drop((pageNum - 1) * pageSize).take(pageSize)
+            val photos = pagedFiles.map {
+                photoHashMap.computeIfAbsent(it) { f -> myPhotoGetHash(f) }
+            }
+            mapOf(
+                "photos" to photos,
+                "page" to pageNum,
+                "pageSize" to pageSize,
+                "total" to total,
+                "totalPages" to totalPages
+            )
+        }
     }
 
     @API("my-photo/{fileName}", produces = [MediaType.IMAGE_JPEG_VALUE])
