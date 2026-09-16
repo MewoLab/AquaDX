@@ -14,7 +14,8 @@
   }
 
   function updatePage(newPage: number) {
-    if (newPage > 0 && newPage <= totalPages) dispatch('updatePage', newPage)
+    const p = Math.floor(Number(newPage))
+    if (!isNaN(p) && p > 0 && p <= totalPages) dispatch('updatePage', p)
   }
 
   function startEditing() {
@@ -37,7 +38,7 @@
   <button on:click={() => updatePage(page - 1)} disabled={page <= 1}>Previous</button>
 
   {#if editing}
-    <input bind:value={inputPage} on:blur={finishEditing} on:keydown={handleKeydown} min="1" max={totalPages} use:focus/>
+    <input type="number" bind:value={inputPage} on:blur={finishEditing} on:keydown={handleKeydown} min="1" max={totalPages} use:focus/>
   {:else}
     <span on:click={startEditing} role="button" tabindex="0" on:keydown={(e) => e.key === 'Enter' && startEditing()}>
       Page {page} of {totalPages}

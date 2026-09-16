@@ -16,6 +16,14 @@ import type { GameName } from './scoring'
 
 export type ExportGameName = GameName | 'diva'
 
+export interface PhotoPage {
+  photos: string[]
+  page: number
+  pageSize: number
+  total: number
+  totalPages: number
+}
+
 interface ExtReqInit extends RequestInit {
   params?: { [index: string]: string }
   json?: any
@@ -28,7 +36,8 @@ interface ExtReqInit extends RequestInit {
  * @param callback Callback for modification
  */
 export function reconstructUrl(input: URL | RequestInfo, callback: (url: URL) => URL | void): RequestInfo | URL {
-  let u = new URL((input instanceof Request) ? input.url : input)
+  const base = typeof window !== 'undefined' ? window.location.origin : 'http://localhost'
+  let u = new URL((input instanceof Request) ? input.url : input, base)
   const result = callback(u)
   if (result) u = result
   if (input instanceof Request) {
@@ -232,7 +241,9 @@ export const CARD = {
 export const GAME = {
   trend: (username: string, game: GameName): Promise<TrendEntry[]> =>
     post(`/api/v2/game/${game}/trend`, { username }),
-  photos: (): Promise<string[]> =>
+  photos: (page: number = 1, size: number = 12): Promise<PhotoPage> =>
+    post(`/api/v2/game/mai2/my-photo`, { page, size }),
+  allPhotos: (): Promise<string[]> =>
     post(`/api/v2/game/mai2/my-photo`, { }),
   userSummary: (username: string, game: GameName): Promise<GenericGameSummary> =>
     post(`/api/v2/game/${game}/user-summary`, { username }),
