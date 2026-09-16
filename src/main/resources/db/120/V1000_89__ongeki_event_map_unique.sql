@@ -1,3 +1,10 @@
+-- should have been not nullable in the first place smh
+DELETE FROM ongeki_user_event_map
+WHERE user_id IS NULL;
+
+ALTER TABLE ongeki_user_event_map
+    MODIFY user_id BIGINT NOT NULL;
+
 -- dedupe before adding new constraint just in case
 DELETE FROM ongeki_user_event_map
 WHERE id NOT IN (
