@@ -21,8 +21,8 @@ fun OngekiController.initUser() {
 
     "GetUserOption" { mapOf("userId" to uid, "userOption" to db.option.findSingleByUser_Card_ExtId(uid)) }
     "GetUserEventMap" {
-        val eventId = parsing { data["eventId"]!!.int }
-        val mapId = parsing { data["mapId"]!!.int }
+        val eventId = data["eventId"]?.int ?: 0
+        val mapId = data["mapId"]?.int ?: 0
         val userEventMap = db.eventMap.findByUser_Card_ExtIdAndEventIdAndMapId(uid, eventId, mapId)
             ?: UserEventMap().apply {
                 this.eventId = eventId
