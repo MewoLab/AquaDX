@@ -198,7 +198,7 @@ fun OngekiController.initUpsertAll() {
             // UserEventMusicList
             userEventMusicList?.let { list ->
                 db.eventMusic.saveAll(list.distinctBy { it.eventId to it.type to it.musicId to it.level }.mapApply {
-                    id = db.eventMusic.findByUserAndEventIdAndTypeAndMusicId(u, eventId, type, musicId, level)?.id ?: 0
+                    id = db.eventMusic.findByUserAndEventIdAndTypeAndMusicIdAndLevel(u, eventId, type, musicId, level)?.id ?: 0
                 }) }
 
             // UserTechEventList

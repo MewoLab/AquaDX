@@ -54,7 +54,7 @@ interface OgkUserDeckRepo : OngekiUserLinked<UserDeck> {
 }
 
 interface OgkUserEventMusicRepo : OngekiUserLinked<UserEventMusic> {
-    fun findByUserAndEventIdAndTypeAndMusicId(
+    fun findByUserAndEventIdAndTypeAndMusicIdAndLevel(
         userData: UserData,
         eventId: Int,
         type: Int,
