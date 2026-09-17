@@ -166,6 +166,7 @@ class UserChapter : OngekiUserEntity()  {
     var jewelCount = 0
     var lastPlayMusicCategory = 0
     var lastPlayMusicId = 0
+    var lastPlayMusicMinorCategory: String = ""
     var lastPlayMusicLevel = 0
     var isStoryWatched = false
     var isClear = false
@@ -197,7 +198,10 @@ class UserDeck : OngekiUserEntity()  {
 }
 
 @Entity(name = "OngekiUserEventMusic")
-@Table(name = "ongeki_user_event_music")
+@Table(
+    name = "ongeki_user_event_music",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "event_id", "type", "music_id", "level"])]
+)
 class UserEventMusic : OngekiUserEntity()  {
     var eventId = 0
     var type = 0
@@ -318,6 +322,7 @@ class UserMusicItem : OngekiUserEntity()  {
 class UserOption : OngekiUserEntity()  {
     var optionSet = 0
     var speed = 0
+    var fieldWall = 0
     var mirror = 0
     var judgeTiming = 0
     var judgeAdjustment = 0
@@ -342,20 +347,19 @@ class UserOption : OngekiUserEntity()  {
     var colorSide = 0
     var effectDamage = 0
     var effectPos = 0
+    var effectAttack = 0
     var judgeDisp = 0
     var judgePos = 0
     var judgeBreak = 0
     var judgeHit = 0
-    var platinumBreakDisp = 0
     var judgeCriticalBreak = 0
+    var platinumBreakDisp = 0
     var matching = 0
     var dispPlayerLv = 0
     var dispRating = 0
     var dispBP = 0
     var headphone = 0
 
-    // Re:Fresh
-    var effectAttack = 0
 }
 
 
@@ -457,6 +461,7 @@ class UserStory : OngekiUserEntity()  {
     var jewelCount = 0
     var lastPlayMusicId = 0
     var lastPlayMusicCategory = 0
+    var lastPlayMusicMinorCategory: String = ""
     var lastPlayMusicLevel = 0
 }
 
@@ -498,7 +503,10 @@ class UserTrainingRoom : OngekiUserEntity()  {
 
 // Re:Fresh
 @Entity(name = "OngekiUserEventMap")
-@Table(name = "ongeki_user_event_map")
+@Table(
+    name = "ongeki_user_event_map",
+    uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "event_id", "map_id"])]
+)
 class UserEventMap : OngekiUserEntity() {
     var eventId = 0
     var mapId = 0

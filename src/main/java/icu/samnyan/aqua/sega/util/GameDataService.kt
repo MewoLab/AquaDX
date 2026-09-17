@@ -19,6 +19,7 @@ import icu.samnyan.aqua.sega.ongeki.model.GameChara as OgkGameChara
 import icu.samnyan.aqua.sega.ongeki.model.GameEvent as OgkGameEvent
 import icu.samnyan.aqua.sega.ongeki.model.GameGacha as OgkGameGacha
 import icu.samnyan.aqua.sega.ongeki.model.GameGachaCard as OgkGameGachaCard
+import icu.samnyan.aqua.sega.ongeki.model.GameTechMusic as OgkGameTechMusic
 import icu.samnyan.aqua.sega.ongeki.model.GameMusic as OgkGameMusic
 import icu.samnyan.aqua.sega.ongeki.model.GamePoint as OgkGamePoint
 import icu.samnyan.aqua.sega.ongeki.model.GamePresent as OgkGamePresent
@@ -50,6 +51,7 @@ class GameDataService() {
                 log.warn("Game data file $f or resource $resPath not found, using empty list")
             return emptyList()
         }
+
     }
 
     // maimai2
@@ -72,6 +74,7 @@ class GameDataService() {
     lateinit var ogkGameCards: List<OgkGameCard>
     lateinit var ogkGameCharas: List<OgkGameChara>
     lateinit var ogkGameEvents: List<OgkGameEvent>
+    lateinit var ogkGameTechMusics: List<OgkGameTechMusic>
     lateinit var ogkGameMusics: List<OgkGameMusic>
     lateinit var ogkGamePoints: List<OgkGamePoint>
     lateinit var ogkGamePresents: List<OgkGamePresent>
@@ -103,6 +106,7 @@ class GameDataService() {
         ogkGameCards = load("ongeki", "game_card.json")
         ogkGameCharas = load("ongeki", "game_chara.json")
         ogkGameEvents = load("ongeki", "game_event.json")
+        ogkGameTechMusics = load("ongeki", "game_tech_music.json")
         ogkGameMusics = load("ongeki", "game_music.json")
         ogkGamePoints = load("ongeki", "game_point.json")
         ogkGamePresents = load("ongeki", "game_present.json")

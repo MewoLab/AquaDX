@@ -1,0 +1,1897 @@
+[
+  {
+    "eventId": 1200111701,
+    "musicId": 65,
+    "level": 3
+  },
+  {
+    "eventId": 1200111701,
+    "musicId": 76,
+    "level": 3
+  },
+  {
+    "eventId": 1200111701,
+    "musicId": 207,
+    "level": 3
+  },
+  {
+    "eventId": 1200111701,
+    "musicId": 463,
+    "level": 3
+  },
+  {
+    "eventId": 1200231701,
+    "musicId": 73,
+    "level": 3
+  },
+  {
+    "eventId": 1200231701,
+    "musicId": 129,
+    "level": 3
+  },
+  {
+    "eventId": 1200231701,
+    "musicId": 190,
+    "level": 3
+  },
+  {
+    "eventId": 1200231701,
+    "musicId": 388,
+    "level": 3
+  },
+  {
+    "eventId": 1200231701,
+    "musicId": 446,
+    "level": 3
+  },
+  {
+    "eventId": 1201131701,
+    "musicId": 68,
+    "level": 3
+  },
+  {
+    "eventId": 1201131701,
+    "musicId": 238,
+    "level": 3
+  },
+  {
+    "eventId": 1201131701,
+    "musicId": 451,
+    "level": 3
+  },
+  {
+    "eventId": 1201131701,
+    "musicId": 452,
+    "level": 3
+  },
+  {
+    "eventId": 1201221701,
+    "musicId": 365,
+    "level": 3
+  },
+  {
+    "eventId": 1201221701,
+    "musicId": 366,
+    "level": 3
+  },
+  {
+    "eventId": 1201221701,
+    "musicId": 372,
+    "level": 3
+  },
+  {
+    "eventId": 1201221701,
+    "musicId": 373,
+    "level": 3
+  },
+  {
+    "eventId": 1250351701,
+    "musicId": 30,
+    "level": 3
+  },
+  {
+    "eventId": 1250351701,
+    "musicId": 74,
+    "level": 3
+  },
+  {
+    "eventId": 1250351701,
+    "musicId": 89,
+    "level": 3
+  },
+  {
+    "eventId": 1250351701,
+    "musicId": 121,
+    "level": 3
+  },
+  {
+    "eventId": 1250351701,
+    "musicId": 497,
+    "level": 3
+  },
+  {
+    "eventId": 1250411701,
+    "musicId": 391,
+    "level": 3
+  },
+  {
+    "eventId": 1250411701,
+    "musicId": 454,
+    "level": 3
+  },
+  {
+    "eventId": 1250411701,
+    "musicId": 516,
+    "level": 3
+  },
+  {
+    "eventId": 1250451701,
+    "musicId": 205,
+    "level": 3
+  },
+  {
+    "eventId": 1250451701,
+    "musicId": 232,
+    "level": 3
+  },
+  {
+    "eventId": 1250451701,
+    "musicId": 525,
+    "level": 3
+  },
+  {
+    "eventId": 1250451701,
+    "musicId": 526,
+    "level": 3
+  },
+  {
+    "eventId": 1250621701,
+    "musicId": 69,
+    "level": 3
+  },
+  {
+    "eventId": 1250621701,
+    "musicId": 79,
+    "level": 3
+  },
+  {
+    "eventId": 1250621701,
+    "musicId": 544,
+    "level": 3
+  },
+  {
+    "eventId": 1250621701,
+    "musicId": 545,
+    "level": 2
+  },
+  {
+    "eventId": 1250721701,
+    "musicId": 80,
+    "level": 3
+  },
+  {
+    "eventId": 1250721701,
+    "musicId": 111,
+    "level": 3
+  },
+  {
+    "eventId": 1250721701,
+    "musicId": 361,
+    "level": 3
+  },
+  {
+    "eventId": 1250721701,
+    "musicId": 562,
+    "level": 3
+  },
+  {
+    "eventId": 1250721701,
+    "musicId": 8046,
+    "level": 10
+  },
+  {
+    "eventId": 1250821701,
+    "musicId": 575,
+    "level": 3
+  },
+  {
+    "eventId": 1250821701,
+    "musicId": 576,
+    "level": 3
+  },
+  {
+    "eventId": 1250821701,
+    "musicId": 577,
+    "level": 3
+  },
+  {
+    "eventId": 1250821701,
+    "musicId": 578,
+    "level": 3
+  },
+  {
+    "eventId": 1250911701,
+    "musicId": 153,
+    "level": 3
+  },
+  {
+    "eventId": 1250911701,
+    "musicId": 499,
+    "level": 3
+  },
+  {
+    "eventId": 1250911701,
+    "musicId": 579,
+    "level": 3
+  },
+  {
+    "eventId": 1250911701,
+    "musicId": 584,
+    "level": 3
+  },
+  {
+    "eventId": 1250951701,
+    "musicId": 442,
+    "level": 3
+  },
+  {
+    "eventId": 1250951701,
+    "musicId": 443,
+    "level": 3
+  },
+  {
+    "eventId": 1250951701,
+    "musicId": 444,
+    "level": 3
+  },
+  {
+    "eventId": 1250951701,
+    "musicId": 445,
+    "level": 3
+  },
+  {
+    "eventId": 1251011701,
+    "musicId": 132,
+    "level": 3
+  },
+  {
+    "eventId": 1251011701,
+    "musicId": 162,
+    "level": 3
+  },
+  {
+    "eventId": 1251011701,
+    "musicId": 184,
+    "level": 3
+  },
+  {
+    "eventId": 1251011701,
+    "musicId": 194,
+    "level": 3
+  },
+  {
+    "eventId": 1251011701,
+    "musicId": 8061,
+    "level": 10
+  },
+  {
+    "eventId": 1251011701,
+    "musicId": 8064,
+    "level": 10
+  },
+  {
+    "eventId": 1301031701,
+    "musicId": 600,
+    "level": 3
+  },
+  {
+    "eventId": 1301031701,
+    "musicId": 601,
+    "level": 3
+  },
+  {
+    "eventId": 1301031701,
+    "musicId": 605,
+    "level": 3
+  },
+  {
+    "eventId": 1301031701,
+    "musicId": 607,
+    "level": 3
+  },
+  {
+    "eventId": 1301031701,
+    "musicId": 612,
+    "level": 3
+  },
+  {
+    "eventId": 1301141701,
+    "musicId": 206,
+    "level": 3
+  },
+  {
+    "eventId": 1301141701,
+    "musicId": 416,
+    "level": 3
+  },
+  {
+    "eventId": 1301141701,
+    "musicId": 631,
+    "level": 3
+  },
+  {
+    "eventId": 1301141701,
+    "musicId": 636,
+    "level": 3
+  },
+  {
+    "eventId": 1301231701,
+    "musicId": 242,
+    "level": 3
+  },
+  {
+    "eventId": 1301231701,
+    "musicId": 620,
+    "level": 3
+  },
+  {
+    "eventId": 1301231701,
+    "musicId": 705,
+    "level": 3
+  },
+  {
+    "eventId": 1301241701,
+    "musicId": 94,
+    "level": 3
+  },
+  {
+    "eventId": 1301241701,
+    "musicId": 580,
+    "level": 3
+  },
+  {
+    "eventId": 1301241701,
+    "musicId": 650,
+    "level": 3
+  },
+  {
+    "eventId": 1301241701,
+    "musicId": 651,
+    "level": 3
+  },
+  {
+    "eventId": 1301241701,
+    "musicId": 8043,
+    "level": 10
+  },
+  {
+    "eventId": 1301411701,
+    "musicId": 300,
+    "level": 3
+  },
+  {
+    "eventId": 1301411701,
+    "musicId": 353,
+    "level": 3
+  },
+  {
+    "eventId": 1301411701,
+    "musicId": 589,
+    "level": 3
+  },
+  {
+    "eventId": 1301411701,
+    "musicId": 668,
+    "level": 3
+  },
+  {
+    "eventId": 1301411701,
+    "musicId": 680,
+    "level": 3
+  },
+  {
+    "eventId": 1301421701,
+    "musicId": 615,
+    "level": 3
+  },
+  {
+    "eventId": 1301421701,
+    "musicId": 621,
+    "level": 3
+  },
+  {
+    "eventId": 1301421701,
+    "musicId": 659,
+    "level": 3
+  },
+  {
+    "eventId": 1301421701,
+    "musicId": 738,
+    "level": 3
+  },
+  {
+    "eventId": 1350311701,
+    "musicId": 250,
+    "level": 3
+  },
+  {
+    "eventId": 1350311701,
+    "musicId": 322,
+    "level": 3
+  },
+  {
+    "eventId": 1350311701,
+    "musicId": 340,
+    "level": 3
+  },
+  {
+    "eventId": 1350311701,
+    "musicId": 717,
+    "level": 3
+  },
+  {
+    "eventId": 1350411701,
+    "musicId": 70,
+    "level": 3
+  },
+  {
+    "eventId": 1350411701,
+    "musicId": 216,
+    "level": 3
+  },
+  {
+    "eventId": 1350411701,
+    "musicId": 348,
+    "level": 3
+  },
+  {
+    "eventId": 1350411701,
+    "musicId": 695,
+    "level": 3
+  },
+  {
+    "eventId": 1350451701,
+    "musicId": 93,
+    "level": 3
+  },
+  {
+    "eventId": 1350451701,
+    "musicId": 415,
+    "level": 3
+  },
+  {
+    "eventId": 1350451701,
+    "musicId": 709,
+    "level": 3
+  },
+  {
+    "eventId": 1350451701,
+    "musicId": 711,
+    "level": 3
+  },
+  {
+    "eventId": 1350451701,
+    "musicId": 743,
+    "level": 3
+  },
+  {
+    "eventId": 1350521701,
+    "musicId": 313,
+    "level": 3
+  },
+  {
+    "eventId": 1350521701,
+    "musicId": 8002,
+    "level": 10
+  },
+  {
+    "eventId": 1350521701,
+    "musicId": 8024,
+    "level": 10
+  },
+  {
+    "eventId": 1350521701,
+    "musicId": 8080,
+    "level": 10
+  },
+  {
+    "eventId": 1350611701,
+    "musicId": 733,
+    "level": 3
+  },
+  {
+    "eventId": 1350611701,
+    "musicId": 734,
+    "level": 3
+  },
+  {
+    "eventId": 1350611701,
+    "musicId": 735,
+    "level": 3
+  },
+  {
+    "eventId": 1350611701,
+    "musicId": 736,
+    "level": 3
+  },
+  {
+    "eventId": 1350611701,
+    "musicId": 755,
+    "level": 3
+  },
+  {
+    "eventId": 1351511701,
+    "musicId": 906,
+    "level": 0
+  },
+  {
+    "eventId": 1351511701,
+    "musicId": 906,
+    "level": 1
+  },
+  {
+    "eventId": 1351511701,
+    "musicId": 906,
+    "level": 2
+  },
+  {
+    "eventId": 1351511701,
+    "musicId": 906,
+    "level": 3
+  },
+  {
+    "eventId": 1351531701,
+    "musicId": 915,
+    "level": 3
+  },
+  {
+    "eventId": 1351531701,
+    "musicId": 916,
+    "level": 3
+  },
+  {
+    "eventId": 1351531701,
+    "musicId": 917,
+    "level": 3
+  },
+  {
+    "eventId": 1351611701,
+    "musicId": 8158,
+    "level": 10
+  },
+  {
+    "eventId": 1351611701,
+    "musicId": 8160,
+    "level": 10
+  },
+  {
+    "eventId": 1351631701,
+    "musicId": 919,
+    "level": 3
+  },
+  {
+    "eventId": 1351631701,
+    "musicId": 920,
+    "level": 3
+  },
+  {
+    "eventId": 1351631701,
+    "musicId": 921,
+    "level": 3
+  },
+  {
+    "eventId": 1351651701,
+    "musicId": 768,
+    "level": 3
+  },
+  {
+    "eventId": 1351651701,
+    "musicId": 794,
+    "level": 3
+  },
+  {
+    "eventId": 1351651701,
+    "musicId": 930,
+    "level": 3
+  },
+  {
+    "eventId": 1351721701,
+    "musicId": 678,
+    "level": 3
+  },
+  {
+    "eventId": 1351721701,
+    "musicId": 923,
+    "level": 3
+  },
+  {
+    "eventId": 1351721701,
+    "musicId": 924,
+    "level": 3
+  },
+  {
+    "eventId": 1351741701,
+    "musicId": 626,
+    "level": 3
+  },
+  {
+    "eventId": 1351741701,
+    "musicId": 627,
+    "level": 3
+  },
+  {
+    "eventId": 1351741701,
+    "musicId": 927,
+    "level": 3
+  },
+  {
+    "eventId": 1351841701,
+    "musicId": 538,
+    "level": 3
+  },
+  {
+    "eventId": 1351841701,
+    "musicId": 759,
+    "level": 3
+  },
+  {
+    "eventId": 1351841701,
+    "musicId": 940,
+    "level": 3
+  },
+  {
+    "eventId": 1351921702,
+    "musicId": 933,
+    "level": 3
+  },
+  {
+    "eventId": 1351921702,
+    "musicId": 934,
+    "level": 3
+  },
+  {
+    "eventId": 1351921702,
+    "musicId": 935,
+    "level": 3
+  },
+  {
+    "eventId": 1352051701,
+    "musicId": 764,
+    "level": 3
+  },
+  {
+    "eventId": 1352051701,
+    "musicId": 780,
+    "level": 3
+  },
+  {
+    "eventId": 1352051701,
+    "musicId": 922,
+    "level": 3
+  },
+  {
+    "eventId": 1352121701,
+    "musicId": 129,
+    "level": 3
+  },
+  {
+    "eventId": 1352121701,
+    "musicId": 190,
+    "level": 3
+  },
+  {
+    "eventId": 1352121701,
+    "musicId": 446,
+    "level": 3
+  },
+  {
+    "eventId": 1352121701,
+    "musicId": 586,
+    "level": 3
+  },
+  {
+    "eventId": 1352121701,
+    "musicId": 912,
+    "level": 3
+  },
+  {
+    "eventId": 1352121701,
+    "musicId": 955,
+    "level": 3
+  },
+  {
+    "eventId": 1352221701,
+    "musicId": 302,
+    "level": 2
+  },
+  {
+    "eventId": 1352221701,
+    "musicId": 302,
+    "level": 3
+  },
+  {
+    "eventId": 1352221701,
+    "musicId": 959,
+    "level": 2
+  },
+  {
+    "eventId": 1352221701,
+    "musicId": 959,
+    "level": 3
+  },
+  {
+    "eventId": 1352241701,
+    "musicId": 479,
+    "level": 3
+  },
+  {
+    "eventId": 1352241701,
+    "musicId": 761,
+    "level": 3
+  },
+  {
+    "eventId": 1352241701,
+    "musicId": 962,
+    "level": 0
+  },
+  {
+    "eventId": 1352241701,
+    "musicId": 962,
+    "level": 1
+  },
+  {
+    "eventId": 1352241701,
+    "musicId": 962,
+    "level": 2
+  },
+  {
+    "eventId": 1352241701,
+    "musicId": 962,
+    "level": 3
+  },
+  {
+    "eventId": 1352311701,
+    "musicId": 763,
+    "level": 3
+  },
+  {
+    "eventId": 1352311701,
+    "musicId": 906,
+    "level": 3
+  },
+  {
+    "eventId": 1352311701,
+    "musicId": 964,
+    "level": 3
+  },
+  {
+    "eventId": 1352331701,
+    "musicId": 967,
+    "level": 3
+  },
+  {
+    "eventId": 1352331701,
+    "musicId": 968,
+    "level": 3
+  },
+  {
+    "eventId": 1352331701,
+    "musicId": 969,
+    "level": 3
+  },
+  {
+    "eventId": 1352421701,
+    "musicId": 765,
+    "level": 3
+  },
+  {
+    "eventId": 1352421701,
+    "musicId": 779,
+    "level": 3
+  },
+  {
+    "eventId": 1352421701,
+    "musicId": 954,
+    "level": 3
+  },
+  {
+    "eventId": 1352441701,
+    "musicId": 592,
+    "level": 3
+  },
+  {
+    "eventId": 1352441701,
+    "musicId": 593,
+    "level": 3
+  },
+  {
+    "eventId": 1352441701,
+    "musicId": 975,
+    "level": 3
+  },
+  {
+    "eventId": 1352521701,
+    "musicId": 654,
+    "level": 3
+  },
+  {
+    "eventId": 1352521701,
+    "musicId": 655,
+    "level": 3
+  },
+  {
+    "eventId": 1352521701,
+    "musicId": 656,
+    "level": 3
+  },
+  {
+    "eventId": 1352521701,
+    "musicId": 976,
+    "level": 3
+  },
+  {
+    "eventId": 1352521701,
+    "musicId": 977,
+    "level": 3
+  },
+  {
+    "eventId": 1352621701,
+    "musicId": 510,
+    "level": 3
+  },
+  {
+    "eventId": 1352621701,
+    "musicId": 760,
+    "level": 3
+  },
+  {
+    "eventId": 1352621701,
+    "musicId": 981,
+    "level": 0
+  },
+  {
+    "eventId": 1352621701,
+    "musicId": 981,
+    "level": 1
+  },
+  {
+    "eventId": 1352621701,
+    "musicId": 981,
+    "level": 2
+  },
+  {
+    "eventId": 1352621701,
+    "musicId": 981,
+    "level": 3
+  },
+  {
+    "eventId": 1352641701,
+    "musicId": 379,
+    "level": 3
+  },
+  {
+    "eventId": 1352641701,
+    "musicId": 485,
+    "level": 3
+  },
+  {
+    "eventId": 1352641701,
+    "musicId": 983,
+    "level": 3
+  },
+  {
+    "eventId": 1359911701,
+    "musicId": 265,
+    "level": 3
+  },
+  {
+    "eventId": 1359911701,
+    "musicId": 386,
+    "level": 3
+  },
+  {
+    "eventId": 1359911701,
+    "musicId": 411,
+    "level": 3
+  },
+  {
+    "eventId": 1359911701,
+    "musicId": 467,
+    "level": 3
+  },
+  {
+    "eventId": 1359911701,
+    "musicId": 649,
+    "level": 3
+  },
+  {
+    "eventId": 1359911701,
+    "musicId": 905,
+    "level": 3
+  },
+  {
+    "eventId": 1450311701,
+    "musicId": 996,
+    "level": 2
+  },
+  {
+    "eventId": 1450311701,
+    "musicId": 996,
+    "level": 3
+  },
+  {
+    "eventId": 1450311701,
+    "musicId": 999,
+    "level": 2
+  },
+  {
+    "eventId": 1450311701,
+    "musicId": 999,
+    "level": 3
+  },
+  {
+    "eventId": 1450411701,
+    "musicId": 8139,
+    "level": 10
+  },
+  {
+    "eventId": 1450411701,
+    "musicId": 8145,
+    "level": 10
+  },
+  {
+    "eventId": 1450431701,
+    "musicId": 700,
+    "level": 3
+  },
+  {
+    "eventId": 1450431701,
+    "musicId": 1001,
+    "level": 3
+  },
+  {
+    "eventId": 1450431701,
+    "musicId": 1002,
+    "level": 3
+  },
+  {
+    "eventId": 1450451701,
+    "musicId": 237,
+    "level": 3
+  },
+  {
+    "eventId": 1450451701,
+    "musicId": 793,
+    "level": 3
+  },
+  {
+    "eventId": 1450451701,
+    "musicId": 1003,
+    "level": 0
+  },
+  {
+    "eventId": 1450451701,
+    "musicId": 1003,
+    "level": 1
+  },
+  {
+    "eventId": 1450451701,
+    "musicId": 1003,
+    "level": 2
+  },
+  {
+    "eventId": 1450451701,
+    "musicId": 1003,
+    "level": 3
+  },
+  {
+    "eventId": 1450521701,
+    "musicId": 640,
+    "level": 2
+  },
+  {
+    "eventId": 1450521701,
+    "musicId": 640,
+    "level": 3
+  },
+  {
+    "eventId": 1450521701,
+    "musicId": 1006,
+    "level": 2
+  },
+  {
+    "eventId": 1450521701,
+    "musicId": 1006,
+    "level": 3
+  },
+  {
+    "eventId": 1450611701,
+    "musicId": 993,
+    "level": 3
+  },
+  {
+    "eventId": 1450611701,
+    "musicId": 994,
+    "level": 3
+  },
+  {
+    "eventId": 1450611701,
+    "musicId": 995,
+    "level": 3
+  },
+  {
+    "eventId": 1450711701,
+    "musicId": 513,
+    "level": 3
+  },
+  {
+    "eventId": 1450711701,
+    "musicId": 974,
+    "level": 3
+  },
+  {
+    "eventId": 1450711701,
+    "musicId": 1011,
+    "level": 0
+  },
+  {
+    "eventId": 1450711701,
+    "musicId": 1011,
+    "level": 1
+  },
+  {
+    "eventId": 1450711701,
+    "musicId": 1011,
+    "level": 2
+  },
+  {
+    "eventId": 1450711701,
+    "musicId": 1011,
+    "level": 3
+  },
+  {
+    "eventId": 1450751701,
+    "musicId": 947,
+    "level": 3
+  },
+  {
+    "eventId": 1450751701,
+    "musicId": 953,
+    "level": 3
+  },
+  {
+    "eventId": 1450751701,
+    "musicId": 954,
+    "level": 3
+  },
+  {
+    "eventId": 1450751701,
+    "musicId": 1015,
+    "level": 3
+  },
+  {
+    "eventId": 1450751701,
+    "musicId": 1016,
+    "level": 3
+  },
+  {
+    "eventId": 1450841701,
+    "musicId": 1018,
+    "level": 3
+  },
+  {
+    "eventId": 1450841701,
+    "musicId": 1019,
+    "level": 3
+  },
+  {
+    "eventId": 1450841701,
+    "musicId": 1020,
+    "level": 3
+  },
+  {
+    "eventId": 1450911701,
+    "musicId": 942,
+    "level": 3
+  },
+  {
+    "eventId": 1450911701,
+    "musicId": 943,
+    "level": 3
+  },
+  {
+    "eventId": 1450911701,
+    "musicId": 944,
+    "level": 3
+  },
+  {
+    "eventId": 1451011701,
+    "musicId": 1025,
+    "level": 2
+  },
+  {
+    "eventId": 1451011701,
+    "musicId": 1025,
+    "level": 3
+  },
+  {
+    "eventId": 1451011701,
+    "musicId": 1026,
+    "level": 2
+  },
+  {
+    "eventId": 1451011701,
+    "musicId": 1026,
+    "level": 3
+  },
+  {
+    "eventId": 1451051701,
+    "musicId": 556,
+    "level": 3
+  },
+  {
+    "eventId": 1451051701,
+    "musicId": 778,
+    "level": 3
+  },
+  {
+    "eventId": 1451051701,
+    "musicId": 1047,
+    "level": 0
+  },
+  {
+    "eventId": 1451051701,
+    "musicId": 1047,
+    "level": 1
+  },
+  {
+    "eventId": 1451051701,
+    "musicId": 1047,
+    "level": 2
+  },
+  {
+    "eventId": 1451051701,
+    "musicId": 1047,
+    "level": 3
+  },
+  {
+    "eventId": 1451051702,
+    "musicId": 937,
+    "level": 3
+  },
+  {
+    "eventId": 1451051702,
+    "musicId": 1027,
+    "level": 3
+  },
+  {
+    "eventId": 1451051702,
+    "musicId": 1031,
+    "level": 3
+  },
+  {
+    "eventId": 1451141701,
+    "musicId": 1036,
+    "level": 2
+  },
+  {
+    "eventId": 1451141701,
+    "musicId": 1036,
+    "level": 3
+  },
+  {
+    "eventId": 1451141701,
+    "musicId": 1037,
+    "level": 2
+  },
+  {
+    "eventId": 1451141701,
+    "musicId": 1037,
+    "level": 3
+  },
+  {
+    "eventId": 1451221701,
+    "musicId": 1038,
+    "level": 0
+  },
+  {
+    "eventId": 1451221701,
+    "musicId": 1038,
+    "level": 1
+  },
+  {
+    "eventId": 1451221701,
+    "musicId": 1038,
+    "level": 2
+  },
+  {
+    "eventId": 1451221701,
+    "musicId": 1038,
+    "level": 3
+  },
+  {
+    "eventId": 1451321701,
+    "musicId": 1043,
+    "level": 3
+  },
+  {
+    "eventId": 1451321701,
+    "musicId": 1044,
+    "level": 3
+  },
+  {
+    "eventId": 1451321701,
+    "musicId": 1045,
+    "level": 3
+  },
+  {
+    "eventId": 1451341701,
+    "musicId": 514,
+    "level": 3
+  },
+  {
+    "eventId": 1451341701,
+    "musicId": 557,
+    "level": 3
+  },
+  {
+    "eventId": 1451341701,
+    "musicId": 1029,
+    "level": 0
+  },
+  {
+    "eventId": 1451341701,
+    "musicId": 1029,
+    "level": 1
+  },
+  {
+    "eventId": 1451341701,
+    "musicId": 1029,
+    "level": 2
+  },
+  {
+    "eventId": 1451341701,
+    "musicId": 1029,
+    "level": 3
+  },
+  {
+    "eventId": 1451431701,
+    "musicId": 1051,
+    "level": 3
+  },
+  {
+    "eventId": 1451431701,
+    "musicId": 1052,
+    "level": 3
+  },
+  {
+    "eventId": 1451431701,
+    "musicId": 1053,
+    "level": 3
+  },
+  {
+    "eventId": 1451431701,
+    "musicId": 1054,
+    "level": 3
+  },
+  {
+    "eventId": 1500341701,
+    "musicId": 1111,
+    "level": 0
+  },
+  {
+    "eventId": 1500341701,
+    "musicId": 1111,
+    "level": 1
+  },
+  {
+    "eventId": 1500341701,
+    "musicId": 1111,
+    "level": 2
+  },
+  {
+    "eventId": 1500341701,
+    "musicId": 1111,
+    "level": 3
+  },
+  {
+    "eventId": 1500341702,
+    "musicId": 1067,
+    "level": 2
+  },
+  {
+    "eventId": 1500341702,
+    "musicId": 1067,
+    "level": 3
+  },
+  {
+    "eventId": 1500341702,
+    "musicId": 1068,
+    "level": 2
+  },
+  {
+    "eventId": 1500341702,
+    "musicId": 1068,
+    "level": 3
+  },
+  {
+    "eventId": 1500411701,
+    "musicId": 8185,
+    "level": 10
+  },
+  {
+    "eventId": 1500451701,
+    "musicId": 1103,
+    "level": 2
+  },
+  {
+    "eventId": 1500451701,
+    "musicId": 1103,
+    "level": 3
+  },
+  {
+    "eventId": 1500451701,
+    "musicId": 1104,
+    "level": 2
+  },
+  {
+    "eventId": 1500451701,
+    "musicId": 1104,
+    "level": 3
+  },
+  {
+    "eventId": 1500541701,
+    "musicId": 1085,
+    "level": 2
+  },
+  {
+    "eventId": 1500541701,
+    "musicId": 1085,
+    "level": 3
+  },
+  {
+    "eventId": 1500541701,
+    "musicId": 1086,
+    "level": 2
+  },
+  {
+    "eventId": 1500541701,
+    "musicId": 1086,
+    "level": 3
+  },
+  {
+    "eventId": 1500631701,
+    "musicId": 1092,
+    "level": 0
+  },
+  {
+    "eventId": 1500631701,
+    "musicId": 1092,
+    "level": 1
+  },
+  {
+    "eventId": 1500631701,
+    "musicId": 1092,
+    "level": 2
+  },
+  {
+    "eventId": 1500631701,
+    "musicId": 1092,
+    "level": 3
+  },
+  {
+    "eventId": 1500631701,
+    "musicId": 1093,
+    "level": 2
+  },
+  {
+    "eventId": 1500631701,
+    "musicId": 1093,
+    "level": 3
+  },
+  {
+    "eventId": 1500721701,
+    "musicId": 1094,
+    "level": 2
+  },
+  {
+    "eventId": 1500721701,
+    "musicId": 1094,
+    "level": 3
+  },
+  {
+    "eventId": 1500721701,
+    "musicId": 1095,
+    "level": 2
+  },
+  {
+    "eventId": 1500721701,
+    "musicId": 1095,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 63,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 154,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 231,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 324,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 413,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 509,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 615,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 781,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 936,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 1014,
+    "level": 3
+  },
+  {
+    "eventId": 1500761701,
+    "musicId": 1098,
+    "level": 3
+  },
+  {
+    "eventId": 1500811701,
+    "musicId": 1105,
+    "level": 2
+  },
+  {
+    "eventId": 1500811701,
+    "musicId": 1105,
+    "level": 3
+  },
+  {
+    "eventId": 1500811701,
+    "musicId": 1106,
+    "level": 2
+  },
+  {
+    "eventId": 1500811701,
+    "musicId": 1106,
+    "level": 3
+  },
+  {
+    "eventId": 1500811701,
+    "musicId": 1108,
+    "level": 2
+  },
+  {
+    "eventId": 1500811701,
+    "musicId": 1108,
+    "level": 3
+  },
+  {
+    "eventId": 1500831701,
+    "musicId": 1107,
+    "level": 2
+  },
+  {
+    "eventId": 1500831701,
+    "musicId": 1107,
+    "level": 3
+  },
+  {
+    "eventId": 1500831701,
+    "musicId": 1109,
+    "level": 2
+  },
+  {
+    "eventId": 1500831701,
+    "musicId": 1109,
+    "level": 3
+  },
+  {
+    "eventId": 1500931701,
+    "musicId": 1121,
+    "level": 2
+  },
+  {
+    "eventId": 1500931701,
+    "musicId": 1121,
+    "level": 3
+  },
+  {
+    "eventId": 1500931701,
+    "musicId": 1122,
+    "level": 2
+  },
+  {
+    "eventId": 1500931701,
+    "musicId": 1122,
+    "level": 3
+  },
+  {
+    "eventId": 1501031701,
+    "musicId": 1127,
+    "level": 2
+  },
+  {
+    "eventId": 1501031701,
+    "musicId": 1127,
+    "level": 3
+  },
+  {
+    "eventId": 1501031701,
+    "musicId": 1128,
+    "level": 2
+  },
+  {
+    "eventId": 1501031701,
+    "musicId": 1128,
+    "level": 3
+  },
+  {
+    "eventId": 1501051701,
+    "musicId": 590,
+    "level": 3
+  },
+  {
+    "eventId": 1501051701,
+    "musicId": 591,
+    "level": 3
+  },
+  {
+    "eventId": 1501051701,
+    "musicId": 1131,
+    "level": 3
+  },
+  {
+    "eventId": 1501121701,
+    "musicId": 1132,
+    "level": 0
+  },
+  {
+    "eventId": 1501121701,
+    "musicId": 1132,
+    "level": 1
+  },
+  {
+    "eventId": 1501121701,
+    "musicId": 1132,
+    "level": 2
+  },
+  {
+    "eventId": 1501121701,
+    "musicId": 1132,
+    "level": 3
+  },
+  {
+    "eventId": 1501121701,
+    "musicId": 1133,
+    "level": 2
+  },
+  {
+    "eventId": 1501121701,
+    "musicId": 1133,
+    "level": 3
+  },
+  {
+    "eventId": 1501141701,
+    "musicId": 1134,
+    "level": 3
+  },
+  {
+    "eventId": 1501141701,
+    "musicId": 1135,
+    "level": 3
+  },
+  {
+    "eventId": 1501141701,
+    "musicId": 1136,
+    "level": 3
+  },
+  {
+    "eventId": 1501141701,
+    "musicId": 1137,
+    "level": 3
+  },
+  {
+    "eventId": 1501241701,
+    "musicId": 1141,
+    "level": 3
+  },
+  {
+    "eventId": 1501241701,
+    "musicId": 1142,
+    "level": 3
+  },
+  {
+    "eventId": 1501241701,
+    "musicId": 1143,
+    "level": 3
+  },
+  {
+    "eventId": 1501241701,
+    "musicId": 1144,
+    "level": 3
+  },
+  {
+    "eventId": 1501241701,
+    "musicId": 1145,
+    "level": 3
+  },
+  {
+    "eventId": 1501321701,
+    "musicId": 1146,
+    "level": 2
+  },
+  {
+    "eventId": 1501321701,
+    "musicId": 1146,
+    "level": 3
+  },
+  {
+    "eventId": 1501321701,
+    "musicId": 1147,
+    "level": 2
+  },
+  {
+    "eventId": 1501321701,
+    "musicId": 1147,
+    "level": 3
+  },
+  {
+    "eventId": 1501341701,
+    "musicId": 217,
+    "level": 3
+  },
+  {
+    "eventId": 1501341701,
+    "musicId": 810,
+    "level": 3
+  },
+  {
+    "eventId": 1501341701,
+    "musicId": 821,
+    "level": 2
+  },
+  {
+    "eventId": 1501341701,
+    "musicId": 1150,
+    "level": 3
+  },
+  {
+    "eventId": 1501431701,
+    "musicId": 1156,
+    "level": 3
+  },
+  {
+    "eventId": 1501431701,
+    "musicId": 1157,
+    "level": 3
+  },
+  {
+    "eventId": 1501431701,
+    "musicId": 1158,
+    "level": 3
+  },
+  {
+    "eventId": 1501431701,
+    "musicId": 1159,
+    "level": 3
+  },
+  {
+    "eventId": 1550311701,
+    "musicId": 1162,
+    "level": 3
+  },
+  {
+    "eventId": 1550311701,
+    "musicId": 1163,
+    "level": 3
+  },
+  {
+    "eventId": 1550311701,
+    "musicId": 1164,
+    "level": 3
+  },
+  {
+    "eventId": 1550331701,
+    "musicId": 1165,
+    "level": 3
+  },
+  {
+    "eventId": 1550331701,
+    "musicId": 1166,
+    "level": 3
+  },
+  {
+    "eventId": 1550331701,
+    "musicId": 1167,
+    "level": 3
+  },
+  {
+    "eventId": 1550411701,
+    "musicId": 8194,
+    "level": 10
+  },
+  {
+    "eventId": 1550431701,
+    "musicId": 1171,
+    "level": 3
+  },
+  {
+    "eventId": 1550431701,
+    "musicId": 1172,
+    "level": 3
+  },
+  {
+    "eventId": 1550431701,
+    "musicId": 1173,
+    "level": 3
+  },
+  {
+    "eventId": 1550431701,
+    "musicId": 1174,
+    "level": 3
+  },
+  {
+    "eventId": 1550451701,
+    "musicId": 215,
+    "level": 3
+  },
+  {
+    "eventId": 1550451701,
+    "musicId": 385,
+    "level": 3
+  },
+  {
+    "eventId": 1550451701,
+    "musicId": 1176,
+    "level": 3
+  },
+  {
+    "eventId": 1550521701,
+    "musicId": 1178,
+    "level": 3
+  },
+  {
+    "eventId": 1550521701,
+    "musicId": 1179,
+    "level": 3
+  },
+  {
+    "eventId": 1550521701,
+    "musicId": 1180,
+    "level": 3
+  },
+  {
+    "eventId": 1550521702,
+    "musicId": 628,
+    "level": 3
+  },
+  {
+    "eventId": 1550521702,
+    "musicId": 1087,
+    "level": 3
+  },
+  {
+    "eventId": 1550521702,
+    "musicId": 1101,
+    "level": 3
+  },
+  {
+    "eventId": 1550521702,
+    "musicId": 1112,
+    "level": 3
+  },
+  {
+    "eventId": 1550521702,
+    "musicId": 1181,
+    "level": 3
+  },
+  {
+    "eventId": 1600741701,
+    "musicId": 36,
+    "level": 3
+  },
+  {
+    "eventId": 1600741701,
+    "musicId": 64,
+    "level": 3
+  },
+  {
+    "eventId": 1600741701,
+    "musicId": 65,
+    "level": 3
+  },
+  {
+    "eventId": 1600741701,
+    "musicId": 1196,
+    "level": 3
+  },
+  {
+    "eventId": 1600741702,
+    "musicId": 259,
+    "level": 3
+  },
+  {
+    "eventId": 1600741702,
+    "musicId": 592,
+    "level": 3
+  },
+  {
+    "eventId": 1600741702,
+    "musicId": 1188,
+    "level": 3
+  },
+  {
+    "eventId": 1600811701,
+    "musicId": 518,
+    "level": 3
+  },
+  {
+    "eventId": 1600811701,
+    "musicId": 623,
+    "level": 3
+  },
+  {
+    "eventId": 1600811701,
+    "musicId": 1199,
+    "level": 3
+  },
+  {
+    "eventId": 1600831701,
+    "musicId": 430,
+    "level": 3
+  },
+  {
+    "eventId": 1600831701,
+    "musicId": 756,
+    "level": 3
+  },
+  {
+    "eventId": 1600831701,
+    "musicId": 757,
+    "level": 3
+  },
+  {
+    "eventId": 1600911701,
+    "musicId": 8057,
+    "level": 10
+  },
+  {
+    "eventId": 1600911701,
+    "musicId": 8169,
+    "level": 10
+  },
+  {
+    "eventId": 1600911701,
+    "musicId": 8188,
+    "level": 10
+  }
+]

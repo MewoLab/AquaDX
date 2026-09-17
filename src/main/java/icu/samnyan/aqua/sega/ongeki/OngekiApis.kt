@@ -23,8 +23,7 @@ fun OngekiController.ongekiInit() {
     "GetGamePresent".static { gdb.present.findAll().staticLst("gamePresentList") }
     "GetGameReward".static { gdb.reward.findAll().staticLst("gameRewardList") }
 
-    // Dummy endpoints
-    "GetGameTechMusic".static { empty.staticLst("gameTechMusicList") }
+    "GetGameTechMusic".static { gdb.gameData.ogkGameTechMusics.staticLst("gameTechMusicList") }
     "GetGameMessage" { mapOf("type" to data["type"], "length" to 0, "gameMessageList" to empty) }
     "GetGameMusicReleaseState".static { mapOf("techScore" to 0, "cardNum" to 0) }
 
