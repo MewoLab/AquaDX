@@ -93,7 +93,7 @@ class WaccaServer {
 
         if (path in cacheMap) return resp(cacheMap[path]!!)
 
-        log.info("Wacca < $path : $body")
+        log.info("Wacca < $path : ${body.truncate(500)}")
 
         return try {
             Metrics.timer("aquadx_wacca_api_latency", "api" to path).recordCallable {
@@ -102,7 +102,7 @@ class WaccaServer {
                     is String -> resp(it)
                     is List<*> -> resp(it.toJson())
                     else -> error("Invalid response type ${it.javaClass}")
-                } }.also { log.info("Wacca > $path : ${it.body}") }
+                } }.also { log.info("Wacca > $path : ${it.body?.truncate(500)}") }
             }
         } catch (e: Exception) {
             Metrics.counter(
