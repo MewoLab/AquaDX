@@ -447,10 +447,12 @@ fun WaccaServer.init() {
             ?: WcUserOption(k, v).apply { user = u } })
 
         // Update favorite songs
-        rp.user.save(u.apply { favoriteSongs.apply {
-            addAll(favAdd as List<Int>)
-            removeAll(favRem as List<Int>)
-        } })
+        rp.user.save(u.apply {
+            favoriteSongs = favoriteSongs.toMutableList().apply {
+                addAll(favAdd as List<Int>)
+                removeAll(favRem as List<Int>)
+            }
+        })
     }
 
     // TODO: Test this
