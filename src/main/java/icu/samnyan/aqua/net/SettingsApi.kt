@@ -37,8 +37,10 @@ class SettingsApi(
     @Doc("Set a field in the game options")
     fun setField(@RP token: String, @RP key: String, @RP value: String) = us.jwt.auth(token) { u ->
         val field = fieldMap[key] ?: (400 - "Invalid field $key")
-        val options = u.gameOptions ?: AquaGameOptions().also {
-            userRepo.save(u.apply { gameOptions = it })
+        var options = u.gameOptions
+        if (options == null) {
+            options = goRepo.save(AquaGameOptions())
+            userRepo.save(u.apply { gameOptions = options })
         }
         // Check field type
         field.setCast(options, value)
