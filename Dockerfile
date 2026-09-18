@@ -21,6 +21,9 @@ RUN ./gradlew dependencies
 # Copy the project source, this layer is rebuilt whenever a file has changed
 COPY --chown=gradle:gradle src /home/gradle/src
 
+# Download game metadata (music/items lists)
+RUN bash /home/gradle/src/main/resources/meta/update.sh
+
 # Build the application
 RUN ./gradlew build -x test
 

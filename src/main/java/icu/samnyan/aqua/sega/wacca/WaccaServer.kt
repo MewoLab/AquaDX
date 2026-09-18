@@ -93,7 +93,7 @@ class WaccaServer {
 
         if (path in cacheMap) return resp(cacheMap[path]!!)
 
-        log.info("Wacca < $path : $body")
+        log.info("Wacca < $path : ${body.truncate(500)}")
 
         return try {
             Metrics.timer("aquadx_wacca_api_latency", "api" to path).recordCallable {
@@ -102,7 +102,7 @@ class WaccaServer {
                     is String -> resp(it)
                     is List<*> -> resp(it.toJson())
                     else -> error("Invalid response type ${it.javaClass}")
-                } }.also { log.info("Wacca > $path : ${it.body}") }
+                } }.also { log.info("Wacca > $path : ${it.body?.truncate(500)}") }
             }
         } catch (e: Exception) {
             Metrics.counter(
@@ -206,7 +206,9 @@ fun WaccaServer.init() {
 
         // All unlock
         if (go.waccaUnlockMusic && wacca.musicMapping.isNotEmpty()) {
-            items[MUSIC_UNLOCK()] = wacca.musicMapping.map { (id, v) -> MUSIC_UNLOCK(u, id, p1 = v.notes.size.long() - 1) }
+            items[MUSIC_UNLOCK()] = wacca.musicMapping.map { (id, v) ->
+                MUSIC_UNLOCK(u, id, p1 = if (v.notes.size == 1) WaccaDifficulty.INFERNO.value.toLong() else v.notes.size.long() - 1)
+            }
         }
         if (go.waccaUnlockTickets) {
             var i = 0
@@ -445,10 +447,12 @@ fun WaccaServer.init() {
             ?: WcUserOption(k, v).apply { user = u } })
 
         // Update favorite songs
-        rp.user.save(u.apply { favoriteSongs.apply {
-            addAll(favAdd as List<Int>)
-            removeAll(favRem as List<Int>)
-        } })
+        rp.user.save(u.apply {
+            favoriteSongs = favoriteSongs.toMutableList().apply {
+                addAll(favAdd as List<Int>)
+                removeAll(favRem as List<Int>)
+            }
+        })
     }
 
     // TODO: Test this
