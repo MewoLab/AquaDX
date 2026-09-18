@@ -206,7 +206,9 @@ fun WaccaServer.init() {
 
         // All unlock
         if (go.waccaUnlockMusic && wacca.musicMapping.isNotEmpty()) {
-            items[MUSIC_UNLOCK()] = wacca.musicMapping.map { (id, v) -> MUSIC_UNLOCK(u, id, p1 = v.notes.size.long() - 1) }
+            items[MUSIC_UNLOCK()] = wacca.musicMapping.map { (id, v) ->
+                MUSIC_UNLOCK(u, id, p1 = if (v.notes.size == 1) WaccaDifficulty.INFERNO.value.toLong() else v.notes.size.long() - 1)
+            }
         }
         if (go.waccaUnlockTickets) {
             var i = 0
