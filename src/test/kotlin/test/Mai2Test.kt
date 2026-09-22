@@ -59,7 +59,7 @@ class Mai2Test : StringSpec({
 
     liveTest("GetGameChargeApi") {
         post("GetGameChargeApi", """{"isAll":false}""").let { (_, result) ->
-            result shouldBe """{"length":5,"gameChargeList":[{"chargeId":0,"orderId":0,"price":1,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":2,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":3,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":4,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":5,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"}]}""".jsonMap()
+            result shouldBe """{"length":5,"gameChargeList":[{"chargeId":0,"orderId":0,"price":1,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":2,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":3,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":4,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"},{"chargeId":0,"orderId":0,"price":5,"startDate":"2019-01-01 00:00:00.000000","endDate":"2099-01-01 00:00:00.000000"}],"gamePassChargeList":[]}""".jsonMap()
         }
     }
 
