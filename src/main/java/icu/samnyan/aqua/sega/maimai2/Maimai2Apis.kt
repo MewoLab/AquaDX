@@ -55,7 +55,12 @@ fun Maimai2ServletController.initApis() {
 
     // Maimai only request for event type 1
     "GetGameEvent" static { mapOf("type" to 1, "gameEventList" to db.gameEvent.findAll()) }
-    "GetGameCharge" static { db.gameCharge.findAll().let { mapOf("length" to it.size, "gameChargeList" to it) } }
+
+    "GetGameCharge" static {
+        db.gameCharge.findAll().let {
+            mapOf("length" to it.size, "gameChargeList" to it, "gamePassChargeList" to empty)
+        }
+    }
 
     "GetUserOption" { mapOf(
         "userId" to uid,
@@ -437,6 +442,12 @@ fun Maimai2ServletController.initApis() {
             "resultRewardGet" to false,
         )
     ) }
+
+    "GetGameSellingPassPack" static { mapOf("gameSellingPassPackList" to empty) }
+
+    "GetUserPass" { mapOf("userId" to uid, "userPassList" to empty) }
+
+    "GetUserTicketLimitDate" static { mapOf("userTicketLimitDateList" to empty) }
 
     // NOTE: no-op APIs moved to respect encryption
     "UpsertUserPlaceCircleRegist" static { mapOf( "returnCode" to 0, "apiName" to "com.sega.maimai2servlet.api.UpsertUserPlaceCircleRegistApi") }
