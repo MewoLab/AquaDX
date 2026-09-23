@@ -32,6 +32,7 @@ import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.locks.Lock
+import kotlin.math.floor
 import kotlin.reflect.KCallable
 import kotlin.reflect.KClass
 import kotlin.reflect.KMutableProperty1
@@ -198,6 +199,10 @@ val Any?.truthy get() = when (this) {
     else -> true
 }
 val Any?.str get() = toString()
+
+fun truncateVersion(version: Number): Number {
+    return (floor(version.toFloat() / 5.0) * 5).toInt();
+}
 
 // Collections
 fun <T> ls(vararg args: T) = args.toList()

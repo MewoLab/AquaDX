@@ -4,6 +4,8 @@ import ext.empty
 import ext.int
 import ext.parsing
 import ext.plus
+import ext.str
+import ext.truncateVersion
 
 fun OngekiController.ongekiInit() {
     fun <T> List<T>.staticLst(key: String) = mapOf("length" to size, key to this)
@@ -13,10 +15,17 @@ fun OngekiController.ongekiInit() {
     initUpsertAll()
 
     // Has type, but type is always 1
-    "GetGameEvent".static {
-        gdb.event.findAll().map {
-            mapOf("id" to it.id, "type" to 1, "startDate" to "2005-01-01 00:00:00.0", "endDate" to "2099-01-01 05:00:00.0")
-        }.staticLst("gameEventList") + mapOf("type" to 1)
+    "GetGameEvent" {
+        // NOTE: each event begins with 150 or 155 or 160, etc. so we're relying on that to know which events to send
+        //       theoretically this should reduce the number of users crashing but it may require unlockall for users with improper ICFs
+        //       but this is definitely a hack for sure
+        val trunkVer = truncateVersion((data["version"] ?: "1.50.00").str.split(".").take(2).joinToString("").int)
+        val events = gdb.event.findAll()
+            .filter{ it.id.str.startsWith(trunkVer.str) }
+            .map {
+                mapOf("id" to it.id, "type" to 1, "startDate" to "2005-01-01 00:00:00.0", "endDate" to "2099-01-01 05:00:00.0")
+            }
+        mapOf("gameEventList" to events, "length" to events.size, "type" to 1)
     }
 
     "GetGamePoint".static { gdb.point.findAll().staticLst("gamePointList") }

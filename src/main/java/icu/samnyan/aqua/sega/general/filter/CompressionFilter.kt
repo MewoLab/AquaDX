@@ -3,6 +3,7 @@ package icu.samnyan.aqua.sega.general.filter
 import ext.details
 import ext.logger
 import ext.toJson
+import ext.truncateVersion
 import icu.samnyan.aqua.net.components.GeoIP
 import icu.samnyan.aqua.sega.allnet.TokenChecker
 import icu.samnyan.aqua.sega.general.model.GameEncryptionKey
@@ -36,9 +37,6 @@ class CompressionFilter(
 
     }
 
-    fun truncateVersion(version: Number): Number {
-        return (floor(version.toFloat() / 5.0) * 5).toInt();
-    }
     fun getVersion(req: HttpServletRequest, game: String): Int {
         // NOTE: this should help with some issues regarding mismatched data
         val expectedVersion = (req.getHeader("Mai-Encoding") ?:
