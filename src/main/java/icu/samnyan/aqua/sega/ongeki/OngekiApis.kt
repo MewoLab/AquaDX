@@ -16,12 +16,9 @@ fun OngekiController.ongekiInit() {
 
     // Has type, but type is always 1
     "GetGameEvent" {
-        // NOTE: each event begins with 150 or 155 or 160, etc. so we're relying on that to know which events to send
-        //       theoretically this should reduce the number of users crashing but it may require unlockall for users with improper ICFs
-        //       but this is definitely a hack for sure
-        val trunkVer = truncateVersion((data["version"] ?: "1.50.00").str.split(".").take(2).joinToString("").int)
+        // val trunkVer = truncateVersion((data["version"] ?: "1.50.00").str.split(".").take(2).joinToString("").int)
         val events = gdb.event.findAll()
-            .filter{ it.id.str.startsWith(trunkVer.str) }
+            // .filter{ it.id.str.startsWith(trunkVer.str) }
             .map {
                 mapOf("id" to it.id, "type" to 1, "startDate" to "2005-01-01 00:00:00.0", "endDate" to "2099-01-01 05:00:00.0")
             }
