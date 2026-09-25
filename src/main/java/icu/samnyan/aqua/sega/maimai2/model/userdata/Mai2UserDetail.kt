@@ -87,6 +87,7 @@ class Mai2UserDetail(
     var dailyCourseBonusDate: String = "",
     var lastPairLoginDate: String = "",
     var lastTrialPlayDate: String = "",
+    var lastMapBonusDate: String = "",
     var playVsCount: Int = 0,
     var playSyncCount: Int = 0,
     var winCount: Int = 0,

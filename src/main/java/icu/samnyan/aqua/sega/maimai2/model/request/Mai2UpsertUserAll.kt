@@ -30,6 +30,8 @@ class Mai2UserAll {
     var userFavoritemusicList: List<Mai2UserFavoriteItem>? = null
     var userKaleidxScopeList: List<Mai2UserKaleidx>? = null
     var userIntimateList: List<Mai2UserIntimate>? = null
+    var userTicketLimitDateList: List<Mai2UserTicketLimitDate>? = null
+    var userCircleData: Mai2UserCircleData? = null
     var isNewCharacterList: String? = null
     var isNewMapList: String? = null
     var isNewLoginBonusList: String? = null
@@ -42,6 +44,11 @@ class Mai2UserAll {
     var isNewKaleidxScopeList: String? = null
 }
 
+class Mai2UserCircleData {
+    var lastLoginDate: String = ""
+    var lastMapBonusDate: String = ""
+}
+
 class Mai2UserFavoriteItem {
     var orderId = 0
     var id = 0
@@ -51,5 +58,4 @@ class Mai2UserActivity {
     var playList: List<Mai2UserAct> = emptyList()
     var musicList: List<Mai2UserAct> = emptyList()
 }
-
 

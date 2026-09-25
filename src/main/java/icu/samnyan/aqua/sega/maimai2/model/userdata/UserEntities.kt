@@ -111,6 +111,25 @@ class Mai2UserCharge : Mai2UserEntity() {
     var validDate: String = ""
 }
 
+@Table(name = "maimai2_user_pass", uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "pass_type_id"])])
+@Entity
+class Mai2UserPass : Mai2UserEntity() {
+    var passTypeId = 0
+    var passPackId = 0
+    var passCharaId = 0
+    var mapId = 0
+    var startDate: String = ""
+    var endDate: String = ""
+}
+
+@Table(name = "maimai2_user_ticket_limit_date", uniqueConstraints = [UniqueConstraint(columnNames = ["user_id", "item_id"])])
+@Entity
+class Mai2UserTicketLimitDate : Mai2UserEntity() {
+    var itemId = 0
+    var limitDate: String = ""
+    var lastUsedDate: String = ""
+}
+
 @Table(name = "maimai2_user_course")
 @Entity
 class Mai2UserCourse : Mai2UserEntity() {

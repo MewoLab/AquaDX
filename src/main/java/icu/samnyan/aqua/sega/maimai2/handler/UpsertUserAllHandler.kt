@@ -75,7 +75,7 @@ class UpsertUserAllHandler(
             listOfNotNull(
                 userExtend, userOption, userCharacterList, userMapList, userLoginBonusList, userItemList,
                 userMusicDetailList, userCourseList, userFriendSeasonRankingList, userFavoriteList,
-                userKaleidxScopeList, userIntimateList, upsertUserAll.userPlaylogList
+                userKaleidxScopeList, userIntimateList, userTicketLimitDateList, upsertUserAll.userPlaylogList
             )
         }.flatten().forEach { it.user = u }
 
@@ -141,6 +141,17 @@ class UpsertUserAllHandler(
         req.userIntimateList?.unique { it.partnerId }?.let { lst ->
             repos.userIntimate.saveAll(lst.mapApply {
                 id = repos.userIntimate.findByUserAndPartnerId(u, partnerId)?.id ?: 0 }) }
+
+        req.userTicketLimitDateList?.unique { it.itemId }?.let { lst ->
+            repos.userTicketLimitDate.saveAll(lst.mapApply {
+                id = repos.userTicketLimitDate.findByUserAndItemId(u, itemId)?.id ?: 0
+            })
+        }
+
+        req.userCircleData?.lastMapBonusDate?.let {
+            u.lastMapBonusDate = it
+            repos.userData.save(u)
+        }
 
         // Added on SDGA 1.65 / SDGB 1.53
         upsertUserAll.userPlaylogList?.let(repos.userPlaylog::saveAll)

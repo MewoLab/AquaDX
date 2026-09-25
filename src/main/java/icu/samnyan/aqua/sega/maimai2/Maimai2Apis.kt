@@ -7,6 +7,11 @@ import icu.samnyan.aqua.sega.general.model.CardStatus
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusic
 import icu.samnyan.aqua.sega.maimai2.model.UserRivalMusicDetail
 import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserKaleidx
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2ItemKind
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserItem
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserPass
+import icu.samnyan.aqua.sega.maimai2.model.userdata.Mai2UserTicketLimitDate
+import icu.samnyan.aqua.sega.maimai2.model.userdata.MAIMAI_DATETIME
 import icu.samnyan.aqua.sega.maimai2.model.userdata.UserRegions
 import java.time.LocalDate
 import kotlin.random.Random
@@ -55,7 +60,81 @@ fun Maimai2ServletController.initApis() {
 
     // Maimai only request for event type 1
     "GetGameEvent" static { mapOf("type" to 1, "gameEventList" to db.gameEvent.findAll()) }
-    "GetGameCharge" static { db.gameCharge.findAll().let { mapOf("length" to it.size, "gameChargeList" to it) } }
+    "GetGameCharge" static {
+        db.gameCharge.findAll().let {
+            mapOf(
+                "length" to it.size,
+                "gameChargeList" to it,
+                "gamePassChargeList" to db.gamePassCharge.findAll()
+            )
+        }
+    }
+
+    "GetGameSellingPassPack" static {
+        mapOf("gameSellingPassPackList" to db.gameSellingPassPack.findAll())
+    }
+
+    "GetUserPass" {
+        db.userData.findByCardExtId(uid) ?: (404 - "User not found")
+        mapOf("userId" to uid, "userPassList" to db.userPass.findByUser_Card_ExtId(uid))
+    }
+
+    "GetUserTicketLimitDate" {
+        db.userData.findByCardExtId(uid) ?: (404 - "User not found")
+        mapOf("userTicketLimitDateList" to db.userTicketLimitDate.findByUser_Card_ExtId(uid))
+    }
+
+    "UserPassModeEnter" static { mapOf("returnCode" to 1) }
+    "UserPassModeExit" static { mapOf("returnCode" to 1) }
+
+    "UpsertUserPassMode" {
+        val user = db.userData.findByCardExtId(uid) ?: (404 - "User not found")
+        val pass = (data["userPassList"] as List<*>).first() as Map<*, *>
+        val passTypeId = (pass["passTypeId"] as Number).toInt()
+        val passPackId = (pass["passPackId"] as Number).toInt()
+        val passCharaId = (pass["passCharaId"] as Number).toInt()
+        val now = jstNow()
+        val startDate = now.format(MAIMAI_DATETIME)
+        val endDate = now.plusDays(14).format(MAIMAI_DATETIME)
+
+        // store the new pass
+        val storedPass = (db.userPass.findByUserAndPassTypeId(user, passTypeId) ?: Mai2UserPass()).apply {
+            this.user = user
+            this.passTypeId = passTypeId
+            this.passPackId = passPackId
+            this.passCharaId = passCharaId
+            this.startDate = startDate
+            this.endDate = endDate
+        }
+        db.userPass.save(storedPass)
+
+        // attempt to give user ticket 40001 (+1 track ticket) up to a max of 10
+        val ticketId = 40001
+        val ticket = (db.userItem.findByUserAndItemKindAndItemId(user, Mai2ItemKind.ticket.id, ticketId)
+            ?: Mai2UserItem().apply {
+                this.user = user
+                itemKind = Mai2ItemKind.ticket.id
+                itemId = ticketId
+            }).apply {
+                stock = (stock + 1).coerceAtMost(10)
+                isValid = true
+            }
+        db.userItem.save(ticket)
+
+        // set expiry date for newly granted ticket
+        val limit = (db.userTicketLimitDate.findByUserAndItemId(user, ticketId)
+            ?: Mai2UserTicketLimitDate().apply { this.user = user; itemId = ticketId }).apply {
+                limitDate = endDate
+            }
+        db.userTicketLimitDate.save(limit)
+
+        mapOf(
+            "returnCode" to 1,
+            "userPassList" to db.userPass.findByUser_Card_ExtId(uid),
+            "userItemList" to listOf(ticket),
+            "userTicketLimitDateList" to db.userTicketLimitDate.findByUser_Card_ExtId(uid)
+        )
+    }
 
     "GetUserOption" { mapOf(
         "userId" to uid,
@@ -383,14 +462,19 @@ fun Maimai2ServletController.initApis() {
         "aggrDate" to ""
     ) }
 
-    "GetUserCircleData" static { mapOf(
+    "GetUserCircleData" {
+        mapOf(
+        "userId" to uid,
         "circleId" to 0,
         "circleName" to "一緒に歌おう！",
         "isPlace" to false,
         "circleClass" to 0,
         "lastLoginDate" to "",
+        "mapBonusId" to 0,
+        "lastMapBonusDate" to (db.userData.findByCardExtId(uid)?.lastMapBonusDate ?: ""),
         "circlePointRankingList" to empty
-    ) }
+        )
+    }
 
     "GetUserCircleChallenge" { mapOf(
         "userId" to uid,

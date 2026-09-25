@@ -42,6 +42,14 @@ interface Mai2UserCharacterRepo : Mai2UserLinked<Mai2UserCharacter> {
 
 interface Mai2UserChargeRepo : Mai2UserLinked<Mai2UserCharge>
 
+interface Mai2UserPassRepo : Mai2UserLinked<Mai2UserPass> {
+    fun findByUserAndPassTypeId(user: Mai2UserDetail, passTypeId: Int): Mai2UserPass?
+}
+
+interface Mai2UserTicketLimitDateRepo : Mai2UserLinked<Mai2UserTicketLimitDate> {
+    fun findByUserAndItemId(user: Mai2UserDetail, itemId: Int): Mai2UserTicketLimitDate?
+}
+
 interface Mai2UserCourseRepo : Mai2UserLinked<Mai2UserCourse> {
     fun findByUserAndCourseId(user: Mai2UserDetail, courseId: Int): Mai2UserCourse?
 }
@@ -130,6 +138,8 @@ class Mai2Repos(
     val userCard: Mai2UserCardRepo,
     val userCharacter: Mai2UserCharacterRepo,
     val userCharge: Mai2UserChargeRepo,
+    val userPass: Mai2UserPassRepo,
+    val userTicketLimitDate: Mai2UserTicketLimitDateRepo,
     val userCourse: Mai2UserCourseRepo,
     val userData: Mai2UserDataRepo,
     val userExtend: Mai2UserExtendRepo,
@@ -150,6 +160,8 @@ class Mai2Repos(
     val gameData: GameDataService
 ) {
     val gameCharge = StaticRepo(gameData.mai2Charges) { it.orderId }
+    val gamePassCharge = StaticRepo(gameData.mai2PassCharges) { it.passTypeId.toLong() }
+    val gameSellingPassPack = StaticRepo(gameData.mai2SellingPassPacks) { it.passPackId.toLong() }
     val gameEvent = StaticRepo(gameData.mai2Events) { it.id }
     val gameSellingCard = StaticRepo(gameData.mai2SellingCards) { it.cardId }
 }

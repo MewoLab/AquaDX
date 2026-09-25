@@ -13,6 +13,8 @@ import icu.samnyan.aqua.sega.chusan.model.GameLoginBonus as Chu3GameLoginBonus
 import icu.samnyan.aqua.sega.chusan.model.GameLoginBonusPreset as Chu3GameLoginBonusPreset
 import icu.samnyan.aqua.sega.maimai2.model.Mai2GameCharge
 import icu.samnyan.aqua.sega.maimai2.model.Mai2GameEvent
+import icu.samnyan.aqua.sega.maimai2.model.Mai2GamePassCharge
+import icu.samnyan.aqua.sega.maimai2.model.Mai2GameSellingPassPack
 import icu.samnyan.aqua.sega.maimai2.model.Mai2GameSellingCard
 import icu.samnyan.aqua.sega.ongeki.model.GameCard as OgkGameCard
 import icu.samnyan.aqua.sega.ongeki.model.GameChara as OgkGameChara
@@ -55,6 +57,8 @@ class GameDataService() {
     // maimai2
     lateinit var mai2Events: List<Mai2GameEvent>
     lateinit var mai2Charges: List<Mai2GameCharge>
+    lateinit var mai2PassCharges: List<Mai2GamePassCharge>
+    lateinit var mai2SellingPassPacks: List<Mai2GameSellingPassPack>
     lateinit var mai2SellingCards: List<Mai2GameSellingCard>
     lateinit var mai2GameEncryption: List<GameEncryptionKey>
 
@@ -88,6 +92,8 @@ class GameDataService() {
     fun load() {
         mai2Events = load("maimai2", "game_event.json")
         mai2Charges = load("maimai2", "game_charge.json")
+        mai2PassCharges = load("maimai2", "game_pass_charge.json")
+        mai2SellingPassPacks = load("maimai2", "game_selling_pass_pack.json")
         mai2SellingCards = load("maimai2", "game_selling_card.json")
         mai2GameEncryption = load(game = "maimai2", file = "game_encryption.json")
 
