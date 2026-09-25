@@ -54,11 +54,12 @@ interface OgkUserDeckRepo : OngekiUserLinked<UserDeck> {
 }
 
 interface OgkUserEventMusicRepo : OngekiUserLinked<UserEventMusic> {
-    fun findByUserAndEventIdAndTypeAndMusicId(
+    fun findByUserAndEventIdAndTypeAndMusicIdAndLevel(
         userData: UserData,
         eventId: Int,
         type: Int,
-        musicId: Int
+        musicId: Int,
+        level: Int
     ): UserEventMusic?
 }
 
@@ -162,7 +163,10 @@ interface OgkUserGachaRepo : OngekiUserLinked<UserGacha> {
 }
 
 // Re:Fresh
-interface OgkUserEventMapRepo : OngekiUserLinked<UserEventMap>
+interface OgkUserEventMapRepo : OngekiUserLinked<UserEventMap> {
+    fun findByUserAndEventIdAndMapId(user: UserData, eventId: Int, mapId: Int): UserEventMap?
+    fun findByUser_Card_ExtIdAndEventIdAndMapId(extId: Long, eventId: Int, mapId: Int): UserEventMap?
+}
 interface OgkUserSkinRepo : OngekiUserLinked<UserSkin>
 
 

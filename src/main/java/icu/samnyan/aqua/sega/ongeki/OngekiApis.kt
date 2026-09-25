@@ -4,6 +4,8 @@ import ext.empty
 import ext.int
 import ext.parsing
 import ext.plus
+import ext.str
+import ext.truncateVersion
 
 fun OngekiController.ongekiInit() {
     fun <T> List<T>.staticLst(key: String) = mapOf("length" to size, key to this)
@@ -13,18 +15,21 @@ fun OngekiController.ongekiInit() {
     initUpsertAll()
 
     // Has type, but type is always 1
-    "GetGameEvent".static {
-        gdb.event.findAll().map {
-            mapOf("id" to it.id, "type" to 1, "startDate" to "2005-01-01 00:00:00.0", "endDate" to "2099-01-01 05:00:00.0")
-        }.staticLst("gameEventList") + mapOf("type" to 1)
+    "GetGameEvent" {
+        // val trunkVer = truncateVersion((data["version"] ?: "1.50.00").str.split(".").take(2).joinToString("").int)
+        val events = gdb.event.findAll()
+            // .filter{ it.id.str.startsWith(trunkVer.str) }
+            .map {
+                mapOf("id" to it.id, "type" to 1, "startDate" to "2005-01-01 00:00:00.0", "endDate" to "2099-01-01 05:00:00.0")
+            }
+        mapOf("gameEventList" to events, "length" to events.size, "type" to 1)
     }
 
     "GetGamePoint".static { gdb.point.findAll().staticLst("gamePointList") }
     "GetGamePresent".static { gdb.present.findAll().staticLst("gamePresentList") }
     "GetGameReward".static { gdb.reward.findAll().staticLst("gameRewardList") }
 
-    // Dummy endpoints
-    "GetGameTechMusic".static { empty.staticLst("gameTechMusicList") }
+    "GetGameTechMusic".static { gdb.gameData.ogkGameTechMusics.staticLst("gameTechMusicList") }
     "GetGameMessage" { mapOf("type" to data["type"], "length" to 0, "gameMessageList" to empty) }
     "GetGameMusicReleaseState".static { mapOf("techScore" to 0, "cardNum" to 0) }
 

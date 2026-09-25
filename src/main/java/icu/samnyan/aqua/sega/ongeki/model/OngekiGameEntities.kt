@@ -29,6 +29,12 @@ class GameEvent {
     var id: Long = 0
 }
 
+class GameTechMusic {
+    var eventId = 0
+    var musicId = 0
+    var level = 0
+}
+
 class GameMusic {
     var id: Long = 0
     var name: String = ""
