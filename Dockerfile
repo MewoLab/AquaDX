@@ -21,6 +21,9 @@ RUN ./gradlew dependencies
 # Copy the project source, this layer is rebuilt whenever a file has changed
 COPY --chown=gradle:gradle src /home/gradle/src
 
+# Replace CRLF with LF in gradlew to make it work on Linux
+RUN sed -i 's/\r$//' /home/gradle/src/main/resources/meta/update.sh
+
 # Download game metadata (music/items lists)
 RUN bash /home/gradle/src/main/resources/meta/update.sh
 
